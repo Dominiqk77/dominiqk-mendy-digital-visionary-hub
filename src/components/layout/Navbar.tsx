@@ -56,8 +56,8 @@ const Navbar = () => {
     <nav className={cn(
       "fixed w-full top-0 z-50 transition-all duration-300",
       scrolled
-        ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-3"
-        : "bg-transparent py-6"
+        ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-2"
+        : "bg-transparent py-4"
     )}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
@@ -66,7 +66,7 @@ const Navbar = () => {
               <img 
                 src="/lovable-uploads/00f229a9-af1c-47e4-a805-4e3b081a0bb4.png"
                 alt="DQ Logo"
-                className="h-10 w-auto sm:h-12 md:h-14 transition-all duration-300"
+                className="h-12 w-auto sm:h-16 md:h-20 transition-all duration-300"
               />
               <span className="hidden md:block text-xl font-semibold">Dominique Mendy</span>
             </Link>
