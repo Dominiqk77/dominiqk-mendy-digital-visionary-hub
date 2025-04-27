@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -57,8 +56,8 @@ const Navbar = () => {
     <nav className={cn(
       "fixed w-full top-0 z-50 transition-all duration-300",
       scrolled
-        ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-0.5" // Even less padding when scrolled
-        : "bg-transparent py-1" // Less padding when at top
+        ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-0.5"
+        : "bg-transparent py-1"
     )}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
@@ -80,7 +79,7 @@ const Navbar = () => {
                   {item.dropdown ? (
                     <button 
                       onClick={() => toggleDropdown(item.name)}
-                      className="text-foreground/90 hover:text-primary flex items-center space-x-1 px-2 py-1 rounded-md font-medium"
+                      className="animate-gradient-slow text-foreground/90 hover:text-primary flex items-center space-x-1 px-2 py-1 rounded-md font-medium"
                     >
                       <span>{item.name}</span>
                       <ChevronDown className="h-4 w-4" />
@@ -88,7 +87,7 @@ const Navbar = () => {
                   ) : (
                     <Link 
                       to={item.href} 
-                      className="text-foreground/90 hover:text-primary px-2 py-1 rounded-md font-medium"
+                      className="animate-gradient-slow text-foreground/90 hover:text-primary px-2 py-1 rounded-md font-medium"
                     >
                       {item.name}
                     </Link>
@@ -106,7 +105,7 @@ const Navbar = () => {
                           <Link
                             key={child.name}
                             to={child.href}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 animate-gradient-slow"
                           >
                             {child.name}
                           </Link>
@@ -117,7 +116,7 @@ const Navbar = () => {
                 </div>
               ))}
               
-              <Button className="bg-transparent text-white border border-white hover:bg-white/10 hover:text-white transition-colors">
+              <Button className="bg-transparent animate-gradient-slow border border-white hover:bg-white/10 hover:text-white transition-colors">
                 Démarrer un projet
               </Button>
             </div>
