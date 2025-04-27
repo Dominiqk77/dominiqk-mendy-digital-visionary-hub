@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
@@ -75,33 +75,33 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-montserrat;
+    @apply bg-background text-foreground font-poppins;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-space;
+    @apply font-poppins;
   }
 }
 
 @layer utilities {
   /* Gradient text */
   .text-gradient {
-    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-green-600 via-yellow-400 to-red-600 bg-clip-text text-transparent;
   }
   .text-gradient-primary {
-    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-green-600 to-yellow-400 bg-clip-text text-transparent;
   }
 
   /* Background gradients */
   .bg-gradient-primary {
-    @apply bg-gradient-to-r from-primary to-secondary;
+    @apply bg-gradient-to-r from-green-600 to-yellow-400;
   }
   .bg-gradient-secondary {
-    @apply bg-gradient-to-r from-secondary to-accent;
+    @apply bg-gradient-to-r from-yellow-400 to-red-600;
   }
   .senegal-flag-gradient {
     @apply bg-gradient-to-b from-green-600 via-yellow-400 to-red-600;
   }
-  
+
   /* Border gradients */
   .border-gradient {
     @apply relative rounded-xl before:absolute before:inset-0 before:rounded-xl before:p-[1px] before:-z-10 before:bg-gradient-to-r;
