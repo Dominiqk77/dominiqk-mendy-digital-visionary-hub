@@ -6,15 +6,23 @@ Allow: /
 # Specific rules for major search engines
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Twitterbot
 Allow: /
 
 User-agent: facebookexternalhit
 Allow: /
+
+# SEO Keywords
+# Expert Africain du Numérique - Dominiqk Mendy
+# IA et Transformation Digitale - Solutions Innovantes
+# Expert Tech Sénégalais - Digital Innovation
+# Consultant International en Technologies
 
 # SEO optimization
 Sitemap: https://dominiquemendy.com/sitemap.xml

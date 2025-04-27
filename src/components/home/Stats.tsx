@@ -110,11 +110,11 @@ const Stats = () => {
             transition={{ duration: 0.5, delay: 0.9 }}
           >
             <div className="text-2xl font-bold mb-4">
-              <span className="animate-gradient-slow">Global Impact</span>
+              <span className="animate-gradient-slow">Impact International</span>
             </div>
-            <h3 className="text-xl font-bold mb-2">Innovation Internationale</h3>
+            <h3 className="text-xl font-bold mb-2">Innovation Mondiale</h3>
             <p className="text-gray-400">
-              Solutions déployées dans des hubs technologiques majeurs : Londres, Dubaï, Marrakech, et Dakar.
+              Solutions déployées dans les plus grands hubs technologiques : Londres, Dubaï, San Francisco, Singapore, Tokyo, Berlin, Tel Aviv, Marrakech, et Dakar.
             </p>
             <Globe className="mt-4 text-accent h-6 w-6" />
           </motion.div>
