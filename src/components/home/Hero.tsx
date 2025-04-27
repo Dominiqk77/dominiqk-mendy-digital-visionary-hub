@@ -1,10 +1,8 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-// Add type definition for particlesJS
 declare global {
   interface Window {
     particlesJS: any;
@@ -129,7 +127,6 @@ const Hero = () => {
       }
     };
 
-    // Add script element for particles.js
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
     script.async = true;
@@ -143,10 +140,8 @@ const Hero = () => {
 
   return (
     <div className="relative h-[42vh] min-h-[420px] flex items-center overflow-hidden bg-gradient-to-r from-gray-900 to-black">
-      {/* Particles background */}
       <div id="particles-js" className="absolute inset-0 z-0"></div>
       
-      {/* Senegal flag stripe overlay with low opacity */}
       <div className="absolute inset-0 z-0 opacity-10 senegal-flag-gradient"></div>
       
       <div className="container mx-auto px-4 sm:px-6 py-8 z-10 relative">
@@ -187,9 +182,9 @@ const Hero = () => {
             <div className="relative max-w-[280px] sm:max-w-[320px] mx-auto">
               <div className="absolute inset-0 bg-gradient-primary rounded-full blur-3xl opacity-20 animate-pulse-slow"></div>
               <img 
-                src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
-                alt="Dominique Mendy" 
-                className="w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 object-cover rounded-full border-4 border-primary relative z-10"
+                src="/lovable-uploads/00f229a9-af1c-47e4-a805-4e3b081a0bb4.png" 
+                alt="DQ Logo" 
+                className="w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 object-contain relative z-10"
               />
               <div className="absolute -right-2 sm:-right-4 -top-2 sm:-top-4 w-20 h-20 sm:w-24 sm:h-24 bg-secondary rounded-full flex items-center justify-center z-20 animate-float">
                 <span className="text-black font-bold text-xs sm:text-sm text-center p-2">Expert IA</span>
@@ -204,7 +199,6 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Scroll indicator */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer hidden md:block" onClick={scrollToAbout}>
           <ChevronDown className="h-8 w-8 text-white" />
         </div>

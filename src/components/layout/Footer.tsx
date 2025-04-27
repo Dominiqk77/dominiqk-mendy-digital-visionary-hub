@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -12,9 +11,16 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* About Section */}
+          {/* About Section with Logo */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Dominique Mendy</h3>
+            <div className="flex items-center mb-4">
+              <img 
+                src="/lovable-uploads/00f229a9-af1c-47e4-a805-4e3b081a0bb4.png" 
+                alt="DQ Logo" 
+                className="h-12 w-auto mr-3"
+              />
+              <h3 className="text-xl font-bold">Dominique Mendy</h3>
+            </div>
             <div className="h-1 w-16 bg-gradient-primary mb-6"></div>
             <p className="mb-6 text-gray-300">
               Expert en innovation numérique et marketing digital, transformant les visions en réalité numérique pour propulser votre entreprise vers une croissance sans précédent.
