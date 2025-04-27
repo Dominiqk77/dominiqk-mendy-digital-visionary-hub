@@ -1,14 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { TrendingUp, Award, Globe } from 'lucide-react';
 
 const Stats = () => {
   // Initial and target values for the stats
   const stats = [
-    { id: 1, title: "Projets complétés", value: 0, target: 100, suffix: "+" },
+    { id: 1, title: "Projets réalisés", value: 0, target: 100, suffix: "+" },
     { id: 2, title: "Clients satisfaits", value: 0, target: 85, suffix: "+" },
-    { id: 3, title: "Années d'expérience", value: 0, target: 10, suffix: "+" },
-    { id: 4, title: "Solutions IA développées", value: 0, target: 25, suffix: "+" }
+    { id: 3, title: "Taux de conversion", value: 0, target: 95, suffix: "%" },
+    { id: 4, title: "Solutions IA déployées", value: 0, target: 25, suffix: "+" }
   ];
 
   // State for storing the current values of the stats
@@ -76,13 +77,14 @@ const Stats = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            <div className="text-2xl font-bold text-gradient mb-4">
-              100M FCFA
+            <div className="text-2xl font-bold mb-4">
+              <span className="animate-gradient-slow">€250K+</span>
             </div>
-            <h3 className="text-xl font-bold mb-2">Objectif Mensuel</h3>
+            <h3 className="text-xl font-bold mb-2">ROI Client Moyen</h3>
             <p className="text-gray-400">
-              Objectif de chiffre d'affaires mensuel grâce à des services de consultation stratégiques et des solutions technologiques innovantes.
+              Retour sur investissement moyen généré pour nos clients grâce à nos solutions d'IA et d'automatisation.
             </p>
+            <TrendingUp className="mt-4 text-primary h-6 w-6" />
           </motion.div>
           
           <motion.div
@@ -91,13 +93,14 @@ const Stats = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
           >
-            <div className="text-2xl font-bold text-gradient mb-4">
-              Top 10
+            <div className="text-2xl font-bold mb-4">
+              <span className="animate-gradient-slow">Enterprise</span>
             </div>
-            <h3 className="text-xl font-bold mb-2">Experts Tech en Afrique</h3>
+            <h3 className="text-xl font-bold mb-2">Solutions sur Mesure</h3>
             <p className="text-gray-400">
-              Reconnu parmi les meilleurs experts en innovation numérique et développement de solutions IA en Afrique.
+              Développement de solutions personnalisées pour les grandes entreprises avec un focus sur l'IA et la transformation digitale.
             </p>
+            <Award className="mt-4 text-secondary h-6 w-6" />
           </motion.div>
           
           <motion.div
@@ -106,13 +109,14 @@ const Stats = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.9 }}
           >
-            <div className="text-2xl font-bold text-gradient mb-4">
-              5 Pays
+            <div className="text-2xl font-bold mb-4">
+              <span className="animate-gradient-slow">Global Impact</span>
             </div>
-            <h3 className="text-xl font-bold mb-2">Présence Internationale</h3>
+            <h3 className="text-xl font-bold mb-2">Innovation Internationale</h3>
             <p className="text-gray-400">
-              Déployant des solutions numériques innovantes au Sénégal, Maroc, France et dans d'autres pays africains.
+              Solutions déployées dans des hubs technologiques majeurs : Londres, Dubaï, Marrakech, et Dakar.
             </p>
+            <Globe className="mt-4 text-accent h-6 w-6" />
           </motion.div>
         </div>
       </div>
