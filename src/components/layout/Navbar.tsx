@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -54,19 +53,21 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav
-      className={cn(
-        "fixed w-full top-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-3"
-          : "bg-transparent py-6"
-      )}
-    >
+    <nav className={cn(
+      "fixed w-full top-0 z-50 transition-all duration-300",
+      scrolled
+        ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-3"
+        : "bg-transparent py-6"
+    )}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center space-x-2">
-              <span className="text-2xl font-bold text-gradient">DM</span>
+              <img 
+                src="/lovable-uploads/00f229a9-af1c-47e4-a805-4e3b081a0bb4.png"
+                alt="DQ Logo"
+                className="h-8 w-auto"
+              />
               <span className="hidden md:block text-xl font-semibold">Dominique Mendy</span>
             </Link>
           </div>
@@ -135,7 +136,6 @@ const Navbar = () => {
           </div>
         </div>
         
-        {/* Mobile menu */}
         {isOpen && (
           <div className="md:hidden mt-4 animate-fade-in">
             <div className="flex flex-col space-y-2 pt-2 pb-4">
