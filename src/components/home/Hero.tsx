@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from 'lucide-react';
@@ -150,7 +151,7 @@ const Hero = () => {
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
           <div className="w-full md:w-1/2 space-y-5 text-center md:text-left animate-slide-in-left">
             <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
-              <span className="block text-white mb-2">Dominique Mendy</span>
+              <span className="block animate-gradient-slow bg-gradient-to-r from-green-600 via-yellow-400 to-red-600 bg-clip-text text-transparent bg-[length:400%_400%]">Dominiqk Mendy</span>
               <span className="text-gradient">Visionnaire Digital</span>
             </h1>
             
