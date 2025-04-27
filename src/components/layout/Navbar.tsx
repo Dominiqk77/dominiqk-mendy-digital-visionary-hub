@@ -66,7 +66,7 @@ const Navbar = () => {
               <img 
                 src="/lovable-uploads/00f229a9-af1c-47e4-a805-4e3b081a0bb4.png"
                 alt="DQ Logo"
-                className="h-12 w-auto sm:h-16 md:h-20 transition-all duration-300"
+                className="h-16 w-auto sm:h-20 md:h-24 transition-all duration-300"
               />
               <span className="hidden md:block text-xl font-semibold">Dominique Mendy</span>
             </Link>
