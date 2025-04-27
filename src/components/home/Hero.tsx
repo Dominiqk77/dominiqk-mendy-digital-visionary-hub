@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 declare global {
   interface Window {
@@ -207,10 +208,27 @@ const Hero = () => {
         </div>
         
         <div className="flex items-center justify-center mt-8 sm:mt-12 md:hidden">
-          <div className="flex -space-x-2">
-            <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white font-bold border-2 border-white text-sm">D</div>
-            <div className="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center text-white font-bold border-2 border-white text-sm">M</div>
-            <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white font-bold border-2 border-white text-sm">S</div>
+          <div className="flex -space-x-4">
+            <Avatar className="border-2 border-white w-8 h-8">
+              <AvatarImage src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952" alt="Client professionnel 1" />
+              <AvatarFallback>CP</AvatarFallback>
+            </Avatar>
+            <Avatar className="border-2 border-white w-8 h-8">
+              <AvatarImage src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2" alt="Client professionnel 2" />
+              <AvatarFallback>CP</AvatarFallback>
+            </Avatar>
+            <Avatar className="border-2 border-white w-8 h-8">
+              <AvatarImage src="https://images.unsplash.com/photo-1580518337843-f959e992563b" alt="Client professionnel 3" />
+              <AvatarFallback>CP</AvatarFallback>
+            </Avatar>
+            <Avatar className="border-2 border-white w-8 h-8">
+              <AvatarImage src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e" alt="Client professionnel 4" />
+              <AvatarFallback>CP</AvatarFallback>
+            </Avatar>
+            <Avatar className="border-2 border-white w-8 h-8">
+              <AvatarImage src="https://images.unsplash.com/photo-1560250097-0b93528c311a" alt="Client professionnel 5" />
+              <AvatarFallback>CP</AvatarFallback>
+            </Avatar>
           </div>
           <p className="text-white text-sm ml-2"><span className="font-semibold text-primary">2k+</span> projets terminés avec succès</p>
         </div>
