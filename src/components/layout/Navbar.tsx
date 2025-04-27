@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -56,8 +57,8 @@ const Navbar = () => {
     <nav className={cn(
       "fixed w-full top-0 z-50 transition-all duration-300",
       scrolled
-        ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-2"
-        : "bg-transparent py-4"
+        ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-1" // Reduced padding when scrolled
+        : "bg-transparent py-2" // Reduced padding when at top
     )}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
