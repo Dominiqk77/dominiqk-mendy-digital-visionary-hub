@@ -24,8 +24,8 @@ const Index = () => {
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', 
-        'Dominique Mendy, expert sénégalais en innovation numérique, IA, développement web et marketing digital. ' +
-        'Consultant stratégique pour entreprises africaines en transformation digitale et e-gouvernance.'
+        'Dominique Mendy, expert Sénégalais en innovation numérique, IA, développement web et marketing digital. ' +
+        'Consultant stratégique pour entreprises Africaines en transformation digitale et e-gouvernance.'
       );
     }
     

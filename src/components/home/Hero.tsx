@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from 'lucide-react';
@@ -156,7 +155,7 @@ const Hero = () => {
             </h1>
             
             <p className="text-sm sm:text-lg md:text-xl text-gray-300">
-              Expert en innovation numérique et leader tech sénégalais transformant <span className="text-primary font-semibold">le paysage digital africain</span> par des solutions technologiques révolutionnaires.
+              Expert en innovation numérique et leader tech Sénégalais transformant <span className="text-primary font-semibold">le paysage digital Africain</span> par des solutions technologiques révolutionnaires.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
@@ -200,7 +199,7 @@ const Hero = () => {
                   <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Digital Marketing</span>
                 </div>
                 <div className="absolute right-8 sm:right-12 -bottom-6 sm:-bottom-8 w-28 h-28 sm:w-32 sm:h-32 bg-primary rounded-full flex items-center justify-center z-20 animate-float" style={{ animationDelay: '2s' }}>
-                  <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Développeur Web</span>
+                  <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Expert Web</span>
                 </div>
               </div>
             )}
