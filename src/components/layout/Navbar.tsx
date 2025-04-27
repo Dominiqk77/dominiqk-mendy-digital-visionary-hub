@@ -29,11 +29,22 @@ const Navbar = () => {
     }
   };
 
+  // Create smooth scroll function for section links
+  const scrollToSection = (sectionId: string) => {
+    setIsOpen(false); // Close mobile menu
+    
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const navigation = [
     { name: 'Accueil', href: '/' },
     {
       name: 'Services',
-      href: '/services',
+      href: '/#services',
+      action: () => scrollToSection('services'),
       dropdown: true,
       children: [
         { name: 'Développement Web', href: '/services/web-development' },
@@ -43,7 +54,7 @@ const Navbar = () => {
         { name: 'Consulting', href: '/services/consulting' },
       ]
     },
-    { name: 'Expertise', href: '/expertise' },
+    { name: 'Expertise', href: '/#skills', action: () => scrollToSection('skills') },
     { name: 'Portfolio', href: '/portfolio' },
     { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
@@ -131,15 +142,33 @@ const Navbar = () => {
                         </>
                       ) : (
                         <NavigationMenuLink asChild>
-                          <Link 
-                            to={item.href} 
-                            className={cn(
-                              navigationMenuTriggerStyle(),
-                              "animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white px-4 py-2"
-                            )}
-                          >
-                            {item.name}
-                          </Link>
+                          {item.action ? (
+                            <a 
+                              href={item.href}
+                              onClick={(e) => { 
+                                if (item.href.startsWith('/#')) {
+                                  e.preventDefault();
+                                  item.action && item.action();
+                                }
+                              }}
+                              className={cn(
+                                navigationMenuTriggerStyle(),
+                                "animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white px-4 py-2"
+                              )}
+                            >
+                              {item.name}
+                            </a>
+                          ) : (
+                            <Link 
+                              to={item.href} 
+                              className={cn(
+                                navigationMenuTriggerStyle(),
+                                "animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white px-4 py-2"
+                              )}
+                            >
+                              {item.name}
+                            </Link>
+                          )}
                         </NavigationMenuLink>
                       )}
                     </NavigationMenuItem>
@@ -202,13 +231,30 @@ const Navbar = () => {
                       )}
                     </>
                   ) : (
-                    <Link
-                      to={item.href}
-                      className="block px-3 py-2 text-base font-medium rounded-md hover:bg-gray-100 animate-gradient-slow"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
+                    item.action ? (
+                      <a
+                        href={item.href}
+                        onClick={(e) => {
+                          if (item.href.startsWith('/#')) {
+                            e.preventDefault();
+                            item.action && item.action();
+                          } else {
+                            setIsOpen(false);
+                          }
+                        }}
+                        className="block px-3 py-2 text-base font-medium rounded-md hover:bg-gray-100 animate-gradient-slow"
+                      >
+                        {item.name}
+                      </a>
+                    ) : (
+                      <Link
+                        to={item.href}
+                        className="block px-3 py-2 text-base font-medium rounded-md hover:bg-gray-100 animate-gradient-slow"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    )
                   )}
                 </div>
               ))}

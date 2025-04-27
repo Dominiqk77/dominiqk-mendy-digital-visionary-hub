@@ -31,6 +31,29 @@ const Index = () => {
     
     // Scroll to top on page load
     window.scrollTo(0, 0);
+
+    // Handle anchor link navigation
+    const handleAnchorClick = () => {
+      const { hash } = window.location;
+      if (hash) {
+        const id = hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) {
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+      }
+    };
+
+    // Execute once on initial load
+    handleAnchorClick();
+
+    // Also set up to handle anchor changes
+    window.addEventListener('hashchange', handleAnchorClick);
+    return () => {
+      window.removeEventListener('hashchange', handleAnchorClick);
+    };
   }, []);
 
   return (

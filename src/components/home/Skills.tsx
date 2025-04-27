@@ -62,8 +62,12 @@ const Skills = () => {
     { name: "Next.js", icon: "/icons/nextjs.svg" },
   ];
 
+  const handleTabChange = (value: string) => {
+    setSelectedTab(value);
+  };
+
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-background" id="skills">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Compétences & Expertises</h2>
@@ -73,16 +77,16 @@ const Skills = () => {
           </p>
         </div>
         
-        <Tabs defaultValue="tech" value={selectedTab} onValueChange={setSelectedTab} className="w-full max-w-4xl mx-auto">
-          <div className="flex justify-center mb-8">
-            <TabsList className="bg-muted/50">
-              <TabsTrigger value="tech" className="data-[state=active]:bg-primary data-[state=active]:text-white">
+        <Tabs defaultValue="tech" value={selectedTab} onValueChange={handleTabChange} className="w-full max-w-4xl mx-auto">
+          <div className="flex justify-center mb-8 overflow-x-auto pb-2">
+            <TabsList className="bg-muted/50 flex-nowrap">
+              <TabsTrigger value="tech" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
                 Compétences Techniques
               </TabsTrigger>
-              <TabsTrigger value="marketing" className="data-[state=active]:bg-primary data-[state=active]:text-white">
+              <TabsTrigger value="marketing" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
                 Marketing Digital
               </TabsTrigger>
-              <TabsTrigger value="soft" className="data-[state=active]:bg-primary data-[state=active]:text-white">
+              <TabsTrigger value="soft" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
                 Soft Skills
               </TabsTrigger>
             </TabsList>

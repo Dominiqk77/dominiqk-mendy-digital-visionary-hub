@@ -32,7 +32,7 @@ const Services = () => {
     {
       icon: <Globe size={40} />,
       title: "E-Gouvernance & Innovation",
-      description: "Solutions numériques pour les administrations et services publics africains afin d'améliorer l'efficacité, la transparence et l'accessibilité.",
+      description: "Solutions numériques pour les administrations et services publics Africains afin d'améliorer l'efficacité, la transparence et l'accessibilité.",
       link: "/services/e-governance"
     },
     {
@@ -174,7 +174,7 @@ const Services = () => {
     {
       icon: <Globe size={40} />,
       title: "E-Gouvernance & Services Publics",
-      description: "Conseils et implémentation de solutions numériques pour moderniser les services gouvernementaux africains.",
+      description: "Conseils et implémentation de solutions numériques pour moderniser les services gouvernementaux Africains.",
       link: "/services/consulting/e-governance"
     },
     {
@@ -192,7 +192,7 @@ const Services = () => {
     {
       icon: <Users size={40} />,
       title: "Formation Executive Digital",
-      description: "Programmes sur mesure pour les dirigeants africains souhaitant maîtriser les enjeux de la révolution numérique.",
+      description: "Programmes sur mesure pour les dirigeants Africains souhaitant maîtriser les enjeux de la révolution numérique.",
       link: "/services/consulting/executive-training"
     },
     {
@@ -204,12 +204,19 @@ const Services = () => {
     {
       icon: <Blocks size={40} />,
       title: "Écosystème Tech Africain",
-      description: "Conseils pour naviguer et tirer parti de l'écosystème technologique africain en pleine expansion.",
+      description: "Conseils pour naviguer et tirer parti de l'écosystème technologique Africain en pleine expansion.",
       link: "/services/consulting/african-tech"
     },
   ];
 
-  const allCategoriesMap = {
+  const allCategoriesMap: {
+    [key: string]: Array<{
+      icon: JSX.Element;
+      title: string;
+      description: string;
+      link: string;
+    }>;
+  } = {
     "featured": featuredServices,
     "ai": aiServices,
     "web": webServices, 
@@ -217,8 +224,12 @@ const Services = () => {
     "consulting": consultingServices
   };
 
+  const handleCategoryChange = (value: string) => {
+    setSelectedCategory(value);
+  };
+
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gray-50" id="services">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Mes Services</h2>
@@ -228,22 +239,22 @@ const Services = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="featured" value={selectedCategory} onValueChange={setSelectedCategory} className="w-full mb-12">
-          <div className="flex justify-center mb-8">
-            <TabsList className="bg-muted/50">
-              <TabsTrigger value="featured" className="data-[state=active]:bg-primary data-[state=active]:text-white">
+        <Tabs defaultValue="featured" value={selectedCategory} onValueChange={handleCategoryChange} className="w-full mb-12">
+          <div className="flex justify-center mb-8 overflow-x-auto pb-2">
+            <TabsList className="bg-muted/50 flex-nowrap">
+              <TabsTrigger value="featured" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
                 Services Phares
               </TabsTrigger>
-              <TabsTrigger value="ai" className="data-[state=active]:bg-primary data-[state=active]:text-white">
+              <TabsTrigger value="ai" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
                 Intelligence Artificielle
               </TabsTrigger>
-              <TabsTrigger value="web" className="data-[state=active]:bg-primary data-[state=active]:text-white">
+              <TabsTrigger value="web" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
                 Web & Mobile
               </TabsTrigger>
-              <TabsTrigger value="marketing" className="data-[state=active]:bg-primary data-[state=active]:text-white">
+              <TabsTrigger value="marketing" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
                 Marketing Digital
               </TabsTrigger>
-              <TabsTrigger value="consulting" className="data-[state=active]:bg-primary data-[state=active]:text-white">
+              <TabsTrigger value="consulting" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
                 Consulting
               </TabsTrigger>
             </TabsList>
@@ -252,7 +263,7 @@ const Services = () => {
           {Object.keys(allCategoriesMap).map((category) => (
             <TabsContent key={category} value={category} className="animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {allCategoriesMap[category as keyof typeof allCategoriesMap].map((service, index) => (
+                {allCategoriesMap[category].map((service, index) => (
                   <Card key={index} className="service-card border-gradient border-gradient-light overflow-hidden group">
                     <CardHeader className="pb-0">
                       <div className="text-primary group-hover:text-secondary transition-colors duration-300">
