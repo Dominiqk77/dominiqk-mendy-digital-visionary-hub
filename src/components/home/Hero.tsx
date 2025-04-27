@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from 'lucide-react';
@@ -141,7 +142,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative h-[38vh] flex items-center overflow-hidden bg-gradient-to-r from-gray-900 to-black">
+    <div className="relative h-[42vh] flex items-center overflow-hidden bg-gradient-to-r from-gray-900 to-black">
       {/* Particles background */}
       <div id="particles-js" className="absolute inset-0 z-0"></div>
       
