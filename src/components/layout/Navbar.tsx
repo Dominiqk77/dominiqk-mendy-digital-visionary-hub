@@ -62,11 +62,11 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
           <div className="flex-shrink-0">
-            <Link to="/" className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-3">
               <img 
                 src="/lovable-uploads/00f229a9-af1c-47e4-a805-4e3b081a0bb4.png"
                 alt="DQ Logo"
-                className="h-8 w-auto"
+                className="h-10 w-auto sm:h-12 md:h-14 transition-all duration-300"
               />
               <span className="hidden md:block text-xl font-semibold">Dominique Mendy</span>
             </Link>
