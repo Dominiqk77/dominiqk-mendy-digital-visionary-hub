@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 import animatePlugin from "tailwindcss-animate";
 
@@ -67,6 +68,11 @@ export default {
           'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))'
+        },
+        senegal: {
+          green: '#00853f',
+          yellow: '#fcd116',
+          red: '#cd1126'
         }
       },
       borderRadius: {
@@ -106,13 +112,31 @@ export default {
           '100%': {
             transform: 'rotate(360deg)'
           }
+        },
+        'gradient-text': {
+          '0%, 100%': {
+            'background-position': '0% 50%'
+          },
+          '50%': {
+            'background-position': '100% 50%'
+          }
+        },
+        'gradient-pulse': {
+          '0%, 100%': {
+            'background-position': '0% 50%'
+          },
+          '50%': {
+            'background-position': '100% 50%'
+          }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'float': 'float 6s ease-in-out infinite',
-        'rotate-slow': 'rotate-slow 20s linear infinite'
+        'rotate-slow': 'rotate-slow 20s linear infinite',
+        'gradient-text': 'gradient-text 8s ease infinite',
+        'gradient-pulse': 'gradient-pulse 8s ease infinite'
       },
       backgroundImage: {
         'hero-pattern': "url('/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png')",

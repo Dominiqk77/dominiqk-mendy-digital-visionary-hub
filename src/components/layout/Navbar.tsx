@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -68,7 +69,7 @@ const Navbar = () => {
                 alt="DQ Logo"
                 className="h-16 w-auto sm:h-20 md:h-24 transition-all duration-300"
               />
-              <span className="hidden md:block text-xl font-semibold">Dominique Mendy</span>
+              <span className="hidden md:block text-xl font-semibold animate-gradient-slow">Dominique Mendy</span>
             </Link>
           </div>
           
@@ -116,7 +117,7 @@ const Navbar = () => {
                 </div>
               ))}
               
-              <Button className="bg-gradient-primary hover:opacity-90 transition-opacity">
+              <Button className="bg-transparent text-white border border-white hover:bg-white/10 hover:text-white transition-colors">
                 Démarrer un projet
               </Button>
             </div>
@@ -178,7 +179,7 @@ const Navbar = () => {
                 </div>
               ))}
               <div className="pt-2">
-                <Button className="w-full bg-gradient-primary hover:opacity-90 transition-opacity">
+                <Button className="w-full bg-transparent text-foreground border border-gray-300 hover:bg-gray-100 transition-colors">
                   Démarrer un projet
                 </Button>
               </div>

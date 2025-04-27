@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -19,7 +20,7 @@ const Footer = () => {
                 alt="DQ Logo" 
                 className="h-12 w-auto mr-3"
               />
-              <h3 className="text-xl font-bold">Dominique Mendy</h3>
+              <h3 className="text-xl font-bold animate-gradient-slow">Dominique Mendy</h3>
             </div>
             <div className="h-1 w-16 bg-gradient-primary mb-6"></div>
             <p className="mb-6 text-gray-300">
@@ -64,7 +65,11 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start space-x-3">
                 <MapPin size={20} className="text-primary mt-1 flex-shrink-0" />
-                <span className="text-gray-300">Targa, Marrakech, Maroc</span>
+                <span className="text-gray-300">Covent Garden, London, UK</span>
+              </li>
+              <li className="flex items-start space-x-3">
+                <MapPin size={20} className="text-primary mt-1 flex-shrink-0" />
+                <span className="text-gray-300">Guéliz, Marrakech, Maroc</span>
               </li>
               <li className="flex items-start space-x-3">
                 <Mail size={20} className="text-primary mt-1 flex-shrink-0" />

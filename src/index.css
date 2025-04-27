@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -128,6 +129,22 @@
     @apply transition-all duration-300 hover:scale-110 filter hover:drop-shadow-[0_0_8px_rgba(0,200,255,0.5)];
   }
   
+  /* Animated Senegalese gradient text */
+  .animate-gradient-slow {
+    @apply bg-clip-text text-transparent bg-[length:400%_400%] animate-gradient-text;
+    background-image: linear-gradient(90deg, 
+      rgba(0, 133, 71, 1) 0%, 
+      rgba(252, 209, 22, 1) 50%, 
+      rgba(206, 17, 38, 1) 100%);
+  }
+  
+  /* Animated gradient pulse for elements */
+  .animate-gradient-pulse {
+    @apply animate-gradient-pulse-anim;
+    background: linear-gradient(-45deg, #00853f, #fcd116, #cd1126, #00853f);
+    background-size: 400% 400%;
+  }
+  
   /* Animation utility classes */
   .animate-float {
     @apply animate-[float_6s_ease-in-out_infinite];
@@ -174,6 +191,28 @@
       opacity: 1;
     }
   }
+  @keyframes gradient-text {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  @keyframes gradient-pulse-anim {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 }
 
 /* Additional CSS to enhance services sections */
@@ -187,3 +226,12 @@
 .service-card:hover::after {
   @apply opacity-100;
 }
+
+/* Animated Senegalese gradient classes */
+.animate-gradient-text {
+  animation: gradient-text 8s ease infinite;
+}
+.animate-gradient-pulse-anim {
+  animation: gradient-pulse-anim 8s ease infinite;
+}
+
