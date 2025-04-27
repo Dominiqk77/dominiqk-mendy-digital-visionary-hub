@@ -6,10 +6,10 @@ import { TrendingUp, Award, Globe } from 'lucide-react';
 const Stats = () => {
   // Initial and target values for the stats
   const stats = [
-    { id: 1, title: "Projets réalisés", value: 0, target: 100, suffix: "+" },
-    { id: 2, title: "Clients satisfaits", value: 0, target: 85, suffix: "+" },
-    { id: 3, title: "Taux de conversion", value: 0, target: 95, suffix: "%" },
-    { id: 4, title: "Solutions IA déployées", value: 0, target: 25, suffix: "+" }
+    { id: 1, title: "Projets réalisés", value: 0, target: 250, suffix: "+" },
+    { id: 2, title: "Clients satisfaits", value: 0, target: 95, suffix: "+" },
+    { id: 3, title: "Taux de conversion", value: 0, target: 98, suffix: "%" },
+    { id: 4, title: "Solutions IA déployées", value: 0, target: 45, suffix: "+" }
   ];
 
   // State for storing the current values of the stats
@@ -49,7 +49,7 @@ const Stats = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Impact Mesurable</h2>
           <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
           <p className="text-lg text-gray-300">
-            Des résultats concrets qui témoignent de mon expertise et de mon engagement
+            Une expertise africaine reconnue mondialement avec des résultats exceptionnels
           </p>
         </div>
         
@@ -78,11 +78,11 @@ const Stats = () => {
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             <div className="text-2xl font-bold mb-4">
-              <span className="animate-gradient-slow">€250K+</span>
+              <span className="animate-gradient-slow">€750K+</span>
             </div>
             <h3 className="text-xl font-bold mb-2">ROI Client Moyen</h3>
             <p className="text-gray-400">
-              Retour sur investissement moyen généré pour nos clients grâce à nos solutions d'IA et d'automatisation.
+              Retour sur investissement exceptionnel grâce à nos solutions d'IA avancées et notre expertise en transformation digitale.
             </p>
             <TrendingUp className="mt-4 text-primary h-6 w-6" />
           </motion.div>
@@ -94,11 +94,11 @@ const Stats = () => {
             transition={{ duration: 0.5, delay: 0.7 }}
           >
             <div className="text-2xl font-bold mb-4">
-              <span className="animate-gradient-slow">Enterprise</span>
+              <span className="animate-gradient-slow">Expert Leader</span>
             </div>
-            <h3 className="text-xl font-bold mb-2">Solutions sur Mesure</h3>
+            <h3 className="text-xl font-bold mb-2">Solutions Enterprise</h3>
             <p className="text-gray-400">
-              Développement de solutions personnalisées pour les grandes entreprises avec un focus sur l'IA et la transformation digitale.
+              Architecture et déploiement de solutions d'entreprise innovantes pour les plus grands groupes africains et internationaux.
             </p>
             <Award className="mt-4 text-secondary h-6 w-6" />
           </motion.div>
@@ -114,7 +114,7 @@ const Stats = () => {
             </div>
             <h3 className="text-xl font-bold mb-2">Innovation Mondiale</h3>
             <p className="text-gray-400">
-              Solutions déployées dans les plus grands hubs technologiques : Londres, Dubaï, San Francisco, Singapore, Tokyo, Berlin, Tel Aviv, Marrakech, et Dakar.
+              Solutions déployées dans les plus grands hubs technologiques : Londres, Dubaï, San Francisco, Singapore, Tokyo, Berlin, Tel Aviv, Marrakech, Dakar, et plus encore. Leader reconnu de l'innovation africaine.
             </p>
             <Globe className="mt-4 text-accent h-6 w-6" />
           </motion.div>
