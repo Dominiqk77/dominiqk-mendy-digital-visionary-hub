@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from 'lucide-react';
@@ -166,15 +165,14 @@ const Hero = () => {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary text-white hover:bg-primary/10">
-                <Link to="/services">Découvrir mes services</Link>
+              <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary text-white hover:bg-primary/10 bg-transparent">
+                <Link to="/services" className="text-white">Découvrir mes services</Link>
               </Button>
             </div>
           </div>
           
           <div className="w-full md:w-1/2 flex justify-center mt-6 md:mt-0 animate-slide-in-right">
             {isMobile ? (
-              // Simplified mobile version
               <div className="relative max-w-[220px]">
                 <div className="absolute inset-0 bg-gradient-primary rounded-full blur-3xl opacity-20 animate-pulse-slow"></div>
                 <img 
@@ -187,7 +185,6 @@ const Hero = () => {
                 </div>
               </div>
             ) : (
-              // Desktop version with all badges
               <div className="relative max-w-[280px] sm:max-w-[320px] mx-auto">
                 <div className="absolute inset-0 bg-gradient-primary rounded-full blur-3xl opacity-20 animate-pulse-slow"></div>
                 <img 
@@ -215,7 +212,7 @@ const Hero = () => {
             <div className="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center text-white font-bold border-2 border-white text-sm">M</div>
             <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white font-bold border-2 border-white text-sm">S</div>
           </div>
-          <p className="text-white text-sm ml-2"><span className="font-semibold text-primary">100+</span> projets terminés avec succès</p>
+          <p className="text-white text-sm ml-2"><span className="font-semibold text-primary">2k+</span> projets terminés avec succès</p>
         </div>
         
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer hidden md:block" onClick={scrollToAbout}>
