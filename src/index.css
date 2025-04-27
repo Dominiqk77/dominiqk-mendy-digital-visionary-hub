@@ -1,10 +1,10 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
@@ -17,35 +17,26 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 142 76% 36%; /* Senegal Green */
+    --primary: 170 100% 50%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 48 100% 50%; /* Senegal Yellow */
+    --secondary: 60 100% 50%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --accent: 0 84% 40%; /* Senegal Red */
-    --accent-foreground: 210 40% 98%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 346 89% 60%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 142 76% 36%;
+    --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
@@ -58,17 +49,17 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 142 76% 36%;
+    --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 48 100% 50%;
+    --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
-    --accent: 0 84% 40%;
-    --accent-foreground: 0 0% 100%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
@@ -76,14 +67,6 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -91,259 +74,111 @@
   * {
     @apply border-border;
   }
-
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Space Grotesk', sans-serif;
+    @apply bg-background text-foreground font-montserrat;
   }
-
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+    @apply font-space;
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
+  }
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+
+  /* Background gradients */
+  .bg-gradient-primary {
+    @apply bg-gradient-to-r from-primary to-secondary;
+  }
+  .bg-gradient-secondary {
+    @apply bg-gradient-to-r from-secondary to-accent;
+  }
+  .senegal-flag-gradient {
+    @apply bg-gradient-to-b from-green-600 via-yellow-400 to-red-600;
+  }
+  
+  /* Border gradients */
+  .border-gradient {
+    @apply relative rounded-xl before:absolute before:inset-0 before:rounded-xl before:p-[1px] before:-z-10 before:bg-gradient-to-r;
+  }
+  .border-gradient-light::before {
+    @apply from-gray-200/50 to-gray-300/50;
+  }
+  .border-gradient-strong::before {
+    @apply from-primary/30 to-secondary/30;
+  }
+  
+  /* Service card styling */
+  .service-card {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-primary/5;
+  }
+  
+  /* Technology icon animation */
+  .technology-icon {
+    @apply transition-all duration-300 hover:scale-110 filter hover:drop-shadow-[0_0_8px_rgba(0,200,255,0.5)];
+  }
+  
+  /* Animation utility classes */
+  .animate-float {
+    @apply animate-[float_6s_ease-in-out_infinite];
+  }
+  .animate-pulse-slow {
+    @apply animate-[pulse_4s_cubic-bezier(0.4,0,0.6,1)_infinite];
+  }
+  .animate-slide-in-left {
+    @apply opacity-0 translate-x-[-50px] animate-[slideInLeft_1s_ease-out_forwards];
+  }
+  .animate-slide-in-right {
+    @apply opacity-0 translate-x-[50px] animate-[slideInRight_1s_ease-out_forwards];
+  }
+  .animate-fade-in {
+    @apply opacity-0 animate-[fadeIn_0.5s_ease-out_forwards];
+  }
+  
+  /* Custom keyframes */
+  @keyframes slideInLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes slideInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 }
 
-/* Animations */
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes slide-in-right {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slide-in-left {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slide-in-bottom {
-  0% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes scale-up {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-pulse-slow {
-  animation: pulse 3s ease-in-out infinite;
-}
-
-.animate-rotate {
-  animation: rotate 20s linear infinite;
-}
-
-.animate-slide-in-right {
-  animation: slide-in-right 0.7s ease-out;
-}
-
-.animate-slide-in-left {
-  animation: slide-in-left 0.7s ease-out;
-}
-
-.animate-slide-in-bottom {
-  animation: slide-in-bottom 0.7s ease-out;
-}
-
-.animate-fade-in {
-  animation: fade-in 1s ease-out;
-}
-
-.animate-scale-up {
-  animation: scale-up 0.5s ease-out;
-}
-
-/* Custom styles */
-.text-gradient {
-  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--secondary)), hsl(var(--accent)));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-primary {
-  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--secondary)));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-secondary {
-  background: linear-gradient(90deg, hsl(var(--secondary)), hsl(var(--accent)));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.bg-gradient-primary {
-  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--secondary)));
-}
-
-.bg-gradient-secondary {
-  background: linear-gradient(90deg, hsl(var(--secondary)), hsl(var(--accent)));
-}
-
-.bg-gradient-hero {
-  background: linear-gradient(135deg, rgba(1, 22, 39, 0.95) 0%, rgba(17, 34, 64, 0.95) 100%);
-}
-
-.bg-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
+/* Additional CSS to enhance services sections */
 .service-card {
-  transition: all 0.3s ease;
+  @apply hover:border-primary/30 overflow-hidden;
 }
-
-.service-card:hover {
-  transform: translateY(-10px);
-}
-
-.stat-card {
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-}
-
-.stat-card::before {
+.service-card::after {
   content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: rotate(45deg);
-  transition: all 0.7s;
+  @apply absolute top-0 left-0 w-full h-full bg-gradient-to-b from-primary/5 to-transparent opacity-0 transition-opacity duration-300;
 }
-
-.stat-card:hover::before {
-  left: 100%;
-}
-
-.border-gradient {
-  position: relative;
-  border-radius: var(--radius);
-  z-index: 0;
-}
-
-.border-gradient::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: -2px;
-  border-radius: calc(var(--radius) + 2px);
-  background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)), hsl(var(--accent)));
-}
-
-.border-gradient-light::before {
-  opacity: 0.3;
-}
-
-.border-gradient-strong::before {
-  opacity: 1;
-}
-
-.spinning-globe {
-  animation: rotate 20s linear infinite;
-}
-
-.technology-icon {
-  transition: all 0.3s ease;
-}
-
-.technology-icon:hover {
-  transform: scale(1.2);
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
-}
-
-.senegal-flag-gradient {
-  background: linear-gradient(90deg, 
-    hsl(var(--primary)) 33%, 
-    hsl(var(--secondary)) 33%, 
-    hsl(var(--secondary)) 66%, 
-    hsl(var(--accent)) 66%
-  );
+.service-card:hover::after {
+  @apply opacity-100;
 }

@@ -4,6 +4,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+// Add type definition for particlesJS
+declare global {
+  interface Window {
+    particlesJS: any;
+  }
+}
+
 const Hero = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   

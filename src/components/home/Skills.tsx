@@ -7,36 +7,36 @@ const Skills = () => {
   const [selectedTab, setSelectedTab] = useState("tech");
   
   const techSkills = [
-    { name: "Développement Web", level: 95 },
-    { name: "Développement Mobile", level: 85 },
-    { name: "Intelligence Artificielle", level: 90 },
-    { name: "Base de données", level: 88 },
-    { name: "Cloud Computing", level: 82 },
-    { name: "DevOps", level: 78 },
-    { name: "Cybersécurité", level: 75 },
-    { name: "Blockchain", level: 70 },
+    { name: "Développement Web Full Stack", level: 95 },
+    { name: "Développement Mobile", level: 90 },
+    { name: "Intelligence Artificielle", level: 95 },
+    { name: "Base de données", level: 92 },
+    { name: "Cloud Computing", level: 88 },
+    { name: "DevOps", level: 85 },
+    { name: "Cybersécurité", level: 85 },
+    { name: "Blockchain & Web 3.0", level: 90 },
   ];
   
   const marketingSkills = [
-    { name: "Stratégie Marketing Digital", level: 95 },
-    { name: "SEO/SEM", level: 92 },
-    { name: "Content Marketing", level: 90 },
-    { name: "Social Media Marketing", level: 88 },
-    { name: "Email Marketing", level: 85 },
-    { name: "Analyse de Données", level: 87 },
-    { name: "CRM", level: 82 },
-    { name: "UX/UI Design", level: 80 },
+    { name: "Stratégie Marketing Digital", level: 97 },
+    { name: "SEO/SEM/SMO", level: 96 },
+    { name: "Content Marketing", level: 94 },
+    { name: "Social Media Marketing", level: 93 },
+    { name: "Growth Hacking", level: 95 },
+    { name: "Analyse de Données", level: 92 },
+    { name: "CRM & Automation", level: 90 },
+    { name: "UX/UI Design", level: 91 },
   ];
   
   const softSkills = [
     { name: "Leadership", level: 95 },
     { name: "Gestion de Projet", level: 92 },
-    { name: "Communication", level: 90 },
-    { name: "Résolution de problèmes", level: 93 },
-    { name: "Adaptabilité", level: 88 },
+    { name: "Communication", level: 94 },
+    { name: "Résolution de problèmes", level: 96 },
+    { name: "Adaptabilité", level: 93 },
     { name: "Travail d'équipe", level: 90 },
-    { name: "Négociation", level: 87 },
-    { name: "Gestion du temps", level: 85 },
+    { name: "Négociation", level: 92 },
+    { name: "Innovation", level: 97 },
   ];
 
   const technologies = [
@@ -56,6 +56,10 @@ const Skills = () => {
     { name: "WordPress", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg" },
     { name: "Redux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" },
     { name: "GraphQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" },
+    { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+    { name: "Canva", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" },
+    { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" },
+    { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
   ];
 
   return (
@@ -92,7 +96,7 @@ const Skills = () => {
                     <h3 className="font-medium">{skill.name}</h3>
                     <span className="text-sm font-semibold">{skill.level}%</span>
                   </div>
-                  <Progress value={skill.level} className="h-2" indicatorClassName="bg-gradient-primary" />
+                  <Progress value={skill.level} className="h-2" />
                 </div>
               ))}
             </div>
@@ -106,7 +110,7 @@ const Skills = () => {
                     <h3 className="font-medium">{skill.name}</h3>
                     <span className="text-sm font-semibold">{skill.level}%</span>
                   </div>
-                  <Progress value={skill.level} className="h-2" indicatorClassName="bg-gradient-primary" />
+                  <Progress value={skill.level} className="h-2" />
                 </div>
               ))}
             </div>
@@ -120,7 +124,7 @@ const Skills = () => {
                     <h3 className="font-medium">{skill.name}</h3>
                     <span className="text-sm font-semibold">{skill.level}%</span>
                   </div>
-                  <Progress value={skill.level} className="h-2" indicatorClassName="bg-gradient-primary" />
+                  <Progress value={skill.level} className="h-2" />
                 </div>
               ))}
             </div>

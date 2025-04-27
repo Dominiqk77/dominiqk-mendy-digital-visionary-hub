@@ -1,3 +1,9 @@
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Specific rules for major search engines
 User-agent: Googlebot
 Allow: /
 
@@ -10,5 +16,5 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
-Allow: /
+# SEO optimization
+Sitemap: https://dominiquemendy.com/sitemap.xml
