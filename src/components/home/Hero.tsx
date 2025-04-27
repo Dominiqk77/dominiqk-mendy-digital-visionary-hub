@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from 'lucide-react';
@@ -142,14 +141,14 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-r from-gray-900 to-black">
+    <div className="relative h-[85vh] flex items-center overflow-hidden bg-gradient-to-r from-gray-900 to-black">
       {/* Particles background */}
       <div id="particles-js" className="absolute inset-0 z-0"></div>
       
       {/* Senegal flag stripe overlay with low opacity */}
       <div className="absolute inset-0 z-0 opacity-10 senegal-flag-gradient"></div>
       
-      <div className="container mx-auto px-4 pt-24 md:pt-32 z-10 relative">
+      <div className="container mx-auto px-4 py-12 z-10 relative">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0 animate-slide-in-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
