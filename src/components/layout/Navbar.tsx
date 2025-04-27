@@ -107,7 +107,7 @@ const Navbar = () => {
                     <NavigationMenuItem key={item.name}>
                       {item.dropdown ? (
                         <>
-                          <NavigationMenuTrigger className="animate-gradient-slow">
+                          <NavigationMenuTrigger className="animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white">
                             {item.name}
                           </NavigationMenuTrigger>
                           <NavigationMenuContent>
@@ -135,7 +135,7 @@ const Navbar = () => {
                             to={item.href} 
                             className={cn(
                               navigationMenuTriggerStyle(),
-                              "animate-gradient-slow px-4 py-2"
+                              "animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white px-4 py-2"
                             )}
                           >
                             {item.name}
@@ -145,7 +145,7 @@ const Navbar = () => {
                     </NavigationMenuItem>
                   ))}
                   <NavigationMenuItem>
-                    <Button className="bg-transparent animate-gradient-slow border border-white hover:bg-white/10 hover:text-white transition-colors ml-2">
+                    <Button className="animate-gradient-slow bg-transparent border border-white hover:bg-white/10 hover:text-white transition-colors ml-2">
                       Démarrer un projet
                     </Button>
                   </NavigationMenuItem>
@@ -213,7 +213,7 @@ const Navbar = () => {
                 </div>
               ))}
               <div className="pt-2">
-                <Button className="w-full bg-transparent text-foreground border border-gray-300 hover:bg-gray-100 transition-colors animate-gradient-slow">
+                <Button className="w-full animate-gradient-slow bg-transparent text-foreground border border-gray-300 hover:bg-gray-100 transition-colors">
                   Démarrer un projet
                 </Button>
               </div>
