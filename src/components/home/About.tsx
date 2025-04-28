@@ -8,7 +8,7 @@ const About = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">À Propos</h2>
           <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
           <p className="text-lg text-muted-foreground">
-            Expert Digital Africain | Consultant en Innovation Technologique & Intelligence Artificielle
+            Expert Digital Africain | Plus de 15 ans d'Expertise en Innovation Technologique & Intelligence Artificielle
           </p>
         </div>
 
@@ -19,14 +19,14 @@ const About = () => {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary opacity-20 rounded-full blur-2xl"></div>
                 <div className="absolute bottom-0 left-0 w-40 h-40 bg-secondary opacity-20 rounded-full blur-3xl"></div>
                 
-                <h3 className="text-2xl font-bold text-white mb-4">Pionnier de l'Innovation Numérique en Afrique</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">Expert Référent de l'Innovation Numérique en Afrique</h3>
                 
                 <p className="text-gray-300 mb-6">
-                  Expert de premier plan dans la transformation digitale en Afrique, je combine expertise technique et vision stratégique pour propulser les entreprises vers l'excellence numérique. Avec plus de 10 ans d'expérience, j'ai accompagné avec succès plus de 200 entreprises dans leur transformation digitale, générant en moyenne +250K€ de ROI pour mes clients.
+                  Leader visionnaire dans la transformation digitale en Afrique avec plus de 15 années d'expertise multidisciplinaire, j'allie expertise technique, vision stratégique et expérience entrepreneuriale pour propulser les entreprises vers l'excellence numérique. Mon parcours diversifié m'a permis d'accompagner avec succès plus de 200 entreprises dans leur transformation digitale, générant en moyenne +250K€ de ROI pour mes clients.
                 </p>
                 
                 <p className="text-gray-300">
-                  Spécialisé en Intelligence Artificielle, développement web avancé et marketing digital, je suis reconnu pour ma capacité à créer des solutions innovantes qui répondent aux défis uniques du marché Africain. Mon approche associe technologie de pointe et stratégie business pour des résultats mesurables et durables.
+                  Expert chevronné en Intelligence Artificielle, développement web avancé et marketing digital, je suis reconnu pour ma capacité à créer des solutions innovantes qui répondent aux défis complexes du marché Africain. Mon approche holistique, fruit de 15 années d'expérience technique et commerciale, associe technologies de pointe et stratégies business pour des résultats mesurables et durables.
                 </p>
                 
                 <div className="mt-8 grid grid-cols-2 gap-4">
@@ -133,7 +133,7 @@ const About = () => {
               <div className="bg-background p-6 rounded-lg">
                 <h3 className="text-xl font-bold mb-4">Impact & Vision</h3>
                 <p className="text-muted-foreground">
-                  Leader reconnu de la transformation digitale en Afrique, je m'engage à développer l'écosystème numérique du continent. Ma mission : démocratiser l'accès aux technologies avancées, former la nouvelle génération de talents Africains et propulser l'innovation technologique Made in Africa sur la scène internationale. Chaque projet est une opportunité de créer un impact durable et de contribuer à l'émergence digitale de l'Afrique.
+                  Fort de plus de 15 années d'expérience, je me positionne comme un leader incontournable de la transformation digitale en Afrique. Ma mission : démocratiser l'accès aux technologies avancées, former la nouvelle génération de talents Africains et propulser l'innovation technologique Made in Africa sur la scène internationale. Ma vaste expérience multidisciplinaire me permet d'apporter une vision unique et des solutions innovantes à chaque projet, créant ainsi un impact durable pour l'émergence digitale de l'Afrique.
                 </p>
               </div>
             </div>
