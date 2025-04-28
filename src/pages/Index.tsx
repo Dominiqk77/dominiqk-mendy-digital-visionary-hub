@@ -21,14 +21,24 @@ const Index = () => {
 
   useEffect(() => {
     // Set page title for SEO
-    document.title = 'Dominique Mendy | Expert en Innovation Numérique & IA | Consultant Digital Sénégalais';
+    document.title = 'Dominiqk Mendy | Expert N°1 en Innovation Numérique & IA | Consultant Digital Sénégalais';
     
     // Set meta description for SEO
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', 
-        'Dominique Mendy, expert Sénégalais en innovation numérique, IA, développement web et marketing digital. ' +
+        'Dominiqk Mendy, premier expert Sénégalais en innovation numérique, IA, développement web et marketing digital. ' +
         'Consultant stratégique pour entreprises Africaines en transformation digitale et e-gouvernance.'
+      );
+    }
+    
+    // Set keywords for SEO
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+      metaKeywords.setAttribute('content', 
+        'Dominiqk Mendy, Expert Numérique Sénégal, IA Afrique, Transformation Digitale Sénégal, ' +
+        'Innovation Numérique Afrique, Consultant Digital Dakar, Solutions IA Afrique, ' +
+        'Expert Tech Sénégalais, Digital Innovation Sénégal, Premier Consultant IA Afrique'
       );
     }
     
