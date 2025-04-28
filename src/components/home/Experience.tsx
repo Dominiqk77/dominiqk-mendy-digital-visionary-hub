@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ExternalLink } from 'lucide-react';
@@ -39,6 +38,19 @@ const Experience = () => {
         "Direction d'une équipe internationale de 20+ experts en développement, IA et stratégie digitale",
         "Pilotage de plus de 250 projets d'envergure dans 15+ pays",
         "Pionnier dans l'intégration de l'IA et des technologies émergentes pour l'innovation business"
+      ]
+    },
+    {
+      company: "RIAD MABROUK & LUXURY HOSPITALITY",
+      position: "Directeur des Opérations & Innovation Digitale",
+      period: "2015 - 2018",
+      description: "Direction des opérations et transformation digitale pour un portefeuille d'établissements hôteliers de luxe �� Marrakech, incluant le prestigieux Riad Mabrouk et plusieurs propriétés partenaires.",
+      locations: ["Marrakech, Maroc"],
+      achievements: [
+        "Augmentation de 60% du taux d'occupation grâce à l'implémentation de stratégies digitales innovantes",
+        "Mise en place d'un système de gestion hôtelière intégré optimisant l'expérience client",
+        "Développement de partenariats stratégiques avec des plateformes de réservation premium",
+        "Formation et supervision d'une équipe de 50+ collaborateurs aux standards internationaux de l'hôtellerie de luxe"
       ]
     },
     {
