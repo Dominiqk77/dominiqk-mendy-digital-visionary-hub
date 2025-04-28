@@ -1,40 +1,22 @@
+
 import React, { useState, useEffect } from 'react';
-import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Card, CardContent } from "@/components/ui/card";
-import { Diamond, Code, LineChart, Brain } from "lucide-react";
 
 const Skills = () => {
   const [selectedTab, setSelectedTab] = useState("tech");
   const isMobile = useIsMobile();
   
   const techSkills = [
-    { 
-      name: "Développement Web Full Stack", 
-      level: 95,
-      description: "Expert en React, Node.js, et architectures cloud modernes",
-      icon: <Code className="w-6 h-6 text-primary" />
-    },
-    { 
-      name: "Intelligence Artificielle", 
-      level: 95,
-      description: "Spécialiste en ML, Deep Learning et IA générative",
-      icon: <Brain className="w-6 h-6 text-primary" />
-    },
-    { 
-      name: "Innovation Digitale", 
-      level: 97,
-      description: "Pionnier dans l'adoption des nouvelles technologies",
-      icon: <Diamond className="w-6 h-6 text-primary" />
-    },
-    { 
-      name: "Analyse de Performance", 
-      level: 94,
-      description: "Expert en optimisation et analyse de données",
-      icon: <LineChart className="w-6 h-6 text-primary" />
-    }
+    { name: "Développement Web Full Stack", level: 95 },
+    { name: "Développement Mobile", level: 90 },
+    { name: "Intelligence Artificielle", level: 95 },
+    { name: "Base de données", level: 92 },
+    { name: "Cloud Computing", level: 88 },
+    { name: "DevOps", level: 85 },
+    { name: "Cybersécurité", level: 85 },
+    { name: "Blockchain & Web 3.0", level: 90 },
   ];
   
   const marketingSkills = [
@@ -59,10 +41,34 @@ const Skills = () => {
     { name: "Innovation", level: 97 },
   ];
 
+  const technologies = [
+    { name: "React", icon: "/icons/react.svg" },
+    { name: "Node.js", icon: "/icons/nodejs.svg" },
+    { name: "Python", icon: "/icons/python.svg" },
+    { name: "TensorFlow", icon: "/icons/tensorflow.svg" },
+    { name: "AWS", icon: "/icons/aws.svg" },
+    { name: "Docker", icon: "/icons/docker.svg" },
+    { name: "MongoDB", icon: "/icons/mongodb.svg" },
+    { name: "PostgreSQL", icon: "/icons/postgresql.svg" },
+    { name: "Firebase", icon: "/icons/firebase.svg" },
+    { name: "Flutter", icon: "/icons/flutter.svg" },
+    { name: "Vue.js", icon: "/icons/vue.svg" },
+    { name: "Angular", icon: "/icons/angular.svg" },
+    { name: "PHP", icon: "/icons/php.svg" },
+    { name: "WordPress", icon: "/icons/wordpress.svg" },
+    { name: "Redux", icon: "/icons/redux.svg" },
+    { name: "GraphQL", icon: "/icons/graphql.svg" },
+    { name: "Figma", icon: "/icons/figma.svg" },
+    { name: "Canva", icon: "/icons/canva.svg" },
+    { name: "Tailwind CSS", icon: "/icons/tailwind.svg" },
+    { name: "Next.js", icon: "/icons/nextjs.svg" },
+  ];
+
   const handleTabChange = (value: string) => {
     setSelectedTab(value);
   };
 
+  // Scroll tabs into view when selected on mobile
   useEffect(() => {
     if (isMobile) {
       const tabElement = document.querySelector(`[data-state="active"][data-value="${selectedTab}"]`);
@@ -73,36 +79,34 @@ const Skills = () => {
   }, [selectedTab, isMobile]);
 
   return (
-    <section className="py-20 bg-background relative overflow-hidden" id="skills">
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
-      
-      <div className="container mx-auto px-4 relative">
+    <section className="py-20 bg-background" id="skills">
+      <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Expertises Clés</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Compétences & Expertises</h2>
           <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
           <p className="text-lg text-muted-foreground">
-            Des compétences de pointe au service de l'innovation numérique
+            Un éventail complet de compétences techniques et stratégiques pour répondre à tous vos besoins numériques
           </p>
         </div>
         
         <Tabs defaultValue="tech" value={selectedTab} onValueChange={handleTabChange} className="w-full max-w-4xl mx-auto">
-          <div className="flex justify-center mb-12">
+          <div className="flex justify-center mb-8">
             <TabsList className="bg-muted/50 w-full md:w-auto overflow-x-auto no-scrollbar p-1 rounded-lg">
               <TabsTrigger 
                 value="tech" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-6 py-3 flex-1 md:flex-none whitespace-nowrap text-base"
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
               >
-                Expertise Technique
+                Compétences Techniques
               </TabsTrigger>
               <TabsTrigger 
                 value="marketing" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-6 py-3 flex-1 md:flex-none whitespace-nowrap text-base"
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
               >
                 Marketing Digital
               </TabsTrigger>
               <TabsTrigger 
                 value="soft" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-6 py-3 flex-1 md:flex-none whitespace-nowrap text-base"
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
               >
                 Soft Skills
               </TabsTrigger>
@@ -110,85 +114,43 @@ const Skills = () => {
           </div>
           
           <TabsContent value="tech" className="animate-fade-in">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {techSkills.map((skill, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Card className="h-full hover:shadow-lg transition-all duration-300 bg-card/50 backdrop-blur border-primary/10">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-4 mb-4">
-                        {skill.icon}
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-lg mb-1">{skill.name}</h3>
-                          <p className="text-sm text-muted-foreground">{skill.description}</p>
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium">Niveau d'expertise</span>
-                          <span className="text-sm font-semibold">{skill.level}%</span>
-                        </div>
-                        <Progress value={skill.level} className="h-2" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-medium">{skill.name}</h3>
+                    <span className="text-sm font-semibold">{skill.level}%</span>
+                  </div>
+                  <Progress value={skill.level} className="h-2" />
+                </div>
               ))}
             </div>
           </TabsContent>
           
           <TabsContent value="marketing" className="animate-fade-in">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {marketingSkills.map((skill, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Card className="h-full hover:shadow-lg transition-all duration-300 bg-card/50 backdrop-blur border-primary/10">
-                    <CardContent className="p-6">
-                      <div className="space-y-2">
-                        <h3 className="font-semibold text-lg mb-4">{skill.name}</h3>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium">Niveau d'expertise</span>
-                          <span className="text-sm font-semibold">{skill.level}%</span>
-                        </div>
-                        <Progress value={skill.level} className="h-2" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-medium">{skill.name}</h3>
+                    <span className="text-sm font-semibold">{skill.level}%</span>
+                  </div>
+                  <Progress value={skill.level} className="h-2" />
+                </div>
               ))}
             </div>
           </TabsContent>
           
           <TabsContent value="soft" className="animate-fade-in">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {softSkills.map((skill, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Card className="h-full hover:shadow-lg transition-all duration-300 bg-card/50 backdrop-blur border-primary/10">
-                    <CardContent className="p-6">
-                      <div className="space-y-2">
-                        <h3 className="font-semibold text-lg mb-4">{skill.name}</h3>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium">Niveau d'expertise</span>
-                          <span className="text-sm font-semibold">{skill.level}%</span>
-                        </div>
-                        <Progress value={skill.level} className="h-2" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-medium">{skill.name}</h3>
+                    <span className="text-sm font-semibold">{skill.level}%</span>
+                  </div>
+                  <Progress value={skill.level} className="h-2" />
+                </div>
               ))}
             </div>
           </TabsContent>
