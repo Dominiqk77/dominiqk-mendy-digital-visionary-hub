@@ -166,8 +166,11 @@ const Hero = () => {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary text-white hover:bg-primary/10 bg-transparent">
-                <Link to="/services" className="text-white">Découvrir mes services</Link>
+              <Button size="lg" variant="transparent" className="w-full sm:w-auto">
+                <Link to="/services" className="flex items-center justify-center">
+                  Explorez les services
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </div>
