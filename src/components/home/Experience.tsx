@@ -41,6 +41,19 @@ const Experience = () => {
       ]
     },
     {
+      company: "MEDINA LOFT & SPA",
+      position: "Chef de Projet Digital & Senior Developer",
+      period: "2016 - 2018",
+      description: "Gestion complète de la stratégie digitale et développement technique pour Medina Loft & Spa, établissement hôtelier de luxe à Marrakech. Direction des projets de transformation numérique et gestion de la présence en ligne de l'établissement.",
+      locations: ["Marrakech, Maroc"],
+      achievements: [
+        "Développement et déploiement du système de réservation en ligne augmentant les réservations directes de 85%",
+        "Gestion de la présence sur les réseaux sociaux avec une croissance de 200% de l'engagement",
+        "Implémentation d'une stratégie SEO/SEA multipliant par 3 la visibilité en ligne",
+        "Création et maintenance d'une application mobile de conciergerie personnalisée"
+      ]
+    },
+    {
       company: "RIAD MABROUK & LUXURY HOSPITALITY",
       position: "Directeur des Opérations & Innovation Digitale",
       period: "2015 - 2018",
