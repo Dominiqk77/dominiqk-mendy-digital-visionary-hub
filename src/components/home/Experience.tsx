@@ -10,6 +10,7 @@ interface ExperienceItem {
   description: string;
   achievements: string[];
   website?: string;
+  locations?: string[];
 }
 
 const Experience = () => {
@@ -28,15 +29,16 @@ const Experience = () => {
       ]
     },
     {
-      company: "MILLENNIUM WEB INVEST",
-      position: "Fondateur & Directeur de la Stratégie Digitale",
+      company: "MILLENNIUM CAPITAL INVEST",
+      position: "Fondateur & Directeur de l'Innovation Digitale",
       period: "2015 - PRÉSENT",
-      description: "Direction stratégique d'une agence numérique innovante spécialisée dans la transformation digitale et le développement de solutions technologiques avancées.",
+      description: "Direction stratégique d'une entreprise internationale spécialisée dans la transformation digitale et l'innovation technologique, avec des bureaux prestigieux à Londres (Covent Garden) et Marrakech.",
+      locations: ["Londres - Covent Garden", "Marrakech"],
       achievements: [
-        "Élaboration et mise en œuvre de stratégies de transformation digitale générant une croissance moyenne de 40% pour nos clients",
-        "Direction d'une équipe pluridisciplinaire de 15+ experts en développement, marketing et IA",
-        "Développement d'un portfolio de plus de 200 projets réussis dans le digital",
-        "Innovation continue dans l'intégration des technologies émergentes et de l'IA"
+        "Leadership dans la transformation digitale générant une croissance moyenne de 45% du ROI pour notre portefeuille clients",
+        "Direction d'une équipe internationale de 20+ experts en développement, IA et stratégie digitale",
+        "Pilotage de plus de 250 projets d'envergure dans 15+ pays",
+        "Pionnier dans l'intégration de l'IA et des technologies émergentes pour l'innovation business"
       ]
     }
   ];
@@ -52,7 +54,7 @@ const Experience = () => {
           </h2>
           <div className="h-1 w-24 bg-gradient-to-r from-primary via-secondary to-accent mx-auto mb-6"></div>
           <p className="text-lg text-muted-foreground">
-            Un parcours professionnel marqué par l'innovation technologique et l'excellence opérationnelle
+            Un parcours international d'expert marqué par l'innovation technologique et le leadership digital
           </p>
         </div>
 
@@ -61,12 +63,12 @@ const Experience = () => {
             <Card key={index} className="transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl border-gradient border-gradient-light overflow-hidden h-full">
               <CardHeader className="bg-gradient-to-r from-primary/5 via-secondary/5 to-transparent border-b">
                 <CardTitle>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                        {exp.position}
-                      </div>
-                      <div className="text-sm font-normal text-muted-foreground flex items-center gap-2">
+                  <div className="flex flex-col space-y-2">
+                    <div className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                      {exp.position}
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm font-semibold text-muted-foreground flex items-center gap-2">
                         {exp.company}
                         {exp.website && (
                           <a 
@@ -80,6 +82,15 @@ const Experience = () => {
                         )}
                       </div>
                     </div>
+                    {exp.locations && (
+                      <div className="flex flex-wrap gap-2">
+                        {exp.locations.map((location, idx) => (
+                          <span key={idx} className="text-xs font-medium px-2 py-1 bg-secondary/10 text-secondary rounded-full">
+                            {location}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </CardTitle>
               </CardHeader>
@@ -89,7 +100,7 @@ const Experience = () => {
                     {exp.period}
                   </span>
                 </div>
-                <p className="mb-4 text-muted-foreground leading-relaxed">{exp.description}</p>
+                <p className="mb-6 text-muted-foreground leading-relaxed">{exp.description}</p>
                 <ul className="space-y-3">
                   {exp.achievements.map((achievement, idx) => (
                     <li key={idx} className="flex items-start group">
@@ -108,3 +119,4 @@ const Experience = () => {
 };
 
 export default Experience;
+
