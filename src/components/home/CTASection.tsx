@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
@@ -28,20 +29,22 @@ const CTASection = () => {
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                   <Button 
                     size="lg" 
-                    className="bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                    asChild
+                    className="bg-primary hover:bg-primary/90 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    <Link to="/contact" className="flex items-center">
-                      Démarrer un projet
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                    <Link to="/contact" className="flex items-center gap-2">
+                      <span>Démarrer un projet</span>
+                      <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                   <Button 
                     size="lg" 
+                    asChild
                     variant="outline" 
-                    className="border-2 border-white/80 bg-black/20 hover:bg-white/20 text-white backdrop-blur-sm transition-all duration-300"
+                    className="border-2 border-white/80 bg-black/20 hover:bg-white/20 text-white font-semibold backdrop-blur-sm transition-all duration-300"
                   >
-                    <Link to="/services" className="animate-gradient-text">
-                      Explorer les services
+                    <Link to="/services">
+                      <span>Explorer les services</span>
                     </Link>
                   </Button>
                 </div>
@@ -80,3 +83,4 @@ const CTASection = () => {
 };
 
 export default CTASection;
+
