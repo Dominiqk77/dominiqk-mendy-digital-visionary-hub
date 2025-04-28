@@ -142,7 +142,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative h-auto min-h-[500px] sm:min-h-[420px] flex items-center overflow-hidden bg-gradient-to-r from-gray-900 to-black pt-16 pb-8 sm:pt-8 sm:pb-0">
+    <div className="relative h-auto min-h-[650px] sm:min-h-[600px] flex items-center overflow-hidden bg-gradient-to-r from-gray-900 to-black pt-16 pb-8 sm:pt-8 sm:pb-0">
       <div id="particles-js" className="absolute inset-0 z-0"></div>
       
       <div className="absolute inset-0 z-0 opacity-10 senegal-flag-gradient"></div>
