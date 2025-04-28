@@ -483,11 +483,13 @@ const ServicesPage = () => {
                   <Button 
                     key={key} 
                     variant={selectedCategory === key ? "default" : "outline"} 
-                    className={selectedCategory === key ? "bg-primary text-white" : "text-white border-gray-600 hover:bg-gray-800/40"}
+                    className={selectedCategory === key 
+                      ? "bg-primary text-white font-medium" 
+                      : "text-white border-gray-600 hover:bg-gray-800/40 font-medium"}
                     onClick={() => setSelectedCategory(key as keyof typeof allServices)}
                   >
                     <span className="mr-2">{category.icon}</span>
-                    {category.title}
+                    <span>{category.title}</span>
                   </Button>
                 ))}
               </div>
@@ -528,9 +530,13 @@ const ServicesPage = () => {
                       <p className="text-sm font-medium text-primary">{service.price}</p>
                     </CardContent>
                     <CardFooter>
-                      <Button variant="ghost" className="p-0 hover:bg-transparent hover:text-primary group w-full">
+                      <Button 
+                        variant="ghost" 
+                        className="p-0 hover:bg-transparent hover:text-primary group w-full"
+                        asChild
+                      >
                         <Link to={service.link} className="flex items-center justify-between w-full">
-                          <span>En savoir plus</span>
+                          <span className="text-foreground font-medium">En savoir plus</span>
                           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </Link>
                       </Button>
@@ -562,10 +568,14 @@ const ServicesPage = () => {
                     Chaque entreprise et chaque projet est unique. Contactez-moi pour discuter de vos besoins spécifiques et obtenir une proposition adaptée à votre contexte.
                   </p>
                   
-                  <Button size="lg" className="bg-gradient-primary hover:opacity-90 transition-opacity">
-                    <Link to="/contact" className="flex items-center">
-                      Demander un devis gratuit
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-primary hover:opacity-90 transition-opacity font-medium text-white"
+                    asChild
+                  >
+                    <Link to="/contact" className="flex items-center gap-2">
+                      <span>Demander un devis gratuit</span>
+                      <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                 </div>
@@ -631,8 +641,14 @@ const ServicesPage = () => {
               </div>
               
               <div className="mt-12 text-center">
-                <Button variant="outline">
-                  <Link to="/contact">Une autre question ? Contactez-moi</Link>
+                <Button 
+                  variant="outline"
+                  className="font-medium"
+                  asChild
+                >
+                  <Link to="/contact" className="flex items-center gap-2">
+                    <span>Une autre question ? Contactez-moi</span>
+                  </Link>
                 </Button>
               </div>
             </div>
