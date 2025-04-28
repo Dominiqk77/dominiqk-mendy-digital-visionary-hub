@@ -242,19 +242,39 @@ const Services = () => {
         <Tabs defaultValue="featured" value={selectedCategory} onValueChange={handleCategoryChange} className="w-full mb-12">
           <div className="flex justify-center mb-8 overflow-x-auto pb-2">
             <TabsList className="bg-muted/50 flex-nowrap">
-              <TabsTrigger value="featured" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
+              <TabsTrigger 
+                value="featured" 
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4"
+                onClick={() => handleCategoryChange("featured")}
+              >
                 Services Phares
               </TabsTrigger>
-              <TabsTrigger value="ai" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
+              <TabsTrigger 
+                value="ai" 
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4"
+                onClick={() => handleCategoryChange("ai")}
+              >
                 Intelligence Artificielle
               </TabsTrigger>
-              <TabsTrigger value="web" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
+              <TabsTrigger 
+                value="web" 
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4"
+                onClick={() => handleCategoryChange("web")}
+              >
                 Web & Mobile
               </TabsTrigger>
-              <TabsTrigger value="marketing" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
+              <TabsTrigger 
+                value="marketing" 
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4"
+                onClick={() => handleCategoryChange("marketing")}
+              >
                 Marketing Digital
               </TabsTrigger>
-              <TabsTrigger value="consulting" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
+              <TabsTrigger 
+                value="consulting" 
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4"
+                onClick={() => handleCategoryChange("consulting")}
+              >
                 Consulting
               </TabsTrigger>
             </TabsList>

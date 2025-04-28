@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
@@ -20,6 +20,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const isMobile = useIsMobile();
+  const location = useLocation();
 
   const toggleDropdown = (name: string) => {
     if (activeDropdown === name) {
@@ -30,8 +31,18 @@ const Navbar = () => {
   };
 
   // Create smooth scroll function for section links
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = (sectionId: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
     setIsOpen(false); // Close mobile menu
+    
+    // First check if we're on the homepage
+    if (location.pathname !== '/') {
+      // If not on homepage, navigate to homepage with hash
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
     
     const section = document.getElementById(sectionId);
     if (section) {
@@ -44,7 +55,7 @@ const Navbar = () => {
     {
       name: 'Services',
       href: '/#services',
-      action: () => scrollToSection('services'),
+      action: (e: React.MouseEvent) => scrollToSection('services', e),
       dropdown: true,
       children: [
         { name: 'Développement Web', href: '/services/web-development' },
@@ -54,7 +65,7 @@ const Navbar = () => {
         { name: 'Consulting', href: '/services/consulting' },
       ]
     },
-    { name: 'Expertise', href: '/#skills', action: () => scrollToSection('skills') },
+    { name: 'Expertise', href: '/#skills', action: (e: React.MouseEvent) => scrollToSection('skills', e) },
     { name: 'Portfolio', href: '/portfolio' },
     { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
@@ -145,12 +156,7 @@ const Navbar = () => {
                           {item.action ? (
                             <a 
                               href={item.href}
-                              onClick={(e) => { 
-                                if (item.href.startsWith('/#')) {
-                                  e.preventDefault();
-                                  item.action && item.action();
-                                }
-                              }}
+                              onClick={item.action}
                               className={cn(
                                 navigationMenuTriggerStyle(),
                                 "animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white px-4 py-2"
@@ -237,7 +243,7 @@ const Navbar = () => {
                         onClick={(e) => {
                           if (item.href.startsWith('/#')) {
                             e.preventDefault();
-                            item.action && item.action();
+                            item.action && item.action(e);
                           } else {
                             setIsOpen(false);
                           }

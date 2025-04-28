@@ -80,13 +80,13 @@ const Skills = () => {
         <Tabs defaultValue="tech" value={selectedTab} onValueChange={handleTabChange} className="w-full max-w-4xl mx-auto">
           <div className="flex justify-center mb-8 overflow-x-auto pb-2">
             <TabsList className="bg-muted/50 flex-nowrap">
-              <TabsTrigger value="tech" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
+              <TabsTrigger value="tech" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4" onClick={() => handleTabChange("tech")}>
                 Compétences Techniques
               </TabsTrigger>
-              <TabsTrigger value="marketing" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
+              <TabsTrigger value="marketing" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4" onClick={() => handleTabChange("marketing")}>
                 Marketing Digital
               </TabsTrigger>
-              <TabsTrigger value="soft" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4">
+              <TabsTrigger value="soft" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4" onClick={() => handleTabChange("soft")}>
                 Soft Skills
               </TabsTrigger>
             </TabsList>
