@@ -71,9 +71,9 @@ const Skills = () => {
   // Scroll tabs into view when selected on mobile
   useEffect(() => {
     if (isMobile) {
-      const selectedTab = document.querySelector(`[data-state="active"][data-value="${selectedTab}"]`);
-      if (selectedTab) {
-        selectedTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      const tabElement = document.querySelector(`[data-state="active"][data-value="${selectedTab}"]`);
+      if (tabElement) {
+        tabElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
     }
   }, [selectedTab, isMobile]);
