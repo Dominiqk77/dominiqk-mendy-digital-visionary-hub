@@ -28,24 +28,12 @@ const About = () => {
                 <p className="text-gray-300">
                   Expert chevronné en Intelligence Artificielle, développement web avancé et marketing digital, je suis reconnu pour ma capacité à créer des solutions innovantes qui répondent aux défis complexes du marché Africain. Mon approche holistique, fruit de 15 années d'expérience technique et commerciale, associe technologies de pointe et stratégies business pour des résultats mesurables et durables.
                 </p>
-                
-                <div className="mt-8 grid grid-cols-2 gap-4">
-                  <div className="border border-gray-700 rounded-lg p-4 bg-black/50 backdrop-blur-sm">
-                    <h4 className="text-secondary font-semibold mb-1">Né le</h4>
-                    <p className="text-white">16 Novembre 1987</p>
-                  </div>
-                  <div className="border border-gray-700 rounded-lg p-4 bg-black/50 backdrop-blur-sm">
-                    <h4 className="text-secondary font-semibold mb-1">Origine</h4>
-                    <p className="text-white">Dakar, Sénégal</p>
-                  </div>
-                  <div className="border border-gray-700 rounded-lg p-4 bg-black/50 backdrop-blur-sm">
-                    <h4 className="text-secondary font-semibold mb-1">Résidence</h4>
-                    <p className="text-white">Marrakech, Maroc</p>
-                  </div>
-                  <div className="border border-gray-700 rounded-lg p-4 bg-black/50 backdrop-blur-sm">
-                    <h4 className="text-secondary font-semibold mb-1">Langues</h4>
-                    <p className="text-white">Français, Anglais, Espagnol</p>
-                  </div>
+
+                <div className="mt-8 p-6 border border-gray-700 rounded-lg bg-black/50 backdrop-blur-sm">
+                  <h4 className="text-secondary font-semibold mb-4">Mon Parcours Académique</h4>
+                  <p className="text-gray-300">
+                    Né dans les années 80 à Dakar, au cœur du Sénégal, mon parcours académique d'excellence a débuté dans les institutions les plus prestigieuses du pays. Du Collège de la Cathédrale au Collège Sacré-Cœur de Dakar, en passant par le Collège Saint Michel, j'ai forgé mes bases académiques dans un environnement d'excellence et de rigueur. Ce parcours exceptionnel dans les meilleures écoles sénégalaises m'a doté d'une formation pluridisciplinaire solide, me permettant de développer non seulement des compétences techniques pointues, mais aussi une vision globale et stratégique du monde numérique. Cette formation d'élite, combinée à mon esprit d'innovation et mon engagement pour l'excellence, a posé les fondations de ma carrière d'expert digital et de leader visionnaire dans la transformation numérique en Afrique.
+                  </p>
                 </div>
               </div>
             </div>
