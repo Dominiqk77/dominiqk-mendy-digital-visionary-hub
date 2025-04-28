@@ -49,6 +49,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
+        onContextMenu={(e) => {
+          // Désactive le menu contextuel (clic droit)
+          e.preventDefault();
+          if (props.onContextMenu) {
+            props.onContextMenu(e);
+          }
+        }}
       >
         {typeof children === 'string' ? <span>{children}</span> : children}
       </Comp>

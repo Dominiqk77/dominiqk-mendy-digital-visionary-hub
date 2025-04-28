@@ -38,6 +38,18 @@ Allow: /
 # Consultant International en Technologies
 # Intelligence Artificielle Afrique - Numérique Sénégal
 
+# Disable WGET and similar tools
+User-agent: Wget
+Disallow: /
+
+User-agent: wget
+Disallow: /
+
+User-agent: curl
+Disallow: /
+
+User-agent: archive.org_bot
+Disallow: /
+
 # Sitemap for search engines
 Sitemap: https://dominiqkmendy.com/sitemap.xml
-
