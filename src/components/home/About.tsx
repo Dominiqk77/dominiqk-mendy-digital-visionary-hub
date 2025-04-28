@@ -32,7 +32,7 @@ const About = () => {
                 <div className="mt-8 p-6 border border-gray-700 rounded-lg bg-black/50 backdrop-blur-sm">
                   <h4 className="text-secondary font-semibold mb-4">Mon Parcours Académique</h4>
                   <p className="text-gray-300">
-                    Mon parcours académique a débuté à Dakar, au Sénégal, où j'ai eu le privilège d'étudier dans des établissements reconnus pour leur excellence académique. Ma formation au Collège de la Cathédrale, au Collège Sacré-Cœur et au Collège Saint Michel de Dakar m'a permis d'acquérir des bases solides et une rigueur intellectuelle exemplaire. Cette éducation de qualité a façonné ma vision et ma méthode de travail, me dotant des compétences nécessaires pour devenir un Créateur et acteur engagé de la transformation numérique au Sénégal et partout en Afrique.
+                    Dès mon plus jeune âge, j'ai cultivé une passion innée pour la création, transformant chaque idée en une opportunité d'innovation, chaque rêve en un projet tangible. Mon parcours académique a débuté à Dakar, au Sénégal, où j'ai eu le privilège d'étudier dans des établissements reconnus pour leur excellence académique. Ma formation au Collège de la Cathédrale, au Collège Sacré-Cœur et au Collège Saint Michel de Dakar m'a permis d'acquérir des bases solides et une rigueur intellectuelle exemplaire. Cette éducation de qualité a façonné ma vision et ma méthode de travail, me dotant des compétences nécessaires pour devenir un Créateur et acteur engagé de la transformation numérique au Sénégal et partout en Afrique.
                   </p>
                 </div>
               </div>
