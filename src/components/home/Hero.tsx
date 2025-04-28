@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from 'lucide-react';
@@ -142,7 +143,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative h-auto min-h-[650px] sm:min-h-[600px] flex items-center overflow-hidden bg-gradient-to-r from-gray-900 to-black pt-16 pb-8 sm:pt-8 sm:pb-0">
+    <div className="relative h-auto min-h-[700px] sm:min-h-[700px] flex items-center overflow-hidden bg-gradient-to-r from-gray-900 to-black pt-16 pb-8 sm:pt-8 sm:pb-0">
       <div id="particles-js" className="absolute inset-0 z-0"></div>
       
       <div className="absolute inset-0 z-0 opacity-10 senegal-flag-gradient"></div>
@@ -186,6 +187,12 @@ const Hero = () => {
                 />
                 <div className="absolute -right-2 -top-2 w-16 h-16 bg-secondary rounded-full flex items-center justify-center z-20 animate-float">
                   <span className="text-black font-bold text-xs text-center p-1">Expert IA</span>
+                </div>
+                <div className="absolute -left-2 -bottom-2 w-20 h-20 bg-accent rounded-full flex items-center justify-center z-20 animate-float" style={{ animationDelay: '1s' }}>
+                  <span className="text-white font-bold text-xs text-center p-1">Digital Marketing</span>
+                </div>
+                <div className="absolute right-0 -bottom-4 w-20 h-20 bg-primary rounded-full flex items-center justify-center z-20 animate-float" style={{ animationDelay: '2s' }}>
+                  <span className="text-white font-bold text-xs text-center p-1">Expert Web</span>
                 </div>
               </div>
             ) : (
