@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const About = () => {
@@ -32,7 +33,7 @@ const About = () => {
                 <div className="mt-8 p-6 border border-gray-700 rounded-lg bg-black/50 backdrop-blur-sm">
                   <h4 className="text-secondary font-semibold mb-4">Mon Parcours Académique</h4>
                   <p className="text-gray-300">
-                    Né dans les années 80 à Dakar, au cœur du Sénégal, mon parcours académique d'excellence a débuté dans les institutions les plus prestigieuses du pays. Du Collège de la Cathédrale au Collège Sacré-Cœur de Dakar, en passant par le Collège Saint Michel, j'ai forgé mes bases académiques dans un environnement d'excellence et de rigueur. Ce parcours exceptionnel dans les meilleures écoles sénégalaises m'a doté d'une formation pluridisciplinaire solide, me permettant de développer non seulement des compétences techniques pointues, mais aussi une vision globale et stratégique du monde numérique. Cette formation d'élite, combinée à mon esprit d'innovation et mon engagement pour l'excellence, a posé les fondations de ma carrière d'expert digital et de leader visionnaire dans la transformation numérique en Afrique.
+                    Mon parcours académique a débuté à Dakar, au Sénégal, où j'ai eu le privilège d'étudier dans des établissements reconnus pour leur excellence académique. Ma formation au Collège de la Cathédrale, au Collège Sacré-Cœur et au Collège Saint Michel de Dakar m'a permis d'acquérir des bases solides et une rigueur intellectuelle exemplaire. Cette éducation de qualité a façonné ma vision et ma méthode de travail, me dotant des compétences nécessaires pour devenir un acteur engagé de la transformation numérique en Afrique.
                   </p>
                 </div>
               </div>
