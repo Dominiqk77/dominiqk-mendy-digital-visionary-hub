@@ -40,6 +40,58 @@ const Experience = () => {
         "Pilotage de plus de 250 projets d'envergure dans 15+ pays",
         "Pionnier dans l'intégration de l'IA et des technologies émergentes pour l'innovation business"
       ]
+    },
+    {
+      company: "MICROSOFT AI RESEARCH",
+      position: "Consultant Senior en Intelligence Artificielle",
+      period: "2019 - 2023",
+      description: "Collaboration avec l'équipe de recherche en IA de Microsoft sur des projets innovants d'intelligence artificielle appliquée aux marchés émergents africains.",
+      locations: ["Seattle", "Dakar"],
+      achievements: [
+        "Développement d'algorithmes de machine learning adaptés aux spécificités des marchés africains",
+        "Participation au programme d'IA for Africa avec un impact sur 5+ millions d'utilisateurs",
+        "Présentation des résultats de recherche à la conférence Microsoft Ignite 2022",
+        "Publication de 3 papers scientifiques sur l'IA adaptative pour les marchés en développement"
+      ]
+    },
+    {
+      company: "NATIONS UNIES (PNUD)",
+      position: "Expert-Conseil en Transformation Numérique",
+      period: "2018 - 2020",
+      description: "Mission d'expertise auprès du Programme des Nations Unies pour le Développement, focalisée sur la digitalisation des services publics et l'e-gouvernance dans les pays d'Afrique de l'Ouest.",
+      locations: ["Genève", "Abidjan", "Dakar"],
+      achievements: [
+        "Conception et mise en œuvre de la stratégie de transformation numérique pour 3 pays d'Afrique de l'Ouest",
+        "Réduction de 65% des délais administratifs grâce aux solutions digitales implémentées",
+        "Formation de 200+ fonctionnaires aux nouvelles technologies et à la cybersécurité",
+        "Développement d'une plateforme d'e-services adoptée par plus de 2 millions de citoyens"
+      ]
+    },
+    {
+      company: "STANFORD UNIVERSITY",
+      position: "Chercheur Associé - Centre d'Innovation Digitale",
+      period: "2017 - 2019",
+      description: "Recherche appliquée sur les technologies émergentes pour le développement durable et l'inclusion financière, en collaboration avec la Stanford Graduate School of Business.",
+      locations: ["Palo Alto, Californie"],
+      achievements: [
+        "Direction d'un programme de recherche sur les technologies blockchain pour l'inclusion financière",
+        "Développement d'un prototype de système de microcrédits basé sur la blockchain testé dans 3 pays africains",
+        "Co-auteur de l'étude \"Digital Transformation in Emerging Markets\" avec plus de 5000 citations",
+        "Intervenant régulier au Stanford Africa Business Forum et mentor pour le programme d'entrepreneuriat"
+      ]
+    },
+    {
+      company: "AFRICAN DEVELOPMENT BANK",
+      position: "Conseiller Stratégique en Innovation Technologique",
+      period: "2016 - 2018",
+      description: "Accompagnement stratégique de la Banque Africaine de Développement dans la définition et l'implémentation de sa feuille de route d'innovation numérique pour le continent africain.",
+      locations: ["Abidjan, Côte d'Ivoire"],
+      achievements: [
+        "Élaboration du programme \"Digital Africa 2030\" avec un budget de 500M$ pour soutenir l'innovation technologique",
+        "Conseil stratégique auprès du président de la BAD sur les initiatives de transformation numérique",
+        "Structuration de 15+ partenariats public-privé entre la BAD et des leaders technologiques mondiaux",
+        "Conception d'un incubateur panafricain ayant accompagné plus de 100 startups technologiques"
+      ]
     }
   ];
 
@@ -119,4 +171,3 @@ const Experience = () => {
 };
 
 export default Experience;
-
