@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -30,20 +29,17 @@ const Navbar = () => {
     }
   };
 
-  // Create smooth scroll function for section links
   const scrollToSection = (sectionId: string, e?: React.MouseEvent) => {
     if (e) {
       e.preventDefault();
     }
-    setIsOpen(false); // Close mobile menu
-    
-    // First check if we're on the homepage
+    setIsOpen(false);
+
     if (location.pathname !== '/') {
-      // If not on homepage, navigate to homepage with hash
       window.location.href = `/#${sectionId}`;
       return;
     }
-    
+
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
@@ -86,7 +82,6 @@ const Navbar = () => {
     };
   }, []);
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -117,7 +112,6 @@ const Navbar = () => {
                 alt="DQ Logo"
                 className="h-16 w-auto sm:h-20 md:h-24 transition-all duration-300"
               />
-              <span className="hidden md:block text-xl font-semibold animate-gradient-slow">Dominique Mendy</span>
             </Link>
           </div>
           
