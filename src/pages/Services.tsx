@@ -403,7 +403,7 @@ const ServicesPage = () => {
               
               <div className="flex flex-wrap justify-center gap-4">
                 {Object.entries(allServices).map(([key, category]) => <Button key={key} variant={selectedCategory === key ? "default" : "outline"} className={selectedCategory === key ? "bg-primary text-white font-medium" : "text-white border-gray-600 hover:bg-gray-800/40 font-medium"} onClick={() => setSelectedCategory(key as keyof typeof allServices)}>
-                    <span className="mr-2">{category.icon}</span>
+                    <span className="mr-2 text-senegal-red">{category.icon}</span>
                     <span className="text-zinc-950">{category.title}</span>
                   </Button>)}
               </div>
