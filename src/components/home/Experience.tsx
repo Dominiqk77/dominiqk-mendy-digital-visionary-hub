@@ -32,7 +32,7 @@ const Experience = () => {
       company: "MILLENNIUM CAPITAL INVEST",
       position: "Fondateur & Directeur de l'Innovation Digitale",
       period: "2015 - PRÉSENT",
-      description: "Direction stratégique d'une entreprise internationale spécialisée dans la transformation digitale et l'innovation technologique, avec des bureaux prestigieux à Londres (Covent Garden) et Marrakech.",
+      description: "Direction stratégique d'une entreprise internationale spécialisée dans la transformation digitale et l'innovation technologique. Siège social à Londres (Covent Garden) avec une présence établie à Marrakech depuis 2015.",
       locations: ["Londres - Covent Garden", "Marrakech"],
       achievements: [
         "Leadership dans la transformation digitale générant une croissance moyenne de 45% du ROI pour notre portefeuille clients",
