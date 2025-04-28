@@ -89,6 +89,16 @@
 }
 
 @layer utilities {
+  /* Masquer la barre de défilement tout en conservant la fonctionnalité de défilement */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
   /* Gradient text */
   .text-gradient {
     @apply bg-gradient-to-r from-green-600 via-yellow-400 to-red-600 bg-clip-text text-transparent;
@@ -234,4 +244,3 @@
 .animate-gradient-pulse-anim {
   animation: gradient-pulse-anim 8s ease infinite;
 }
-

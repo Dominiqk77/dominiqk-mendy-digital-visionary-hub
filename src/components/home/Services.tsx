@@ -1,13 +1,15 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, Code, LineChart, BrainCircuit, Database, Layout, Globe, Rocket, Lightbulb, Palette, FileCode, Monitor, Share2, Blocks, BookOpen, Users, Phone, ShoppingCart, BadgeCheck, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Services = () => {
   const [selectedCategory, setSelectedCategory] = useState("featured");
+  const isMobile = useIsMobile();
 
   // Featured services
   const featuredServices = [
@@ -228,6 +230,16 @@ const Services = () => {
     setSelectedCategory(value);
   };
 
+  // Scroll tabs into view when selected on mobile
+  useEffect(() => {
+    if (isMobile) {
+      const selectedTab = document.querySelector(`[data-state="active"][data-value="${selectedCategory}"]`);
+      if (selectedTab) {
+        selectedTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [selectedCategory, isMobile]);
+
   return (
     <section className="py-20 bg-gray-50" id="services">
       <div className="container mx-auto px-4">
@@ -240,40 +252,35 @@ const Services = () => {
         </div>
 
         <Tabs defaultValue="featured" value={selectedCategory} onValueChange={handleCategoryChange} className="w-full mb-12">
-          <div className="flex justify-center mb-8 overflow-x-auto pb-2">
-            <TabsList className="bg-muted/50 flex-nowrap">
+          <div className="flex justify-center mb-8">
+            <TabsList className="bg-muted/50 flex w-full md:w-auto overflow-x-auto no-scrollbar p-1 rounded-lg">
               <TabsTrigger 
                 value="featured" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4"
-                onClick={() => handleCategoryChange("featured")}
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
               >
                 Services Phares
               </TabsTrigger>
               <TabsTrigger 
                 value="ai" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4"
-                onClick={() => handleCategoryChange("ai")}
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
               >
                 Intelligence Artificielle
               </TabsTrigger>
               <TabsTrigger 
                 value="web" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4"
-                onClick={() => handleCategoryChange("web")}
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
               >
                 Web & Mobile
               </TabsTrigger>
               <TabsTrigger 
                 value="marketing" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4"
-                onClick={() => handleCategoryChange("marketing")}
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
               >
                 Marketing Digital
               </TabsTrigger>
               <TabsTrigger 
                 value="consulting" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4"
-                onClick={() => handleCategoryChange("consulting")}
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
               >
                 Consulting
               </TabsTrigger>
@@ -295,9 +302,9 @@ const Services = () => {
                       <CardDescription className="text-base">{service.description}</CardDescription>
                     </CardContent>
                     <CardFooter>
-                      <Button variant="ghost" className="p-0 hover:bg-transparent hover:text-primary group">
+                      <Button variant="ghost" className="p-0 hover:bg-transparent hover:text-primary group" asChild>
                         <Link to={service.link} className="flex items-center">
-                          En savoir plus
+                          <span>En savoir plus</span>
                           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </Link>
                       </Button>
@@ -311,7 +318,7 @@ const Services = () => {
 
         <div className="mt-12 text-center">
           <p className="text-lg mb-6 text-muted-foreground">Découvrez plus de 100 services personnalisables pour répondre à vos besoins spécifiques</p>
-          <Button size="lg" className="bg-gradient-primary hover:opacity-90">
+          <Button size="lg" className="bg-gradient-primary hover:opacity-90" asChild>
             <Link to="/services">Explorer tous les services</Link>
           </Button>
         </div>

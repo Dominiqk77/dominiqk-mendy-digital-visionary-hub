@@ -1,10 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Skills = () => {
   const [selectedTab, setSelectedTab] = useState("tech");
+  const isMobile = useIsMobile();
   
   const techSkills = [
     { name: "Développement Web Full Stack", level: 95 },
@@ -66,6 +68,16 @@ const Skills = () => {
     setSelectedTab(value);
   };
 
+  // Scroll tabs into view when selected on mobile
+  useEffect(() => {
+    if (isMobile) {
+      const selectedTab = document.querySelector(`[data-state="active"][data-value="${selectedTab}"]`);
+      if (selectedTab) {
+        selectedTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [selectedTab, isMobile]);
+
   return (
     <section className="py-20 bg-background" id="skills">
       <div className="container mx-auto px-4">
@@ -78,15 +90,24 @@ const Skills = () => {
         </div>
         
         <Tabs defaultValue="tech" value={selectedTab} onValueChange={handleTabChange} className="w-full max-w-4xl mx-auto">
-          <div className="flex justify-center mb-8 overflow-x-auto pb-2">
-            <TabsList className="bg-muted/50 flex-nowrap">
-              <TabsTrigger value="tech" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4" onClick={() => handleTabChange("tech")}>
+          <div className="flex justify-center mb-8">
+            <TabsList className="bg-muted/50 w-full md:w-auto overflow-x-auto no-scrollbar p-1 rounded-lg">
+              <TabsTrigger 
+                value="tech" 
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
+              >
                 Compétences Techniques
               </TabsTrigger>
-              <TabsTrigger value="marketing" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4" onClick={() => handleTabChange("marketing")}>
+              <TabsTrigger 
+                value="marketing" 
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
+              >
                 Marketing Digital
               </TabsTrigger>
-              <TabsTrigger value="soft" className="data-[state=active]:bg-primary data-[state=active]:text-white px-4" onClick={() => handleTabChange("soft")}>
+              <TabsTrigger 
+                value="soft" 
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
+              >
                 Soft Skills
               </TabsTrigger>
             </TabsList>
