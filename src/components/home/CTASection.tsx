@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
 const CTASection = () => {
   return <section className="py-20">
       <div className="container mx-auto px-4">
@@ -31,8 +33,8 @@ const CTASection = () => {
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-primary hover:bg-primary/10 text-transparent">
-                    <Link to="/services">Explorer les services</Link>
+                  <Button size="lg" variant="outline" className="border-primary hover:bg-primary/10">
+                    <Link to="/services" className="animate-gradient-text">Explorer les services</Link>
                   </Button>
                 </div>
               </div>
@@ -68,4 +70,5 @@ const CTASection = () => {
       </div>
     </section>;
 };
+
 export default CTASection;
