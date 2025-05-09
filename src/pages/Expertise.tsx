@@ -1,15 +1,97 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
   Check, Award, Bookmark, Zap, 
   BookOpen, Lightbulb, Server, Database, 
-  CircuitBoard, Atom, Star
+  CircuitBoard, Atom, Star, Layers
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+
+// Space particles background component
+const SpaceBackground = () => {
+  const [stars, setStars] = useState<{id: number, x: number, y: number, size: number, opacity: number}[]>([]);
+  
+  useEffect(() => {
+    const generateStars = () => {
+      const newStars = Array.from({ length: 150 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 3 + 0.5,
+        opacity: Math.random() * 0.7 + 0.3
+      }));
+      setStars(newStars);
+    };
+    
+    generateStars();
+    
+    // Regenerate some stars periodically for subtle animation
+    const interval = setInterval(() => {
+      setStars(prev => {
+        const newStars = [...prev];
+        for (let i = 0; i < 10; i++) {
+          const randomIndex = Math.floor(Math.random() * newStars.length);
+          newStars[randomIndex] = {
+            ...newStars[randomIndex],
+            opacity: Math.random() * 0.7 + 0.3
+          };
+        }
+        return newStars;
+      });
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      <div className="absolute inset-0">
+        {stars.map(star => (
+          <motion.div
+            key={star.id}
+            className="absolute rounded-full bg-blue-100"
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              opacity: star.opacity,
+              boxShadow: `0 0 ${star.size * 2}px rgba(147, 197, 253, ${star.opacity})`,
+            }}
+            animate={{
+              opacity: [star.opacity, star.opacity * 1.5, star.opacity],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 3,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut",
+              delay: Math.random() * 5
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Moving nebula component
+const NebulaBg = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      <div className="absolute top-0 left-0 w-full h-full opacity-10">
+        <div className="absolute top-[10%] left-[10%] w-[70%] h-[60%] rounded-full bg-indigo-500/30 blur-[120px] animate-float" style={{ animationDuration: '15s' }}></div>
+        <div className="absolute top-[30%] right-[20%] w-[40%] h-[50%] rounded-full bg-purple-500/20 blur-[100px] animate-float" style={{ animationDuration: '20s', animationDelay: '2s' }}></div>
+        <div className="absolute bottom-[10%] left-[30%] w-[60%] h-[40%] rounded-full bg-blue-500/20 blur-[150px] animate-float" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
+      </div>
+    </div>
+  );
+};
 
 // Technology nodes animation component
 const TechNodes = () => {
@@ -18,7 +100,7 @@ const TechNodes = () => {
   
   // Generate random points
   useEffect(() => {
-    const newPoints = Array.from({ length: 15 }, (_, i) => ({
+    const newPoints = Array.from({ length: 25 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -43,6 +125,7 @@ const TechNodes = () => {
             animate={{
               scale: [1, 1.5, 1],
               opacity: [0.7, 1, 0.7],
+              boxShadow: ['0 0 0px rgba(14, 165, 233, 0)', '0 0 10px rgba(14, 165, 233, 0.5)', '0 0 0px rgba(14, 165, 233, 0)'],
             }}
             transition={{
               duration: 4,
@@ -55,7 +138,7 @@ const TechNodes = () => {
         
         {/* Connect some nodes with lines */}
         <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          {points.slice(0, 10).map((point, i) => {
+          {points.slice(0, 18).map((point, i) => {
             const nextPoint = points[(i + 1) % points.length];
             if (Math.abs(point.x - nextPoint.x) < 30 && Math.abs(point.y - nextPoint.y) < 30) {
               return (
@@ -67,8 +150,8 @@ const TechNodes = () => {
                   y2={`${nextPoint.y}%`}
                   stroke="#0EA5E9"
                   strokeWidth="0.5"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.15 }}
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 0.15 }}
                   transition={{ duration: 2, delay: i * 0.2 }}
                 />
               );
@@ -81,7 +164,57 @@ const TechNodes = () => {
   );
 };
 
+// Futuristic grid component
+const FuturisticGrid = () => {
+  return (
+    <div className="absolute inset-0 tech-grid opacity-10 pointer-events-none"></div>
+  );
+};
+
+// Data flow animation component
+const DataFlowAnimation = () => {
+  return (
+    <div className="absolute inset-0 pointer-events-none z-0">
+      <div className="absolute inset-0 data-grid">
+        {[...Array(10)].map((_, i) => (
+          <div 
+            key={i}
+            className="absolute w-px h-20 bg-gradient-to-b from-portfolio-blue/0 via-portfolio-blue/30 to-portfolio-blue/0"
+            style={{
+              left: `${10 + i * 8}%`,
+              top: '0%',
+              animation: `data-flow ${3 + i * 0.5}s infinite linear`,
+              animationDelay: `${i * 0.7}s`
+            }}
+          />
+        ))}
+        {[...Array(10)].map((_, i) => (
+          <div 
+            key={i}
+            className="absolute w-px h-20 bg-gradient-to-b from-portfolio-purple/0 via-portfolio-purple/20 to-portfolio-purple/0"
+            style={{
+              right: `${15 + i * 9}%`,
+              top: '0%',
+              animation: `data-flow ${4 + i * 0.3}s infinite linear`,
+              animationDelay: `${i * 0.5}s`
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Expertise = () => {
+  // Ref for scroll animations
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5], [0.5, 1]);
+
   useEffect(() => {
     // Set page title for SEO
     document.title = 'Expertise | Dominiqk Mendy | Compétences Numériques & IA';
@@ -222,39 +355,76 @@ const Expertise = () => {
     }
   };
 
+  const heroVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.2
+      } 
+    }
+  };
+
+  const childVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden">
+    <div className="min-h-screen flex flex-col relative overflow-hidden bg-gradient-to-b from-gray-950 via-portfolio-darkblue to-black">
       <Navbar />
+      
+      {/* Background elements */}
+      <SpaceBackground />
+      <NebulaBg />
+      <FuturisticGrid />
       
       <main className="flex-grow pt-20 relative">
         {/* Hero Section */}
-        <section className="bg-portfolio-darkblue py-16 md:py-24 relative overflow-hidden">
-          {/* Tech nodes background animation */}
-          <TechNodes />
+        <section ref={sectionRef} className="py-16 md:py-24 relative overflow-hidden">
+          <DataFlowAnimation />
           
           {/* Grid overlay */}
           <div className="absolute inset-0 grid grid-cols-12 pointer-events-none opacity-5">
             {[...Array(12)].map((_, i) => (
-              <div key={i} className="h-full w-px bg-gradient-to-b from-transparent via-portfolio-blue to-transparent"></div>
+              <div key={i} className="h-full w-px bg-gradient-to-b from-transparent via-portfolio-blue/30 to-transparent"></div>
             ))}
             {[...Array(12)].map((_, i) => (
-              <div key={i} className="absolute h-px w-full bg-gradient-to-r from-transparent via-portfolio-blue to-transparent" style={{ top: `${i * 8.33}%` }}></div>
+              <div key={i} className="absolute h-px w-full bg-gradient-to-r from-transparent via-portfolio-blue/30 to-transparent" style={{ top: `${i * 8.33}%` }}></div>
             ))}
           </div>
           
           {/* Main content */}
           <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
+            <motion.div 
+              className="max-w-3xl mx-auto text-center"
+              variants={heroVariants}
+              initial="hidden"
+              animate="visible"
+            >
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.1 }}
+                animate={{ 
+                  opacity: [0.1, 0.2, 0.1],
+                  scale: [1, 1.05, 1]
+                }}
+                transition={{ 
+                  duration: 5,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
                 className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full bg-portfolio-purple blur-[80px]"
               />
               
               <motion.h1 
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+                variants={childVariants}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 relative"
               >
                 Mon <span className="relative">
@@ -264,30 +434,24 @@ const Expertise = () => {
               </motion.h1>
               
               <motion.div 
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
+                variants={childVariants}
                 className="h-[1px] w-24 mx-auto mb-8 bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink"
               />
               
               <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
+                variants={childVariants}
                 className="text-xl md:text-2xl mb-8 text-gray-300"
               >
                 Un savoir-faire africain au service de <span className="text-gradient">l'innovation numérique</span> mondiale
               </motion.p>
               
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.7 }}
+                variants={childVariants}
                 className="flex flex-wrap justify-center gap-4 mt-8"
               >
                 <Button 
                   size="lg" 
-                  className="bg-gradient-primary hover:opacity-90 transition-opacity"
+                  className="bg-gradient-primary hover:opacity-90 transition-opacity shadow-lg shadow-primary/20"
                   asChild
                 >
                   <Link to="/contact">Discuter de votre projet</Link>
@@ -296,7 +460,7 @@ const Expertise = () => {
                 <Button 
                   size="lg" 
                   variant="outline"
-                  className="border border-gray-600 hover:border-white transition-colors backdrop-blur-sm"
+                  className="border border-gray-700/50 hover:border-white transition-colors backdrop-blur-sm"
                   asChild
                 >
                   <Link to="/services">Explorer les services</Link>
@@ -305,9 +469,7 @@ const Expertise = () => {
               
               {/* Animated status indicators */}
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.9 }}
+                variants={childVariants}
                 className="flex justify-center space-x-8 mt-16 text-sm"
               >
                 <div className="flex items-center">
@@ -323,12 +485,46 @@ const Expertise = () => {
                   <span>IA opérationnelle</span>
                 </div>
               </motion.div>
-            </div>
+              
+              {/* Floating elements */}
+              <div className="absolute top-1/4 left-1/4 w-4 h-4">
+                <motion.div 
+                  className="w-full h-full bg-portfolio-purple/20 rounded-full"
+                  animate={{ 
+                    scale: [1, 1.5, 1],
+                    opacity: [0.3, 0.6, 0.3],
+                  }}
+                  transition={{ 
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
+                />
+              </div>
+              <div className="absolute bottom-1/4 right-1/4 w-6 h-6">
+                <motion.div 
+                  className="w-full h-full bg-portfolio-blue/20 rounded-full"
+                  animate={{ 
+                    scale: [1, 1.3, 1],
+                    opacity: [0.2, 0.5, 0.2],
+                  }}
+                  transition={{ 
+                    duration: 4,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    delay: 1
+                  }}
+                />
+              </div>
+            </motion.div>
           </div>
         </section>
         
         {/* Expertise Areas */}
-        <section className="py-16 md:py-24 bg-portfolio-darkblue/70 relative">
+        <section className="py-16 md:py-24 relative">
+          {/* Tech nodes in background */}
+          <TechNodes />
+          
           {/* Background gradient */}
           <div className="absolute inset-0">
             <div className="absolute bottom-0 left-1/4 w-1/2 h-1/2 bg-portfolio-purple opacity-5 rounded-full blur-[150px]"></div>
@@ -357,7 +553,7 @@ const Expertise = () => {
                 <motion.div 
                   key={index}
                   variants={itemVariants}
-                  className="backdrop-blur-sm border border-gray-700/30 rounded-xl p-6 relative overflow-hidden"
+                  className="backdrop-blur-sm border border-gray-700/30 rounded-xl p-6 relative overflow-hidden cosmic-card"
                   whileHover={{ 
                     scale: 1.02, 
                     boxShadow: "0 0 25px rgba(155, 135, 245, 0.15)" 
@@ -402,11 +598,14 @@ const Expertise = () => {
                   {/* Animated data line */}
                   <div className="absolute bottom-4 right-4 h-[30px] w-[60px]">
                     <svg width="60" height="30" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
-                      <polyline
+                      <motion.polyline
                         points="0,15 10,10 20,20 30,5 40,25 50,15 60,10"
                         fill="none"
                         stroke="rgba(14, 165, 233, 0.5)"
                         strokeWidth="1"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: 0.5 }}
+                        transition={{ duration: 2, delay: index * 0.1 }}
                       />
                     </svg>
                   </div>
@@ -417,7 +616,7 @@ const Expertise = () => {
         </section>
         
         {/* Real-time technology metrics */}
-        <section className="py-10 bg-portfolio-darkblue relative overflow-hidden">
+        <section className="py-10 relative overflow-hidden">
           <div className="absolute inset-0 grid grid-cols-12 pointer-events-none opacity-5">
             {[...Array(12)].map((_, i) => (
               <div key={i} className="h-full w-px bg-gradient-to-b from-transparent via-portfolio-blue to-transparent"></div>
@@ -425,9 +624,12 @@ const Expertise = () => {
           </div>
           
           <div className="container mx-auto px-4 relative z-10">
-            <div className="border border-gray-800/40 backdrop-blur-sm rounded-xl p-6">
+            <div className="border border-gray-800/40 backdrop-blur-sm rounded-xl p-6 cosmic-card">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-bold">Capacités Techniques</h3>
+                <h3 className="text-xl font-bold flex items-center">
+                  <Layers className="h-5 w-5 mr-2 text-portfolio-blue" />
+                  Capacités Techniques
+                </h3>
                 <div className="flex items-center">
                   <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-2"></span>
                   <span className="text-sm text-gray-400">MONITORING ACTIF</span>
@@ -435,49 +637,85 @@ const Expertise = () => {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="p-4 border border-gray-800/30 rounded-lg">
+                <motion.div 
+                  className="p-4 border border-gray-800/30 rounded-lg bg-black/20"
+                  whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(155, 135, 245, 0.1)" }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm text-gray-400">IA ACCURACY</span>
                     <Server className="h-4 w-4 text-portfolio-purple" />
                   </div>
                   <div className="text-2xl font-bold mb-2">{techStats.aiAccuracy}%</div>
                   <div className="h-1 w-full bg-gray-800 rounded overflow-hidden">
-                    <div className="h-full bg-portfolio-purple" style={{ width: `${techStats.aiAccuracy}%` }}></div>
+                    <motion.div 
+                      className="h-full bg-portfolio-purple"
+                      initial={{ width: "0%" }}
+                      animate={{ width: `${techStats.aiAccuracy}%` }}
+                      transition={{ duration: 1, type: "spring" }}
+                    ></motion.div>
                   </div>
-                </div>
+                </motion.div>
                 
-                <div className="p-4 border border-gray-800/30 rounded-lg">
+                <motion.div 
+                  className="p-4 border border-gray-800/30 rounded-lg bg-black/20"
+                  whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(14, 165, 233, 0.1)" }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm text-gray-400">UPTIME</span>
                     <Database className="h-4 w-4 text-portfolio-blue" />
                   </div>
                   <div className="text-2xl font-bold mb-2">{techStats.serverUptime}%</div>
                   <div className="h-1 w-full bg-gray-800 rounded overflow-hidden">
-                    <div className="h-full bg-portfolio-blue" style={{ width: `${techStats.serverUptime}%` }}></div>
+                    <motion.div 
+                      className="h-full bg-portfolio-blue"
+                      initial={{ width: "0%" }}
+                      animate={{ width: `${techStats.serverUptime}%` }}
+                      transition={{ duration: 1, type: "spring", delay: 0.2 }}
+                    ></motion.div>
                   </div>
-                </div>
+                </motion.div>
                 
-                <div className="p-4 border border-gray-800/30 rounded-lg">
+                <motion.div 
+                  className="p-4 border border-gray-800/30 rounded-lg bg-black/20"
+                  whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(212, 70, 239, 0.1)" }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm text-gray-400">PROJETS</span>
                     <CircuitBoard className="h-4 w-4 text-portfolio-pink" />
                   </div>
                   <div className="text-2xl font-bold mb-2">{techStats.projectCompletion}%</div>
                   <div className="h-1 w-full bg-gray-800 rounded overflow-hidden">
-                    <div className="h-full bg-portfolio-pink" style={{ width: `${techStats.projectCompletion}%` }}></div>
+                    <motion.div 
+                      className="h-full bg-portfolio-pink"
+                      initial={{ width: "0%" }}
+                      animate={{ width: `${techStats.projectCompletion}%` }}
+                      transition={{ duration: 1, type: "spring", delay: 0.4 }}
+                    ></motion.div>
                   </div>
-                </div>
+                </motion.div>
                 
-                <div className="p-4 border border-gray-800/30 rounded-lg">
+                <motion.div 
+                  className="p-4 border border-gray-800/30 rounded-lg bg-black/20"
+                  whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(234, 179, 8, 0.1)" }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm text-gray-400">SATISFACTION</span>
                     <Star className="h-4 w-4 text-yellow-500" />
                   </div>
                   <div className="text-2xl font-bold mb-2">{techStats.clientSatisfaction}%</div>
                   <div className="h-1 w-full bg-gray-800 rounded overflow-hidden">
-                    <div className="h-full bg-yellow-500" style={{ width: `${techStats.clientSatisfaction}%` }}></div>
+                    <motion.div 
+                      className="h-full bg-yellow-500"
+                      initial={{ width: "0%" }}
+                      animate={{ width: `${techStats.clientSatisfaction}%` }}
+                      transition={{ duration: 1, type: "spring", delay: 0.6 }}
+                    ></motion.div>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -485,19 +723,28 @@ const Expertise = () => {
         
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-portfolio-darkblue to-black relative overflow-hidden">
+          {/* Animated stars */}
           <div className="absolute inset-0 overflow-hidden opacity-10">
             <div className="absolute top-0 left-0 w-full h-full">
-              {[...Array(20)].map((_, i) => (
-                <div 
+              {[...Array(30)].map((_, i) => (
+                <motion.div 
                   key={i}
                   className="absolute rounded-full bg-portfolio-blue"
                   style={{
-                    width: `${Math.random() * 4 + 1}px`,
-                    height: `${Math.random() * 4 + 1}px`,
+                    width: `${Math.random() * 3 + 1}px`,
+                    height: `${Math.random() * 3 + 1}px`,
                     top: `${Math.random() * 100}%`,
                     left: `${Math.random() * 100}%`,
-                    animation: `pulse ${Math.random() * 4 + 3}s infinite`,
-                    opacity: Math.random() * 0.7 + 0.3
+                  }}
+                  animate={{
+                    opacity: [0.3, 1, 0.3],
+                    scale: [1, 1.5, 1]
+                  }}
+                  transition={{
+                    duration: Math.random() * 3 + 2,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    delay: Math.random() * 2
                   }}
                 />
               ))}
@@ -544,7 +791,7 @@ const Expertise = () => {
               >
                 <Button 
                   size="lg" 
-                  className="bg-gradient-primary hover:opacity-90 transition-opacity"
+                  className="bg-gradient-primary hover:opacity-90 transition-opacity shadow-lg shadow-primary/20"
                   asChild
                 >
                   <Link to="/contact">Contactez-moi</Link>
@@ -553,22 +800,29 @@ const Expertise = () => {
                 <Button 
                   size="lg" 
                   variant="outline"
-                  className="border border-gray-600 hover:border-white transition-colors"
+                  className="border border-gray-700/50 hover:border-white transition-colors backdrop-blur-sm"
                   asChild
                 >
                   <Link to="/services">Découvrir mes services</Link>
                 </Button>
               </motion.div>
               
-              {/* Tech decoration */}
+              {/* Tech decoration - animated data flow lines */}
               <div className="flex justify-center space-x-8 mt-12 opacity-50">
                 {[...Array(5)].map((_, i) => (
-                  <div key={i} className="flex flex-col items-center">
+                  <motion.div 
+                    key={i} 
+                    className="flex flex-col items-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.8 + i * 0.1 }}
+                  >
                     <div 
                       className="w-1 h-12 bg-gradient-to-b from-transparent via-portfolio-blue to-transparent"
                       style={{ animationDelay: `${i * 0.2}s` }}
                     ></div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -582,3 +836,4 @@ const Expertise = () => {
 };
 
 export default Expertise;
+
