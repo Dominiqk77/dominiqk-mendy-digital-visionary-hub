@@ -6,7 +6,43 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ExternalLink, ArrowRight } from 'lucide-react';
+import { ExternalLink, ArrowRight, Star, Code, Database, Globe, BarChart3, BookOpen, Rocket } from 'lucide-react';
+
+// Star background component
+const StarBackground = () => {
+  const [stars, setStars] = useState<{id: number, x: number, y: number, size: number, delay: number}[]>([]);
+  
+  useEffect(() => {
+    // Create stars with random positions and sizes
+    const starCount = 50;
+    const newStars = Array.from({ length: starCount }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 2 + 0.5,
+      delay: Math.random() * 3
+    }));
+    setStars(newStars);
+  }, []);
+  
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      {stars.map((star) => (
+        <div 
+          key={star.id}
+          className="space-dot"
+          style={{ 
+            left: `${star.x}%`, 
+            top: `${star.y}%`, 
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            animationDelay: `${star.delay}s`
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 const Portfolio = () => {
   useEffect(() => {
@@ -35,7 +71,8 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
       description: "Solution e-commerce complète pour PME sénégalaises avec intégration paiement mobile et optimisation pour connexions bas débit.",
       tags: ["React", "Node.js", "Mobile Payment", "PWA"],
-      link: "#"
+      link: "#",
+      icon: <Code className="h-6 w-6" />
     },
     {
       id: 2,
@@ -44,7 +81,8 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
       description: "Chatbot IA multilingue pour l'éducation, adapté au contexte africain et capable de fonctionner avec une connexion limitée.",
       tags: ["NLP", "Python", "TensorFlow", "Education"],
-      link: "#"
+      link: "#",
+      icon: <Database className="h-6 w-6" />
     },
     {
       id: 3,
@@ -53,7 +91,8 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
       description: "Stratégie digitale intégrée pour une marque présente dans 12 pays africains, multipliant l'engagement par 4x.",
       tags: ["SEO", "SEM", "Social Media", "Analytics"],
-      link: "#"
+      link: "#",
+      icon: <BarChart3 className="h-6 w-6" />
     },
     {
       id: 4,
@@ -62,7 +101,8 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
       description: "Plateforme d'interaction citoyenne pour une municipalité sénégalaise facilitant les démarches administratives et la participation.",
       tags: ["E-Governance", "UX Design", "Security", "Mobile First"],
-      link: "#"
+      link: "#",
+      icon: <Globe className="h-6 w-6" />
     },
     {
       id: 5,
@@ -71,7 +111,8 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
       description: "Solution IA d'analyse climatique et prédiction de rendements pour coopératives agricoles avec interface simple.",
       tags: ["Machine Learning", "Climate Data", "Agriculture", "Visualization"],
-      link: "#"
+      link: "#",
+      icon: <Database className="h-6 w-6" />
     },
     {
       id: 6,
@@ -80,7 +121,8 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
       description: "App mobile pour agents de santé communautaire avec fonctionnement hors ligne et synchronisation intelligente.",
       tags: ["React Native", "Offline First", "Healthcare", "UX Research"],
-      link: "#"
+      link: "#",
+      icon: <Code className="h-6 w-6" />
     },
     {
       id: 7,
@@ -89,7 +131,8 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
       description: "Programme de formation sur mesure pour dirigeants d'entreprises sur l'intégration de l'IA dans leur stratégie.",
       tags: ["Executive Training", "AI Strategy", "Business Transformation"],
-      link: "#"
+      link: "#",
+      icon: <BookOpen className="h-6 w-6" />
     },
     {
       id: 8,
@@ -98,7 +141,8 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
       description: "Refonte complète de la stratégie contenu d'une fintech africaine augmentant le trafic organique de 310%.",
       tags: ["Content Strategy", "SEO", "Conversion", "Analytics"],
-      link: "#"
+      link: "#",
+      icon: <BarChart3 className="h-6 w-6" />
     },
     {
       id: 9,
@@ -107,7 +151,8 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
       description: "Solution de gestion documentaire pour institution publique avec signature électronique et traçabilité blockchain.",
       tags: ["Blockchain", "Security", "Document Management", "Compliance"],
-      link: "#"
+      link: "#",
+      icon: <Globe className="h-6 w-6" />
     }
   ];
 
@@ -136,46 +181,86 @@ const Portfolio = () => {
     }
   };
 
+  // Render data lines
+  const renderDataLines = () => {
+    return Array(10).fill(0).map((_, i) => (
+      <div 
+        key={i} 
+        className="data-line" 
+        style={{
+          width: `${Math.random() * 50 + 50}px`,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          opacity: Math.random() * 0.5,
+          animationDelay: `${i * 0.3}s`
+        }}
+      />
+    ));
+  };
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
+      <div className="fixed inset-0 bg-black z-[-2]"></div>
+      <div className="fixed inset-0 tech-grid z-[-1]"></div>
+      <StarBackground />
+      
       <Navbar />
       
-      <main className="flex-grow pt-20">
+      <main className="flex-grow pt-20 relative z-10">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-background to-background/80 py-16 md:py-24">
-          <div className="container mx-auto px-4">
+        <section className="space-bg-gradient py-16 md:py-24 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            {renderDataLines()}
+          </div>
+          
+          <div className="container mx-auto px-4 relative">
             <div className="max-w-3xl mx-auto text-center">
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-500 rounded-full filter blur-[100px] opacity-20"></div>
+              
               <motion.h1 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 glow-text"
               >
-                Portfolio
+                <span className="text-gradient-cosmic">Portfolio</span>
               </motion.h1>
+              
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-xl md:text-2xl mb-8 text-muted-foreground"
+                className="text-xl md:text-2xl mb-8 text-gray-300"
               >
                 Des projets innovants qui transforment le numérique en Afrique
               </motion.p>
+              
+              <div className="relative">
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10"
+                >
+                  <div className="animate-ping absolute h-full w-full rounded-full bg-indigo-400 opacity-20"></div>
+                  <Star className="relative h-10 w-10 text-indigo-400 opacity-50" />
+                </motion.div>
+              </div>
             </div>
           </div>
         </section>
         
         {/* Portfolio Projects */}
-        <section className="py-16 md:py-20">
+        <section className="py-16 md:py-20 relative">
           <div className="container mx-auto px-4">
             <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="w-full max-w-3xl mx-auto mb-12">
-              <TabsList className="grid grid-cols-3 md:grid-cols-6 mb-8">
-                <TabsTrigger value="all">Tous</TabsTrigger>
-                <TabsTrigger value="web">Web & Mobile</TabsTrigger>
-                <TabsTrigger value="ai">IA</TabsTrigger>
-                <TabsTrigger value="marketing">Marketing</TabsTrigger>
-                <TabsTrigger value="governance">E-Gouvernance</TabsTrigger>
-                <TabsTrigger value="training">Formation</TabsTrigger>
+              <TabsList className="grid grid-cols-3 md:grid-cols-6 mb-8 bg-gray-900/50 backdrop-blur-sm border border-white/10">
+                <TabsTrigger value="all" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Tous</TabsTrigger>
+                <TabsTrigger value="web" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Web & Mobile</TabsTrigger>
+                <TabsTrigger value="ai" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">IA</TabsTrigger>
+                <TabsTrigger value="marketing" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Marketing</TabsTrigger>
+                <TabsTrigger value="governance" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">E-Gouvernance</TabsTrigger>
+                <TabsTrigger value="training" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Formation</TabsTrigger>
               </TabsList>
 
               <TabsContent value={activeTab}>
@@ -189,23 +274,28 @@ const Portfolio = () => {
                     <motion.div
                       key={project.id}
                       variants={itemVariants}
-                      className="bg-background rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow border border-muted/50"
+                      className="cosmic-card rounded-lg overflow-hidden"
                     >
-                      <div className="h-48 overflow-hidden">
+                      <div className="relative h-48 overflow-hidden">
                         <img 
                           src={project.image} 
                           alt={project.title}
                           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                         />
+                        <div className="absolute top-2 right-2 w-8 h-8 rounded-full bg-black/70 backdrop-blur-md flex items-center justify-center text-indigo-400">
+                          {project.icon}
+                        </div>
                       </div>
-                      <div className="p-6">
-                        <h3 className="text-lg font-bold mb-2">{project.title}</h3>
-                        <p className="text-muted-foreground mb-4">{project.description}</p>
+                      <div className="p-6 relative">
+                        <div className="absolute top-0 right-0 w-20 h-20 bg-indigo-600/5 rounded-full blur-xl"></div>
+                        
+                        <h3 className="text-lg font-bold mb-2 text-white">{project.title}</h3>
+                        <p className="text-gray-400 mb-4">{project.description}</p>
                         <div className="flex flex-wrap gap-2 mb-4">
                           {project.tags.map((tag, index) => (
                             <span 
                               key={index}
-                              className="text-xs bg-muted px-2 py-1 rounded-full"
+                              className="text-xs bg-indigo-900/30 border border-indigo-500/20 px-2 py-1 rounded-full text-indigo-300"
                             >
                               {tag}
                             </span>
@@ -213,7 +303,7 @@ const Portfolio = () => {
                         </div>
                         <a
                           href={project.link}
-                          className="inline-flex items-center text-primary hover:text-primary/80 font-medium"
+                          className="inline-flex items-center text-indigo-400 hover:text-indigo-300 font-medium"
                         >
                           Voir le projet <ExternalLink className="ml-2 h-4 w-4" />
                         </a>
@@ -227,16 +317,25 @@ const Portfolio = () => {
         </section>
         
         {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-br from-primary/20 to-background">
-          <div className="container mx-auto px-4 max-w-7xl">
+        <section className="py-16 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/20 to-black"></div>
+          <div className="absolute inset-0 star-bg"></div>
+          
+          <div className="container mx-auto px-4 max-w-7xl relative z-10">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Vous avez un projet similaire en tête?</h2>
-              <p className="text-lg md:text-xl mb-8 text-muted-foreground">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Vous avez un projet similaire en tête?</h2>
+              <p className="text-lg md:text-xl mb-8 text-gray-300">
                 Discutons ensemble de comment je peux vous aider à concrétiser votre vision et créer un impact durable.
               </p>
-              <Button size="lg" asChild>
-                <Link to="/contact">Démarrer un projet <ArrowRight className="ml-2 h-5 w-5" /></Link>
+              <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white" asChild>
+                <Link to="/contact" className="flex items-center gap-2">
+                  <span>Démarrer un projet</span>
+                  <Rocket className="h-5 w-5" />
+                </Link>
               </Button>
+              
+              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-purple-500/10 rounded-full blur-[80px]"></div>
+              <div className="absolute -bottom-20 -left-10 w-60 h-60 bg-blue-500/10 rounded-full blur-[100px]"></div>
             </div>
           </div>
         </section>
@@ -248,3 +347,4 @@ const Portfolio = () => {
 };
 
 export default Portfolio;
+

@@ -3,388 +3,460 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/card';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Loader, Server, Database } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { 
+  CalendarDays, 
+  Clock, 
+  Star, 
+  Search, 
+  Tag, 
+  ArrowRight, 
+  BookOpen,
+  ThumbsUp,
+  MessageCircle,
+  User
+} from 'lucide-react';
 
-const BlogPage = () => {
+const Blog = () => {
   useEffect(() => {
     // Set page title for SEO
-    document.title = 'Blog Tech & Innovation | Dominique Mendy | Tendances Digitales Africaines';
+    document.title = 'Blog | Dominiqk Mendy | Articles IA & Digital';
     
     // Set meta description for SEO
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', 
-        'Blog tech et innovation par Dominique Mendy: analyses, tendances et conseils sur l\'IA, le développement web, le marketing digital et la transformation numérique en Afrique.'
+        'Découvrez des articles innovants sur l\'IA, le développement web, le marketing digital et la transformation numérique en Afrique et dans le monde.'
       );
     }
     
     // Scroll to top on page load
     window.scrollTo(0, 0);
   }, []);
-
-  // Simulated real-time metrics
-  const [metrics, setMetrics] = useState({
-    articlesPublished: 72,
-    totalReaders: 18436,
-    avgReadTime: 4.7,
-    subscriptions: 2845
-  });
-
-  // Simulate real-time data updates
+  
+  // Generate stars for background
+  const [stars, setStars] = useState<{id: number, x: number, y: number, size: number}[]>([]);
+  
   useEffect(() => {
-    const metricsInterval = setInterval(() => {
-      setMetrics(prev => ({
-        articlesPublished: prev.articlesPublished,
-        totalReaders: prev.totalReaders + Math.floor(Math.random() * 5) + 1,
-        avgReadTime: parseFloat((prev.avgReadTime + (Math.random() * 0.2 - 0.1)).toFixed(1)),
-        subscriptions: prev.subscriptions + (Math.random() > 0.7 ? 1 : 0)
-      }));
-    }, 10000);
-    
-    return () => clearInterval(metricsInterval);
+    const newStars = Array.from({ length: 50 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 2 + 0.5
+    }));
+    setStars(newStars);
   }, []);
-
-  // Mock blog posts for the placeholder
-  const placeholderPosts = [
+  
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  
+  // Sample blog posts
+  const blogPosts = [
     {
       id: 1,
-      title: "L'IA en Afrique: Opportunités et Défis",
-      excerpt: "Exploration des possibilités transformatives de l'intelligence artificielle sur le continent africain et des défis à surmonter pour une adoption réussie.",
-      category: "Intelligence Artificielle",
+      title: "L'impact de l'IA générative sur les entreprises africaines",
+      excerpt: "Analyse de l'adoption des technologies comme ChatGPT et Midjourney dans le contexte des startups et entreprises africaines.",
+      date: "2023-05-15",
       readTime: "8 min",
-      date: "À venir"
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "ia",
+      likes: 124,
+      comments: 23,
+      featured: true
     },
     {
       id: 2,
-      title: "Web 3.0: L'Avenir du Web en Afrique",
-      excerpt: "Comment les technologies décentralisées et le Web 3.0 peuvent révolutionner l'économie numérique africaine et créer de nouvelles opportunités.",
-      category: "Web Development",
+      title: "Développement web en Afrique: défis et opportunités",
+      excerpt: "Exploration des spécificités techniques du développement web en Afrique: connectivité, optimisation et solutions innovantes.",
+      date: "2023-04-22",
       readTime: "6 min",
-      date: "À venir"
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1573164713712-03790a178651?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "web",
+      likes: 87,
+      comments: 14,
+      featured: false
     },
     {
       id: 3,
-      title: "Marketing Digital: Stratégies Adaptées au Marché Africain",
-      excerpt: "Techniques et approches marketing spécifiquement conçues pour réussir dans le contexte unique des marchés africains en pleine expansion.",
-      category: "Marketing Digital",
+      title: "Les nouvelles tendances du marketing digital au Sénégal",
+      excerpt: "Découvrez comment les marques sénégalaises innovent dans leur approche marketing pour toucher une audience connectée et exigeante.",
+      date: "2023-03-10",
       readTime: "5 min",
-      date: "À venir"
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "marketing",
+      likes: 103,
+      comments: 19,
+      featured: true
     },
     {
       id: 4,
-      title: "E-Gouvernance: Transformation Digitale du Secteur Public",
-      excerpt: "Analyse des meilleures pratiques en matière de digitalisation des services publics et de l'administration pour une gouvernance plus efficace.",
-      category: "E-Gouvernance",
-      readTime: "7 min",
-      date: "À venir"
+      title: "E-gouvernance: comment digitaliser l'administration publique",
+      excerpt: "Guide pratique pour les institutions gouvernementales souhaitant entreprendre leur transformation numérique avec impact.",
+      date: "2023-02-28",
+      readTime: "10 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "gouvernance",
+      likes: 76,
+      comments: 31,
+      featured: false
     },
     {
       id: 5,
-      title: "Sécurité Informatique: Protéger les Données en Afrique",
-      excerpt: "Enjeux et solutions pour assurer la cybersécurité des entreprises et organisations africaines face aux menaces croissantes.",
-      category: "Cybersécurité",
-      readTime: "9 min",
-      date: "À venir"
+      title: "Le potentiel de la blockchain pour les startups africaines",
+      excerpt: "Analyse des cas d'usage pertinents de la blockchain dans le contexte africain: traçabilité, paiements et identité numérique.",
+      date: "2023-01-15",
+      readTime: "7 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "technologie",
+      likes: 92,
+      comments: 12,
+      featured: false
     },
     {
       id: 6,
-      title: "Entrepreneuriat Tech: Écosystème des Startups Africaines",
-      excerpt: "Panorama de l'écosystème entrepreneurial technologique en Afrique et conseils pour les entrepreneurs tech africains.",
-      category: "Entrepreneuriat",
-      readTime: "6 min",
-      date: "À venir"
+      title: "Formation tech: combler le fossé des compétences numériques",
+      excerpt: "Comment former efficacement la prochaine génération de talents tech africains pour répondre aux besoins du marché mondial.",
+      date: "2022-12-05",
+      readTime: "9 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "formation",
+      likes: 118,
+      comments: 27,
+      featured: true
     }
   ];
 
+  const categories = [
+    { id: 'all', name: 'Tous les articles' },
+    { id: 'ia', name: 'Intelligence Artificielle' },
+    { id: 'web', name: 'Développement Web' },
+    { id: 'marketing', name: 'Marketing Digital' },
+    { id: 'gouvernance', name: 'E-Gouvernance' },
+    { id: 'technologie', name: 'Technologies Émergentes' },
+    { id: 'formation', name: 'Formation & Éducation' }
+  ];
+
+  const filteredPosts = blogPosts
+    .filter(post => selectedCategory === 'all' || post.category === selectedCategory)
+    .filter(post => 
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  
+  const featuredPosts = blogPosts.filter(post => post.featured);
+
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden">
+    <div className="min-h-screen flex flex-col relative">
+      <div className="fixed inset-0 bg-black z-[-2]"></div>
+      <div className="fixed inset-0 tech-grid opacity-30 z-[-1]"></div>
+      
+      {/* Star background */}
+      <div className="fixed inset-0 z-[-1]">
+        {stars.map(star => (
+          <div
+            key={star.id}
+            className="space-dot"
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              animationDelay: `${star.id * 0.1}s`
+            }}
+          />
+        ))}
+      </div>
+      
       <Navbar />
       
-      <main className="flex-grow bg-portfolio-darkblue text-white">
+      <main className="flex-grow pt-20">
         {/* Hero Section */}
-        <section className="py-20 relative overflow-hidden">
-          {/* Animated background elements */}
-          <div className="absolute inset-0 overflow-hidden opacity-10">
-            <div className="absolute top-0 left-0 w-full h-full">
-              {[...Array(30)].map((_, i) => (
-                <div 
-                  key={i}
-                  className="absolute rounded-full bg-portfolio-blue"
-                  style={{
-                    width: `${Math.random() * 4 + 1}px`,
-                    height: `${Math.random() * 4 + 1}px`,
-                    top: `${Math.random() * 100}%`,
-                    left: `${Math.random() * 100}%`,
-                    animation: `pulse ${Math.random() * 4 + 3}s infinite`,
-                    opacity: Math.random() * 0.7 + 0.3
-                  }}
-                />
-              ))}
-            </div>
-            <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-portfolio-purple opacity-10 rounded-full blur-[100px]" />
-            <div className="absolute bottom-1/3 right-1/4 w-1/3 h-1/3 bg-portfolio-pink opacity-10 rounded-full blur-[80px]" />
-          </div>
+        <section className="py-16 md:py-24 relative overflow-hidden">
+          <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-indigo-600 rounded-full filter blur-[100px] opacity-20"></div>
+          <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-purple-600 rounded-full filter blur-[100px] opacity-20"></div>
           
-          {/* Grid lines overlay */}
-          <div className="absolute inset-0 grid grid-cols-12 gap-4 pointer-events-none opacity-5">
-            {[...Array(12)].map((_, i) => (
-              <div key={i} className="h-full w-px bg-gradient-to-b from-transparent via-portfolio-blue to-transparent"></div>
-            ))}
-            {[...Array(12)].map((_, i) => (
-              <div key={i} className="absolute h-px w-full bg-gradient-to-r from-transparent via-portfolio-blue to-transparent" style={{ top: `${i * 8.33}%` }}></div>
-            ))}
-          </div>
-          
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center">
               <motion.h1 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="text-4xl md:text-5xl font-bold mb-6"
+                transition={{ duration: 0.5 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
               >
-                Blog <span className="text-gradient">Tech & Innovation</span>
+                <span className="text-gradient-cosmic">Blog</span>
               </motion.h1>
               
-              <motion.div 
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-24 mx-auto mb-8 bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink"
-              />
-              
               <motion.p 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto"
-              >
-                Analyses, tendances et conseils sur l'IA, le développement web, le marketing digital et la transformation numérique en Afrique
-              </motion.p>
-              
-              {/* Blog analytics */}
-              <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-xl md:text-2xl mb-8 text-gray-300"
               >
-                <div className="p-4 border border-gray-800/40 rounded-lg backdrop-blur-sm">
-                  <div className="text-2xl font-bold text-gradient">{metrics.articlesPublished}</div>
-                  <div className="text-gray-400 text-sm">Articles</div>
-                </div>
-                <div className="p-4 border border-gray-800/40 rounded-lg backdrop-blur-sm">
-                  <div className="text-2xl font-bold text-gradient">{metrics.totalReaders.toLocaleString()}</div>
-                  <div className="text-gray-400 text-sm">Lecteurs</div>
-                </div>
-                <div className="p-4 border border-gray-800/40 rounded-lg backdrop-blur-sm">
-                  <div className="text-2xl font-bold text-gradient">{metrics.avgReadTime} min</div>
-                  <div className="text-gray-400 text-sm">Temps de lecture</div>
-                </div>
-                <div className="p-4 border border-gray-800/40 rounded-lg backdrop-blur-sm">
-                  <div className="text-2xl font-bold text-gradient">{metrics.subscriptions.toLocaleString()}</div>
-                  <div className="text-gray-400 text-sm">Abonnés</div>
-                </div>
+                Réflexions et analyses sur l'innovation numérique en Afrique
+              </motion.p>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="max-w-xl mx-auto relative"
+              >
+                <Input 
+                  type="text" 
+                  placeholder="Rechercher un article..." 
+                  className="pl-12 py-6 text-lg bg-gray-900/50 backdrop-blur-sm border border-white/10 text-white placeholder:text-gray-400"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
               </motion.div>
             </div>
           </div>
-          
-          {/* Animated connection lines */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.2 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="absolute bottom-0 inset-x-0 h-[50px] flex justify-center items-end"
-          >
-            {[...Array(5)].map((_, i) => (
-              <div 
-                key={i} 
-                className="h-full mx-3 w-px bg-gradient-to-b from-transparent via-portfolio-blue to-primary"
-                style={{ height: `${30 + i * 10}px` }}
-              />
-            ))}
-          </motion.div>
         </section>
         
-        {/* Blog Placeholder Content */}
-        <section className="py-16 relative">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              {/* Coming Soon Notice */}
-              <Card className="mb-12 border-gradient border-gradient-strong backdrop-blur-sm bg-black/40 p-6">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                  <div className="flex-1">
-                    <h2 className="text-2xl font-bold mb-2">Contenu en préparation</h2>
-                    <p className="text-gray-300">
-                      Notre blog est en cours de développement. Découvrez bientôt des articles captivants sur l'innovation numérique, l'IA et la transformation digitale en Afrique.
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-center space-y-2">
-                    <div className="h-16 w-16 flex items-center justify-center border border-portfolio-blue rounded-full relative">
-                      <Loader className="h-8 w-8 text-portfolio-blue animate-spin" />
-                      <div className="absolute inset-0 border border-portfolio-blue rounded-full animate-ping opacity-50"></div>
+        {/* Featured Articles */}
+        {featuredPosts.length > 0 && (
+          <section className="py-8 md:py-12">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl md:text-3xl font-bold mb-8 text-white flex items-center">
+                <Star className="mr-2 h-6 w-6 text-yellow-500" /> Articles à la une
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {featuredPosts.map((post) => (
+                  <motion.div 
+                    key={post.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="cosmic-card rounded-lg overflow-hidden group"
+                  >
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={post.image} 
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute top-2 right-2 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-md">
+                        À la une
+                      </div>
                     </div>
-                    <span className="text-sm text-gray-400">En développement</span>
-                  </div>
-                </div>
-              </Card>
-              
-              {/* Featured Articles */}
-              <div className="mb-12">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-bold flex items-center">
-                    <Server className="h-5 w-5 text-portfolio-blue mr-2" />
-                    <span>Articles à venir</span>
-                  </h2>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm text-gray-400">Chargement</span>
-                    <span className="h-2 w-2 rounded-full bg-portfolio-blue animate-pulse"></span>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {placeholderPosts.slice(0, 3).map((post, index) => (
-                    <motion.div 
-                      key={post.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="border border-gray-800/40 rounded-lg overflow-hidden backdrop-blur-sm relative"
-                      whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(155, 135, 245, 0.15)" }}
-                    >
-                      {/* Tech decoration line top */}
-                      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-portfolio-purple to-transparent"></div>
-                      
-                      <div className="p-6">
-                        <div className="flex justify-between items-center mb-3">
-                          <span className="text-xs px-2 py-1 rounded-full border border-portfolio-blue/30 bg-portfolio-blue/10 text-portfolio-blue">
-                            {post.category}
-                          </span>
-                          <span className="text-xs text-gray-400 flex items-center">
-                            <Database className="h-3 w-3 mr-1" />
-                            {post.readTime}
-                          </span>
-                        </div>
-                        
-                        <h3 className="text-xl font-bold mb-3">{post.title}</h3>
-                        <p className="text-gray-400 text-sm mb-4">{post.excerpt}</p>
-                        
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-500">{post.date}</span>
-                          <Button variant="ghost" size="sm" className="text-primary hover:text-primary hover:bg-primary/10">
-                            <span>Bientôt disponible</span>
-                            <ArrowRight className="h-3 w-3 ml-1" />
-                          </Button>
-                        </div>
+                    <div className="p-6">
+                      <div className="flex items-center text-sm text-gray-400 mb-3">
+                        <CalendarDays className="h-4 w-4 mr-1" />
+                        <span>{post.date}</span>
+                        <span className="mx-2">•</span>
+                        <Clock className="h-4 w-4 mr-1" />
+                        <span>{post.readTime}</span>
                       </div>
                       
-                      {/* Tech background pattern */}
-                      <div className="absolute bottom-2 right-2 w-12 h-12 opacity-5">
-                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="0" y="0" width="8" height="8" fill="currentColor" />
-                          <rect x="10" y="0" width="8" height="8" fill="currentColor" />
-                          <rect x="20" y="0" width="8" height="8" fill="currentColor" />
-                          <rect x="0" y="10" width="8" height="8" fill="currentColor" />
-                          <rect x="20" y="10" width="8" height="8" fill="currentColor" />
-                          <rect x="0" y="20" width="8" height="8" fill="currentColor" />
-                          <rect x="10" y="20" width="8" height="8" fill="currentColor" />
-                          <rect x="20" y="20" width="8" height="8" fill="currentColor" />
-                        </svg>
+                      <h3 className="text-xl font-bold mb-2 text-white group-hover:text-indigo-400 transition-colors">
+                        <Link to={`/blog/${post.id}`}>{post.title}</Link>
+                      </h3>
+                      
+                      <p className="text-gray-400 mb-4">{post.excerpt}</p>
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                          <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white mr-2">
+                            <User className="h-4 w-4" />
+                          </div>
+                          <span className="text-sm text-gray-300">{post.author}</span>
+                        </div>
+                        
+                        <div className="flex items-center space-x-3 text-sm text-gray-400">
+                          <div className="flex items-center">
+                            <ThumbsUp className="h-4 w-4 mr-1" />
+                            <span>{post.likes}</span>
+                          </div>
+                          <div className="flex items-center">
+                            <MessageCircle className="h-4 w-4 mr-1" />
+                            <span>{post.comments}</span>
+                          </div>
+                        </div>
                       </div>
-                    </motion.div>
-                  ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+        
+        {/* Categories & Posts */}
+        <section className="py-12 md:py-16">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row gap-8">
+              {/* Categories */}
+              <div className="md:w-1/4">
+                <div className="cosmic-card rounded-lg p-6">
+                  <h3 className="text-xl font-bold mb-4 text-white">Catégories</h3>
+                  <ul className="space-y-2">
+                    {categories.map(category => (
+                      <li key={category.id}>
+                        <button
+                          onClick={() => setSelectedCategory(category.id)}
+                          className={`w-full text-left py-2 px-3 rounded-md flex items-center transition-colors ${
+                            selectedCategory === category.id ? 
+                              'bg-indigo-600 text-white' : 
+                              'hover:bg-gray-800/50 text-gray-300'
+                          }`}
+                        >
+                          <Tag className="h-4 w-4 mr-2" />
+                          <span>{category.name}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
               
-              {/* Latest Articles */}
-              <div>
+              {/* Blog Posts */}
+              <div className="md:w-3/4">
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-bold flex items-center">
-                    <Database className="h-5 w-5 text-portfolio-pink mr-2" />
-                    <span>Autres sujets à explorer</span>
-                  </h2>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm text-gray-400">Coming soon</span>
-                    <span className="h-2 w-2 rounded-full bg-portfolio-pink animate-pulse"></span>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {placeholderPosts.slice(3, 6).map((post, index) => (
-                    <motion.div 
-                      key={post.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                      className="border border-gray-800/40 rounded-lg overflow-hidden backdrop-blur-sm relative"
-                      whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(217, 70, 239, 0.15)" }}
+                  <h2 className="text-2xl font-bold text-white">Articles récents</h2>
+                  {selectedCategory !== 'all' && (
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="border-white/10 text-gray-300 hover:bg-gray-800"
+                      onClick={() => setSelectedCategory('all')}
                     >
-                      {/* Tech decoration line top */}
-                      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-portfolio-pink to-transparent"></div>
-                      
-                      <div className="p-4">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-xs px-2 py-1 rounded-full border border-portfolio-pink/30 bg-portfolio-pink/10 text-portfolio-pink">
-                            {post.category}
-                          </span>
-                          <span className="text-xs text-gray-400">{post.readTime}</span>
-                        </div>
-                        
-                        <h3 className="text-lg font-bold mb-2">{post.title}</h3>
-                        <p className="text-gray-400 text-xs mb-3">{post.excerpt}</p>
-                        
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-500">{post.date}</span>
-                          <Button variant="ghost" size="sm" className="text-primary hover:text-primary hover:bg-primary/10">
-                            <span>Bientôt</span>
-                            <ArrowRight className="h-3 w-3 ml-1" />
-                          </Button>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Newsletter Signup */}
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="mt-16 p-8 border-gradient border-gradient-strong rounded-xl backdrop-blur-sm bg-black/40 relative overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 bottom-0 w-1/3 opacity-10">
-                  <svg className="h-full w-full" viewBox="0 0 300 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="250" cy="150" r="100" stroke="currentColor" strokeWidth="1" />
-                    <circle cx="250" cy="150" r="150" stroke="currentColor" strokeWidth="0.5" />
-                    <circle cx="250" cy="150" r="200" stroke="currentColor" strokeWidth="0.25" />
-                  </svg>
-                </div>
-                
-                <div className="relative z-10 max-w-3xl mx-auto text-center">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Restez informé</h2>
-                  <p className="text-gray-300 mb-6">
-                    Abonnez-vous à notre newsletter pour recevoir les derniers articles, analyses et tendances sur l'innovation numérique en Afrique.
-                  </p>
-                  
-                  <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                    <input 
-                      type="email" 
-                      placeholder="Votre email"
-                      className="px-4 py-2 bg-black/50 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 flex-1"
-                    />
-                    <Button className="bg-gradient-primary hover:opacity-90 transition-opacity">
-                      S'abonner
+                      Effacer les filtres
                     </Button>
-                  </div>
-                  
-                  <div className="mt-4 text-xs text-gray-500">
-                    Nous respectons votre vie privée. Désabonnez-vous à tout moment.
-                  </div>
+                  )}
                 </div>
-              </motion.div>
+                
+                <div className="space-y-8">
+                  {filteredPosts.length > 0 ? (
+                    filteredPosts.map((post) => (
+                      <motion.div 
+                        key={post.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="cosmic-card rounded-lg overflow-hidden"
+                      >
+                        <div className="flex flex-col md:flex-row">
+                          <div className="md:w-1/3 h-48 md:h-auto">
+                            <img 
+                              src={post.image} 
+                              alt={post.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="md:w-2/3 p-6">
+                            <div className="flex items-center text-sm text-gray-400 mb-3">
+                              <CalendarDays className="h-4 w-4 mr-1" />
+                              <span>{post.date}</span>
+                              <span className="mx-2">•</span>
+                              <Clock className="h-4 w-4 mr-1" />
+                              <span>{post.readTime}</span>
+                              <span className="mx-2">•</span>
+                              <Tag className="h-4 w-4 mr-1" />
+                              <span className="capitalize">{post.category}</span>
+                            </div>
+                            
+                            <h3 className="text-xl font-bold mb-2 text-white hover:text-indigo-400 transition-colors">
+                              <Link to={`/blog/${post.id}`}>{post.title}</Link>
+                            </h3>
+                            
+                            <p className="text-gray-400 mb-4">{post.excerpt}</p>
+                            
+                            <div className="flex items-center justify-between">
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="border-indigo-500/30 text-indigo-400 hover:bg-indigo-900/20"
+                                asChild
+                              >
+                                <Link to={`/blog/${post.id}`}>
+                                  Lire l'article <ArrowRight className="ml-2 h-4 w-4" />
+                                </Link>
+                              </Button>
+                              
+                              <div className="flex items-center space-x-3 text-sm text-gray-400">
+                                <div className="flex items-center">
+                                  <ThumbsUp className="h-4 w-4 mr-1" />
+                                  <span>{post.likes}</span>
+                                </div>
+                                <div className="flex items-center">
+                                  <MessageCircle className="h-4 w-4 mr-1" />
+                                  <span>{post.comments}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))
+                  ) : (
+                    <div className="cosmic-card rounded-lg p-8 text-center">
+                      <div className="mb-4 text-gray-400">
+                        <BookOpen className="h-12 w-12 mx-auto opacity-50" />
+                      </div>
+                      <h3 className="text-xl font-bold text-white mb-2">Aucun article trouvé</h3>
+                      <p className="text-gray-400 mb-4">Aucun article ne correspond à votre recherche ou à la catégorie sélectionnée.</p>
+                      <Button 
+                        variant="outline"
+                        className="border-white/10 text-gray-300 hover:bg-gray-800"
+                        onClick={() => {
+                          setSearchTerm('');
+                          setSelectedCategory('all');
+                        }}
+                      >
+                        Réinitialiser les filtres
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Newsletter Section */}
+        <section className="py-16 md:py-24 relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/20 to-black"></div>
+          
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-3xl mx-auto cosmic-card p-8 md:p-12">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-indigo-600 rounded-full filter blur-[80px] opacity-30"></div>
+              
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold mb-4 text-white">Restez informé</h2>
+                <p className="text-gray-300">
+                  Abonnez-vous à ma newsletter pour recevoir mes derniers articles et actualités sur l'innovation numérique.
+                </p>
+              </div>
+              
+              <form className="flex flex-col md:flex-row gap-4">
+                <Input 
+                  type="email" 
+                  placeholder="Votre adresse email" 
+                  className="flex-grow bg-gray-900/50 backdrop-blur-sm border border-white/10 text-white placeholder:text-gray-400"
+                />
+                <Button 
+                  type="submit"
+                  className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white"
+                >
+                  S'abonner
+                </Button>
+              </form>
+              
+              <div className="text-center mt-4 text-sm text-gray-400">
+                En vous inscrivant, vous acceptez notre politique de confidentialité.
+              </div>
             </div>
           </div>
         </section>
@@ -395,4 +467,5 @@ const BlogPage = () => {
   );
 };
 
-export default BlogPage;
+export default Blog;
+
