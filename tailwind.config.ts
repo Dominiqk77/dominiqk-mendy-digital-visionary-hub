@@ -32,11 +32,11 @@ export default {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'hsl(142, 76%, 36%)',
+          DEFAULT: 'hsl(246, 85%, 75%)', // Purple
           foreground: 'hsl(var(--primary-foreground))'
         },
         secondary: {
-          DEFAULT: 'hsl(48, 100%, 50%)',
+          DEFAULT: 'hsl(199, 89%, 48%)', // Ocean Blue
           foreground: 'hsl(var(--secondary-foreground))'
         },
         destructive: {
@@ -48,7 +48,7 @@ export default {
           foreground: 'hsl(var(--muted-foreground))'
         },
         accent: {
-          DEFAULT: 'hsl(0, 100%, 40%)',
+          DEFAULT: 'hsl(317, 83%, 60%)', // Magenta Pink
           foreground: 'hsl(var(--accent-foreground))'
         },
         popover: {
@@ -69,10 +69,13 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))'
         },
-        senegal: {
-          green: '#00853f',
-          yellow: '#fcd116',
-          red: '#cd1126'
+        // Remplacer les couleurs du Sénégal par une nouvelle palette professionnelle
+        portfolio: {
+          purple: '#9b87f5',
+          blue: '#0EA5E9',
+          pink: '#D946EF',
+          darkblue: '#1A1F2C',
+          lightgray: '#F6F6F7'
         }
       },
       borderRadius: {

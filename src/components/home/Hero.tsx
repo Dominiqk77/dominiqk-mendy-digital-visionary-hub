@@ -36,7 +36,7 @@ const Hero = () => {
               }
             },
             "color": {
-              "value": "#ffffff"
+              "value": "#9b87f5"
             },
             "shape": {
               "type": "circle",
@@ -68,7 +68,7 @@ const Hero = () => {
             "line_linked": {
               "enable": true,
               "distance": 150,
-              "color": "#ffffff",
+              "color": "#0EA5E9",
               "opacity": 0.4,
               "width": 1
             },
@@ -143,16 +143,16 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative h-auto min-h-[700px] sm:min-h-[700px] flex items-center overflow-hidden bg-gradient-to-r from-gray-900 to-black pt-16 pb-8 sm:pt-8 sm:pb-0">
+    <div className="relative h-auto min-h-[700px] sm:min-h-[700px] flex items-center overflow-hidden bg-gradient-to-r from-portfolio-darkblue to-black pt-16 pb-8 sm:pt-8 sm:pb-0">
       <div id="particles-js" className="absolute inset-0 z-0"></div>
       
-      <div className="absolute inset-0 z-0 opacity-10 senegal-flag-gradient"></div>
+      <div className="absolute inset-0 z-0 opacity-10 portfolio-gradient"></div>
       
       <div className="container mx-auto px-4 sm:px-6 z-10 relative">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
           <div className="w-full md:w-1/2 space-y-5 text-center md:text-left animate-slide-in-left">
             <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
-              <span className="block animate-gradient-slow bg-gradient-to-r from-green-600 via-yellow-400 to-red-600 bg-clip-text text-transparent bg-[length:400%_400%]">Dominiqk Mendy</span>
+              <span className="block animate-gradient-slow bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink bg-clip-text text-transparent bg-[length:400%_400%]">Dominiqk Mendy</span>
               <span className="text-gradient">Visionnaire Digital</span>
             </h1>
             
@@ -186,7 +186,7 @@ const Hero = () => {
                   className="w-48 h-48 object-cover rounded-full border-4 border-primary relative z-10"
                 />
                 <div className="absolute -right-2 -top-2 w-16 h-16 bg-secondary rounded-full flex items-center justify-center z-20 animate-float">
-                  <span className="text-black font-bold text-xs text-center p-1">Expert IA</span>
+                  <span className="text-white font-bold text-xs text-center p-1">Expert IA</span>
                 </div>
                 <div className="absolute -left-2 -bottom-2 w-20 h-20 bg-accent rounded-full flex items-center justify-center z-20 animate-float" style={{ animationDelay: '1s' }}>
                   <span className="text-white font-bold text-xs text-center p-1">Digital Marketing</span>
@@ -204,7 +204,7 @@ const Hero = () => {
                   className="w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 object-cover rounded-full border-4 border-primary relative z-10"
                 />
                 <div className="absolute -right-2 sm:-right-4 -top-2 sm:-top-4 w-20 h-20 sm:w-24 sm:h-24 bg-secondary rounded-full flex items-center justify-center z-20 animate-float">
-                  <span className="text-black font-bold text-xs sm:text-sm text-center p-2">Expert IA</span>
+                  <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Expert IA</span>
                 </div>
                 <div className="absolute -left-2 sm:-left-4 -bottom-2 sm:-bottom-4 w-24 h-24 sm:w-28 sm:h-28 bg-accent rounded-full flex items-center justify-center z-20 animate-float" style={{ animationDelay: '1s' }}>
                   <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Digital Marketing</span>

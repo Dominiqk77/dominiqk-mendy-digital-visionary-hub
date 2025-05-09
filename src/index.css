@@ -18,16 +18,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 170 100% 50%;
+    --primary: 246 85% 75%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 60 100% 50%;
+    --secondary: 199 89% 48%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 346 89% 60%;
+    --accent: 317 83% 60%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -101,21 +101,21 @@
 
   /* Gradient text */
   .text-gradient {
-    @apply bg-gradient-to-r from-green-600 via-yellow-400 to-red-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink bg-clip-text text-transparent;
   }
   .text-gradient-primary {
-    @apply bg-gradient-to-r from-green-600 to-yellow-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-portfolio-purple to-portfolio-blue bg-clip-text text-transparent;
   }
 
   /* Background gradients */
   .bg-gradient-primary {
-    @apply bg-gradient-to-r from-green-600 to-yellow-400;
+    @apply bg-gradient-to-r from-portfolio-purple to-portfolio-blue;
   }
   .bg-gradient-secondary {
-    @apply bg-gradient-to-r from-yellow-400 to-red-600;
+    @apply bg-gradient-to-r from-portfolio-blue to-portfolio-pink;
   }
-  .senegal-flag-gradient {
-    @apply bg-gradient-to-b from-green-600 via-yellow-400 to-red-600;
+  .portfolio-gradient {
+    @apply bg-gradient-to-b from-portfolio-purple via-portfolio-blue to-portfolio-pink;
   }
 
   /* Border gradients */
@@ -139,19 +139,19 @@
     @apply transition-all duration-300 hover:scale-110 filter hover:drop-shadow-[0_0_8px_rgba(0,200,255,0.5)];
   }
   
-  /* Animated Senegalese gradient text */
+  /* Animated gradient text */
   .animate-gradient-slow {
     @apply bg-clip-text text-transparent bg-[length:400%_400%] animate-gradient-text;
     background-image: linear-gradient(90deg, 
-      rgba(0, 133, 71, 1) 0%, 
-      rgba(252, 209, 22, 1) 50%, 
-      rgba(206, 17, 38, 1) 100%);
+      #9b87f5 0%, 
+      #0EA5E9 50%, 
+      #D946EF 100%);
   }
   
   /* Animated gradient pulse for elements */
   .animate-gradient-pulse {
     @apply animate-gradient-pulse-anim;
-    background: linear-gradient(-45deg, #00853f, #fcd116, #cd1126, #00853f);
+    background: linear-gradient(-45deg, #9b87f5, #0EA5E9, #D946EF, #9b87f5);
     background-size: 400% 400%;
   }
   
@@ -237,7 +237,7 @@
   @apply opacity-100;
 }
 
-/* Animated Senegalese gradient classes */
+/* Animated gradient classes */
 .animate-gradient-text {
   animation: gradient-text 8s ease infinite;
 }
