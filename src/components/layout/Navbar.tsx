@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -5,12 +6,14 @@ import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { useIsMobile } from '@/hooks/use-mobile';
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const isMobile = useIsMobile();
   const location = useLocation();
+
   const toggleDropdown = (name: string) => {
     if (activeDropdown === name) {
       setActiveDropdown(null);
@@ -18,6 +21,7 @@ const Navbar = () => {
       setActiveDropdown(name);
     }
   };
+
   const scrollToSection = (sectionId: string, e?: React.MouseEvent) => {
     if (e) {
       e.preventDefault();
@@ -34,13 +38,13 @@ const Navbar = () => {
       });
     }
   };
+
   const navigation = [{
     name: 'Accueil',
     href: '/'
   }, {
     name: 'Services',
-    href: '/#services',
-    action: (e: React.MouseEvent) => scrollToSection('services', e),
+    href: '/services',
     dropdown: true,
     children: [{
       name: 'Développement Web',
@@ -60,8 +64,7 @@ const Navbar = () => {
     }]
   }, {
     name: 'Expertise',
-    href: '/#skills',
-    action: (e: React.MouseEvent) => scrollToSection('skills', e)
+    href: '/expertise'
   }, {
     name: 'Portfolio',
     href: '/portfolio'
@@ -72,6 +75,7 @@ const Navbar = () => {
     name: 'Contact',
     href: '/contact'
   }];
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -85,6 +89,7 @@ const Navbar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -97,6 +102,7 @@ const Navbar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen]);
+
   return <nav className={cn("fixed w-full top-0 z-50 transition-all duration-300", scrolled ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-0.5" : "bg-transparent py-1")}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
@@ -128,16 +134,16 @@ const Navbar = () => {
                             </div>
                           </NavigationMenuContent>
                         </> : <NavigationMenuLink asChild>
-                          {item.action ? <a href={item.href} onClick={item.action} className={cn(navigationMenuTriggerStyle(), "animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white px-4 py-2")}>
+                          <Link to={item.href} className={cn(navigationMenuTriggerStyle(), "animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white px-4 py-2")}>
                               {item.name}
-                            </a> : <Link to={item.href} className={cn(navigationMenuTriggerStyle(), "animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white px-4 py-2")}>
-                              {item.name}
-                            </Link>}
+                          </Link>
                         </NavigationMenuLink>}
                     </NavigationMenuItem>)}
                   <NavigationMenuItem>
-                    <Button className="animate-gradient-slow bg-transparent border border-white hover:bg-white/10 hover:text-white transition-colors ml-2">
-                      Démarrer un projet
+                    <Button className="animate-gradient-slow bg-transparent border border-white hover:bg-white/10 hover:text-white transition-colors ml-2" asChild>
+                      <Link to="/start-project">
+                        Démarrer un projet
+                      </Link>
                     </Button>
                   </NavigationMenuItem>
                 </NavigationMenuList>
@@ -165,22 +171,15 @@ const Navbar = () => {
                               {child.name}
                             </Link>)}
                         </div>}
-                    </> : item.action ? <a href={item.href} onClick={e => {
-              if (item.href.startsWith('/#')) {
-                e.preventDefault();
-                item.action && item.action(e);
-              } else {
-                setIsOpen(false);
-              }
-            }} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-gray-100 animate-gradient-slow">
-                        {item.name}
-                      </a> : <Link to={item.href} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-gray-100 animate-gradient-slow" onClick={() => setIsOpen(false)}>
+                    </> : <Link to={item.href} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-gray-100 animate-gradient-slow" onClick={() => setIsOpen(false)}>
                         {item.name}
                       </Link>}
                 </div>)}
               <div className="pt-2">
-                <Button className="w-full animate-gradient-slow bg-transparent text-foreground border border-gray-300 hover:bg-gray-100 transition-colors">
-                  Démarrer un projet
+                <Button className="w-full animate-gradient-slow bg-transparent text-foreground border border-gray-300 hover:bg-gray-100 transition-colors" asChild>
+                  <Link to="/start-project" onClick={() => setIsOpen(false)}>
+                    Démarrer un projet
+                  </Link>
                 </Button>
               </div>
             </div>

@@ -15,6 +15,9 @@ import ContactPage from "./pages/Contact";
 import AcademyPage from "./pages/Academy";
 import ToolsPage from "./pages/Tools";
 import BlogPage from "./pages/Blog";
+import ExpertisePage from "./pages/Expertise";
+import PortfolioPage from "./pages/Portfolio";
+import StartProject from "./pages/StartProject";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +38,9 @@ const App = () => (
           <Route path="/academy" element={<AcademyPage />} />
           <Route path="/tools" element={<ToolsPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/expertise" element={<ExpertisePage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/start-project" element={<StartProject />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
