@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/layout/Navbar';
@@ -713,3 +714,266 @@ const AITrainingPage = () => {
                                   {course.level}
                                 </UIBadge>
                                 <div className="flex items-center gap-1 text-muted-foreground">
+                                  <Clock size={14} />
+                                  <span>{course.duration}</span>
+                                </div>
+                              </div>
+                            </CardHeader>
+                            <CardContent className="flex-grow">
+                              <p className="text-sm text-muted-foreground mb-4">{course.description}</p>
+                              <div className="mt-4">
+                                <p className="font-medium">Modules inclus:</p>
+                                <ul className="mt-2 space-y-2">
+                                  {course.modules.slice(0, 3).map((module, idx) => (
+                                    <li key={idx} className="text-sm flex items-start gap-2">
+                                      <Check size={16} className="text-primary shrink-0 mt-1" />
+                                      <span>{module.title}</span>
+                                    </li>
+                                  ))}
+                                  {course.modules.length > 3 && (
+                                    <li className="text-sm text-muted-foreground italic">
+                                      + {course.modules.length - 3} autres modules
+                                    </li>
+                                  )}
+                                </ul>
+                              </div>
+                            </CardContent>
+                            <CardFooter className="flex flex-col items-start border-t border-white/10 pt-4 bg-black/20">
+                              <div className="text-lg font-semibold text-primary mb-3">{course.price}</div>
+                              <Button 
+                                variant="default" 
+                                className="w-full bg-primary/80 hover:bg-primary transition-all duration-300" 
+                                asChild
+                              >
+                                <Link to={`/contact?formation=${course.id}`} className="flex justify-between items-center">
+                                  <span>Plus d'informations</span>
+                                  <ArrowRight size={16} />
+                                </Link>
+                              </Button>
+                            </CardFooter>
+                          </Card>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </TabsContent>
+                  
+                  <TabsContent value="intermediaire" className="mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      {courses.filter(c => c.level === "Intermédiaire").map((course, index) => (
+                        <motion.div
+                          key={course.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          whileHover={{ y: -5 }}
+                        >
+                          <Card className="bg-black/30 backdrop-blur-md border border-white/10 h-full flex flex-col overflow-hidden hover:shadow-[0_0_25px_rgba(155,135,245,0.15)] hover:border-primary/30 transition-all duration-300 group">
+                            <CardHeader>
+                              <div className="text-primary mb-3 p-3 bg-white/5 rounded-lg w-fit group-hover:bg-primary/10 transition-all duration-300">{course.icon}</div>
+                              <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">{course.title}</CardTitle>
+                              <div className="flex items-center gap-2 mt-2 text-sm">
+                                <UIBadge variant="outline" className="font-normal border-primary/30 text-primary">
+                                  {course.level}
+                                </UIBadge>
+                                <div className="flex items-center gap-1 text-muted-foreground">
+                                  <Clock size={14} />
+                                  <span>{course.duration}</span>
+                                </div>
+                              </div>
+                            </CardHeader>
+                            <CardContent className="flex-grow">
+                              <p className="text-sm text-muted-foreground mb-4">{course.description}</p>
+                              <div className="mt-4">
+                                <p className="font-medium">Modules inclus:</p>
+                                <ul className="mt-2 space-y-2">
+                                  {course.modules.slice(0, 3).map((module, idx) => (
+                                    <li key={idx} className="text-sm flex items-start gap-2">
+                                      <Check size={16} className="text-primary shrink-0 mt-1" />
+                                      <span>{module.title}</span>
+                                    </li>
+                                  ))}
+                                  {course.modules.length > 3 && (
+                                    <li className="text-sm text-muted-foreground italic">
+                                      + {course.modules.length - 3} autres modules
+                                    </li>
+                                  )}
+                                </ul>
+                              </div>
+                            </CardContent>
+                            <CardFooter className="flex flex-col items-start border-t border-white/10 pt-4 bg-black/20">
+                              <div className="text-lg font-semibold text-primary mb-3">{course.price}</div>
+                              <Button 
+                                variant="default" 
+                                className="w-full bg-primary/80 hover:bg-primary transition-all duration-300" 
+                                asChild
+                              >
+                                <Link to={`/contact?formation=${course.id}`} className="flex justify-between items-center">
+                                  <span>Plus d'informations</span>
+                                  <ArrowRight size={16} />
+                                </Link>
+                              </Button>
+                            </CardFooter>
+                          </Card>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </TabsContent>
+                  
+                  <TabsContent value="avance" className="mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      {courses.filter(c => c.level === "Avancé" || c.level === "Expert").map((course, index) => (
+                        <motion.div
+                          key={course.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          whileHover={{ y: -5 }}
+                        >
+                          <Card className="bg-black/30 backdrop-blur-md border border-white/10 h-full flex flex-col overflow-hidden hover:shadow-[0_0_25px_rgba(155,135,245,0.15)] hover:border-primary/30 transition-all duration-300 group">
+                            <CardHeader>
+                              <div className="text-primary mb-3 p-3 bg-white/5 rounded-lg w-fit group-hover:bg-primary/10 transition-all duration-300">{course.icon}</div>
+                              <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">{course.title}</CardTitle>
+                              <div className="flex items-center gap-2 mt-2 text-sm">
+                                <UIBadge variant="outline" className="font-normal border-primary/30 text-primary">
+                                  {course.level}
+                                </UIBadge>
+                                <div className="flex items-center gap-1 text-muted-foreground">
+                                  <Clock size={14} />
+                                  <span>{course.duration}</span>
+                                </div>
+                              </div>
+                            </CardHeader>
+                            <CardContent className="flex-grow">
+                              <p className="text-sm text-muted-foreground mb-4">{course.description}</p>
+                              <div className="mt-4">
+                                <p className="font-medium">Modules inclus:</p>
+                                <ul className="mt-2 space-y-2">
+                                  {course.modules.slice(0, 3).map((module, idx) => (
+                                    <li key={idx} className="text-sm flex items-start gap-2">
+                                      <Check size={16} className="text-primary shrink-0 mt-1" />
+                                      <span>{module.title}</span>
+                                    </li>
+                                  ))}
+                                  {course.modules.length > 3 && (
+                                    <li className="text-sm text-muted-foreground italic">
+                                      + {course.modules.length - 3} autres modules
+                                    </li>
+                                  )}
+                                </ul>
+                              </div>
+                            </CardContent>
+                            <CardFooter className="flex flex-col items-start border-t border-white/10 pt-4 bg-black/20">
+                              <div className="text-lg font-semibold text-primary mb-3">{course.price}</div>
+                              <Button 
+                                variant="default" 
+                                className="w-full bg-primary/80 hover:bg-primary transition-all duration-300" 
+                                asChild
+                              >
+                                <Link to={`/contact?formation=${course.id}`} className="flex justify-between items-center">
+                                  <span>Plus d'informations</span>
+                                  <ArrowRight size={16} />
+                                </Link>
+                              </Button>
+                            </CardFooter>
+                          </Card>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </TabsContent>
+                </Tabs>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Testimonials Section */}
+        <section className="py-20 bg-black/30 backdrop-blur-md border-t border-b border-white/10">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl mx-auto text-center mb-16">
+              <h2 className="text-3xl font-bold mb-4">Ce Qu'ils En Disent</h2>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
+              <p className="text-muted-foreground">Témoignages de participants à nos formations IA</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {testimonials.map((testimonial, idx) => (
+                <motion.div
+                  key={idx}
+                  className="bg-black/20 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-primary/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.2)]"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 + 0.3 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="flex flex-col h-full">
+                    <div className="flex items-center mb-6">
+                      <div className="w-14 h-14 rounded-full overflow-hidden mr-4 bg-primary/20 flex items-center justify-center">
+                        <Star className="text-primary" size={24} />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-lg">{testimonial.name}</h4>
+                        <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                      </div>
+                    </div>
+                    <p className="text-muted-foreground italic flex-grow">{testimonial.text}</p>
+                    <div className="flex mt-4">
+                      {Array(5).fill(0).map((_, i) => (
+                        <Star key={i} size={16} className="text-yellow-500 mr-1" fill="#EAB308" />
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* CTA Section */}
+        <section className="py-20 relative">
+          <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent opacity-30"></div>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-3xl mx-auto text-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                  Prêt à Développer Votre Expertise en IA?
+                </h2>
+                <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                  Contactez-nous pour une formation sur mesure adaptée à vos besoins, 
+                  ou pour recevoir notre catalogue détaillé de formations.
+                </p>
+                
+                <div className="flex flex-wrap justify-center gap-4">
+                  <Button size="lg" className="bg-gradient-primary hover:opacity-90 shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-105" asChild>
+                    <Link to="/contact" className="flex items-center gap-2">
+                      <span>Demander un devis</span>
+                      <Send className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="border-white/20 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-105"
+                    asChild
+                  >
+                    <Link to="/contact" className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4" />
+                      <span>Planifier un appel</span>
+                    </Link>
+                  </Button>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+      </main>
+      
+      <Footer />
+    </div>
+  );
+};
+
+export default AITrainingPage;
