@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Zap, Planet, Rocket, Star, Atom } from 'lucide-react';
+import { Sparkles, Zap, Plane, Rocket, Star, Atom } from 'lucide-react';
 
 interface FloatingElementsProps {
   count?: number;
@@ -28,9 +28,9 @@ const FloatingElements: React.FC<FloatingElementsProps> = ({
   useEffect(() => {
     const icons = {
       tech: ['Atom', 'Zap'],
-      space: ['Planet', 'Star'],
+      space: ['Plane', 'Star'],
       data: ['Sparkles', 'Rocket'],
-      mixed: ['Atom', 'Zap', 'Planet', 'Star', 'Sparkles', 'Rocket']
+      mixed: ['Atom', 'Zap', 'Plane', 'Star', 'Sparkles', 'Rocket']
     };
     
     const colors = {
@@ -61,7 +61,7 @@ const FloatingElements: React.FC<FloatingElementsProps> = ({
     switch (icon) {
       case 'Atom': return <Atom {...props} />;
       case 'Zap': return <Zap {...props} />;
-      case 'Planet': return <Planet {...props} />;
+      case 'Plane': return <Plane {...props} />;
       case 'Star': return <Star {...props} />;
       case 'Sparkles': return <Sparkles {...props} />;
       case 'Rocket': return <Rocket {...props} />;
