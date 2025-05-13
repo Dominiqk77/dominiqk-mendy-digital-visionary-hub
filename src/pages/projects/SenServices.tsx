@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/layout/Navbar';
@@ -117,7 +116,7 @@ const SenServices = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Set page metadata
+  // Page metadata
   useEffect(() => {
     document.title = "SenServices | Étude de Cas E-Gouvernance | Dominiqk Mendy";
     
@@ -458,6 +457,13 @@ const SenServices = () => {
                         </div>
                       ))}
                     </div>
+                    
+                    <Button className="bg-gradient-primary hover:opacity-90" asChild>
+                      <a href="https://www.senservicesenegal.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                        <span>Accéder à l'interface citoyenne</span>
+                        <ArrowRight size={16} />
+                      </a>
+                    </Button>
                   </div>
                   
                   <motion.div
@@ -469,11 +475,13 @@ const SenServices = () => {
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20"></div>
                     <Card className="bg-black/40 backdrop-blur-md border-0 overflow-hidden relative z-10">
                       <CardContent className="p-0">
-                        <img 
-                          src="/lovable-uploads/e991c404-fa68-4476-bad5-65316d44cf46.png" 
-                          alt="SenServices Interface Citoyenne" 
-                          className="w-full h-auto"
-                        />
+                        <a href="https://www.senservicesenegal.com/" target="_blank" rel="noopener noreferrer">
+                          <img 
+                            src="/lovable-uploads/e991c404-fa68-4476-bad5-65316d44cf46.png" 
+                            alt="SenServices Interface Citoyenne" 
+                            className="w-full h-auto"
+                          />
+                        </a>
                       </CardContent>
                     </Card>
                     <div className="mt-4 flex items-center gap-3 text-muted-foreground text-sm">
@@ -495,11 +503,13 @@ const SenServices = () => {
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20"></div>
                     <Card className="bg-black/40 backdrop-blur-md border-0 overflow-hidden relative z-10">
                       <CardContent className="p-0">
-                        <img 
-                          src="/lovable-uploads/b6997f4d-7723-4b3c-8704-1e5e64cb7ff5.png" 
-                          alt="SenServices Dashboard Citoyen" 
-                          className="w-full h-auto"
-                        />
+                        <a href="https://www.senservicesenegal.com/" target="_blank" rel="noopener noreferrer">
+                          <img 
+                            src="/lovable-uploads/b6997f4d-7723-4b3c-8704-1e5e64cb7ff5.png" 
+                            alt="SenServices Dashboard Citoyen" 
+                            className="w-full h-auto"
+                          />
+                        </a>
                       </CardContent>
                     </Card>
                     <div className="mt-4 flex items-center gap-3 text-muted-foreground text-sm">
@@ -531,13 +541,20 @@ const SenServices = () => {
                         </div>
                       ))}
                     </div>
+                    
+                    <Button variant="outline" className="border-white/20 hover:bg-white/10" asChild>
+                      <a href="#admin" className="flex items-center gap-2">
+                        <span>Découvrir l'interface administrative</span>
+                        <ArrowRight size={16} />
+                      </a>
+                    </Button>
                   </div>
                 </div>
                 
                 <div className="text-center">
-                  <Button variant="outline" className="border-white/20 hover:bg-white/10" asChild>
-                    <a href="#admin" className="flex items-center gap-2">
-                      <span>Découvrir l'interface administrative</span>
+                  <Button className="bg-gradient-primary hover:opacity-90" asChild>
+                    <a href="https://www.senservicesenegal.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                      <span>Visiter l'interface citoyenne</span>
                       <ArrowRight size={16} />
                     </a>
                   </Button>
@@ -569,6 +586,13 @@ const SenServices = () => {
                         </div>
                       ))}
                     </div>
+                    
+                    <Button className="bg-gradient-primary hover:opacity-90" asChild>
+                      <a href="https://senadmin.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                        <span>Accéder à l'interface administrative</span>
+                        <ArrowRight size={16} />
+                      </a>
+                    </Button>
                   </div>
                   
                   <motion.div
@@ -580,11 +604,13 @@ const SenServices = () => {
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20"></div>
                     <Card className="bg-black/40 backdrop-blur-md border-0 overflow-hidden relative z-10">
                       <CardContent className="p-0">
-                        <img 
-                          src="/lovable-uploads/6d3ddf24-7310-4f5f-863f-f368868df100.png" 
-                          alt="SenServices Interface Admin" 
-                          className="w-full h-auto"
-                        />
+                        <a href="https://senadmin.com/" target="_blank" rel="noopener noreferrer">
+                          <img 
+                            src="/lovable-uploads/6d3ddf24-7310-4f5f-863f-f368868df100.png" 
+                            alt="SenServices Interface Admin" 
+                            className="w-full h-auto"
+                          />
+                        </a>
                       </CardContent>
                     </Card>
                     <div className="mt-4 flex items-center gap-3 text-muted-foreground text-sm">
@@ -606,11 +632,13 @@ const SenServices = () => {
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20"></div>
                     <Card className="bg-black/40 backdrop-blur-md border-0 overflow-hidden relative z-10">
                       <CardContent className="p-0">
-                        <img 
-                          src="/lovable-uploads/f1f1246f-685f-4deb-838f-c38c2fad1f3b.png" 
-                          alt="SenServices Objectifs" 
-                          className="w-full h-auto"
-                        />
+                        <a href="https://senadmin.com/" target="_blank" rel="noopener noreferrer">
+                          <img 
+                            src="/lovable-uploads/f1f1246f-685f-4deb-838f-c38c2fad1f3b.png" 
+                            alt="SenServices Objectifs" 
+                            className="w-full h-auto"
+                          />
+                        </a>
                       </CardContent>
                     </Card>
                     <div className="mt-4 flex items-center gap-3 text-muted-foreground text-sm">
@@ -642,7 +670,23 @@ const SenServices = () => {
                         </div>
                       ))}
                     </div>
+                    
+                    <Button className="bg-gradient-primary hover:opacity-90" asChild>
+                      <a href="https://senadmin.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                        <span>Explorer l'interface administrative</span>
+                        <ArrowRight size={16} />
+                      </a>
+                    </Button>
                   </div>
+                </div>
+                
+                <div className="text-center">
+                  <Button className="bg-gradient-primary hover:opacity-90 mr-4" asChild>
+                    <a href="https://senadmin.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                      <span>Visiter l'interface administrative</span>
+                      <ArrowRight size={16} />
+                    </a>
+                  </Button>
                 </div>
               </TabsContent>
             </Tabs>

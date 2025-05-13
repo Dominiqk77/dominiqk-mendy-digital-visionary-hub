@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, Code, LineChart, BrainCircuit, Database, Layout, Globe, Rocket, Lightbulb, Palette, FileCode, Monitor, Share2, Blocks, BookOpen, Users, Phone, ShoppingCart, BadgeCheck, Zap } from 'lucide-react';
@@ -10,6 +10,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const Services = () => {
   const [selectedCategory, setSelectedCategory] = useState("featured");
   const isMobile = useIsMobile();
+  const tabsListRef = useRef<HTMLDivElement>(null);
 
   // Featured services
   const featuredServices = [
@@ -230,12 +231,23 @@ const Services = () => {
     setSelectedCategory(value);
   };
 
-  // Scroll tabs into view when selected on mobile
+  // Optimize scroll tabs into view when selected on mobile
   useEffect(() => {
-    if (isMobile) {
+    if (isMobile && tabsListRef.current) {
       const selectedTab = document.querySelector(`[data-state="active"][data-value="${selectedCategory}"]`);
       if (selectedTab) {
-        selectedTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        // Calculate position for smooth horizontal scrolling
+        const container = tabsListRef.current;
+        const tabElement = selectedTab as HTMLElement;
+        
+        // Calculate the center position
+        const scrollLeft = tabElement.offsetLeft - (container.clientWidth / 2) + (tabElement.offsetWidth / 2);
+        
+        // Smooth scroll to the element
+        container.scrollTo({
+          left: scrollLeft,
+          behavior: 'smooth'
+        });
       }
     }
   }, [selectedCategory, isMobile]);
@@ -252,35 +264,39 @@ const Services = () => {
         </div>
 
         <Tabs defaultValue="featured" value={selectedCategory} onValueChange={handleCategoryChange} className="w-full mb-12">
-          <div className="flex justify-center mb-8">
-            <TabsList className="bg-muted/50 flex w-full md:w-auto overflow-x-auto no-scrollbar p-1 rounded-lg">
+          <div className="flex justify-center mb-8 overflow-hidden">
+            <TabsList 
+              ref={tabsListRef}
+              className="bg-muted/50 flex w-full md:w-auto overflow-x-auto p-1 rounded-lg snap-x snap-mandatory"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
               <TabsTrigger 
                 value="featured" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap snap-center"
               >
                 Services Phares
               </TabsTrigger>
               <TabsTrigger 
                 value="ai" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap snap-center"
               >
                 Intelligence Artificielle
               </TabsTrigger>
               <TabsTrigger 
                 value="web" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap snap-center"
               >
                 Web & Mobile
               </TabsTrigger>
               <TabsTrigger 
                 value="marketing" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap snap-center"
               >
                 Marketing Digital
               </TabsTrigger>
               <TabsTrigger 
                 value="consulting" 
-                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap"
+                className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap snap-center"
               >
                 Consulting
               </TabsTrigger>
