@@ -5,6 +5,7 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 declare global {
   interface Window {
@@ -179,12 +180,16 @@ const Hero = () => {
           <div className="w-full md:w-1/2 flex justify-center mt-6 md:mt-0 animate-slide-in-right">
             {isMobile ? (
               <div className="relative max-w-[220px]">
-                <div className="absolute inset-0 bg-gradient-primary rounded-full blur-3xl opacity-20 animate-pulse-slow"></div>
-                <img 
-                  src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
-                  alt="Dominique Mendy" 
-                  className="w-48 h-48 object-cover rounded-full border-4 border-primary relative z-10"
-                />
+                <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full blur-3xl opacity-40 animate-pulse-slow"></div>
+                <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary">
+                  <AspectRatio ratio={1/1} className="w-full h-full">
+                    <img 
+                      src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
+                      alt="Dominiqk Mendy" 
+                      className="w-full h-full object-cover"
+                    />
+                  </AspectRatio>
+                </div>
                 <div className="absolute -right-2 -top-2 w-16 h-16 bg-secondary rounded-full flex items-center justify-center z-20 animate-float">
                   <span className="text-white font-bold text-xs text-center p-1">Expert IA</span>
                 </div>
@@ -197,12 +202,16 @@ const Hero = () => {
               </div>
             ) : (
               <div className="relative max-w-[280px] sm:max-w-[320px] mx-auto">
-                <div className="absolute inset-0 bg-gradient-primary rounded-full blur-3xl opacity-20 animate-pulse-slow"></div>
-                <img 
-                  src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
-                  alt="Dominique Mendy" 
-                  className="w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 object-cover rounded-full border-4 border-primary relative z-10"
-                />
+                <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full blur-3xl opacity-40 animate-pulse-slow"></div>
+                <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-primary">
+                  <AspectRatio ratio={1/1} className="w-full h-full">
+                    <img 
+                      src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
+                      alt="Dominiqk Mendy" 
+                      className="w-full h-full object-cover"
+                    />
+                  </AspectRatio>
+                </div>
                 <div className="absolute -right-2 sm:-right-4 -top-2 sm:-top-4 w-20 h-20 sm:w-24 sm:h-24 bg-secondary rounded-full flex items-center justify-center z-20 animate-float">
                   <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Expert IA</span>
                 </div>

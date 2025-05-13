@@ -1,9 +1,11 @@
+
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Facebook, Twitter, Linkedin, Instagram, Youtube, MapPin, Mail, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 // Space particles component for footer
 const SpaceBackground = () => {
@@ -172,14 +174,18 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <div className="relative w-12 h-12 mr-3">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-full opacity-50 blur-sm animate-pulse-slow"></div>
-                <img 
-                  src="/lovable-uploads/1d07325e-d8c2-4e54-ac4e-3caf0120f9eb.png" 
-                  alt="QK Logo" 
-                  className="h-full w-full object-contain relative z-10"
-                />
+                <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full opacity-60 blur-md animate-pulse-slow"></div>
+                <div className="relative w-full h-full rounded-full overflow-hidden">
+                  <AspectRatio ratio={1/1} className="w-full h-full">
+                    <img 
+                      src="/lovable-uploads/60c23356-ad17-4782-854f-87572465f4f9.png" 
+                      alt="QK Logo" 
+                      className="w-full h-full object-contain"
+                    />
+                  </AspectRatio>
+                </div>
               </div>
-              <h3 className="text-xl font-bold animate-gradient-slow">Dominique Mendy</h3>
+              <h3 className="text-xl font-bold animate-gradient-slow">Dominiqk Mendy</h3>
             </div>
             <div className="h-1 w-16 bg-gradient-primary mb-6"></div>
             <p className="mb-6 text-gray-300">
@@ -212,7 +218,7 @@ const Footer = () => {
               <li><Link to="/services/web-development" className="text-gray-300 hover:text-primary transition-colors">Développement Web & Mobile</Link></li>
               <li><Link to="/services/digital-marketing" className="text-gray-300 hover:text-primary transition-colors">Marketing Digital</Link></li>
               <li><Link to="/services/ai-solutions" className="text-gray-300 hover:text-primary transition-colors">Solutions IA</Link></li>
-              <li><Link to="/services/e-governance" className="text-gray-300 hover:text-primary transition-colors">E-Gouvernance</Link></li>
+              <li><Link to="/services/egouvernance" className="text-gray-300 hover:text-primary transition-colors">E-Gouvernance</Link></li>
               <li><Link to="/services/consulting" className="text-gray-300 hover:text-primary transition-colors">Consultation Stratégique</Link></li>
             </ul>
           </div>
@@ -232,8 +238,8 @@ const Footer = () => {
               </li>
               <li className="flex items-start space-x-3">
                 <Mail size={20} className="text-primary mt-1 flex-shrink-0" />
-                <a href="mailto:mendydominiqk@gmail.com" className="text-gray-300 hover:text-primary transition-colors">
-                  mendydominiqk@gmail.com
+                <a href="mailto:hello@dominiqkmendy.com" className="text-gray-300 hover:text-primary transition-colors">
+                  hello@dominiqkmendy.com
                 </a>
               </li>
               <li className="flex items-start space-x-3">
@@ -303,7 +309,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-400 mb-4 md:mb-0">
-              © {currentYear} Dominique Mendy. Tous droits réservés.
+              © {currentYear} Dominiqk Mendy. Tous droits réservés.
             </p>
             <div className="flex space-x-6">
               <Link to="/privacy-policy" className="text-sm text-gray-400 hover:text-primary transition-colors">

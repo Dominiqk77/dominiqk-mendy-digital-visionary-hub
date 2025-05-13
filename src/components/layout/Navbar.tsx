@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -5,12 +6,15 @@ import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { useIsMobile } from '@/hooks/use-mobile';
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const isMobile = useIsMobile();
   const location = useLocation();
+  
   const toggleDropdown = (name: string) => {
     if (activeDropdown === name) {
       setActiveDropdown(null);
@@ -18,6 +22,7 @@ const Navbar = () => {
       setActiveDropdown(name);
     }
   };
+  
   const scrollToSection = (sectionId: string, e?: React.MouseEvent) => {
     if (e) {
       e.preventDefault();
@@ -34,6 +39,7 @@ const Navbar = () => {
       });
     }
   };
+  
   const navigation = [{
     name: 'Accueil',
     href: '/'
@@ -70,6 +76,7 @@ const Navbar = () => {
     name: 'Contact',
     href: '/contact'
   }];
+  
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -83,6 +90,7 @@ const Navbar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -95,14 +103,23 @@ const Navbar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen]);
+  
   return <nav className={cn("fixed w-full top-0 z-50 transition-all duration-300", scrolled ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-0.5" : "bg-transparent py-1")}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center space-x-3">
               <div className="relative group w-14 h-14 md:w-16 md:h-16 transition-all duration-300 hover:scale-105">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-full opacity-50 group-hover:opacity-75 blur-md animate-pulse-slow"></div>
-                
+                <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full opacity-60 group-hover:opacity-80 blur-md animate-pulse-slow"></div>
+                <div className="relative w-full h-full rounded-full overflow-hidden">
+                  <AspectRatio ratio={1/1} className="w-full h-full">
+                    <img 
+                      src="/lovable-uploads/60c23356-ad17-4782-854f-87572465f4f9.png" 
+                      alt="QK Logo" 
+                      className="w-full h-full object-cover"
+                    />
+                  </AspectRatio>
+                </div>
               </div>
               <span className="text-lg md:text-xl font-bold tracking-tight animate-gradient-slow hidden sm:block">
                 Dominiqk Mendy
