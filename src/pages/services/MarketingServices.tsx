@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowRight, LineChart, Share2, Rocket, Zap, Layout, BookOpen, Video, Target, BarChart3, MessageSquare, DollarSign, BadgeCheck, Briefcase, PenTool } from 'lucide-react';
+import { ArrowRight, LineChart, Share2, Rocket, Zap, Layout, BookOpen, Video, Target, BarChart3, MessageSquare, DollarSign, BadgeCheck, Briefcase, PenTool, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
