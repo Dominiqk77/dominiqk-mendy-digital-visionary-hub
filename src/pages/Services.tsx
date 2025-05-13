@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
   BrainCircuit,
   Globe,
@@ -61,7 +62,7 @@ const Services = () => {
       description: "Exploitez le potentiel de l'IA pour automatiser vos processus, générer des insights data et créer des expériences intelligentes.",
       icon: <BrainCircuit size={40} className="text-primary" />,
       link: "/services/ai-solutions",
-      background: "bg-gradient-to-br from-purple-900/30 to-blue-900/30",
+      background: "bg-gradient-to-br from-purple-900/40 to-blue-900/40",
       services: [
         "Développement de modèles de machine learning",
         "Intégration de Large Language Models (LLM)",
@@ -77,7 +78,7 @@ const Services = () => {
       description: "Création d'applications web et mobiles performantes, intuitives et sécurisées pour transformer vos idées en réalité digitale.",
       icon: <Code2 size={40} className="text-primary" />,
       link: "/services/web-development",
-      background: "bg-gradient-to-br from-blue-900/30 to-cyan-900/30",
+      background: "bg-gradient-to-br from-blue-900/40 to-cyan-900/40",
       services: [
         "Applications web progressives (PWA)",
         "Sites web corporate et e-commerce",
@@ -93,7 +94,7 @@ const Services = () => {
       description: "Transformation numérique des administrations publiques pour simplifier les procédures, réduire les délais et améliorer l'expérience citoyenne.",
       icon: <Building2 size={40} className="text-primary" />,
       link: "/services/egouvernance", 
-      background: "bg-gradient-to-br from-indigo-900/30 to-blue-900/30",
+      background: "bg-gradient-to-br from-indigo-900/40 to-blue-900/40",
       services: [
         "Plateformes de services administratifs en ligne",
         "Digitalisation des procédures gouvernementales",
@@ -110,7 +111,7 @@ const Services = () => {
       description: "Stratégies de marketing digital axées sur les résultats pour accroître votre visibilité, générer des leads et convertir vos prospects.",
       icon: <TrendingUp size={40} className="text-primary" />,
       link: "/services/digital-marketing",
-      background: "bg-gradient-to-br from-orange-900/30 to-red-900/30",
+      background: "bg-gradient-to-br from-orange-900/40 to-red-900/40",
       services: [
         "SEO & Content Marketing",
         "Campagnes publicitaires (Google, Meta, LinkedIn)",
@@ -126,7 +127,7 @@ const Services = () => {
       description: "Accompagnement stratégique pour définir et exécuter votre transformation digitale, innover et rester compétitif dans l'économie numérique.",
       icon: <Layers size={40} className="text-primary" />,
       link: "/services/consulting",
-      background: "bg-gradient-to-br from-gray-900/30 to-slate-900/30",
+      background: "bg-gradient-to-br from-gray-900/40 to-slate-900/40",
       services: [
         "Diagnostic digital et roadmap stratégique",
         "Innovation digitale et idéation",
@@ -142,7 +143,7 @@ const Services = () => {
       description: "Programmes de formation personnalisés pour renforcer les compétences numériques et IA de vos équipes et accélérer votre autonomie digitale.",
       icon: <Users size={40} className="text-primary" />,
       link: "/services/ai-training",
-      background: "bg-gradient-to-br from-green-900/30 to-emerald-900/30",
+      background: "bg-gradient-to-br from-green-900/40 to-emerald-900/40",
       services: [
         "Formations techniques en IA et développement",
         "Ateliers de product management digital",
@@ -176,8 +177,8 @@ const Services = () => {
       <Navbar />
       
       <main className="flex-grow">
-        {/* Hero section */}
-        <section className="py-16 md:py-20 relative overflow-hidden">
+        {/* Hero section avec une typographie améliorée */}
+        <section className="py-20 md:py-24 relative overflow-hidden">
           {/* Background effects */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-blue-500/10 rounded-full blur-3xl"></div>
@@ -191,11 +192,11 @@ const Services = () => {
               transition={{ duration: 0.7 }}
               className="text-center max-w-3xl mx-auto"
             >
-              <div className="inline-block p-2 bg-primary/10 rounded-lg mb-4">
-                <Globe size={32} className="text-primary animate-pulse" />
+              <div className="inline-block p-4 bg-primary/10 rounded-lg mb-5">
+                <Globe size={36} className="text-primary animate-pulse" />
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Nos Services</h1>
-              <p className="text-xl text-muted-foreground mb-8 mx-auto max-w-2xl">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Nos Services</h1>
+              <p className="text-xl text-muted-foreground mb-8 mx-auto max-w-2xl leading-relaxed">
                 Des solutions numériques innovantes et personnalisées 
                 pour répondre à vos défis business et technologiques.
               </p>
@@ -203,8 +204,8 @@ const Services = () => {
           </PageContainer>
         </section>
         
-        {/* Main services section */}
-        <section className="py-8 md:py-16 relative">
+        {/* Main services section avec cartes plus lisibles */}
+        <section className="py-12 md:py-20 relative">
           <PageContainer className="relative z-10">
             <motion.div
               variants={containerVariants}
@@ -223,17 +224,17 @@ const Services = () => {
                   }`}
                 >
                   <div className={`${service.background} p-8`}>
-                    <div className="mb-4">
+                    <div className="mb-5">
                       {service.icon}
                     </div>
-                    <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
-                    <p className="text-muted-foreground mb-6">{service.description}</p>
+                    <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
+                    <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
                     
-                    <ul className="mb-8 space-y-2">
+                    <ul className="mb-8 space-y-3">
                       {service.services.map((item, index) => (
-                        <li key={index} className="flex items-center gap-2">
+                        <li key={index} className="flex items-center gap-3 bg-black/20 p-2 rounded-md backdrop-blur-sm">
                           <div className="shrink-0 text-primary">
-                            <BadgeCheck size={16} />
+                            <BadgeCheck size={18} />
                           </div>
                           <span className="text-sm">{item}</span>
                         </li>
@@ -241,7 +242,7 @@ const Services = () => {
                     </ul>
                     
                     <Button 
-                      className={service.featured ? "bg-primary hover:bg-primary/90" : "bg-white/10 hover:bg-white/20"} 
+                      className={`w-full py-6 ${service.featured ? "bg-primary hover:bg-primary/90" : "bg-white/10 hover:bg-white/20"}`}
                       asChild
                     >
                       <Link to={service.link} className="w-full flex justify-between items-center">
@@ -256,36 +257,36 @@ const Services = () => {
           </PageContainer>
         </section>
         
-        {/* Approach section */}
-        <section className="py-16 md:py-24 bg-black/30 backdrop-blur-md border-t border-b border-white/10 relative">
+        {/* Approach section avec des étapes plus évidentes */}
+        <section className="py-20 md:py-28 bg-black/40 backdrop-blur-md border-t border-b border-white/10 relative">
           <PageContainer className="relative z-10">
             <div className="max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4">Notre Approche</h2>
+              <h2 className="text-3xl font-bold mb-5">Notre Approche</h2>
               <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground text-lg leading-relaxed">
                 Une méthodologie robuste et éprouvée pour vous garantir des résultats concrets et mesurables.
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
               {[
                 {
-                  icon: <FileText size={28} />,
+                  icon: <FileText size={32} />,
                   title: "Analyse & Découverte",
                   description: "Compréhension approfondie de vos besoins, objectifs et contraintes pour définir la solution optimale."
                 },
                 {
-                  icon: <Layers size={28} />,
+                  icon: <Layers size={32} />,
                   title: "Stratégie & Conception",
                   description: "Élaboration d'une stratégie sur mesure et conception détaillée de la solution technique."
                 },
                 {
-                  icon: <Code2 size={28} />,
+                  icon: <Code2 size={32} />,
                   title: "Développement & Test",
                   description: "Mise en œuvre agile de la solution avec cycles itératifs et tests rigoureux à chaque étape."
                 },
                 {
-                  icon: <Rocket size={28} />,
+                  icon: <Rocket size={32} />,
                   title: "Déploiement & Évolution",
                   description: "Lancement contrôlé, formation des utilisateurs et amélioration continue de votre solution."
                 }
@@ -296,17 +297,17 @@ const Services = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-black/20 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 relative"
+                  className="bg-black/30 backdrop-blur-sm p-7 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 relative"
                 >
-                  <div className="text-primary mb-4">
+                  <div className="text-primary mb-5 p-3 bg-white/5 rounded-lg inline-block">
                     {step.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.description}</p>
+                  <h3 className="text-xl font-semibold mb-4">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{step.description}</p>
                   
                   {idx < 3 && (
                     <div className="hidden md:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-                      <ArrowRight size={20} className="text-primary" />
+                      <ArrowRight size={24} className="text-primary" />
                     </div>
                   )}
                 </motion.div>
@@ -315,8 +316,8 @@ const Services = () => {
           </PageContainer>
         </section>
         
-        {/* Featured project section */}
-        <section className="py-16 md:py-24 relative">
+        {/* Featured project section avec design amélioré */}
+        <section className="py-20 md:py-28 relative">
           <PageContainer>
             <div className="max-w-5xl mx-auto">
               <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -327,13 +328,15 @@ const Services = () => {
                   viewport={{ once: true }}
                 >
                   <div className="relative">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-violet-600 opacity-30 blur-lg rounded-lg"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-violet-600 opacity-40 blur-lg rounded-lg"></div>
                     <div className="relative rounded-lg overflow-hidden border border-white/20">
-                      <img 
-                        src="/lovable-uploads/e991c404-fa68-4476-bad5-65316d44cf46.png"
-                        alt="SenServices E-Gouvernance" 
-                        className="w-full h-auto rounded-lg"
-                      />
+                      <AspectRatio ratio={16/9}>
+                        <img 
+                          src="/lovable-uploads/e991c404-fa68-4476-bad5-65316d44cf46.png"
+                          alt="SenServices E-Gouvernance" 
+                          className="w-full h-full object-cover"
+                        />
+                      </AspectRatio>
                     </div>
                   </div>
                 </motion.div>
@@ -344,37 +347,37 @@ const Services = () => {
                   transition={{ duration: 0.7 }}
                   viewport={{ once: true }}
                 >
-                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/20 text-primary mb-6">
+                  <div className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-primary/20 text-primary mb-6">
                     Projet À La Une
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">SenServices: Plateforme Nationale d'E-Gouvernance</h2>
-                  <p className="text-muted-foreground mb-6">
+                  <h2 className="text-3xl font-bold mb-5 tracking-tight">SenServices: Plateforme Nationale d'E-Gouvernance</h2>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
                     Transformation numérique complète des services administratifs pour faciliter l'accès aux démarches publiques et 
                     moderniser l'État grâce à une plateforme centralisée innovante.
                   </p>
                   
-                  <div className="space-y-4 mb-8">
+                  <div className="space-y-3 mb-8">
                     {[
                       "Digitalisation de plus de 500 démarches administratives",
                       "Réduction des délais de traitement de 96%",
                       "Interface citoyenne intuitive et dashboard administratif avancé",
                       "Sécurisation complète des données et transactions"
                     ].map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
+                      <div key={idx} className="flex items-start gap-3 bg-white/5 p-3 rounded-md backdrop-blur-sm">
                         <BadgeCheck size={18} className="text-primary shrink-0 mt-1" />
-                        <span>{feature}</span>
+                        <span className="text-sm md:text-base">{feature}</span>
                       </div>
                     ))}
                   </div>
                   
                   <div className="flex flex-wrap gap-4">
-                    <Button className="bg-gradient-primary hover:opacity-90" asChild>
+                    <Button className="bg-gradient-primary hover:opacity-90 py-6" asChild>
                       <Link to="/projects/senservices" className="flex items-center gap-2">
                         <span>Découvrir le projet</span>
                         <ArrowRight size={16} />
                       </Link>
                     </Button>
-                    <Button variant="outline" className="border-white/20 hover:bg-white/10" asChild>
+                    <Button variant="outline" className="border-white/20 hover:bg-white/10 py-6" asChild>
                       <Link to="/services/egouvernance" className="flex items-center gap-2">
                         <span>Services E-Gouvernance</span>
                         <ArrowRight size={16} />
@@ -387,25 +390,25 @@ const Services = () => {
           </PageContainer>
         </section>
         
-        {/* CTA section */}
-        <section className="py-16 md:py-24 bg-black/30 backdrop-blur-md border-t border-b border-white/10">
+        {/* CTA section avec un design plus engageant */}
+        <section className="py-20 md:py-28 bg-black/40 backdrop-blur-md border-t border-b border-white/10">
           <PageContainer>
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
                 Prêt à donner vie à votre projet?
               </h2>
-              <p className="text-xl text-muted-foreground mb-8 mx-auto max-w-2xl">
+              <p className="text-xl text-muted-foreground mb-8 mx-auto max-w-2xl leading-relaxed">
                 Discutons de vos besoins et voyons comment je peux vous aider à atteindre vos objectifs.
               </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button size="lg" className="bg-gradient-primary hover:opacity-90 shadow-lg shadow-primary/20" asChild>
-                  <Link to="/start-project" className="flex items-center gap-2">
+              <div className="flex flex-wrap justify-center gap-5">
+                <Button size="lg" className="bg-gradient-primary hover:opacity-90 shadow-lg shadow-primary/20 px-8 py-6" asChild>
+                  <Link to="/start-project" className="flex items-center gap-3 text-base">
                     <span>Démarrer un projet</span>
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-white/20 hover:bg-white/10" asChild>
-                  <Link to="/contact" className="flex items-center gap-2">
+                <Button size="lg" variant="outline" className="border-white/20 hover:bg-white/10 px-8 py-6" asChild>
+                  <Link to="/contact" className="flex items-center gap-3 text-base">
                     <span>Prendre contact</span>
                     <ArrowRight className="h-5 w-5" />
                   </Link>
