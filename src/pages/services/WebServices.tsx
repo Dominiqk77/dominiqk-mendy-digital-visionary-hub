@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
@@ -117,13 +116,13 @@ const WebServices = () => {
   
   useEffect(() => {
     // Set page title for SEO
-    document.title = 'Services Web & Mobile Premium | Dominique Mendy | Développeur Full Stack Sénégal';
+    document.title = 'Services Web & Mobile Premium | Dominique Mendy | Développeur Full Stack International';
     
     // Set meta description for SEO
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', 
-        'Services de développement web et mobile par Dominique Mendy: sites web professionnels, applications mobile, e-commerce et solutions SaaS pour entreprises africaines et internationales. Expert reconnu en France, UK, USA et Afrique de l\'Ouest.'
+        'Services de développement web et mobile par Dominique Mendy: sites web professionnels, applications mobile, e-commerce et solutions SaaS pour entreprises internationales. Expert reconnu en France, UK, USA et à travers le monde.'
       );
     }
     
@@ -131,7 +130,7 @@ const WebServices = () => {
     const metaKeywords = document.querySelector('meta[name="keywords"]');
     if (metaKeywords) {
       metaKeywords.setAttribute('content', 
-        'développement web Sénégal, applications mobile Afrique, sites internet Dakar, e-commerce Côte d\'Ivoire, développeur full stack, SaaS Africa, expert web France, développement offshore UK, web apps USA, Dominique Mendy tech'
+        'développement web international, applications mobile, sites internet professionnels, e-commerce, développeur full stack, SaaS, expert web France, développement offshore UK, web apps USA, Dominique Mendy tech'
       );
     }
     
@@ -173,7 +172,7 @@ const WebServices = () => {
     },
   ];
 
-  // Comprehensive web services
+  // Comprehensive web services with international focus
   const webServices = [
     {
       icon: <Code size={40} />,
@@ -195,7 +194,7 @@ const WebServices = () => {
       icon: <ShoppingCart size={40} />,
       title: "E-Commerce & Marketplaces",
       description: "Création de boutiques en ligne et places de marché optimisées pour la conversion et l'expérience utilisateur. Solutions complètes intégrant paiement, gestion des stocks et livraison.",
-      features: ["Intégration de multiples moyens de paiement africains", "Gestion avancée des produits et stocks", "Optimisation pour le SEO et le mobile", "Tableau de bord administrateur complet"],
+      features: ["Intégration de multiples moyens de paiement internationaux", "Gestion avancée des produits et stocks", "Optimisation pour le SEO et le mobile", "Tableau de bord administrateur complet"],
       price: "À partir de 2M FCFA",
       category: "ecommerce"
     },
@@ -263,7 +262,7 @@ const WebServices = () => {
                   Solutions Web & Mobile <span className="text-gradient">Innovantes</span>
                 </h1>
                 <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                  Développement d'applications et sites web performants, évolutifs et à fort impact pour les entreprises innovantes en Afrique et à l'international
+                  Développement d'applications et sites web performants, évolutifs et à fort impact pour les entreprises innovantes à l'international
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <Button size="lg" className="bg-gradient-primary hover:opacity-90" asChild>
@@ -379,7 +378,7 @@ const WebServices = () => {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Projets Réalisés</h2>
               <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Des solutions sur mesure pour des clients en Afrique et à l'international, adaptées à leurs besoins spécifiques et contextes locaux
+                Des solutions sur mesure pour des clients du monde entier, adaptées à leurs besoins spécifiques et contextes locaux
               </p>
             </div>
             
@@ -502,7 +501,7 @@ const WebServices = () => {
           </div>
         </section>
         
-        {/* FAQ Section */}
+        {/* FAQ Section with updated international references */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
@@ -518,8 +517,8 @@ const WebServices = () => {
                     answer: "Nous utilisons les technologies les plus modernes et performantes selon les besoins spécifiques de chaque projet. Pour le front-end : React.js, Vue.js, Angular, Next.js. Pour le back-end : Node.js, Django, Laravel, .NET Core. Pour les bases de données : PostgreSQL, MongoDB, MySQL. Nous adaptons notre stack technologique aux exigences de performance, d'évolutivité et de maintenance de votre projet."
                   },
                   {
-                    question: "Comment assurez-vous la compatibilité de mes applications avec le contexte africain ?",
-                    answer: "Nous prenons en compte les spécificités du contexte africain : optimisation pour les connexions internet instables, intégration des moyens de paiement locaux (Mobile Money, cartes locales), adaptation au multilinguisme, compatibilité avec les appareils les plus utilisés sur le continent, et réduction de la consommation de données quand nécessaire. Notre expérience dans plusieurs pays d'Afrique nous permet de créer des solutions parfaitement adaptées aux réalités locales."
+                    question: "Comment assurez-vous la compatibilité de mes applications avec les marchés internationaux ?",
+                    answer: "Nous prenons en compte les spécificités des marchés internationaux : optimisation pour différentes qualités de connexion internet, intégration des moyens de paiement locaux et internationaux, adaptation au multilinguisme, compatibilité avec une large gamme d'appareils, et optimisation des performances. Notre expérience dans de nombreux pays nous permet de créer des solutions parfaitement adaptées aux réalités de chaque marché."
                   },
                   {
                     question: "Quels sont les délais typiques pour le développement d'un site ou d'une application ?",
@@ -531,7 +530,7 @@ const WebServices = () => {
                   },
                   {
                     question: "Comment gérez-vous les projets avec des clients internationaux ?",
-                    answer: "Nous avons une forte expérience de collaboration avec des clients en Europe (France, UK), aux USA et dans plusieurs pays d'Afrique. Nous utilisons des outils collaboratifs efficaces (Slack, Jira, GitHub) et organisons des réunions régulières par visioconférence. Notre équipe est habituée aux projets internationaux et peut s'adapter à différents fuseaux horaires pour assurer une communication fluide."
+                    answer: "Nous avons une forte expérience de collaboration avec des clients en Europe (France, UK), aux USA et dans de nombreux pays à travers le monde. Nous utilisons des outils collaboratifs efficaces (Slack, Jira, GitHub) et organisons des réunions régulières par visioconférence. Notre équipe est habituée aux projets internationaux et peut s'adapter à différents fuseaux horaires pour assurer une communication fluide."
                   }
                 ].map((item, idx) => (
                   <motion.div
@@ -565,7 +564,7 @@ const WebServices = () => {
           </div>
         </section>
         
-        {/* Testimonial Section */}
+        {/* Testimonial Section with international references */}
         <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
@@ -576,7 +575,7 @@ const WebServices = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {[
                 {
-                  quote: "Dominique a transformé notre vision en une plateforme e-commerce moderne qui répond parfaitement aux besoins de nos clients au Sénégal et en Côte d'Ivoire. La solution intègre parfaitement les moyens de paiement locaux et internationaux.",
+                  quote: "Dominique a transformé notre vision en une plateforme e-commerce moderne qui répond parfaitement aux besoins de nos clients au Sénégal et à l'international. La solution intègre parfaitement les moyens de paiement locaux et internationaux.",
                   author: "Amadou N.",
                   position: "Directeur Commercial, Retail Company",
                   location: "Dakar, Sénégal"
@@ -588,7 +587,7 @@ const WebServices = () => {
                   location: "Paris, France"
                 },
                 {
-                  quote: "La refonte de notre plateforme SaaS par Dominique a permis d'améliorer significativement nos performances et de réduire nos coûts d'infrastructure. Sa compréhension des spécificités du marché africain a été déterminante.",
+                  quote: "La refonte de notre plateforme SaaS par Dominique a permis d'améliorer significativement nos performances et de réduire nos coûts d'infrastructure. Sa compréhension des spécificités des marchés internationaux a été déterminante.",
                   author: "Michael O.",
                   position: "CTO, Tech Company",
                   location: "Londres, UK"
