@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Badge as UIBadge } from "@/components/ui/badge";
 
 // SEO metadata
 const pageTitle = "Formation IA | Dominique Mendy | Expert Intelligence Artificielle";
@@ -594,9 +595,9 @@ const AITrainingPage = () => {
                               <div className="text-primary mb-3">{course.icon}</div>
                               <CardTitle className="text-xl">{course.title}</CardTitle>
                               <div className="flex items-center gap-2 mt-2 text-sm">
-                                <Badge variant="outline" className="font-normal">
+                                <UIBadge variant="outline" className="font-normal">
                                   {course.level}
-                                </Badge>
+                                </UIBadge>
                                 <div className="flex items-center gap-1 text-muted-foreground">
                                   <Clock size={14} />
                                   <span>{course.duration}</span>
@@ -652,9 +653,9 @@ const AITrainingPage = () => {
                               <div className="text-primary mb-3">{course.icon}</div>
                               <CardTitle className="text-xl">{course.title}</CardTitle>
                               <div className="flex items-center gap-2 mt-2 text-sm">
-                                <Badge variant="outline" className="font-normal">
+                                <UIBadge variant="outline" className="font-normal">
                                   {course.level}
-                                </Badge>
+                                </UIBadge>
                                 <div className="flex items-center gap-1 text-muted-foreground">
                                   <Clock size={14} />
                                   <span>{course.duration}</span>
@@ -711,9 +712,9 @@ const AITrainingPage = () => {
                               <div className="text-primary mb-3">{course.icon}</div>
                               <CardTitle className="text-xl">{course.title}</CardTitle>
                               <div className="flex items-center gap-2 mt-2 text-sm">
-                                <Badge variant="outline" className="font-normal">
+                                <UIBadge variant="outline" className="font-normal">
                                   {course.level}
-                                </Badge>
+                                </UIBadge>
                                 <div className="flex items-center gap-1 text-muted-foreground">
                                   <Clock size={14} />
                                   <span>{course.duration}</span>
@@ -769,9 +770,9 @@ const AITrainingPage = () => {
                               <div className="text-primary mb-3">{course.icon}</div>
                               <CardTitle className="text-xl">{course.title}</CardTitle>
                               <div className="flex items-center gap-2 mt-2 text-sm">
-                                <Badge variant="outline" className="font-normal">
+                                <UIBadge variant="outline" className="font-normal">
                                   {course.level}
-                                </Badge>
+                                </UIBadge>
                                 <div className="flex items-center gap-1 text-muted-foreground">
                                   <Clock size={14} />
                                   <span>{course.duration}</span>
@@ -1088,3 +1089,4 @@ const AITrainingPage = () => {
 };
 
 export default AITrainingPage;
+
