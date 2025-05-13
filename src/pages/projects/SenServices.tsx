@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/layout/Navbar';
@@ -103,7 +102,8 @@ const SenServices = () => {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(100, 150, 255, ${0.2 * (1 - distance/connectionDistance)})`;
+            // Updated the color to match our purple theme instead of blue
+            ctx.strokeStyle = `rgba(155, 135, 245, ${0.2 * (1 - distance/connectionDistance)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -180,22 +180,22 @@ const SenServices = () => {
       {
         metric: "Services disponibles",
         value: "177/500",
-        icon: <FileText size={24} className="text-cyan-300" />
+        icon: <FileText size={24} className="text-primary" />
       },
       {
         metric: "Réduction des délais",
         value: "96%",
-        icon: <Clock size={24} className="text-cyan-300" />
+        icon: <Clock size={24} className="text-primary" />
       },
       {
         metric: "Utilisateurs actifs",
         value: "1M+",
-        icon: <Users size={24} className="text-cyan-300" />
+        icon: <Users size={24} className="text-primary" />
       },
       {
         metric: "Économies annuelles",
         value: "15M€",
-        icon: <BarChart3 size={24} className="text-cyan-300" />
+        icon: <BarChart3 size={24} className="text-primary" />
       }
     ],
     recognitions: [
@@ -251,25 +251,25 @@ const SenServices = () => {
     }
   ];
 
-  // Témoignages utilisateurs
+  // Témoignages utilisateurs - UPDATED with new images
   const testimonials = [
     {
       text: "SenServices a révolutionné mon quotidien. Je peux désormais réaliser toutes mes démarches administratives sans me déplacer, même depuis mon village éloigné de Dakar.",
       author: "Amadou Diallo",
       role: "Agriculteur, Région de Kolda",
-      image: "/lovable-uploads/1d07325e-d8c2-4e54-ac4e-3caf0120f9eb.png"
+      image: "/lovable-uploads/9df9c1b5-fb10-4bd5-878e-7bc1e16fcde2.png"
     },
     {
       text: "En tant que chef d'entreprise, le gain de temps est considérable. Ce qui prenait des semaines se fait maintenant en quelques jours, permettant à mon business de se développer plus rapidement.",
-      author: "Fatou Ndiaye",
+      author: "Ibrahima Sall",
       role: "Entrepreneur, Dakar",
-      image: "/lovable-uploads/00f229a9-af1c-47e4-a805-4e3b081a0bb4.png"
+      image: "/lovable-uploads/d874ab0c-01af-446f-bd89-04d7678d6703.png"
     },
     {
       text: "La transparence apportée par SenServices a significativement réduit les cas de corruption et amélioré la confiance des citoyens envers l'administration.",
-      author: "Ibrahim Sow",
-      role: "Directeur, Ministère de la Modernisation",
-      image: "/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png"
+      author: "Aïda Mbaye",
+      role: "Directrice, Ministère de la Modernisation",
+      image: "/lovable-uploads/c050d09c-75cd-43e4-b6d2-3bf340fa9bb8.png"
     }
   ];
 
@@ -436,7 +436,7 @@ const SenServices = () => {
       <main className="flex-grow relative z-10">
         {/* Hero section */}
         <section className="py-16 md:py-24 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-portfolio-purple/20 to-portfolio-pink/20 pointer-events-none"></div>
           
           <PageContainer>
             <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -445,7 +445,7 @@ const SenServices = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <Badge variant="secondary" className="mb-4 px-3 py-1 text-sm font-semibold text-white bg-blue-600/80 hover:bg-blue-600">Innovation Africaine</Badge>
+                <Badge variant="secondary" className="mb-4 px-3 py-1 text-sm font-semibold text-white bg-primary/80 hover:bg-primary">Innovation Africaine</Badge>
                 <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                   SenServices
                 </h1>
@@ -456,25 +456,25 @@ const SenServices = () => {
                 
                 <div className="grid grid-cols-2 gap-4 mb-8">
                   <div className="bg-black/40 backdrop-blur-sm p-4 rounded-lg border border-white/10">
-                    <div className="text-sm text-blue-300 font-medium">Client</div>
+                    <div className="text-sm text-primary font-medium">Client</div>
                     <div className="font-medium text-white">{projectDetails.client}</div>
                   </div>
                   <div className="bg-black/40 backdrop-blur-sm p-4 rounded-lg border border-white/10">
-                    <div className="text-sm text-blue-300 font-medium">Durée</div>
+                    <div className="text-sm text-primary font-medium">Durée</div>
                     <div className="font-medium text-white">{projectDetails.duration}</div>
                   </div>
                   <div className="bg-black/40 backdrop-blur-sm p-4 rounded-lg border border-white/10">
-                    <div className="text-sm text-blue-300 font-medium">Période</div>
+                    <div className="text-sm text-primary font-medium">Période</div>
                     <div className="font-medium text-white">{projectDetails.year}</div>
                   </div>
                   <div className="bg-black/40 backdrop-blur-sm p-4 rounded-lg border border-white/10">
-                    <div className="text-sm text-blue-300 font-medium">Mon Rôle</div>
+                    <div className="text-sm text-primary font-medium">Mon Rôle</div>
                     <div className="font-medium text-white">Fondateur & CEO</div>
                   </div>
                 </div>
                 
                 <div className="flex flex-wrap gap-4">
-                  <Button className="bg-gradient-primary hover:opacity-90 text-white font-medium shadow-lg shadow-blue-500/20" asChild>
+                  <Button className="bg-gradient-primary hover:opacity-90 text-white font-medium shadow-lg shadow-primary/20" asChild>
                     <Link to="/services/egouvernance" className="flex items-center gap-2">
                       <span>Services E-Gouvernance</span>
                       <ArrowRight size={16} />
@@ -495,7 +495,7 @@ const SenServices = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="relative"
               >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-30"></div>
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
                 <Card className="bg-black/40 backdrop-blur-md border-0 overflow-hidden relative z-10">
                   <CardContent className="p-0">
                     <img 
@@ -505,7 +505,7 @@ const SenServices = () => {
                     />
                   </CardContent>
                 </Card>
-                <div className="absolute -bottom-4 -right-4 bg-blue-600 text-white p-3 rounded-lg font-medium shadow-lg shadow-blue-600/30 transform rotate-3">
+                <div className="absolute -bottom-4 -right-4 bg-primary text-white p-3 rounded-lg font-medium shadow-lg shadow-primary/30 transform rotate-3">
                   Taux de satisfaction: 92%
                 </div>
               </motion.div>
@@ -528,7 +528,7 @@ const SenServices = () => {
                   <ul className="space-y-3">
                     {projectDetails.objectives.map((objective, idx) => (
                       <li key={idx} className="flex items-start gap-3">
-                        <Check size={20} className="text-cyan-400 shrink-0 mt-1" />
+                        <Check size={20} className="text-primary shrink-0 mt-1" />
                         <span className="text-white">{objective}</span>
                       </li>
                     ))}
@@ -541,7 +541,7 @@ const SenServices = () => {
                     {projectDetails.technologies.map((tech, idx) => (
                       <li key={idx} className="flex items-start gap-3">
                         <div className="shrink-0 mt-1 w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
-                          <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
                         </div>
                         <span className="text-white">{tech}</span>
                       </li>
@@ -559,40 +559,40 @@ const SenServices = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
-                      <div className="shrink-0 p-1.5 rounded-full bg-cyan-900/30">
-                        <Laptop size={16} className="text-cyan-400" />
+                      <div className="shrink-0 p-1.5 rounded-full bg-primary/30">
+                        <Laptop size={16} className="text-primary" />
                       </div>
                       <span className="text-white">Développement full-stack des interfaces</span>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="shrink-0 p-1.5 rounded-full bg-cyan-900/30">
-                        <Target size={16} className="text-cyan-400" />
+                      <div className="shrink-0 p-1.5 rounded-full bg-primary/30">
+                        <Target size={16} className="text-primary" />
                       </div>
                       <span className="text-white">Vision stratégique et roadmap</span>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="shrink-0 p-1.5 rounded-full bg-cyan-900/30">
-                        <Landmark size={16} className="text-cyan-400" />
+                      <div className="shrink-0 p-1.5 rounded-full bg-primary/30">
+                        <Landmark size={16} className="text-primary" />
                       </div>
                       <span className="text-white">Négociations avec les ministères</span>
                     </div>
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
-                      <div className="shrink-0 p-1.5 rounded-full bg-cyan-900/30">
-                        <ShieldCheck size={16} className="text-cyan-400" />
+                      <div className="shrink-0 p-1.5 rounded-full bg-primary/30">
+                        <ShieldCheck size={16} className="text-primary" />
                       </div>
                       <span className="text-white">Architecture de sécurité</span>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="shrink-0 p-1.5 rounded-full bg-cyan-900/30">
-                        <Globe size={16} className="text-cyan-400" />
+                      <div className="shrink-0 p-1.5 rounded-full bg-primary/30">
+                        <Globe size={16} className="text-primary" />
                       </div>
                       <span className="text-white">Stratégie marketing et communication</span>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="shrink-0 p-1.5 rounded-full bg-cyan-900/30">
-                        <Users size={16} className="text-cyan-400" />
+                      <div className="shrink-0 p-1.5 rounded-full bg-primary/30">
+                        <Users size={16} className="text-primary" />
                       </div>
                       <span className="text-white">Formation des équipes gouvernementales</span>
                     </div>
@@ -605,11 +605,11 @@ const SenServices = () => {
                 <h3 className="text-xl font-semibold mb-6 text-white">Reconnaissances & Certifications</h3>
                 <div className="grid md:grid-cols-3 gap-6">
                   {projectDetails.recognitions.map((recognition, idx) => (
-                    <div key={idx} className="bg-black/40 p-4 rounded-lg border border-white/10 hover:border-cyan-500/50 transition-all duration-300">
-                      <Award className="text-cyan-400 mb-3" />
+                    <div key={idx} className="bg-black/40 p-4 rounded-lg border border-white/10 hover:border-primary/50 transition-all duration-300">
+                      <Award className="text-primary mb-3" />
                       <h4 className="text-lg font-medium mb-2 text-white">{recognition.title}</h4>
                       <p className="text-sm text-gray-300">{recognition.description}</p>
-                      <p className="text-xs text-cyan-400 mt-2">{recognition.year}</p>
+                      <p className="text-xs text-primary mt-2">{recognition.year}</p>
                     </div>
                   ))}
                 </div>
@@ -637,27 +637,27 @@ const SenServices = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="bg-black/50 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-cyan-500/30 transition-all duration-300 group"
+                  className="bg-black/50 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-primary/30 transition-all duration-300 group"
                 >
-                  <div className="text-cyan-400 mb-4 p-3 bg-white/5 rounded-lg inline-block group-hover:bg-cyan-900/20 transition-colors duration-300">
+                  <div className="text-primary mb-4 p-3 bg-white/5 rounded-lg inline-block group-hover:bg-primary/20 transition-colors duration-300">
                     {category.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-cyan-300 transition-colors duration-300">{category.title}</h3>
+                  <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-primary transition-colors duration-300">{category.title}</h3>
                   <p className="text-gray-300 mb-4">{category.description}</p>
                   
                   <div className="bg-black/30 rounded-lg p-4 mb-4">
-                    <h4 className="text-sm font-medium text-cyan-300 mb-2">Services populaires:</h4>
+                    <h4 className="text-sm font-medium text-primary mb-2">Services populaires:</h4>
                     <ul className="space-y-2">
                       {category.services.map((service, serviceIdx) => (
                         <li key={serviceIdx} className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-cyan-400"></div>
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
                           <span className="text-sm text-white">{service}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                   
-                  <Button variant="ghost" className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-950/30 p-0 h-auto">
+                  <Button variant="ghost" className="text-primary hover:text-primary hover:bg-primary/10 p-0 h-auto">
                     <span>Découvrir</span>
                     <ArrowRight size={14} className="ml-2" />
                   </Button>
@@ -679,12 +679,12 @@ const SenServices = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="bg-black/50 backdrop-blur-sm p-6 rounded-xl border border-white/10 text-center hover:border-cyan-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10"
+                  className="bg-black/50 backdrop-blur-sm p-6 rounded-xl border border-white/10 text-center hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <div className="mx-auto w-fit mb-4">
                     {result.icon}
                   </div>
-                  <div className="text-cyan-300 text-3xl font-bold mb-2">{result.value}</div>
+                  <div className="text-primary text-3xl font-bold mb-2">{result.value}</div>
                   <div className="text-white font-medium">{result.metric}</div>
                 </motion.div>
               ))}
@@ -710,12 +710,12 @@ const SenServices = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="bg-black/50 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-cyan-500/30 transition-all duration-300 group"
+                  className="bg-black/50 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-primary/30 transition-all duration-300 group"
                 >
-                  <div className="text-cyan-400 mb-4 p-3 bg-white/5 rounded-lg inline-block group-hover:bg-cyan-900/20 transition-colors duration-300">
+                  <div className="text-primary mb-4 p-3 bg-white/5 rounded-lg inline-block group-hover:bg-primary/20 transition-colors duration-300">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-cyan-300 transition-colors duration-300">{feature.title}</h3>
+                  <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-primary transition-colors duration-300">{feature.title}</h3>
                   <p className="text-gray-300">{feature.description}</p>
                 </motion.div>
               ))}
@@ -723,7 +723,7 @@ const SenServices = () => {
           </PageContainer>
         </section>
 
-        {/* Témoignages */}
+        {/* Témoignages UPDATED with new images */}
         <section className="py-20 bg-black/40 backdrop-blur-md border-t border-b border-white/10">
           <PageContainer>
             <div className="max-w-3xl mx-auto text-center mb-16">
@@ -736,15 +736,15 @@ const SenServices = () => {
 
             <div className="grid md:grid-cols-3 gap-8">
               {testimonials.map((testimonial, idx) => (
-                <Card key={idx} className="bg-black/30 border border-white/10 overflow-hidden group hover:border-cyan-500/30 transition-all duration-300">
+                <Card key={idx} className="bg-black/30 border border-white/10 overflow-hidden group hover:border-primary/30 transition-all duration-300">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-cyan-500/30">
+                      <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-primary/30">
                         <img src={testimonial.image} alt={testimonial.author} className="w-full h-full object-cover" />
                       </div>
                       <div>
                         <h4 className="text-white font-semibold">{testimonial.author}</h4>
-                        <p className="text-cyan-300 text-sm">{testimonial.role}</p>
+                        <p className="text-primary text-sm">{testimonial.role}</p>
                       </div>
                     </div>
                     <p className="text-gray-300 italic">"{testimonial.text}"</p>
@@ -770,13 +770,13 @@ const SenServices = () => {
               <TabsList className="grid grid-cols-2 w-full max-w-md mx-auto bg-black/50 backdrop-blur-md p-1 rounded-lg border border-white/10 mb-12">
                 <TabsTrigger 
                   value="citizen"
-                  className="data-[state=active]:bg-cyan-600/80 data-[state=active]:text-white font-medium"
+                  className="data-[state=active]:bg-primary/80 data-[state=active]:text-white font-medium"
                 >
                   Interface Citoyenne
                 </TabsTrigger>
                 <TabsTrigger 
                   value="admin"
-                  className="data-[state=active]:bg-cyan-600/80 data-[state=active]:text-white font-medium"
+                  className="data-[state=active]:bg-primary/80 data-[state=active]:text-white font-medium"
                 >
                   Interface Administrative
                 </TabsTrigger>
@@ -802,7 +802,7 @@ const SenServices = () => {
                         "Documents administratifs dématérialisés"
                       ].map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <Check size={18} className="text-cyan-400 shrink-0 mt-1" />
+                          <Check size={18} className="text-primary shrink-0 mt-1" />
                           <p className="text-white">{feature}</p>
                         </div>
                       ))}
@@ -822,7 +822,7 @@ const SenServices = () => {
                     transition={{ duration: 0.5 }}
                     className="relative"
                   >
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20"></div>
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-20"></div>
                     <Card className="bg-black/40 backdrop-blur-md border-0 overflow-hidden relative z-10">
                       <CardContent className="p-0">
                         <a href="https://www.senservicesenegal.com/" target="_blank" rel="noopener noreferrer">
@@ -850,7 +850,7 @@ const SenServices = () => {
                     transition={{ duration: 0.5 }}
                     className="relative order-2 md:order-1"
                   >
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20"></div>
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-20"></div>
                     <Card className="bg-black/40 backdrop-blur-md border-0 overflow-hidden relative z-10">
                       <CardContent className="p-0">
                         <a href="https://www.senservicesenegal.com/" target="_blank" rel="noopener noreferrer">
@@ -886,7 +886,7 @@ const SenServices = () => {
                         "Système de messagerie avec l'administration"
                       ].map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <Check size={18} className="text-cyan-400 shrink-0 mt-1" />
+                          <Check size={18} className="text-primary shrink-0 mt-1" />
                           <p className="text-white">{feature}</p>
                         </div>
                       ))}
@@ -931,7 +931,7 @@ const SenServices = () => {
                         "Interface de communication avec les citoyens"
                       ].map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <Check size={18} className="text-cyan-400 shrink-0 mt-1" />
+                          <Check size={18} className="text-primary shrink-0 mt-1" />
                           <p className="text-white">{feature}</p>
                         </div>
                       ))}
@@ -951,7 +951,7 @@ const SenServices = () => {
                     transition={{ duration: 0.5 }}
                     className="relative"
                   >
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20"></div>
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-20"></div>
                     <Card className="bg-black/40 backdrop-blur-md border-0 overflow-hidden relative z-10">
                       <CardContent className="p-0">
                         <a href="https://senadmin.com/" target="_blank" rel="noopener noreferrer">
@@ -979,7 +979,7 @@ const SenServices = () => {
                     transition={{ duration: 0.5 }}
                     className="relative order-2 md:order-1"
                   >
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20"></div>
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-20"></div>
                     <Card className="bg-black/40 backdrop-blur-md border-0 overflow-hidden relative z-10">
                       <CardContent className="p-0">
                         <a href="https://senadmin.com/" target="_blank" rel="noopener noreferrer">
@@ -1015,7 +1015,7 @@ const SenServices = () => {
                         "Optimisation continue des processus"
                       ].map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <Check size={18} className="text-cyan-400 shrink-0 mt-1" />
+                          <Check size={18} className="text-primary shrink-0 mt-1" />
                           <p className="text-white">{feature}</p>
                         </div>
                       ))}
@@ -1058,18 +1058,18 @@ const SenServices = () => {
               {projectStages.map((stage, idx) => (
                 <div key={idx} className="relative">
                   {idx < projectStages.length - 1 && (
-                    <div className="absolute top-12 left-7 w-0.5 h-[calc(100%+4rem)] bg-gradient-to-b from-cyan-400 to-transparent"></div>
+                    <div className="absolute top-12 left-7 w-0.5 h-[calc(100%+4rem)] bg-gradient-to-b from-primary to-transparent"></div>
                   )}
                   <div className="flex items-start gap-8">
-                    <div className="bg-cyan-900/30 rounded-full p-3 border border-cyan-400/50 relative z-10">
-                      <div className="w-8 h-8 rounded-full bg-cyan-400 flex items-center justify-center text-black font-bold">
+                    <div className="bg-primary/30 rounded-full p-3 border border-primary/50 relative z-10">
+                      <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-black font-bold">
                         {idx + 1}
                       </div>
                     </div>
                     <div className="flex-1">
                       <div className="flex flex-wrap justify-between items-center mb-4">
                         <h3 className="text-xl font-semibold text-white">{stage.stage}</h3>
-                        <Badge variant="outline" className="border-cyan-400/30 bg-cyan-900/20 text-cyan-300">
+                        <Badge variant="outline" className="border-primary/30 bg-primary/20 text-primary">
                           {stage.duration}
                         </Badge>
                       </div>
@@ -1077,7 +1077,7 @@ const SenServices = () => {
                         <ul className="space-y-3">
                           {stage.tasks.map((task, taskIdx) => (
                             <li key={taskIdx} className="flex items-start gap-3">
-                              <Check size={18} className="text-cyan-400 shrink-0 mt-1" />
+                              <Check size={18} className="text-primary shrink-0 mt-1" />
                               <p className="text-white">{task}</p>
                             </li>
                           ))}
@@ -1117,12 +1117,12 @@ const SenServices = () => {
                       solution: "Programme de formation intensive des agents publics et campagne de communication nationale pour accompagner la transition."
                     }
                   ].map((item, idx) => (
-                    <div key={idx} className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-cyan-500/30 transition-all duration-300">
+                    <div key={idx} className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-primary/30 transition-all duration-300">
                       <h3 className="text-xl font-semibold mb-2 text-white">Défi {idx + 1}</h3>
-                      <p className="text-cyan-300 mb-4 font-medium">{item.challenge}</p>
+                      <p className="text-primary mb-4 font-medium">{item.challenge}</p>
                       <div className="flex items-start gap-3">
-                        <div className="shrink-0 mt-1 w-6 h-6 rounded-full bg-cyan-900/30 flex items-center justify-center">
-                          <Check size={14} className="text-cyan-400" />
+                        <div className="shrink-0 mt-1 w-6 h-6 rounded-full bg-primary/30 flex items-center justify-center">
+                          <Check size={14} className="text-primary" />
                         </div>
                         <p className="text-gray-300">{item.solution}</p>
                       </div>
@@ -1140,10 +1140,10 @@ const SenServices = () => {
                       <h3 className="text-xl font-semibold mb-4 text-white">{category.category}</h3>
                       <div className="space-y-4">
                         {category.metrics.map((metric, metricIdx) => (
-                          <div key={metricIdx} className="bg-black/30 p-4 rounded-lg border border-white/10 hover:border-cyan-500/30 transition-all duration-300">
+                          <div key={metricIdx} className="bg-black/30 p-4 rounded-lg border border-white/10 hover:border-primary/30 transition-all duration-300">
                             <div className="flex justify-between items-center mb-1">
                               <p className="font-medium text-white">{metric.title}</p>
-                              <Badge className="bg-cyan-600/70 hover:bg-cyan-600 text-white">{metric.value}</Badge>
+                              <Badge className="bg-primary/70 hover:bg-primary text-white">{metric.value}</Badge>
                             </div>
                             <p className="text-sm text-gray-300">{metric.description}</p>
                           </div>
@@ -1173,16 +1173,16 @@ const SenServices = () => {
                 <a 
                   key={idx} 
                   href={resource.link}
-                  className="bg-black/30 rounded-lg border border-white/10 p-6 hover:border-cyan-500/30 hover:bg-black/50 transition-all duration-300 group"
+                  className="bg-black/30 rounded-lg border border-white/10 p-6 hover:border-primary/30 hover:bg-black/50 transition-all duration-300 group"
                 >
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-semibold text-white group-hover:text-cyan-300 transition-colors duration-300">{resource.title}</h3>
-                    <Badge variant="outline" className="border-cyan-400/30 bg-cyan-900/20 text-cyan-300">
+                    <h3 className="font-semibold text-white group-hover:text-primary transition-colors duration-300">{resource.title}</h3>
+                    <Badge variant="outline" className="border-primary/30 bg-primary/20 text-primary">
                       {resource.type}
                     </Badge>
                   </div>
                   <p className="text-gray-300 mb-3">{resource.description}</p>
-                  <div className="flex items-center gap-2 text-cyan-400 text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
+                  <div className="flex items-center gap-2 text-primary text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
                     <span>Télécharger</span>
                     <Download size={14} />
                   </div>
@@ -1195,11 +1195,11 @@ const SenServices = () => {
         {/* CTA Section */}
         <section className="py-20">
           <PageContainer>
-            <div className="max-w-4xl mx-auto bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-2xl overflow-hidden border border-white/10">
+            <div className="max-w-4xl mx-auto bg-gradient-to-r from-portfolio-purple/40 to-portfolio-pink/40 rounded-2xl overflow-hidden border border-white/10">
               <div className="p-12 md:p-16 relative">
                 {/* Background effects */}
-                <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
+                <div className="absolute top-0 right-0 w-48 h-48 bg-primary opacity-20 blur-3xl rounded-full"></div>
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-portfolio-pink opacity-20 blur-3xl rounded-full"></div>
                 
                 <div className="relative z-10 text-center">
                   <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
@@ -1210,7 +1210,7 @@ const SenServices = () => {
                   </p>
                   
                   <div className="flex flex-wrap justify-center gap-6">
-                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 shadow-lg shadow-blue-600/20 text-white font-medium" asChild>
+                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 shadow-lg shadow-primary/20 text-white font-medium" asChild>
                       <Link to="/contact" className="flex items-center gap-2">
                         <span>Discuter de votre projet</span>
                         <ArrowRight className="h-4 w-4" />
@@ -1226,11 +1226,11 @@ const SenServices = () => {
 
                   <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="flex items-center gap-3 justify-center bg-black/30 px-6 py-4 rounded-lg border border-white/10">
-                      <Phone className="text-cyan-400" />
+                      <Phone className="text-primary" />
                       <span className="text-white">+221 77 123 4567</span>
                     </div>
                     <div className="flex items-center gap-3 justify-center bg-black/30 px-6 py-4 rounded-lg border border-white/10">
-                      <Mail className="text-cyan-400" />
+                      <Mail className="text-primary" />
                       <span className="text-white">contact@dominiqkmendy.com</span>
                     </div>
                   </div>
