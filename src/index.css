@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -114,7 +115,7 @@
     }
   }
   
-  /* Nouvel effet de brillance pour les titres */
+  /* Enhanced glow effect for titles */
   @keyframes title-glow {
     0%, 100% {
       text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
@@ -138,6 +139,50 @@
       opacity: 0.5;
     }
   }
+
+  /* New cosmic dust effect */
+  @keyframes cosmic-dust-float {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(10px, 10px) rotate(2deg);
+    }
+    50% {
+      transform: translate(0, 20px) rotate(0deg);
+    }
+    75% {
+      transform: translate(-10px, 10px) rotate(-2deg);
+    }
+  }
+
+  /* Enhanced star twinkle effect */
+  @keyframes star-twinkle {
+    0%, 100% {
+      opacity: 0.4;
+      box-shadow: none;
+    }
+    50% {
+      opacity: 1;
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  /* Space warp effect for transitions */
+  @keyframes space-warp {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 }
  
 @layer base {
@@ -153,7 +198,7 @@
     @apply tracking-tight font-bold;
   }
   
-  /* Style amélioré pour les titres de pages */
+  /* Enhanced style for page titles */
   h1.page-title {
     @apply text-4xl md:text-5xl lg:text-6xl font-bold relative z-10;
     animation: title-glow 3s ease-in-out infinite;
@@ -171,24 +216,24 @@
     background-size: 30px 30px;
   }
   
-  /* Style pour les titres avec dégradé */
+  /* Style for gradient titles */
   .gradient-title {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 py-2 px-4 inline-block;
     background-size: 200% auto;
     animation: gradient-shift 8s ease infinite;
   }
   
-  /* Effet ombre pour les titres */
+  /* Enhanced shadow glow effect for titles */
   .shadow-glow {
     text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(99, 102, 241, 0.3);
   }
   
-  /* Effet texte brillant */
+  /* Enhanced text glow effect */
   .text-shadow-lg {
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
   }
   
-  /* Styles pour les indications de défilement */
+  /* Styles for scroll indicators */
   .pulse-scroll-hint {
     position: relative;
   }
@@ -204,6 +249,21 @@
     animation: scroll-hint-pulse 1.5s ease-in-out infinite;
     pointer-events: none;
     border-radius: 0 8px 8px 0;
+  }
+
+  /* Space themed card */
+  .space-card {
+    @apply bg-black/50 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-[0_0_20px_rgba(155,135,245,0.2)];
+  }
+
+  /* Cosmic hover effect for cards */
+  .cosmic-hover {
+    @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(155,135,245,0.2)];
+  }
+
+  /* Space themed button */
+  .space-button {
+    @apply bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20;
   }
 }
 
@@ -222,6 +282,7 @@
     @apply bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600;
   }
 
+  /* Enhanced animation utilities */
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
@@ -241,6 +302,18 @@
     @apply bg-clip-text text-transparent;
   }
 
+  .animate-cosmic-dust {
+    animation: cosmic-dust-float 20s ease-in-out infinite;
+  }
+
+  .animate-star-twinkle {
+    animation: star-twinkle 3s ease-in-out infinite;
+  }
+
+  .animate-space-warp {
+    animation: space-warp 8s ease-in-out infinite;
+  }
+
   .data-grid {
     position: absolute;
     inset: 0;
@@ -248,5 +321,19 @@
   
   .glow-text {
     text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+
+  /* Glass effect for space UI */
+  .glass-space {
+    @apply backdrop-blur-md bg-black/40 border border-white/10 rounded-lg;
+  }
+
+  /* Nebula glows */
+  .nebula-glow-blue {
+    @apply absolute rounded-full blur-3xl opacity-30 bg-blue-600/30 animate-pulse-slow;
+  }
+  
+  .nebula-glow-purple {
+    @apply absolute rounded-full blur-3xl opacity-30 bg-purple-600/30 animate-pulse-slow;
   }
 }

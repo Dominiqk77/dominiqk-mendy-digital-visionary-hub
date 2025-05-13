@@ -272,11 +272,11 @@ const EGovernance = () => {
       <Navbar />
       
       <main className="flex-grow relative z-10">
-        {/* Hero section avec une meilleure typographie et espacement */}
-        <section className="py-20 md:py-28 relative overflow-hidden">
+        {/* Hero section with improved typography and spacing */}
+        <section className="py-24 md:py-32 relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full">
-            <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-600/30 rounded-full blur-3xl opacity-70"></div>
-            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-purple-600/30 rounded-full blur-3xl opacity-70"></div>
+            <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-600/30 rounded-full blur-3xl opacity-70 animate-pulse-slow"></div>
+            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-purple-600/30 rounded-full blur-3xl opacity-70 animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
           </div>
           
           <PageContainer>
@@ -290,7 +290,7 @@ const EGovernance = () => {
             duration: 0.6
           }}>
               <div className="inline-block mb-6">
-                <div className="p-4 bg-primary/20 rounded-full backdrop-blur-sm border border-primary/30">
+                <div className="p-4 bg-primary/20 rounded-full backdrop-blur-sm border border-primary/30 animate-float">
                   <Globe size={48} className="text-primary animate-pulse-glow" />
                 </div>
               </div>
@@ -299,7 +299,7 @@ const EGovernance = () => {
                 Expert International en E-Gouvernance
               </Badge>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 tracking-tight text-white">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 tracking-tight text-white glow-text">
                 Transformation <span className="text-primary animate-gradient-slow">Numérique</span> des États
               </h1>
               
@@ -326,7 +326,7 @@ const EGovernance = () => {
           </PageContainer>
         </section>
         
-        {/* Key metrics avec un design plus clair */}
+        {/* Key metrics with a clearer design */}
         <section className="py-16 bg-black/40 backdrop-blur-md border-t border-b border-primary/10">
           <PageContainer>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
@@ -422,7 +422,7 @@ const EGovernance = () => {
           </PageContainer>
         </section>
         
-        {/* Expertise areas avec un design plus moderne et lisible */}
+        {/* Expertise areas with a more modern and readable design */}
         <section id="expertise" className="py-24 relative bg-black/40 backdrop-blur-md border-t border-b border-primary/10">
           <div className="absolute top-0 right-0 w-full h-full overflow-hidden pointer-events-none">
             <div className="absolute -top-20 -right-20 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl"></div>
@@ -472,7 +472,7 @@ const EGovernance = () => {
           </PageContainer>
         </section>
         
-        {/* Methodology avec une présentation plus claire */}
+        {/* Methodology with a clearer presentation */}
         <section className="py-24 relative">
           <PageContainer>
             <div className="max-w-3xl mx-auto text-center mb-16">
@@ -533,7 +533,7 @@ const EGovernance = () => {
           </PageContainer>
         </section>
         
-        {/* Benefits avec une meilleure visualisation */}
+        {/* Benefits with a better visualisation */}
         <section className="py-24 bg-black/40 backdrop-blur-md border-t border-b border-primary/10 relative">
           <PageContainer>
             <div className="max-w-3xl mx-auto text-center mb-16">
@@ -640,7 +640,7 @@ const EGovernance = () => {
               </motion.div>
             </div>
             
-            {/* Admin dashboard preview avec meilleure présentation */}
+            {/* Admin dashboard preview with a better presentation */}
             <div className="mt-24">
               <div className="text-center mb-12">
                 <Badge variant="outline" className="mb-4 px-3 py-1 text-white border-white/30">Interface Administrative</Badge>
@@ -677,7 +677,7 @@ const EGovernance = () => {
           </PageContainer>
         </section>
         
-        {/* CTA Section avec un design plus engageant */}
+        {/* CTA Section with a more engaging design */}
         <section className="py-24 relative">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 to-purple-900/40 pointer-events-none"></div>
           
