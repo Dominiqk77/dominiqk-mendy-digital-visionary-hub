@@ -131,6 +131,34 @@ export default {
           '50%': {
             'background-position': '100% 50%'
           }
+        },
+        'pulse-slow': {
+          '0%, 100%': {
+            opacity: '0.5'
+          },
+          '50%': {
+            opacity: '0.8'
+          }
+        },
+        'pulse-glow': {
+          '0%, 100%': {
+            opacity: '0.5',
+            transform: 'scale(0.95)'
+          },
+          '50%': {
+            opacity: '1',
+            transform: 'scale(1.05)'
+          }
+        },
+        'twinkle': {
+          '0%, 100%': {
+            opacity: '0.2',
+            'box-shadow': '0 0 2px rgba(255, 255, 255, 0.1)'
+          },
+          '50%': {
+            opacity: '1',
+            'box-shadow': '0 0 10px rgba(255, 255, 255, 0.8)'
+          }
         }
       },
       animation: {
@@ -139,7 +167,10 @@ export default {
         'float': 'float 6s ease-in-out infinite',
         'rotate-slow': 'rotate-slow 20s linear infinite',
         'gradient-text': 'gradient-text 8s ease infinite',
-        'gradient-pulse': 'gradient-pulse 8s ease infinite'
+        'gradient-pulse': 'gradient-pulse 8s ease infinite',
+        'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
+        'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+        'twinkle': 'twinkle 3s ease-in-out infinite'
       },
       backgroundImage: {
         'hero-pattern': "url('/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png')",

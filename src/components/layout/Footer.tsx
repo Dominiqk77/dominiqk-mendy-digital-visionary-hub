@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -172,11 +171,14 @@ const Footer = () => {
           {/* About Section with Logo */}
           <div>
             <div className="flex items-center mb-4">
-              <img 
-                src="/lovable-uploads/00f229a9-af1c-47e4-a805-4e3b081a0bb4.png" 
-                alt="DQ Logo" 
-                className="h-12 w-auto mr-3"
-              />
+              <div className="relative w-12 h-12 mr-3">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-full opacity-50 blur-sm animate-pulse-slow"></div>
+                <img 
+                  src="/lovable-uploads/1d07325e-d8c2-4e54-ac4e-3caf0120f9eb.png" 
+                  alt="QK Logo" 
+                  className="h-full w-full object-contain relative z-10"
+                />
+              </div>
               <h3 className="text-xl font-bold animate-gradient-slow">Dominique Mendy</h3>
             </div>
             <div className="h-1 w-16 bg-gradient-primary mb-6"></div>

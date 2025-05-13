@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -108,7 +107,17 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center space-x-3">
-              
+              <div className="relative group w-14 h-14 md:w-16 md:h-16 transition-all duration-300 hover:scale-105">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-full opacity-50 group-hover:opacity-75 blur-md animate-pulse-slow"></div>
+                <img 
+                  src="/lovable-uploads/1d07325e-d8c2-4e54-ac4e-3caf0120f9eb.png" 
+                  alt="QK Logo" 
+                  className="w-full h-full object-contain relative z-10"
+                />
+              </div>
+              <span className="text-lg md:text-xl font-bold tracking-tight animate-gradient-slow hidden sm:block">
+                Dominiqk Mendy
+              </span>
             </Link>
           </div>
           
