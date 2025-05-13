@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -41,42 +40,44 @@ const Navbar = () => {
     }
   };
 
-  const navigation = [{
-    name: 'Accueil',
-    href: '/'
-  }, {
-    name: 'Services',
-    href: '/services',
-    dropdown: true,
-    children: [{
-      name: 'Développement Web',
-      href: '/services/web-development'
+  const navigation = [
+    {
+      name: 'Accueil',
+      href: '/'
     }, {
-      name: 'Marketing Digital',
-      href: '/services/digital-marketing'
+      name: 'Services',
+      href: '/services',
+      dropdown: true,
+      children: [{
+        name: 'Développement Web',
+        href: '/services/web-development'
+      }, {
+        name: 'Marketing Digital',
+        href: '/services/digital-marketing'
+      }, {
+        name: 'Formation IA',
+        href: '/services/ai-training'
+      }, {
+        name: 'E-Gouvernance',
+        href: '/services/egouvernance'
+      }, {
+        name: 'Consulting',
+        href: '/services/consulting'
+      }]
     }, {
-      name: 'Formation IA',
-      href: '/services/ai-training'
+      name: 'Expertise',
+      href: '/expertise'
     }, {
-      name: 'E-Gouvernance',
-      href: '/services/egouvernance'
+      name: 'Portfolio',
+      href: '/portfolio'
     }, {
-      name: 'Consulting',
-      href: '/services/consulting'
-    }]
-  }, {
-    name: 'Expertise',
-    href: '/expertise'
-  }, {
-    name: 'Portfolio',
-    href: '/portfolio'
-  }, {
-    name: 'Blog',
-    href: '/blog'
-  }, {
-    name: 'Contact',
-    href: '/contact'
-  }];
+      name: 'Blog',
+      href: '/blog'
+    }, {
+      name: 'Contact',
+      href: '/contact'
+    }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -163,91 +164,88 @@ const Navbar = () => {
             </div>}
           
           {isMobile && (
-            <DrawerTrigger asChild>
-              <button 
-                onClick={() => setIsOpen(!isOpen)}
-                className="p-3 rounded-lg text-foreground fixed top-4 right-4 z-50 bg-portfolio-darkblue/60 backdrop-blur-md border border-portfolio-purple/30 shadow-lg hover:bg-portfolio-darkblue/80 transition-all"
-                aria-label="Menu"
-              >
-                <Menu className="h-6 w-6 text-white" />
-              </button>
-            </DrawerTrigger>
+            <Drawer open={isOpen} onOpenChange={setIsOpen}>
+              <DrawerTrigger asChild>
+                <button 
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="p-3 rounded-lg text-foreground fixed top-4 right-4 z-50 bg-portfolio-darkblue/60 backdrop-blur-md border border-portfolio-purple/30 shadow-lg hover:bg-portfolio-darkblue/80 transition-all"
+                  aria-label="Menu"
+                >
+                  <Menu className="h-6 w-6 text-white" />
+                </button>
+              </DrawerTrigger>
+              <DrawerContent className="max-h-[85vh] bg-gradient-to-b from-portfolio-darkblue/95 to-black/90 backdrop-blur-lg border-t border-portfolio-purple/20">
+                <div className="p-4">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center space-x-3">
+                      <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                        <img src="/lovable-uploads/60c23356-ad17-4782-854f-87572465f4f9.png" alt="QK Logo" className="w-full h-full object-cover" />
+                      </div>
+                      <span className="text-lg font-bold text-white">Dominiqk Mendy</span>
+                    </div>
+                    <button onClick={() => setIsOpen(false)} className="p-2 rounded-full bg-portfolio-purple/20 text-white">
+                      <X className="h-5 w-5" />
+                    </button>
+                  </div>
+                  
+                  <div className="flex flex-col space-y-1 max-h-[60vh] overflow-y-auto pr-2">
+                    {navigation.map(item => (
+                      <div key={item.name} className="w-full">
+                        {item.dropdown ? (
+                          <>
+                            <button 
+                              onClick={() => toggleDropdown(item.name)} 
+                              className="w-full flex justify-between items-center px-4 py-3 text-base font-medium rounded-lg bg-white/5 backdrop-blur-sm text-white border-l-2 border-portfolio-purple hover:bg-white/10 transition-all"
+                            >
+                              <span className="text-base font-medium">{item.name}</span>
+                              <ChevronDown className={cn("h-5 w-5 transition-transform", activeDropdown === item.name ? "rotate-180" : "")} />
+                            </button>
+                            
+                            {activeDropdown === item.name && (
+                              <div className="ml-4 space-y-1 animate-fade-in mt-1 mb-2">
+                                {item.children?.map(child => (
+                                  <Link 
+                                    key={child.name} 
+                                    to={child.href} 
+                                    className="flex items-center space-x-2 px-4 py-2.5 text-sm text-white/90 hover:text-white rounded-md hover:bg-white/5 transition-all" 
+                                    onClick={() => setIsOpen(false)}
+                                  >
+                                    <div className="w-1.5 h-1.5 rounded-full bg-portfolio-blue"></div>
+                                    <span>{child.name}</span>
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          <Link 
+                            to={item.href} 
+                            className="block px-4 py-3 text-base font-medium rounded-lg bg-white/5 backdrop-blur-sm text-white border-l-2 border-transparent hover:border-portfolio-purple hover:bg-white/10 transition-all" 
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {item.name}
+                          </Link>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="mt-6">
+                    <Button 
+                      className="w-full py-5 bg-gradient-to-r from-portfolio-purple to-portfolio-blue text-white border-none shadow-lg hover:shadow-xl transition-all" 
+                      asChild
+                    >
+                      <Link to="/start-project" onClick={() => setIsOpen(false)}>
+                        Démarrer un projet
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </DrawerContent>
+            </Drawer>
           )}
         </div>
       </div>
-
-      {isMobile && (
-        <Drawer open={isOpen} onOpenChange={setIsOpen}>
-          <DrawerContent className="max-h-[85vh] bg-gradient-to-b from-portfolio-darkblue/95 to-black/90 backdrop-blur-lg border-t border-portfolio-purple/20">
-            <div className="p-4">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-3">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                    <img src="/lovable-uploads/60c23356-ad17-4782-854f-87572465f4f9.png" alt="QK Logo" className="w-full h-full object-cover" />
-                  </div>
-                  <span className="text-lg font-bold text-white">Dominiqk Mendy</span>
-                </div>
-                <button onClick={() => setIsOpen(false)} className="p-2 rounded-full bg-portfolio-purple/20 text-white">
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-              
-              <div className="flex flex-col space-y-1 max-h-[60vh] overflow-y-auto pr-2">
-                {navigation.map(item => (
-                  <div key={item.name} className="w-full">
-                    {item.dropdown ? (
-                      <>
-                        <button 
-                          onClick={() => toggleDropdown(item.name)} 
-                          className="w-full flex justify-between items-center px-4 py-3 text-base font-medium rounded-lg bg-white/5 backdrop-blur-sm text-white border-l-2 border-portfolio-purple hover:bg-white/10 transition-all"
-                        >
-                          <span className="text-base font-medium">{item.name}</span>
-                          <ChevronDown className={cn("h-5 w-5 transition-transform", activeDropdown === item.name ? "rotate-180" : "")} />
-                        </button>
-                        
-                        {activeDropdown === item.name && (
-                          <div className="ml-4 space-y-1 animate-fade-in mt-1 mb-2">
-                            {item.children?.map(child => (
-                              <Link 
-                                key={child.name} 
-                                to={child.href} 
-                                className="flex items-center space-x-2 px-4 py-2.5 text-sm text-white/90 hover:text-white rounded-md hover:bg-white/5 transition-all" 
-                                onClick={() => setIsOpen(false)}
-                              >
-                                <div className="w-1.5 h-1.5 rounded-full bg-portfolio-blue"></div>
-                                <span>{child.name}</span>
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <Link 
-                        to={item.href} 
-                        className="block px-4 py-3 text-base font-medium rounded-lg bg-white/5 backdrop-blur-sm text-white border-l-2 border-transparent hover:border-portfolio-purple hover:bg-white/10 transition-all" 
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    )}
-                  </div>
-                ))}
-              </div>
-              
-              <div className="mt-6">
-                <Button 
-                  className="w-full py-5 bg-gradient-to-r from-portfolio-purple to-portfolio-blue text-white border-none shadow-lg hover:shadow-xl transition-all" 
-                  asChild
-                >
-                  <Link to="/start-project" onClick={() => setIsOpen(false)}>
-                    Démarrer un projet
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </DrawerContent>
-        </Drawer>
-      )}
     </nav>;
 };
 
