@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from 'lucide-react';
@@ -6,24 +5,22 @@ import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-
 declare global {
   interface Window {
     particlesJS: any;
   }
 }
-
 const Hero = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
-  
   const scrollToAbout = () => {
     const aboutSection = document.getElementById('about');
     if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: 'smooth' });
+      aboutSection.scrollIntoView({
+        behavior: 'smooth'
+      });
     }
   };
-
   useEffect(() => {
     const initParticles = () => {
       if (window.particlesJS) {
@@ -44,7 +41,7 @@ const Hero = () => {
               "stroke": {
                 "width": 0,
                 "color": "#000000"
-              },
+              }
             },
             "opacity": {
               "value": 0.5,
@@ -131,20 +128,16 @@ const Hero = () => {
         });
       }
     };
-
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
     script.async = true;
     script.onload = initParticles;
     document.body.appendChild(script);
-
     return () => {
       document.body.removeChild(script);
     };
   }, []);
-
-  return (
-    <div className="relative h-auto min-h-[700px] sm:min-h-[700px] flex items-center overflow-hidden bg-gradient-to-r from-portfolio-darkblue to-black pt-16 pb-8 sm:pt-8 sm:pb-0">
+  return <div className="relative h-auto min-h-[700px] sm:min-h-[700px] flex items-center overflow-hidden bg-gradient-to-r from-portfolio-darkblue to-black pt-16 pb-8 sm:pt-8 sm:pb-0">
       <div id="particles-js" className="absolute inset-0 z-0"></div>
       
       <div className="absolute inset-0 z-0 opacity-10 portfolio-gradient"></div>
@@ -158,7 +151,7 @@ const Hero = () => {
             </h1>
             
             <p className="text-sm sm:text-lg md:text-xl text-gray-300">
-              Expert en innovation numérique et leader tech Sénégalais transformant <span className="text-primary font-semibold">le paysage digital Africain</span> par des solutions technologiques révolutionnaires.
+              Expert en innovation numérique et leader tech Sénégalais transformant <span className="text-primary font-semibold">le paysage digital International</span> par des solutions technologiques révolutionnaires.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
@@ -178,51 +171,47 @@ const Hero = () => {
           </div>
           
           <div className="w-full md:w-1/2 flex justify-center mt-6 md:mt-0 animate-slide-in-right">
-            {isMobile ? (
-              <div className="relative max-w-[220px]">
+            {isMobile ? <div className="relative max-w-[220px]">
                 <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full blur-3xl opacity-40 animate-pulse-slow"></div>
                 <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary">
-                  <AspectRatio ratio={1/1} className="w-full h-full">
-                    <img 
-                      src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
-                      alt="Dominiqk Mendy" 
-                      className="w-full h-full object-cover"
-                    />
+                  <AspectRatio ratio={1 / 1} className="w-full h-full">
+                    <img src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" alt="Dominiqk Mendy" className="w-full h-full object-cover" />
                   </AspectRatio>
                 </div>
                 <div className="absolute -right-2 -top-2 w-16 h-16 bg-secondary rounded-full flex items-center justify-center z-20 animate-float">
                   <span className="text-white font-bold text-xs text-center p-1">Expert IA</span>
                 </div>
-                <div className="absolute -left-2 -bottom-2 w-20 h-20 bg-accent rounded-full flex items-center justify-center z-20 animate-float" style={{ animationDelay: '1s' }}>
+                <div className="absolute -left-2 -bottom-2 w-20 h-20 bg-accent rounded-full flex items-center justify-center z-20 animate-float" style={{
+              animationDelay: '1s'
+            }}>
                   <span className="text-white font-bold text-xs text-center p-1">Digital Marketing</span>
                 </div>
-                <div className="absolute right-0 -bottom-4 w-20 h-20 bg-primary rounded-full flex items-center justify-center z-20 animate-float" style={{ animationDelay: '2s' }}>
+                <div className="absolute right-0 -bottom-4 w-20 h-20 bg-primary rounded-full flex items-center justify-center z-20 animate-float" style={{
+              animationDelay: '2s'
+            }}>
                   <span className="text-white font-bold text-xs text-center p-1">Expert Web</span>
                 </div>
-              </div>
-            ) : (
-              <div className="relative max-w-[280px] sm:max-w-[320px] mx-auto">
+              </div> : <div className="relative max-w-[280px] sm:max-w-[320px] mx-auto">
                 <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full blur-3xl opacity-40 animate-pulse-slow"></div>
                 <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-primary">
-                  <AspectRatio ratio={1/1} className="w-full h-full">
-                    <img 
-                      src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
-                      alt="Dominiqk Mendy" 
-                      className="w-full h-full object-cover"
-                    />
+                  <AspectRatio ratio={1 / 1} className="w-full h-full">
+                    <img src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" alt="Dominiqk Mendy" className="w-full h-full object-cover" />
                   </AspectRatio>
                 </div>
                 <div className="absolute -right-2 sm:-right-4 -top-2 sm:-top-4 w-20 h-20 sm:w-24 sm:h-24 bg-secondary rounded-full flex items-center justify-center z-20 animate-float">
                   <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Expert IA</span>
                 </div>
-                <div className="absolute -left-2 sm:-left-4 -bottom-2 sm:-bottom-4 w-24 h-24 sm:w-28 sm:h-28 bg-accent rounded-full flex items-center justify-center z-20 animate-float" style={{ animationDelay: '1s' }}>
+                <div className="absolute -left-2 sm:-left-4 -bottom-2 sm:-bottom-4 w-24 h-24 sm:w-28 sm:h-28 bg-accent rounded-full flex items-center justify-center z-20 animate-float" style={{
+              animationDelay: '1s'
+            }}>
                   <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Digital Marketing</span>
                 </div>
-                <div className="absolute right-8 sm:right-12 -bottom-6 sm:-bottom-8 w-28 h-28 sm:w-32 sm:h-32 bg-primary rounded-full flex items-center justify-center z-20 animate-float" style={{ animationDelay: '2s' }}>
+                <div className="absolute right-8 sm:right-12 -bottom-6 sm:-bottom-8 w-28 h-28 sm:w-32 sm:h-32 bg-primary rounded-full flex items-center justify-center z-20 animate-float" style={{
+              animationDelay: '2s'
+            }}>
                   <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Expert Web</span>
                 </div>
-              </div>
-            )}
+              </div>}
           </div>
         </div>
         
@@ -256,8 +245,6 @@ const Hero = () => {
           <ChevronDown className="h-8 w-8 text-white" />
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Hero;
