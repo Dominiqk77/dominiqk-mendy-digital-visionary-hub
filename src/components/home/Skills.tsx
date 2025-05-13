@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
@@ -225,7 +224,7 @@ const Skills = () => {
           </p>
         </div>
         
-        <Tabs defaultValue="tech" value={selectedTab} onValueChange={handleTabChange} className="w-full max-w-5xl mx-auto">
+        <Tabs defaultValue="tech" value={selectedTab} onValueChange={handleTabChange} className="w-full max-w-7xl mx-auto">
           <div className="flex justify-center mb-8">
             <TabsList className="bg-muted/50 w-full md:w-auto overflow-x-auto no-scrollbar p-1 rounded-lg">
               <TabsTrigger 
@@ -334,7 +333,7 @@ const Skills = () => {
           </TabsContent>
         </Tabs>
         
-        <div className="mt-20">
+        <div className="mt-20 max-w-7xl mx-auto">
           <h3 className="text-2xl font-bold text-center mb-12">Technologies & Outils</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8">
             {technologiesUsed.map((tech, index) => (
