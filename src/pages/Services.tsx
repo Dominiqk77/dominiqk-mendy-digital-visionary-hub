@@ -21,7 +21,8 @@ import {
   ArrowRight,
   Users,
   BarChart3,
-  Database
+  Database,
+  FileText
 } from 'lucide-react';
 import PageContainer from '../components/layout/PageContainer';
 
