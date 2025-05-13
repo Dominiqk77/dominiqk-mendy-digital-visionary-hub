@@ -4,6 +4,7 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge"; // Added missing Badge import
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
