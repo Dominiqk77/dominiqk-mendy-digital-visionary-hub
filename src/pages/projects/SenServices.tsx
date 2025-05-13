@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/layout/Navbar';
@@ -21,7 +22,12 @@ import {
   Database,
   Globe,
   UserCheck,
-  Building
+  Building,
+  Award,
+  Target,
+  Download,
+  Phone,
+  Mail
 } from 'lucide-react';
 
 const SenServices = () => {
@@ -168,22 +174,39 @@ const SenServices = () => {
       {
         metric: "Démarches digitalisées",
         value: "500+",
-        icon: <FileText size={24} />
+        icon: <FileText size={24} className="text-cyan-300" />
       },
       {
         metric: "Réduction des délais",
         value: "96%",
-        icon: <Clock size={24} />
+        icon: <Clock size={24} className="text-cyan-300" />
       },
       {
         metric: "Utilisateurs actifs",
         value: "1M+",
-        icon: <Users size={24} />
+        icon: <Users size={24} className="text-cyan-300" />
       },
       {
         metric: "Économies annuelles",
         value: "15M€",
-        icon: <BarChart3 size={24} />
+        icon: <BarChart3 size={24} className="text-cyan-300" />
+      }
+    ],
+    recognitions: [
+      {
+        title: "Prix de l'Innovation Digitale Africaine",
+        description: "Reconnaissance de l'impact transformateur sur les services publics",
+        year: "2024"
+      },
+      {
+        title: "Smart City Award",
+        description: "Pour la modernisation des services publics urbains",
+        year: "2023"
+      },
+      {
+        title: "Certification ISO 27001",
+        description: "Pour la gestion exemplaire de la sécurité des données",
+        year: "2023"
       }
     ]
   };
@@ -222,6 +245,128 @@ const SenServices = () => {
     }
   ];
 
+  // Témoignages utilisateurs
+  const testimonials = [
+    {
+      text: "SenServices a révolutionné mon quotidien. Je peux désormais réaliser toutes mes démarches administratives sans me déplacer, même depuis mon village éloigné de Dakar.",
+      author: "Amadou Diallo",
+      role: "Agriculteur, Région de Kolda",
+      image: "/lovable-uploads/1d07325e-d8c2-4e54-ac4e-3caf0120f9eb.png"
+    },
+    {
+      text: "En tant que chef d'entreprise, le gain de temps est considérable. Ce qui prenait des semaines se fait maintenant en quelques jours, permettant à mon business de se développer plus rapidement.",
+      author: "Fatou Ndiaye",
+      role: "Entrepreneur, Dakar",
+      image: "/lovable-uploads/00f229a9-af1c-47e4-a805-4e3b081a0bb4.png"
+    },
+    {
+      text: "La transparence apportée par SenServices a significativement réduit les cas de corruption et amélioré la confiance des citoyens envers l'administration.",
+      author: "Ibrahim Sow",
+      role: "Directeur, Ministère de la Modernisation",
+      image: "/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png"
+    }
+  ];
+
+  // Impact chiffré complet
+  const detailedImpact = [
+    {
+      category: "Transformation Administrative",
+      metrics: [
+        { title: "Réduction des délais", value: "96%", description: "De 30+ jours à 1-3 jours en moyenne" },
+        { title: "Élimination des déplacements", value: "92%", description: "Des procédures réalisables à distance" },
+        { title: "Réduction des erreurs administratives", value: "89%", description: "Grâce à l'automatisation des contrôles" }
+      ]
+    },
+    {
+      category: "Impact Économique",
+      metrics: [
+        { title: "Économies budgétaires annuelles", value: "15M€", description: "Réduction des coûts opérationnels" },
+        { title: "Productivité économique", value: "+3.2%", description: "Augmentation du PIB des régions connectées" },
+        { title: "Réduction du chômage", value: "1.8%", description: "Création d'emplois dans le numérique" }
+      ]
+    },
+    {
+      category: "Impact Social",
+      metrics: [
+        { title: "Satisfaction des usagers", value: "92%", description: "Niveau d'approbation record" },
+        { title: "Inclusion des zones rurales", value: "+65%", description: "Accès aux services dans les régions isolées" },
+        { title: "Réduction des cas de corruption", value: "85%", description: "Grâce à la traçabilité des procédures" }
+      ]
+    }
+  ];
+
+  // Étapes du projet
+  const projectStages = [
+    {
+      stage: "Phase d'étude et de conception",
+      duration: "3 mois",
+      tasks: [
+        "Audit des procédures existantes",
+        "Ateliers avec les parties prenantes",
+        "Conception UX/UI des interfaces",
+        "Architecture technique du système"
+      ]
+    },
+    {
+      stage: "Phase de développement",
+      duration: "8 mois",
+      tasks: [
+        "Développement de l'interface citoyenne",
+        "Développement du back-office administratif",
+        "Intégration des APIs ministérielles",
+        "Tests de sécurité et de performance"
+      ]
+    },
+    {
+      stage: "Phase de déploiement",
+      duration: "4 mois",
+      tasks: [
+        "Formation des agents publics",
+        "Campagne de communication nationale",
+        "Déploiement progressif par région",
+        "Support technique intensif"
+      ]
+    },
+    {
+      stage: "Phase d'optimisation",
+      duration: "3 mois",
+      tasks: [
+        "Analyse des retours utilisateurs",
+        "Optimisation des performances",
+        "Ajout de fonctionnalités demandées",
+        "Documentation et transfert de compétences"
+      ]
+    }
+  ];
+
+  // Publications et ressources
+  const resourcesAndPublications = [
+    {
+      title: "Livre blanc : Transformation digitale de l'État",
+      description: "Document complet sur l'approche méthodologique et les résultats du projet SenServices",
+      type: "PDF",
+      link: "#"
+    },
+    {
+      title: "Cas d'étude Harvard Business Review",
+      description: "Analyse académique du modèle SenServices comme exemple de transformation numérique publique réussie",
+      type: "Article",
+      link: "#"
+    },
+    {
+      title: "Guide d'implémentation pour gouvernements",
+      description: "Méthodologie étape par étape pour répliquer le modèle dans d'autres pays",
+      type: "Document",
+      link: "#"
+    },
+    {
+      title: "Vidéo de présentation SenServices",
+      description: "Aperçu complet de la plateforme et témoignages d'utilisateurs",
+      type: "Vidéo",
+      link: "#"
+    }
+  ];
+
   return (
     <div className="min-h-screen flex flex-col overflow-hidden relative">
       {/* Interactive background */}
@@ -244,42 +389,42 @@ const SenServices = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <Badge variant="secondary" className="mb-4 px-3 py-1">Étude de Cas</Badge>
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                <Badge variant="secondary" className="mb-4 px-3 py-1 text-sm font-semibold text-white bg-blue-600/80 hover:bg-blue-600">Étude de Cas</Badge>
+                <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                   SenServices
                 </h1>
                 <div className="h-1 w-24 bg-gradient-primary mb-6 rounded-full"></div>
-                <p className="text-xl text-muted-foreground mb-8">
+                <p className="text-xl text-white mb-8">
                   Plateforme nationale de services administratifs en ligne, transformant la relation entre les citoyens et l'administration.
                 </p>
                 
                 <div className="grid grid-cols-2 gap-4 mb-8">
-                  <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg border border-white/10">
-                    <div className="text-sm text-muted-foreground">Client</div>
-                    <div className="font-medium">{projectDetails.client}</div>
+                  <div className="bg-black/40 backdrop-blur-sm p-4 rounded-lg border border-white/10">
+                    <div className="text-sm text-blue-300 font-medium">Client</div>
+                    <div className="font-medium text-white">{projectDetails.client}</div>
                   </div>
-                  <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg border border-white/10">
-                    <div className="text-sm text-muted-foreground">Durée</div>
-                    <div className="font-medium">{projectDetails.duration}</div>
+                  <div className="bg-black/40 backdrop-blur-sm p-4 rounded-lg border border-white/10">
+                    <div className="text-sm text-blue-300 font-medium">Durée</div>
+                    <div className="font-medium text-white">{projectDetails.duration}</div>
                   </div>
-                  <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg border border-white/10">
-                    <div className="text-sm text-muted-foreground">Année</div>
-                    <div className="font-medium">{projectDetails.year}</div>
+                  <div className="bg-black/40 backdrop-blur-sm p-4 rounded-lg border border-white/10">
+                    <div className="text-sm text-blue-300 font-medium">Année</div>
+                    <div className="font-medium text-white">{projectDetails.year}</div>
                   </div>
-                  <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg border border-white/10">
-                    <div className="text-sm text-muted-foreground">Rôle</div>
-                    <div className="font-medium">Consultant Principal</div>
+                  <div className="bg-black/40 backdrop-blur-sm p-4 rounded-lg border border-white/10">
+                    <div className="text-sm text-blue-300 font-medium">Rôle</div>
+                    <div className="font-medium text-white">Consultant Principal</div>
                   </div>
                 </div>
                 
                 <div className="flex flex-wrap gap-4">
-                  <Button className="bg-gradient-primary hover:opacity-90" asChild>
+                  <Button className="bg-gradient-primary hover:opacity-90 text-white font-medium shadow-lg shadow-blue-500/20" asChild>
                     <Link to="/services/egouvernance" className="flex items-center gap-2">
                       <span>Services E-Gouvernance</span>
                       <ArrowRight size={16} />
                     </Link>
                   </Button>
-                  <Button variant="outline" className="border-white/20 hover:bg-white/10" asChild>
+                  <Button variant="outline" className="border-white/30 hover:bg-white/10 text-white font-medium" asChild>
                     <a href="#demo" className="flex items-center gap-2">
                       <span>Voir les interfaces</span>
                       <ArrowRight size={16} />
@@ -304,6 +449,9 @@ const SenServices = () => {
                     />
                   </CardContent>
                 </Card>
+                <div className="absolute -bottom-4 -right-4 bg-blue-600 text-white p-3 rounded-lg font-medium shadow-lg shadow-blue-600/30 transform rotate-3">
+                  Taux de satisfaction: 92%
+                </div>
               </motion.div>
             </div>
           </PageContainer>
@@ -313,36 +461,51 @@ const SenServices = () => {
         <section className="py-20 bg-black/30 backdrop-blur-md border-t border-b border-white/10">
           <PageContainer>
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold mb-6">Aperçu du Projet</h2>
-              <p className="text-lg mb-8 text-muted-foreground">
+              <h2 className="text-3xl font-bold mb-6 text-white">Aperçu du Projet</h2>
+              <p className="text-lg mb-8 text-white">
                 {projectDetails.description}
               </p>
               
               <div className="grid md:grid-cols-2 gap-12">
                 <div>
-                  <h3 className="text-xl font-semibold mb-4">Objectifs</h3>
+                  <h3 className="text-xl font-semibold mb-4 text-white">Objectifs</h3>
                   <ul className="space-y-3">
                     {projectDetails.objectives.map((objective, idx) => (
                       <li key={idx} className="flex items-start gap-3">
-                        <Check size={20} className="text-primary shrink-0 mt-1" />
-                        <span>{objective}</span>
+                        <Check size={20} className="text-cyan-400 shrink-0 mt-1" />
+                        <span className="text-white">{objective}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
                 
                 <div>
-                  <h3 className="text-xl font-semibold mb-4">Technologies</h3>
+                  <h3 className="text-xl font-semibold mb-4 text-white">Technologies</h3>
                   <ul className="space-y-3">
                     {projectDetails.technologies.map((tech, idx) => (
                       <li key={idx} className="flex items-start gap-3">
                         <div className="shrink-0 mt-1 w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
-                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
                         </div>
-                        <span>{tech}</span>
+                        <span className="text-white">{tech}</span>
                       </li>
                     ))}
                   </ul>
+                </div>
+              </div>
+
+              {/* Reconnaissances et certifications */}
+              <div className="mt-12">
+                <h3 className="text-xl font-semibold mb-6 text-white">Reconnaissances & Certifications</h3>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {projectDetails.recognitions.map((recognition, idx) => (
+                    <div key={idx} className="bg-black/40 p-4 rounded-lg border border-white/10 hover:border-cyan-500/50 transition-all duration-300">
+                      <Award className="text-cyan-400 mb-3" />
+                      <h4 className="text-lg font-medium mb-2 text-white">{recognition.title}</h4>
+                      <p className="text-sm text-gray-300">{recognition.description}</p>
+                      <p className="text-xs text-cyan-400 mt-2">{recognition.year}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -352,7 +515,7 @@ const SenServices = () => {
         {/* Key results */}
         <section className="py-16">
           <PageContainer>
-            <h2 className="text-3xl font-bold mb-10 text-center">Résultats Clés</h2>
+            <h2 className="text-3xl font-bold mb-10 text-center text-white">Résultats Clés</h2>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {projectDetails.results.map((result, idx) => (
@@ -361,13 +524,13 @@ const SenServices = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="bg-black/20 backdrop-blur-sm p-6 rounded-xl border border-white/10 text-center hover:border-primary/30 transition-all duration-300"
+                  className="bg-black/50 backdrop-blur-sm p-6 rounded-xl border border-white/10 text-center hover:border-cyan-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10"
                 >
-                  <div className="text-primary mx-auto w-fit mb-4">
+                  <div className="mx-auto w-fit mb-4">
                     {result.icon}
                   </div>
-                  <div className="text-primary text-3xl font-bold mb-2">{result.value}</div>
-                  <div className="text-muted-foreground text-sm">{result.metric}</div>
+                  <div className="text-cyan-300 text-3xl font-bold mb-2">{result.value}</div>
+                  <div className="text-white font-medium">{result.metric}</div>
                 </motion.div>
               ))}
             </div>
@@ -378,9 +541,9 @@ const SenServices = () => {
         <section className="py-20">
           <PageContainer>
             <div className="max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4">Fonctionnalités Principales</h2>
+              <h2 className="text-3xl font-bold mb-4 text-white">Fonctionnalités Principales</h2>
               <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
-              <p className="text-muted-foreground">
+              <p className="text-white">
                 Des fonctionnalités conçues pour simplifier l'expérience des citoyens et optimiser le travail des agents administratifs.
               </p>
             </div>
@@ -392,41 +555,73 @@ const SenServices = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="bg-black/20 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-primary/30 transition-all duration-300 group"
+                  className="bg-black/50 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-cyan-500/30 transition-all duration-300 group"
                 >
-                  <div className="text-primary mb-4 p-3 bg-white/5 rounded-lg inline-block group-hover:bg-primary/10 transition-colors duration-300">
+                  <div className="text-cyan-400 mb-4 p-3 bg-white/5 rounded-lg inline-block group-hover:bg-cyan-900/20 transition-colors duration-300">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
+                  <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-cyan-300 transition-colors duration-300">{feature.title}</h3>
+                  <p className="text-gray-300">{feature.description}</p>
                 </motion.div>
+              ))}
+            </div>
+          </PageContainer>
+        </section>
+
+        {/* Témoignages */}
+        <section className="py-20 bg-black/40 backdrop-blur-md border-t border-b border-white/10">
+          <PageContainer>
+            <div className="max-w-3xl mx-auto text-center mb-16">
+              <h2 className="text-3xl font-bold mb-4 text-white">Témoignages d'Utilisateurs</h2>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
+              <p className="text-white">
+                Découvrez l'impact de SenServices sur la vie quotidienne des citoyens et le fonctionnement de l'administration.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {testimonials.map((testimonial, idx) => (
+                <Card key={idx} className="bg-black/30 border border-white/10 overflow-hidden group hover:border-cyan-500/30 transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-cyan-500/30">
+                        <img src={testimonial.image} alt={testimonial.author} className="w-full h-full object-cover" />
+                      </div>
+                      <div>
+                        <h4 className="text-white font-semibold">{testimonial.author}</h4>
+                        <p className="text-cyan-300 text-sm">{testimonial.role}</p>
+                      </div>
+                    </div>
+                    <p className="text-gray-300 italic">"{testimonial.text}"</p>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </PageContainer>
         </section>
         
         {/* Interface showcase */}
-        <section id="demo" className="py-20 bg-black/30 backdrop-blur-md border-t border-b border-white/10">
+        <section id="demo" className="py-20">
           <PageContainer>
             <div className="max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4">Les Interfaces SenServices</h2>
+              <h2 className="text-3xl font-bold mb-4 text-white">Les Interfaces SenServices</h2>
               <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
-              <p className="text-muted-foreground">
+              <p className="text-white">
                 Une plateforme à double interface : publique pour les citoyens et administrative pour les agents de l'État.
               </p>
             </div>
             
             <Tabs defaultValue="citizen" className="w-full">
-              <TabsList className="grid grid-cols-2 w-full max-w-md mx-auto bg-black/30 backdrop-blur-md p-1 rounded-lg border border-white/10 mb-12">
+              <TabsList className="grid grid-cols-2 w-full max-w-md mx-auto bg-black/50 backdrop-blur-md p-1 rounded-lg border border-white/10 mb-12">
                 <TabsTrigger 
                   value="citizen"
-                  className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary hover:text-primary/80 transition-all duration-300"
+                  className="data-[state=active]:bg-cyan-600/80 data-[state=active]:text-white font-medium"
                 >
                   Interface Citoyenne
                 </TabsTrigger>
                 <TabsTrigger 
                   value="admin"
-                  className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary hover:text-primary/80 transition-all duration-300"
+                  className="data-[state=active]:bg-cyan-600/80 data-[state=active]:text-white font-medium"
                 >
                   Interface Administrative
                 </TabsTrigger>
@@ -436,8 +631,8 @@ const SenServices = () => {
               <TabsContent value="citizen" className="mt-4 space-y-12">
                 <div className="grid md:grid-cols-2 gap-12">
                   <div>
-                    <h3 className="text-2xl font-semibold mb-4">Interface Citoyenne</h3>
-                    <p className="text-muted-foreground mb-6">
+                    <h3 className="text-2xl font-semibold mb-4 text-white">Interface Citoyenne</h3>
+                    <p className="text-gray-300 mb-6">
                       L'interface citoyenne de SenServices permet aux résidents d'accéder à plus de 500 démarches administratives en ligne, 
                       de suivre leurs demandes en temps réel et de recevoir des notifications à chaque étape du traitement.
                     </p>
@@ -452,13 +647,13 @@ const SenServices = () => {
                         "Documents administratifs dématérialisés"
                       ].map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <Check size={18} className="text-primary shrink-0 mt-1" />
-                          <p>{feature}</p>
+                          <Check size={18} className="text-cyan-400 shrink-0 mt-1" />
+                          <p className="text-white">{feature}</p>
                         </div>
                       ))}
                     </div>
                     
-                    <Button className="bg-gradient-primary hover:opacity-90" asChild>
+                    <Button className="bg-gradient-primary hover:opacity-90 text-white font-medium" asChild>
                       <a href="https://www.senservicesenegal.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                         <span>Accéder à l'interface citoyenne</span>
                         <ArrowRight size={16} />
@@ -484,7 +679,7 @@ const SenServices = () => {
                         </a>
                       </CardContent>
                     </Card>
-                    <div className="mt-4 flex items-center gap-3 text-muted-foreground text-sm">
+                    <div className="mt-4 flex items-center gap-3 text-gray-300 text-sm">
                       <div className="bg-white/10 rounded-full p-1">
                         <Laptop size={14} />
                       </div>
@@ -512,7 +707,7 @@ const SenServices = () => {
                         </a>
                       </CardContent>
                     </Card>
-                    <div className="mt-4 flex items-center gap-3 text-muted-foreground text-sm">
+                    <div className="mt-4 flex items-center gap-3 text-gray-300 text-sm">
                       <div className="bg-white/10 rounded-full p-1">
                         <Users size={14} />
                       </div>
@@ -521,8 +716,8 @@ const SenServices = () => {
                   </motion.div>
                   
                   <div className="order-1 md:order-2">
-                    <h3 className="text-2xl font-semibold mb-4">Tableau de Bord Personnel</h3>
-                    <p className="text-muted-foreground mb-6">
+                    <h3 className="text-2xl font-semibold mb-4 text-white">Tableau de Bord Personnel</h3>
+                    <p className="text-gray-300 mb-6">
                       Chaque citoyen bénéficie d'un espace personnel sécurisé où il peut suivre ses démarches en cours, 
                       accéder à son historique et gérer son profil administratif.
                     </p>
@@ -536,13 +731,13 @@ const SenServices = () => {
                         "Système de messagerie avec l'administration"
                       ].map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <Check size={18} className="text-primary shrink-0 mt-1" />
-                          <p>{feature}</p>
+                          <Check size={18} className="text-cyan-400 shrink-0 mt-1" />
+                          <p className="text-white">{feature}</p>
                         </div>
                       ))}
                     </div>
                     
-                    <Button variant="outline" className="border-white/20 hover:bg-white/10" asChild>
+                    <Button variant="outline" className="mt-8 border-white/30 hover:bg-white/10 text-white font-medium" asChild>
                       <a href="#admin" className="flex items-center gap-2">
                         <span>Découvrir l'interface administrative</span>
                         <ArrowRight size={16} />
@@ -552,7 +747,7 @@ const SenServices = () => {
                 </div>
                 
                 <div className="text-center">
-                  <Button className="bg-gradient-primary hover:opacity-90" asChild>
+                  <Button className="bg-gradient-primary hover:opacity-90 text-white font-medium" asChild>
                     <a href="https://www.senservicesenegal.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                       <span>Visiter l'interface citoyenne</span>
                       <ArrowRight size={16} />
@@ -565,8 +760,8 @@ const SenServices = () => {
               <TabsContent value="admin" id="admin" className="mt-4 space-y-12">
                 <div className="grid md:grid-cols-2 gap-12">
                   <div>
-                    <h3 className="text-2xl font-semibold mb-4">Interface Administrative</h3>
-                    <p className="text-muted-foreground mb-6">
+                    <h3 className="text-2xl font-semibold mb-4 text-white">Interface Administrative</h3>
+                    <p className="text-gray-300 mb-6">
                       L'interface administrative offre aux fonctionnaires une plateforme centralisée pour traiter les demandes, 
                       suivre les performances et piloter la transformation digitale de l'État.
                     </p>
@@ -581,13 +776,13 @@ const SenServices = () => {
                         "Interface de communication avec les citoyens"
                       ].map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <Check size={18} className="text-primary shrink-0 mt-1" />
-                          <p>{feature}</p>
+                          <Check size={18} className="text-cyan-400 shrink-0 mt-1" />
+                          <p className="text-white">{feature}</p>
                         </div>
                       ))}
                     </div>
                     
-                    <Button className="bg-gradient-primary hover:opacity-90" asChild>
+                    <Button className="bg-gradient-primary hover:opacity-90 text-white font-medium" asChild>
                       <a href="https://senadmin.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                         <span>Accéder à l'interface administrative</span>
                         <ArrowRight size={16} />
@@ -613,7 +808,7 @@ const SenServices = () => {
                         </a>
                       </CardContent>
                     </Card>
-                    <div className="mt-4 flex items-center gap-3 text-muted-foreground text-sm">
+                    <div className="mt-4 flex items-center gap-3 text-gray-300 text-sm">
                       <div className="bg-white/10 rounded-full p-1">
                         <BarChart3 size={14} />
                       </div>
@@ -641,7 +836,7 @@ const SenServices = () => {
                         </a>
                       </CardContent>
                     </Card>
-                    <div className="mt-4 flex items-center gap-3 text-muted-foreground text-sm">
+                    <div className="mt-4 flex items-center gap-3 text-gray-300 text-sm">
                       <div className="bg-white/10 rounded-full p-1">
                         <Calendar size={14} />
                       </div>
@@ -650,8 +845,8 @@ const SenServices = () => {
                   </motion.div>
                   
                   <div className="order-1 md:order-2">
-                    <h3 className="text-2xl font-semibold mb-4">Pilotage et Performances</h3>
-                    <p className="text-muted-foreground mb-6">
+                    <h3 className="text-2xl font-semibold mb-4 text-white">Pilotage et Performances</h3>
+                    <p className="text-gray-300 mb-6">
                       L'interface administrative permet un pilotage précis de la transformation numérique 
                       avec des tableaux de bord analytiques et des objectifs clairement définis.
                     </p>
@@ -665,13 +860,13 @@ const SenServices = () => {
                         "Optimisation continue des processus"
                       ].map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <Check size={18} className="text-primary shrink-0 mt-1" />
-                          <p>{feature}</p>
+                          <Check size={18} className="text-cyan-400 shrink-0 mt-1" />
+                          <p className="text-white">{feature}</p>
                         </div>
                       ))}
                     </div>
                     
-                    <Button className="bg-gradient-primary hover:opacity-90" asChild>
+                    <Button className="bg-gradient-primary hover:opacity-90 text-white font-medium mt-8" asChild>
                       <a href="https://senadmin.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                         <span>Explorer l'interface administrative</span>
                         <ArrowRight size={16} />
@@ -681,7 +876,7 @@ const SenServices = () => {
                 </div>
                 
                 <div className="text-center">
-                  <Button className="bg-gradient-primary hover:opacity-90 mr-4" asChild>
+                  <Button className="bg-gradient-primary hover:opacity-90 text-white font-medium mr-4" asChild>
                     <a href="https://senadmin.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                       <span>Visiter l'interface administrative</span>
                       <ArrowRight size={16} />
@@ -692,13 +887,61 @@ const SenServices = () => {
             </Tabs>
           </PageContainer>
         </section>
+
+        {/* Étapes du projet */}
+        <section className="py-20 bg-black/40 backdrop-blur-md border-t border-b border-white/10">
+          <PageContainer>
+            <div className="max-w-3xl mx-auto text-center mb-16">
+              <h2 className="text-3xl font-bold mb-4 text-white">Méthodologie & Étapes du Projet</h2>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
+              <p className="text-white">
+                Une approche structurée et progressive pour assurer le succès de cette transformation digitale majeure.
+              </p>
+            </div>
+
+            <div className="space-y-12">
+              {projectStages.map((stage, idx) => (
+                <div key={idx} className="relative">
+                  {idx < projectStages.length - 1 && (
+                    <div className="absolute top-12 left-7 w-0.5 h-[calc(100%+4rem)] bg-gradient-to-b from-cyan-400 to-transparent"></div>
+                  )}
+                  <div className="flex items-start gap-8">
+                    <div className="bg-cyan-900/30 rounded-full p-3 border border-cyan-400/50 relative z-10">
+                      <div className="w-8 h-8 rounded-full bg-cyan-400 flex items-center justify-center text-black font-bold">
+                        {idx + 1}
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex flex-wrap justify-between items-center mb-4">
+                        <h3 className="text-xl font-semibold text-white">{stage.stage}</h3>
+                        <Badge variant="outline" className="border-cyan-400/30 bg-cyan-900/20 text-cyan-300">
+                          {stage.duration}
+                        </Badge>
+                      </div>
+                      <div className="bg-black/30 border border-white/10 rounded-xl p-6">
+                        <ul className="space-y-3">
+                          {stage.tasks.map((task, taskIdx) => (
+                            <li key={taskIdx} className="flex items-start gap-3">
+                              <Check size={18} className="text-cyan-400 shrink-0 mt-1" />
+                              <p className="text-white">{task}</p>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </PageContainer>
+        </section>
         
         {/* Challenges and Solutions */}
         <section className="py-20">
           <PageContainer>
             <div className="grid md:grid-cols-2 gap-16">
               <div>
-                <h2 className="text-3xl font-bold mb-6">Défis & Solutions</h2>
+                <h2 className="text-3xl font-bold mb-6 text-white">Défis & Solutions</h2>
                 
                 <div className="space-y-8">
                   {[
@@ -719,14 +962,14 @@ const SenServices = () => {
                       solution: "Programme de formation intensive des agents publics et campagne de communication nationale pour accompagner la transition."
                     }
                   ].map((item, idx) => (
-                    <div key={idx} className="bg-black/20 backdrop-blur-sm p-6 rounded-xl border border-white/10">
-                      <h3 className="text-xl font-semibold mb-2">Défi {idx + 1}</h3>
-                      <p className="text-primary mb-4">{item.challenge}</p>
+                    <div key={idx} className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-cyan-500/30 transition-all duration-300">
+                      <h3 className="text-xl font-semibold mb-2 text-white">Défi {idx + 1}</h3>
+                      <p className="text-cyan-300 mb-4 font-medium">{item.challenge}</p>
                       <div className="flex items-start gap-3">
-                        <div className="shrink-0 mt-1 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
-                          <Check size={14} className="text-primary" />
+                        <div className="shrink-0 mt-1 w-6 h-6 rounded-full bg-cyan-900/30 flex items-center justify-center">
+                          <Check size={14} className="text-cyan-400" />
                         </div>
-                        <p className="text-muted-foreground">{item.solution}</p>
+                        <p className="text-gray-300">{item.solution}</p>
                       </div>
                     </div>
                   ))}
@@ -734,82 +977,109 @@ const SenServices = () => {
               </div>
               
               <div>
-                <h2 className="text-3xl font-bold mb-6">Impact & Perspectives</h2>
+                <h2 className="text-3xl font-bold mb-6 text-white">Impact Détaillé</h2>
                 
-                <div className="mb-8">
-                  <h3 className="text-xl font-semibold mb-4">Impact Mesurable</h3>
-                  <ul className="space-y-3">
-                    {[
-                      "Réduction du temps d'attente administratif de 30+ jours à 3-5 jours en moyenne",
-                      "Économies budgétaires de 15M€ par an en réduction des coûts opérationnels",
-                      "Plus d'un million de citoyens utilisateurs actifs de la plateforme",
-                      "Réduction de 92% des déplacements physiques en administration",
-                      "Augmentation de 78% du taux de satisfaction des usagers",
-                      "Diminution des cas de corruption administrative de 85%"
-                    ].map((impact, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
-                        <Check size={18} className="text-primary shrink-0 mt-1" />
-                        <span>{impact}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div>
-                  <h3 className="text-xl font-semibold mb-4">Perspectives d'Évolution</h3>
-                  <div className="space-y-4">
-                    {[
-                      {
-                        title: "Intelligence Artificielle",
-                        description: "Intégration d'assistants virtuels et d'automatisation des traitements simples"
-                      },
-                      {
-                        title: "Blockchain",
-                        description: "Sécurisation des documents officiels via technologie blockchain pour garantir leur authenticité"
-                      },
-                      {
-                        title: "Services Prédictifs",
-                        description: "Anticipation des besoins administratifs des citoyens basée sur les événements de vie"
-                      },
-                      {
-                        title: "Extension Régionale",
-                        description: "Déploiement du modèle dans d'autres pays avec adaptation aux contextes locaux"
-                      }
-                    ].map((perspective, idx) => (
-                      <div key={idx} className="bg-black/20 backdrop-blur-sm p-4 rounded-lg border border-white/10 hover:border-primary/20 transition-all duration-300">
-                        <h4 className="font-medium text-primary mb-1">{perspective.title}</h4>
-                        <p className="text-sm text-muted-foreground">{perspective.description}</p>
+                <div className="space-y-10">
+                  {detailedImpact.map((category, idx) => (
+                    <div key={idx}>
+                      <h3 className="text-xl font-semibold mb-4 text-white">{category.category}</h3>
+                      <div className="space-y-4">
+                        {category.metrics.map((metric, metricIdx) => (
+                          <div key={metricIdx} className="bg-black/30 p-4 rounded-lg border border-white/10 hover:border-cyan-500/30 transition-all duration-300">
+                            <div className="flex justify-between items-center mb-1">
+                              <p className="font-medium text-white">{metric.title}</p>
+                              <Badge className="bg-cyan-600/70 hover:bg-cyan-600 text-white">{metric.value}</Badge>
+                            </div>
+                            <p className="text-sm text-gray-300">{metric.description}</p>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </PageContainer>
         </section>
+
+        {/* Publications et ressources */}
+        <section className="py-20 bg-black/40 backdrop-blur-md border-t border-white/10">
+          <PageContainer>
+            <div className="max-w-3xl mx-auto text-center mb-16">
+              <h2 className="text-3xl font-bold mb-4 text-white">Publications & Ressources</h2>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
+              <p className="text-white">
+                Documentation et ressources de référence sur le projet pour les professionnels et décideurs intéressés.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {resourcesAndPublications.map((resource, idx) => (
+                <a 
+                  key={idx} 
+                  href={resource.link}
+                  className="bg-black/30 rounded-lg border border-white/10 p-6 hover:border-cyan-500/30 hover:bg-black/50 transition-all duration-300 group"
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="font-semibold text-white group-hover:text-cyan-300 transition-colors duration-300">{resource.title}</h3>
+                    <Badge variant="outline" className="border-cyan-400/30 bg-cyan-900/20 text-cyan-300">
+                      {resource.type}
+                    </Badge>
+                  </div>
+                  <p className="text-gray-300 mb-3">{resource.description}</p>
+                  <div className="flex items-center gap-2 text-cyan-400 text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
+                    <span>Télécharger</span>
+                    <Download size={14} />
+                  </div>
+                </a>
+              ))}
+            </div>
+          </PageContainer>
+        </section>
         
         {/* CTA Section */}
-        <section className="py-20 bg-black/30 backdrop-blur-md border-t border-white/10">
+        <section className="py-20">
           <PageContainer>
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-6">Vous Souhaitez Transformer Votre Administration?</h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Je peux vous accompagner dans la conception et le déploiement de solutions similaires, adaptées à votre contexte spécifique.
-              </p>
-              
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button size="lg" className="bg-gradient-primary hover:opacity-90 shadow-lg shadow-primary/20" asChild>
-                  <Link to="/contact" className="flex items-center gap-2">
-                    <span>Discuter de votre projet</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" className="border-white/20 hover:bg-white/10" asChild>
-                  <Link to="/services/egouvernance" className="flex items-center gap-2">
-                    <span>Nos services E-Gouvernance</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
+            <div className="max-w-4xl mx-auto bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-2xl overflow-hidden border border-white/10">
+              <div className="p-12 md:p-16 relative">
+                {/* Background effects */}
+                <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
+                
+                <div className="relative z-10 text-center">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+                    Vous Souhaitez Transformer Votre Administration?
+                  </h2>
+                  <p className="text-xl text-white mb-10">
+                    Je peux vous accompagner dans la conception et le déploiement de solutions similaires, adaptées à votre contexte spécifique.
+                  </p>
+                  
+                  <div className="flex flex-wrap justify-center gap-6">
+                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 shadow-lg shadow-blue-600/20 text-white font-medium" asChild>
+                      <Link to="/contact" className="flex items-center gap-2">
+                        <span>Discuter de votre projet</span>
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                    <Button size="lg" variant="outline" className="border-white/30 hover:bg-white/10 text-white font-medium" asChild>
+                      <Link to="/services/egouvernance" className="flex items-center gap-2">
+                        <span>Nos services E-Gouvernance</span>
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
+
+                  <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="flex items-center gap-3 justify-center bg-black/30 px-6 py-4 rounded-lg border border-white/10">
+                      <Phone className="text-cyan-400" />
+                      <span className="text-white">+221 77 123 4567</span>
+                    </div>
+                    <div className="flex items-center gap-3 justify-center bg-black/30 px-6 py-4 rounded-lg border border-white/10">
+                      <Mail className="text-cyan-400" />
+                      <span className="text-white">contact@dominiqkmendy.com</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </PageContainer>
