@@ -114,6 +114,16 @@
       opacity: 0;
     }
   }
+  
+  /* Nouvel effet de brillance pour les titres */
+  @keyframes title-glow {
+    0%, 100% {
+      text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
+    }
+    50% {
+      text-shadow: 0 0 15px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.5);
+    }
+  }
 }
  
 @layer base {
@@ -126,7 +136,17 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply tracking-tight;
+    @apply tracking-tight font-bold;
+  }
+  
+  /* Style amélioré pour les titres de pages */
+  h1.page-title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold relative z-10;
+    animation: title-glow 3s ease-in-out infinite;
+  }
+  
+  h2.section-title {
+    @apply text-2xl md:text-3xl font-bold mb-4 relative;
   }
 }
 
@@ -136,11 +156,34 @@
     background-image: radial-gradient(rgba(59, 130, 246, 0.2) 1px, transparent 1px);
     background-size: 30px 30px;
   }
+  
+  /* Style pour les titres avec dégradé */
+  .gradient-title {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 py-2 px-4 inline-block;
+    background-size: 200% auto;
+    animation: gradient-shift 8s ease infinite;
+  }
+  
+  /* Effet ombre pour les titres */
+  .shadow-glow {
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  
+  /* Effet texte brillant */
+  .text-shadow-lg {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  }
 }
 
 @layer utilities {
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500;
+  }
+  
+  .text-gradient-cosmic {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500;
+    background-size: 200% auto;
+    animation: gradient-shift 8s ease infinite;
   }
 
   .bg-gradient-primary {
@@ -169,5 +212,9 @@
   .data-grid {
     position: absolute;
     inset: 0;
+  }
+  
+  .glow-text {
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(99, 102, 241, 0.3);
   }
 }
