@@ -18,6 +18,7 @@ import BlogPage from "./pages/Blog";
 import ExpertisePage from "./pages/Expertise";
 import PortfolioPage from "./pages/Portfolio";
 import StartProject from "./pages/StartProject";
+import AITrainingPage from "./pages/services/AITrainingPage";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/services/web-development" element={<WebServices />} />
           <Route path="/services/digital-marketing" element={<MarketingServices />} />
           <Route path="/services/consulting" element={<ConsultingServices />} />
+          <Route path="/services/ai-training" element={<AITrainingPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/academy" element={<AcademyPage />} />
           <Route path="/tools" element={<ToolsPage />} />
