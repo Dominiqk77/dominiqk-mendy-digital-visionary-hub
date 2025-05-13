@@ -317,7 +317,7 @@ const EGovernance = () => {
                 </Button>
                 <Button size="lg" variant="outline" className="border-white/30 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-105 px-6 py-6 text-white" asChild>
                   <a href="#expertise" className="flex items-center gap-3 text-base">
-                    <span>Découvrir mon expertise</span>
+                    <span className="">Découvrir mon expertise</span>
                     <ArrowRight className="h-5 w-5" />
                   </a>
                 </Button>
