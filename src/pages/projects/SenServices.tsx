@@ -456,7 +456,7 @@ const SenServices = () => {
                 
                 <div className="grid grid-cols-2 gap-4 mb-8">
                   <div className="bg-black/40 backdrop-blur-sm p-4 rounded-lg border border-white/10">
-                    <div className="text-sm text-primary font-medium">Client</div>
+                    <div className="text-sm text-primary font-medium">Types de projet</div>
                     <div className="font-medium text-white">{projectDetails.client}</div>
                   </div>
                   <div className="bg-black/40 backdrop-blur-sm p-4 rounded-lg border border-white/10">
