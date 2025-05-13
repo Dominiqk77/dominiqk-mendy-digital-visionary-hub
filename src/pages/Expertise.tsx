@@ -929,7 +929,7 @@ const Expertise = () => {
                 variant={activeCategory === 'all' ? "default" : "outline"}
                 size="sm"
                 onClick={() => setActiveCategory('all')}
-                className={activeCategory === 'all' ? 'bg-primary hover:bg-primary/90' : 'border-gray-700 hover:bg-gray-800'}
+                className={activeCategory === 'all' ? 'bg-primary text-white hover:bg-primary/90' : 'border-gray-700 text-white hover:bg-gray-800 hover:text-white'}
               >
                 Tous
               </Button>
@@ -940,7 +940,7 @@ const Expertise = () => {
                   variant={activeCategory === category.id ? "default" : "outline"}
                   size="sm"
                   onClick={() => setActiveCategory(category.id)}
-                  className={`flex items-center gap-1 ${activeCategory === category.id ? 'bg-primary hover:bg-primary/90' : 'border-gray-700 hover:bg-gray-800'}`}
+                  className={`flex items-center gap-1 ${activeCategory === category.id ? 'bg-primary text-white hover:bg-primary/90' : 'border-gray-700 text-white hover:bg-gray-800 hover:text-white'}`}
                 >
                   {category.icon}
                   <span className="hidden sm:inline">{category.title}</span>
