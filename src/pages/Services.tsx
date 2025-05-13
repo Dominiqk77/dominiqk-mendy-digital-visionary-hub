@@ -176,9 +176,9 @@ const Services = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         {/* Hero section avec une typographie améliorée */}
-        <section className="py-20 md:py-24 relative overflow-hidden">
+        <section className="py-20 md:py-28 relative overflow-hidden">
           {/* Background effects */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-blue-500/10 rounded-full blur-3xl"></div>
@@ -190,12 +190,12 @@ const Services = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="text-center max-w-3xl mx-auto"
+              className="text-center max-w-4xl mx-auto"
             >
               <div className="inline-block p-4 bg-primary/10 rounded-lg mb-5">
-                <Globe size={36} className="text-primary animate-pulse" />
+                <Globe size={40} className="text-primary animate-pulse" />
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Nos Services</h1>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Nos Services</h1>
               <p className="text-xl text-muted-foreground mb-8 mx-auto max-w-2xl leading-relaxed">
                 Des solutions numériques innovantes et personnalisées 
                 pour répondre à vos défis business et technologiques.
@@ -224,19 +224,21 @@ const Services = () => {
                   }`}
                 >
                   <div className={`${service.background} p-8`}>
-                    <div className="mb-5">
-                      {service.icon}
+                    <div className="mb-5 flex justify-center">
+                      <div className="w-16 h-16 flex items-center justify-center bg-black/20 rounded-full backdrop-blur-md">
+                        {service.icon}
+                      </div>
                     </div>
-                    <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
+                    <h3 className="text-2xl font-bold mb-4 text-center">{service.title}</h3>
+                    <p className="text-muted-foreground mb-6 leading-relaxed text-center">{service.description}</p>
                     
                     <ul className="mb-8 space-y-3">
                       {service.services.map((item, index) => (
-                        <li key={index} className="flex items-center gap-3 bg-black/20 p-2 rounded-md backdrop-blur-sm">
+                        <li key={index} className="flex items-center gap-3 bg-black/20 p-3 rounded-md backdrop-blur-sm hover:bg-black/30 transition-colors">
                           <div className="shrink-0 text-primary">
-                            <BadgeCheck size={18} />
+                            <BadgeCheck size={20} />
                           </div>
-                          <span className="text-sm">{item}</span>
+                          <span className="text-sm md:text-base">{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -246,8 +248,8 @@ const Services = () => {
                       asChild
                     >
                       <Link to={service.link} className="w-full flex justify-between items-center">
-                        <span>Découvrir</span>
-                        <ArrowRight size={16} />
+                        <span className="text-base">Découvrir</span>
+                        <ArrowRight size={18} />
                       </Link>
                     </Button>
                   </div>
@@ -261,14 +263,14 @@ const Services = () => {
         <section className="py-20 md:py-28 bg-black/40 backdrop-blur-md border-t border-b border-white/10 relative">
           <PageContainer className="relative z-10">
             <div className="max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-3xl font-bold mb-5">Notre Approche</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-5 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Notre Approche</h2>
               <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
               <p className="text-muted-foreground text-lg leading-relaxed">
                 Une méthodologie robuste et éprouvée pour vous garantir des résultats concrets et mesurables.
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {[
                 {
                   icon: <FileText size={32} />,
@@ -297,16 +299,21 @@ const Services = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-black/30 backdrop-blur-sm p-7 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 relative"
+                  className="bg-black/30 backdrop-blur-sm p-7 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 relative h-full flex flex-col"
                 >
-                  <div className="text-primary mb-5 p-3 bg-white/5 rounded-lg inline-block">
-                    {step.icon}
+                  <div className="flex items-center mb-5">
+                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-3">
+                      <span className="text-lg font-bold">{idx + 1}</span>
+                    </div>
+                    <div className="text-primary p-3 bg-white/5 rounded-lg inline-block">
+                      {step.icon}
+                    </div>
                   </div>
                   <h3 className="text-xl font-semibold mb-4">{step.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{step.description}</p>
                   
                   {idx < 3 && (
-                    <div className="hidden md:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                    <div className="hidden lg:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
                       <ArrowRight size={24} className="text-primary" />
                     </div>
                   )}
@@ -319,7 +326,7 @@ const Services = () => {
         {/* Featured project section avec design amélioré */}
         <section className="py-20 md:py-28 relative">
           <PageContainer>
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
@@ -329,7 +336,7 @@ const Services = () => {
                 >
                   <div className="relative">
                     <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-violet-600 opacity-40 blur-lg rounded-lg"></div>
-                    <div className="relative rounded-lg overflow-hidden border border-white/20">
+                    <div className="relative rounded-lg overflow-hidden border border-white/20 shadow-2xl">
                       <AspectRatio ratio={16/9}>
                         <img 
                           src="/lovable-uploads/e991c404-fa68-4476-bad5-65316d44cf46.png"
@@ -347,7 +354,7 @@ const Services = () => {
                   transition={{ duration: 0.7 }}
                   viewport={{ once: true }}
                 >
-                  <div className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-primary/20 text-primary mb-6">
+                  <div className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary/20 text-primary mb-6">
                     Projet À La Une
                   </div>
                   <h2 className="text-3xl font-bold mb-5 tracking-tight">SenServices: Plateforme Nationale d'E-Gouvernance</h2>
@@ -363,24 +370,24 @@ const Services = () => {
                       "Interface citoyenne intuitive et dashboard administratif avancé",
                       "Sécurisation complète des données et transactions"
                     ].map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-3 bg-white/5 p-3 rounded-md backdrop-blur-sm">
-                        <BadgeCheck size={18} className="text-primary shrink-0 mt-1" />
-                        <span className="text-sm md:text-base">{feature}</span>
+                      <div key={idx} className="flex items-start gap-3 bg-white/5 p-4 rounded-md backdrop-blur-sm hover:bg-white/10 transition-colors">
+                        <BadgeCheck size={20} className="text-primary shrink-0 mt-1" />
+                        <span className="text-base">{feature}</span>
                       </div>
                     ))}
                   </div>
                   
                   <div className="flex flex-wrap gap-4">
-                    <Button className="bg-gradient-primary hover:opacity-90 py-6" asChild>
+                    <Button className="bg-gradient-primary hover:opacity-90 py-6 px-8" asChild>
                       <Link to="/projects/senservices" className="flex items-center gap-2">
-                        <span>Découvrir le projet</span>
-                        <ArrowRight size={16} />
+                        <span className="text-base">Découvrir le projet</span>
+                        <ArrowRight size={18} />
                       </Link>
                     </Button>
-                    <Button variant="outline" className="border-white/20 hover:bg-white/10 py-6" asChild>
+                    <Button variant="outline" className="border-white/20 hover:bg-white/10 py-6 px-8" asChild>
                       <Link to="/services/egouvernance" className="flex items-center gap-2">
-                        <span>Services E-Gouvernance</span>
-                        <ArrowRight size={16} />
+                        <span className="text-base">Services E-Gouvernance</span>
+                        <ArrowRight size={18} />
                       </Link>
                     </Button>
                   </div>
@@ -393,22 +400,22 @@ const Services = () => {
         {/* CTA section avec un design plus engageant */}
         <section className="py-20 md:py-28 bg-black/40 backdrop-blur-md border-t border-b border-white/10">
           <PageContainer>
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 Prêt à donner vie à votre projet?
               </h2>
-              <p className="text-xl text-muted-foreground mb-8 mx-auto max-w-2xl leading-relaxed">
+              <p className="text-xl text-muted-foreground mb-10 mx-auto max-w-2xl leading-relaxed">
                 Discutons de vos besoins et voyons comment je peux vous aider à atteindre vos objectifs.
               </p>
-              <div className="flex flex-wrap justify-center gap-5">
-                <Button size="lg" className="bg-gradient-primary hover:opacity-90 shadow-lg shadow-primary/20 px-8 py-6" asChild>
-                  <Link to="/start-project" className="flex items-center gap-3 text-base">
+              <div className="flex flex-wrap justify-center gap-6">
+                <Button size="lg" className="bg-gradient-primary hover:opacity-90 shadow-lg shadow-primary/20 px-10 py-7" asChild>
+                  <Link to="/start-project" className="flex items-center gap-3 text-lg">
                     <span>Démarrer un projet</span>
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-white/20 hover:bg-white/10 px-8 py-6" asChild>
-                  <Link to="/contact" className="flex items-center gap-3 text-base">
+                <Button size="lg" variant="outline" className="border-white/20 hover:bg-white/10 px-10 py-7" asChild>
+                  <Link to="/contact" className="flex items-center gap-3 text-lg">
                     <span>Prendre contact</span>
                     <ArrowRight className="h-5 w-5" />
                   </Link>
