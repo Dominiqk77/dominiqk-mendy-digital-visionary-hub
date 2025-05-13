@@ -917,7 +917,7 @@ const Expertise = () => {
                 variant="outline"
                 size="sm"
                 onClick={resetFilters}
-                className="border-gray-700 text-gray-300 hover:text-white hover:bg-gray-800"
+                className="border-gray-700 text-white font-medium hover:text-white hover:bg-gray-800"
               >
                 Réinitialiser les filtres
               </Button>
@@ -929,7 +929,7 @@ const Expertise = () => {
                 variant={activeCategory === 'all' ? "default" : "outline"}
                 size="sm"
                 onClick={() => setActiveCategory('all')}
-                className={activeCategory === 'all' ? 'bg-primary text-white hover:bg-primary/90' : 'border-gray-700 text-white hover:bg-gray-800 hover:text-white'}
+                className={activeCategory === 'all' ? 'bg-primary text-white font-medium hover:bg-primary/90' : 'border-gray-700 text-white font-medium hover:bg-gray-800 hover:text-white'}
               >
                 Tous
               </Button>
@@ -940,10 +940,10 @@ const Expertise = () => {
                   variant={activeCategory === category.id ? "default" : "outline"}
                   size="sm"
                   onClick={() => setActiveCategory(category.id)}
-                  className={`flex items-center gap-1 ${activeCategory === category.id ? 'bg-primary text-white hover:bg-primary/90' : 'border-gray-700 text-white hover:bg-gray-800 hover:text-white'}`}
+                  className={`flex items-center gap-1 ${activeCategory === category.id ? 'bg-primary text-white font-medium hover:bg-primary/90' : 'border-gray-700 text-white font-medium hover:bg-gray-800 hover:text-white'}`}
                 >
                   {category.icon}
-                  <span className="hidden sm:inline">{category.title}</span>
+                  <span className="hidden sm:inline font-medium">{category.title}</span>
                 </Button>
               ))}
             </div>
@@ -1009,7 +1009,7 @@ const Expertise = () => {
             <div className="flex justify-center mt-12">
               <Button 
                 onClick={loadMore}
-                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white"
+                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-medium"
               >
                 Voir plus d'expertises
                 <motion.div
