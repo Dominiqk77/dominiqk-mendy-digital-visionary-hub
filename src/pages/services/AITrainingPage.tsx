@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/layout/Navbar';
@@ -73,13 +72,21 @@ const AITrainingPage = () => {
     // Technical particles (representing data nodes)
     const nodes: { x: number; y: number; radius: number; connections: number[]; color: string }[] = [];
     const generateNodes = () => {
-      const nodeCount = 20;
+      const nodeCount = 25; // Increased for more visual impact
       for (let i = 0; i < nodeCount; i++) {
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
-        const radius = Math.random() * 2 + 1;
+        const radius = Math.random() * 2.5 + 1; // Slightly larger nodes
         const connections = [];
-        const color = `rgba(64, 179, 255, ${Math.random() * 0.5 + 0.3})`;
+        
+        // Enhanced color palette with theme colors
+        const colors = [
+          'rgba(155, 135, 245, 0.6)', // Primary purple
+          'rgba(14, 165, 233, 0.6)', // Ocean blue
+          'rgba(217, 70, 239, 0.6)', // Magenta pink
+          'rgba(124, 58, 237, 0.6)', // Vivid purple
+        ];
+        const color = colors[Math.floor(Math.random() * colors.length)];
         
         // Each node connects to 1-3 other random nodes
         const connectionCount = Math.floor(Math.random() * 3) + 1;
@@ -100,12 +107,16 @@ const AITrainingPage = () => {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Draw stars
+      // Draw stars with enhanced glow effect
       stars.forEach(star => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
         ctx.fillStyle = star.color;
         ctx.fill();
+        
+        // Add subtle glow effect
+        ctx.shadowBlur = star.radius * 2;
+        ctx.shadowColor = "rgba(255, 255, 255, 0.5)";
         
         // Move stars slightly
         star.y += star.velocity;
@@ -117,30 +128,83 @@ const AITrainingPage = () => {
         }
       });
       
-      // Draw nodes and connections
+      // Reset shadow properties
+      ctx.shadowBlur = 0;
+      
+      // Draw nodes and connections with enhanced visual effects
       nodes.forEach((node, index) => {
         // Draw connections first (so they appear behind nodes)
         node.connections.forEach(connIndex => {
           if (connIndex < nodes.length) {
             const connectedNode = nodes[connIndex];
+            
+            // Create gradient for connection lines
+            const gradient = ctx.createLinearGradient(
+              node.x, node.y, 
+              connectedNode.x, connectedNode.y
+            );
+            gradient.addColorStop(0, node.color);
+            gradient.addColorStop(1, connectedNode.color);
+            
             ctx.beginPath();
             ctx.moveTo(node.x, node.y);
             ctx.lineTo(connectedNode.x, connectedNode.y);
-            ctx.strokeStyle = `rgba(64, 179, 255, 0.2)`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 0.8; // Slightly thicker lines
             ctx.stroke();
+            
+            // Add data pulse effect on connections occasionally
+            if (Math.random() < 0.005) {
+              const dataPulse = {
+                x: node.x,
+                y: node.y,
+                targetX: connectedNode.x,
+                targetY: connectedNode.y,
+                progress: 0,
+                speed: 0.01 + Math.random() * 0.02,
+                color: node.color
+              };
+              
+              // Animate data pulse
+              const animatePulse = () => {
+                dataPulse.progress += dataPulse.speed;
+                
+                if (dataPulse.progress <= 1) {
+                  const currentX = node.x + (connectedNode.x - node.x) * dataPulse.progress;
+                  const currentY = node.y + (connectedNode.y - node.y) * dataPulse.progress;
+                  
+                  ctx.beginPath();
+                  ctx.arc(currentX, currentY, 2, 0, Math.PI * 2);
+                  ctx.fillStyle = dataPulse.color;
+                  ctx.fill();
+                  
+                  requestAnimationFrame(animatePulse);
+                }
+              };
+              
+              animatePulse();
+            }
           }
         });
         
-        // Draw the node
+        // Draw the node with glow effect
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
         ctx.fillStyle = node.color;
+        
+        // Add glow effect to nodes
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = node.color;
+        
         ctx.fill();
         
-        // Subtle movement
-        node.x += Math.sin(Date.now() * 0.001 + index) * 0.2;
-        node.y += Math.cos(Date.now() * 0.001 + index) * 0.2;
+        // Reset shadow
+        ctx.shadowBlur = 0;
+        
+        // More dynamic movement
+        const time = Date.now() * 0.001;
+        node.x += Math.sin(time + index * 0.5) * 0.3;
+        node.y += Math.cos(time + index * 0.5) * 0.3;
       });
       
       requestAnimationFrame(animate);
@@ -386,34 +450,44 @@ const AITrainingPage = () => {
       <Navbar />
       
       <main className="flex-grow relative z-10">
-        {/* Hero Section */}
-        <section className="py-16 md:py-24">
-          <div className="container mx-auto px-4">
+        {/* Hero Section with enhanced gradient */}
+        <section className="py-16 md:py-24 relative overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"></div>
+          
+          <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="inline-block text-primary mb-4">
-                  <GraduationCap size={48} />
+                <div className="inline-block mb-4">
+                  <div className="p-4 bg-primary/10 rounded-full backdrop-blur-sm border border-primary/20">
+                    <GraduationCap size={48} className="text-primary animate-pulse-glow" />
+                  </div>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                  Formations <span className="text-gradient">Intelligence Artificielle</span>
+                  Formations <span className="animate-gradient-slow">Intelligence Artificielle</span>
                 </h1>
-                <p className="text-xl text-muted-foreground mb-8">
+                <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
                   Développez votre expertise en IA auprès d'un consultant international reconnu. 
                   Des formations sur mesure pour tous les niveaux, du débutant à l'expert.
                 </p>
                 
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Button size="lg" className="bg-gradient-primary hover:opacity-90" asChild>
+                  <Button size="lg" className="bg-gradient-primary hover:opacity-90 shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-105" asChild>
                     <Link to="/contact" className="flex items-center gap-2">
                       <span>Demander un devis</span>
-                      <ArrowRight className="h-4 w-4" />
+                      <ArrowRight className="h-4 w-4 animate-float" />
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" asChild>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="border-white/20 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-105"
+                    asChild
+                  >
                     <a href="#formations" className="flex items-center gap-2">
                       <span>Découvrir les formations</span>
                       <ArrowRight className="h-4 w-4" />
@@ -425,162 +499,138 @@ const AITrainingPage = () => {
           </div>
         </section>
         
-        {/* Statistics Section */}
-        <section className="py-12 bg-black/30 backdrop-blur-md">
+        {/* Statistics Section with enhanced card styling */}
+        <section className="py-12 bg-black/30 backdrop-blur-md border-t border-b border-white/10">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <motion.div 
-                className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
-                <div className="text-primary font-bold text-4xl mb-2">1200+</div>
-                <div className="text-muted-foreground">Professionnels formés</div>
-              </motion.div>
-              
-              <motion.div 
-                className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <div className="text-primary font-bold text-4xl mb-2">12</div>
-                <div className="text-muted-foreground">Pays africains</div>
-              </motion.div>
-              
-              <motion.div 
-                className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
-                <div className="text-primary font-bold text-4xl mb-2">98%</div>
-                <div className="text-muted-foreground">Taux de satisfaction</div>
-              </motion.div>
-              
-              <motion.div 
-                className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                <div className="text-primary font-bold text-4xl mb-2">45+</div>
-                <div className="text-muted-foreground">Entreprises partenaires</div>
-              </motion.div>
+              {[
+                { value: "1200+", label: "Professionnels formés", delay: 0.1 },
+                { value: "12", label: "Pays africains", delay: 0.2 },
+                { value: "98%", label: "Taux de satisfaction", delay: 0.3 },
+                { value: "45+", label: "Entreprises partenaires", delay: 0.4 }
+              ].map((stat, idx) => (
+                <motion.div 
+                  key={idx}
+                  className="text-center p-6 rounded-xl bg-black/20 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-[0_0_15px_rgba(155,135,245,0.3)]"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: stat.delay }}
+                  whileHover={{ scale: 1.03 }}
+                >
+                  <div className="text-primary font-bold text-4xl mb-2 animate-gradient-slow">{stat.value}</div>
+                  <div className="text-muted-foreground">{stat.label}</div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
         
-        {/* Why Choose Us Section */}
+        {/* Why Choose Us Section with enhanced cards */}
         <section id="pourquoi" className="py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto text-center mb-16">
               <h2 className="text-3xl font-bold mb-4">Pourquoi Choisir Nos Formations ?</h2>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
               <p className="text-muted-foreground">Des formations d'excellence en IA conçues par un expert international reconnu, adaptées au contexte africain et aux enjeux globaux.</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <motion.div 
-                className="bg-black/20 backdrop-blur-sm p-8 rounded-xl border border-white/10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
-                <div className="text-primary mb-4">
-                  <Award size={32} />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Expertise Internationale</h3>
-                <p className="text-muted-foreground">Bénéficiez de l'expertise d'un consultant qui a formé et conseillé des organisations en France, au Royaume-Uni, aux États-Unis et dans toute l'Afrique.</p>
-              </motion.div>
-              
-              <motion.div 
-                className="bg-black/20 backdrop-blur-sm p-8 rounded-xl border border-white/10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <div className="text-primary mb-4">
-                  <BookOpen size={32} />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Pédagogie Pratique</h3>
-                <p className="text-muted-foreground">Nos formations privilégient la pratique avec 70% du temps consacré à des projets concrets, des études de cas réels et des workshops interactifs.</p>
-              </motion.div>
-              
-              <motion.div 
-                className="bg-black/20 backdrop-blur-sm p-8 rounded-xl border border-white/10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
-                <div className="text-primary mb-4">
-                  <Users size={32} />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Formations Sur Mesure</h3>
-                <p className="text-muted-foreground">Chaque formation peut être adaptée aux besoins spécifiques de votre équipe ou organisation, avec des cas d'usage pertinents pour votre secteur.</p>
-              </motion.div>
-              
-              <motion.div 
-                className="bg-black/20 backdrop-blur-sm p-8 rounded-xl border border-white/10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                <div className="text-primary mb-4">
-                  <Globe size={32} />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Contexte Africain</h3>
-                <p className="text-muted-foreground">Nos formations intègrent des exemples et cas d'usage adaptés aux réalités africaines, avec une attention particulière aux défis et opportunités du continent.</p>
-              </motion.div>
-              
-              <motion.div 
-                className="bg-black/20 backdrop-blur-sm p-8 rounded-xl border border-white/10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-              >
-                <div className="text-primary mb-4">
-                  <Video size={32} />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Formats Flexibles</h3>
-                <p className="text-muted-foreground">Choisissez entre formations présentielles, distancielles ou hybrides selon vos contraintes géographiques et organisationnelles.</p>
-              </motion.div>
-              
-              <motion.div 
-                className="bg-black/20 backdrop-blur-sm p-8 rounded-xl border border-white/10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-              >
-                <div className="text-primary mb-4">
-                  <MessageSquare size={32} />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Suivi Post-Formation</h3>
-                <p className="text-muted-foreground">Accès à une communauté d'apprenants, sessions de questions-réponses et accompagnement personnalisé après la formation.</p>
-              </motion.div>
+              {[
+                {
+                  icon: <Award size={32} />,
+                  title: "Expertise Internationale",
+                  description: "Bénéficiez de l'expertise d'un consultant qui a formé et conseillé des organisations en France, au Royaume-Uni, aux États-Unis et dans toute l'Afrique.",
+                  delay: 0.1
+                },
+                {
+                  icon: <BookOpen size={32} />,
+                  title: "Pédagogie Pratique",
+                  description: "Nos formations privilégient la pratique avec 70% du temps consacré à des projets concrets, des études de cas réels et des workshops interactifs.",
+                  delay: 0.2
+                },
+                {
+                  icon: <Users size={32} />,
+                  title: "Formations Sur Mesure",
+                  description: "Chaque formation peut être adaptée aux besoins spécifiques de votre équipe ou organisation, avec des cas d'usage pertinents pour votre secteur.",
+                  delay: 0.3
+                },
+                {
+                  icon: <Globe size={32} />,
+                  title: "Contexte Africain",
+                  description: "Nos formations intègrent des exemples et cas d'usage adaptés aux réalités africaines, avec une attention particulière aux défis et opportunités du continent.",
+                  delay: 0.4
+                },
+                {
+                  icon: <Video size={32} />,
+                  title: "Formats Flexibles",
+                  description: "Choisissez entre formations présentielles, distancielles ou hybrides selon vos contraintes géographiques et organisationnelles.",
+                  delay: 0.5
+                },
+                {
+                  icon: <MessageSquare size={32} />,
+                  title: "Suivi Post-Formation",
+                  description: "Accès à une communauté d'apprenants, sessions de questions-réponses et accompagnement personnalisé après la formation.",
+                  delay: 0.6
+                }
+              ].map((feature, idx) => (
+                <motion.div 
+                  key={idx}
+                  className="bg-black/20 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-primary/30 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(155,135,245,0.2)]"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: feature.delay }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="text-primary mb-4 p-3 bg-white/5 rounded-lg inline-block group-hover:bg-primary/10 transition-colors duration-300">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
         
-        {/* Courses Section */}
+        {/* Courses Section with enhanced card design */}
         <section id="formations" className="py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto text-center mb-16">
               <h2 className="text-3xl font-bold mb-4">Nos Formations IA</h2>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
               <p className="text-muted-foreground">Du niveau débutant à expert, découvrez nos formations spécialisées en intelligence artificielle</p>
               
-              {/* Filter tabs */}
+              {/* Filter tabs with enhanced styling */}
               <div className="mt-8">
                 <Tabs defaultValue="tout" className="w-full">
-                  <TabsList className="grid grid-cols-4 w-full max-w-lg mx-auto">
-                    <TabsTrigger value="tout">Toutes</TabsTrigger>
-                    <TabsTrigger value="debutant">Débutant</TabsTrigger>
-                    <TabsTrigger value="intermediaire">Intermédiaire</TabsTrigger>
-                    <TabsTrigger value="avance">Avancé/Expert</TabsTrigger>
+                  <TabsList className="grid grid-cols-4 w-full max-w-lg mx-auto bg-black/30 backdrop-blur-md p-1 rounded-lg border border-white/10">
+                    <TabsTrigger 
+                      value="tout"
+                      className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary hover:text-primary/80 transition-all duration-300"
+                    >
+                      Toutes
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="debutant"
+                      className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary hover:text-primary/80 transition-all duration-300"
+                    >
+                      Débutant
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="intermediaire"
+                      className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary hover:text-primary/80 transition-all duration-300"
+                    >
+                      Intermédiaire
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="avance"
+                      className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary hover:text-primary/80 transition-all duration-300"
+                    >
+                      Avancé/Expert
+                    </TabsTrigger>
                   </TabsList>
                   
+                  {/* Course cards with course object mapping */}
                   <TabsContent value="tout" className="mt-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {courses.map((course, index) => (
@@ -589,13 +639,14 @@ const AITrainingPage = () => {
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5, delay: index * 0.1 }}
+                          whileHover={{ y: -5 }}
                         >
-                          <Card className="bg-black/30 backdrop-blur-md border border-white/10 h-full flex flex-col overflow-hidden">
+                          <Card className="bg-black/30 backdrop-blur-md border border-white/10 h-full flex flex-col overflow-hidden hover:shadow-[0_0_25px_rgba(155,135,245,0.15)] hover:border-primary/30 transition-all duration-300 group">
                             <CardHeader>
-                              <div className="text-primary mb-3">{course.icon}</div>
-                              <CardTitle className="text-xl">{course.title}</CardTitle>
+                              <div className="text-primary mb-3 p-3 bg-white/5 rounded-lg w-fit group-hover:bg-primary/10 transition-all duration-300">{course.icon}</div>
+                              <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">{course.title}</CardTitle>
                               <div className="flex items-center gap-2 mt-2 text-sm">
-                                <UIBadge variant="outline" className="font-normal">
+                                <UIBadge variant="outline" className="font-normal border-primary/30 text-primary">
                                   {course.level}
                                 </UIBadge>
                                 <div className="flex items-center gap-1 text-muted-foreground">
@@ -623,9 +674,13 @@ const AITrainingPage = () => {
                                 </ul>
                               </div>
                             </CardContent>
-                            <CardFooter className="flex flex-col items-start border-t border-white/10 pt-4">
+                            <CardFooter className="flex flex-col items-start border-t border-white/10 pt-4 bg-black/20">
                               <div className="text-lg font-semibold text-primary mb-3">{course.price}</div>
-                              <Button variant="default" className="w-full" asChild>
+                              <Button 
+                                variant="default" 
+                                className="w-full bg-primary/80 hover:bg-primary transition-all duration-300" 
+                                asChild
+                              >
                                 <Link to={`/contact?formation=${course.id}`} className="flex justify-between items-center">
                                   <span>Plus d'informations</span>
                                   <ArrowRight size={16} />
@@ -638,6 +693,7 @@ const AITrainingPage = () => {
                     </div>
                   </TabsContent>
                   
+                  {/* Similar pattern for other tabs but with filtered courses */}
                   <TabsContent value="debutant" className="mt-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {courses.filter(c => c.level === "Débutant").map((course, index) => (
@@ -646,447 +702,14 @@ const AITrainingPage = () => {
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5, delay: index * 0.1 }}
+                          whileHover={{ y: -5 }}
                         >
-                          <Card className="bg-black/30 backdrop-blur-md border border-white/10 h-full flex flex-col overflow-hidden">
-                            {/* Card content same as above */}
+                          <Card className="bg-black/30 backdrop-blur-md border border-white/10 h-full flex flex-col overflow-hidden hover:shadow-[0_0_25px_rgba(155,135,245,0.15)] hover:border-primary/30 transition-all duration-300 group">
                             <CardHeader>
-                              <div className="text-primary mb-3">{course.icon}</div>
-                              <CardTitle className="text-xl">{course.title}</CardTitle>
+                              <div className="text-primary mb-3 p-3 bg-white/5 rounded-lg w-fit group-hover:bg-primary/10 transition-all duration-300">{course.icon}</div>
+                              <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">{course.title}</CardTitle>
                               <div className="flex items-center gap-2 mt-2 text-sm">
-                                <UIBadge variant="outline" className="font-normal">
+                                <UIBadge variant="outline" className="font-normal border-primary/30 text-primary">
                                   {course.level}
                                 </UIBadge>
                                 <div className="flex items-center gap-1 text-muted-foreground">
-                                  <Clock size={14} />
-                                  <span>{course.duration}</span>
-                                </div>
-                              </div>
-                            </CardHeader>
-                            <CardContent className="flex-grow">
-                              <p className="text-sm text-muted-foreground mb-4">{course.description}</p>
-                              <div className="mt-4">
-                                <p className="font-medium">Modules inclus:</p>
-                                <ul className="mt-2 space-y-2">
-                                  {course.modules.slice(0, 3).map((module, idx) => (
-                                    <li key={idx} className="text-sm flex items-start gap-2">
-                                      <Check size={16} className="text-primary shrink-0 mt-1" />
-                                      <span>{module.title}</span>
-                                    </li>
-                                  ))}
-                                  {course.modules.length > 3 && (
-                                    <li className="text-sm text-muted-foreground italic">
-                                      + {course.modules.length - 3} autres modules
-                                    </li>
-                                  )}
-                                </ul>
-                              </div>
-                            </CardContent>
-                            <CardFooter className="flex flex-col items-start border-t border-white/10 pt-4">
-                              <div className="text-lg font-semibold text-primary mb-3">{course.price}</div>
-                              <Button variant="default" className="w-full" asChild>
-                                <Link to={`/contact?formation=${course.id}`} className="flex justify-between items-center">
-                                  <span>Plus d'informations</span>
-                                  <ArrowRight size={16} />
-                                </Link>
-                              </Button>
-                            </CardFooter>
-                          </Card>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </TabsContent>
-                  
-                  {/* Similar structure for other tabs */}
-                  <TabsContent value="intermediaire" className="mt-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      {courses.filter(c => c.level === "Intermédiaire").map((course, index) => (
-                        <motion.div
-                          key={course.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                        >
-                          <Card className="bg-black/30 backdrop-blur-md border border-white/10 h-full flex flex-col overflow-hidden">
-                            {/* Same card structure as above */}
-                            <CardHeader>
-                              <div className="text-primary mb-3">{course.icon}</div>
-                              <CardTitle className="text-xl">{course.title}</CardTitle>
-                              <div className="flex items-center gap-2 mt-2 text-sm">
-                                <UIBadge variant="outline" className="font-normal">
-                                  {course.level}
-                                </UIBadge>
-                                <div className="flex items-center gap-1 text-muted-foreground">
-                                  <Clock size={14} />
-                                  <span>{course.duration}</span>
-                                </div>
-                              </div>
-                            </CardHeader>
-                            <CardContent className="flex-grow">
-                              <p className="text-sm text-muted-foreground mb-4">{course.description}</p>
-                              <div className="mt-4">
-                                <p className="font-medium">Modules inclus:</p>
-                                <ul className="mt-2 space-y-2">
-                                  {course.modules.slice(0, 3).map((module, idx) => (
-                                    <li key={idx} className="text-sm flex items-start gap-2">
-                                      <Check size={16} className="text-primary shrink-0 mt-1" />
-                                      <span>{module.title}</span>
-                                    </li>
-                                  ))}
-                                  {course.modules.length > 3 && (
-                                    <li className="text-sm text-muted-foreground italic">
-                                      + {course.modules.length - 3} autres modules
-                                    </li>
-                                  )}
-                                </ul>
-                              </div>
-                            </CardContent>
-                            <CardFooter className="flex flex-col items-start border-t border-white/10 pt-4">
-                              <div className="text-lg font-semibold text-primary mb-3">{course.price}</div>
-                              <Button variant="default" className="w-full" asChild>
-                                <Link to={`/contact?formation=${course.id}`} className="flex justify-between items-center">
-                                  <span>Plus d'informations</span>
-                                  <ArrowRight size={16} />
-                                </Link>
-                              </Button>
-                            </CardFooter>
-                          </Card>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="avance" className="mt-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      {courses.filter(c => c.level === "Avancé" || c.level === "Expert").map((course, index) => (
-                        <motion.div
-                          key={course.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                        >
-                          <Card className="bg-black/30 backdrop-blur-md border border-white/10 h-full flex flex-col overflow-hidden">
-                            {/* Same card structure as above */}
-                            <CardHeader>
-                              <div className="text-primary mb-3">{course.icon}</div>
-                              <CardTitle className="text-xl">{course.title}</CardTitle>
-                              <div className="flex items-center gap-2 mt-2 text-sm">
-                                <UIBadge variant="outline" className="font-normal">
-                                  {course.level}
-                                </UIBadge>
-                                <div className="flex items-center gap-1 text-muted-foreground">
-                                  <Clock size={14} />
-                                  <span>{course.duration}</span>
-                                </div>
-                              </div>
-                            </CardHeader>
-                            <CardContent className="flex-grow">
-                              <p className="text-sm text-muted-foreground mb-4">{course.description}</p>
-                              <div className="mt-4">
-                                <p className="font-medium">Modules inclus:</p>
-                                <ul className="mt-2 space-y-2">
-                                  {course.modules.slice(0, 3).map((module, idx) => (
-                                    <li key={idx} className="text-sm flex items-start gap-2">
-                                      <Check size={16} className="text-primary shrink-0 mt-1" />
-                                      <span>{module.title}</span>
-                                    </li>
-                                  ))}
-                                  {course.modules.length > 3 && (
-                                    <li className="text-sm text-muted-foreground italic">
-                                      + {course.modules.length - 3} autres modules
-                                    </li>
-                                  )}
-                                </ul>
-                              </div>
-                            </CardContent>
-                            <CardFooter className="flex flex-col items-start border-t border-white/10 pt-4">
-                              <div className="text-lg font-semibold text-primary mb-3">{course.price}</div>
-                              <Button variant="default" className="w-full" asChild>
-                                <Link to={`/contact?formation=${course.id}`} className="flex justify-between items-center">
-                                  <span>Plus d'informations</span>
-                                  <ArrowRight size={16} />
-                                </Link>
-                              </Button>
-                            </CardFooter>
-                          </Card>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </TabsContent>
-                </Tabs>
-              </div>
-            </div>
-          </div>
-        </section>
-        
-        {/* Testimonials Section */}
-        <section className="py-20 bg-black/30 backdrop-blur-md">
-          <div className="container mx-auto px-4">
-            <div className="max-w-2xl mx-auto text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4">Ce Qu'en Disent Nos Participants</h2>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
-              <p className="text-muted-foreground">Découvrez les témoignages de professionnels et organisations qui ont suivi nos formations</p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-black/20 backdrop-blur-sm p-8 rounded-xl border border-white/10 relative"
-                >
-                  <div className="absolute -top-3 -left-3 text-primary opacity-30">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M10 11H6C4.89543 11 4 10.1046 4 9V6.5C4 5.39543 4.89543 4.5 6 4.5H9C10.1046 4.5 11 5.39543 11 6.5V17.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M19 11H15C13.8954 11 13 10.1046 13 9V6.5C13 5.39543 13.8954 4.5 15 4.5H18C19.1046 4.5 20 5.39543 20 6.5V17.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  
-                  <p className="text-muted-foreground mb-6 mt-4 italic">"{testimonial.text}"</p>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full overflow-hidden">
-                      <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
-                    </div>
-                    <div>
-                      <div className="font-medium">{testimonial.name}</div>
-                      <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-        
-        {/* Clients/Partners Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-2xl mx-auto text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4">Ils Nous Font Confiance</h2>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
-              <p className="text-muted-foreground">Organisations et institutions qui ont bénéficié de nos formations en IA</p>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
-              {/* Placeholder logos - would be replaced with actual client logos */}
-              {Array.from({ length: 12 }).map((_, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.7 }}
-                  transition={{ duration: 0.5, delay: idx * 0.05 }}
-                  whileHover={{ opacity: 1 }}
-                  className="flex items-center justify-center h-20"
-                >
-                  <img src="/placeholder.svg" alt={`Client ${idx + 1}`} className="max-h-full max-w-full" />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-        
-        {/* Custom Training Section */}
-        <section className="py-20 bg-black/30 backdrop-blur-md">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="text-3xl font-bold mb-4">Formation Sur Mesure</h2>
-                <div className="h-1 w-24 bg-gradient-primary mb-6"></div>
-                <p className="text-muted-foreground mb-6">
-                  Besoin d'une formation adaptée aux défis spécifiques de votre organisation ? 
-                  Je conçois des programmes sur mesure qui répondent précisément à vos objectifs et au niveau de vos équipes.
-                </p>
-                
-                <ul className="space-y-4 mb-8">
-                  <li className="flex items-start gap-3">
-                    <Check size={20} className="text-primary shrink-0 mt-1" />
-                    <span>Analyse préalable de vos besoins et objectifs</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Check size={20} className="text-primary shrink-0 mt-1" />
-                    <span>Contenu adapté à votre secteur d'activité et vos cas d'usage</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Check size={20} className="text-primary shrink-0 mt-1" />
-                    <span>Flexibilité des formats et durées de formation</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Check size={20} className="text-primary shrink-0 mt-1" />
-                    <span>Suivi post-formation et accompagnement dans la mise en pratique</span>
-                  </li>
-                </ul>
-                
-                <Button size="lg" className="bg-gradient-primary hover:opacity-90" asChild>
-                  <Link to="/contact?sujet=formation-sur-mesure" className="flex items-center gap-2">
-                    <span>Demander un programme personnalisé</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-black/40 backdrop-blur-lg p-8 rounded-xl border border-white/10"
-              >
-                <h3 className="text-xl font-semibold mb-6">Demande d'information</h3>
-                <form className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium mb-1">Nom</label>
-                      <Input id="name" placeholder="Votre nom" />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
-                      <Input id="email" type="email" placeholder="Votre email" />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="company" className="block text-sm font-medium mb-1">Entreprise</label>
-                    <Input id="company" placeholder="Nom de votre entreprise" />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium mb-1">Thématique d'intérêt</label>
-                    <Input id="subject" placeholder="Ex: Intelligence Artificielle Générative" />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-1">Message</label>
-                    <Textarea id="message" placeholder="Précisez vos besoins de formation" rows={4} />
-                  </div>
-                  
-                  <Button type="submit" className="w-full">
-                    <Send className="mr-2 h-4 w-4" />
-                    Envoyer ma demande
-                  </Button>
-                </form>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-        
-        {/* FAQ Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold mb-4">Questions Fréquentes</h2>
-                <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
-              </div>
-              
-              <div className="space-y-6">
-                <Card className="bg-black/20 backdrop-blur-sm border border-white/10">
-                  <CardHeader>
-                    <CardTitle className="text-xl">Quel niveau technique est requis pour suivre vos formations ?</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Nos formations sont adaptées à différents niveaux. Pour les formations débutantes, aucun prérequis technique n'est nécessaire, juste une bonne culture numérique. Pour les niveaux intermédiaires et avancés, des connaissances préalables en programmation (Python) sont recommandées. Pour les formations destinées aux dirigeants, aucune compétence technique n'est requise.</p>
-                  </CardContent>
-                </Card>
-                
-                <Card className="bg-black/20 backdrop-blur-sm border border-white/10">
-                  <CardHeader>
-                    <CardTitle className="text-xl">Les formations peuvent-elles être dispensées en anglais ?</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Absolument. Toutes nos formations peuvent être dispensées en français ou en anglais, selon vos préférences. Le matériel pédagogique est disponible dans les deux langues. Nous pouvons également proposer des formations bilingues si votre équipe comprend des collaborateurs francophones et anglophones.</p>
-                  </CardContent>
-                </Card>
-                
-                <Card className="bg-black/20 backdrop-blur-sm border border-white/10">
-                  <CardHeader>
-                    <CardTitle className="text-xl">Proposez-vous des certifications reconnues ?</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Oui, tous les participants reçoivent une attestation de suivi de formation. Pour certaines formations techniques avancées, nous proposons également une préparation aux certifications internationales comme TensorFlow Developer Certificate ou AWS Machine Learning Specialty. Ces certifications font l'objet d'examens séparés auprès des organismes certificateurs.</p>
-                  </CardContent>
-                </Card>
-                
-                <Card className="bg-black/20 backdrop-blur-sm border border-white/10">
-                  <CardHeader>
-                    <CardTitle className="text-xl">Quelles sont les modalités pratiques des formations ?</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Les formations peuvent être dispensées en présentiel dans vos locaux, dans nos centres partenaires à Dakar, Paris, Abidjan ou Londres, ou à distance via des outils de visioconférence. Pour les formations techniques, chaque participant doit disposer d'un ordinateur. Des environnements cloud préconfigurés sont fournis pour les travaux pratiques, évitant ainsi les problèmes d'installation locale.</p>
-                  </CardContent>
-                </Card>
-                
-                <Card className="bg-black/20 backdrop-blur-sm border border-white/10">
-                  <CardHeader>
-                    <CardTitle className="text-xl">Combien de participants par session de formation ?</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Pour garantir une qualité pédagogique optimale, nos formations sont limitées à 12 participants maximum. Pour les formations très techniques ou les workshops intensifs, nous recommandons des groupes de 6 à 8 personnes pour favoriser l'interaction et l'accompagnement personnalisé. Des tarifs dégressifs sont proposés pour les groupes.</p>
-                  </CardContent>
-                </Card>
-              </div>
-              
-              <div className="mt-12 text-center">
-                <Button variant="outline" className="font-medium" asChild>
-                  <Link to="/contact" className="flex items-center gap-2">
-                    <span>Une autre question ? Contactez-moi</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
-        
-        {/* CTA Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto bg-gradient-to-r from-gray-900 to-black rounded-2xl overflow-hidden border-gradient border-gradient-strong">
-              <div className="p-12 md:p-16 relative">
-                {/* Background effects */}
-                <div className="absolute top-0 right-0 w-48 h-48 bg-primary opacity-20 blur-3xl rounded-full"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary opacity-20 blur-3xl rounded-full"></div>
-                
-                {/* Senegal flag stripe with very low opacity */}
-                <div className="absolute inset-0 opacity-5 senegal-flag-gradient"></div>
-                
-                <div className="relative z-10 text-center">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-                    Prêt à développer vos compétences en IA ?
-                  </h2>
-                  <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
-                    Donnez à votre équipe ou votre organisation les clés pour maîtriser l'intelligence artificielle et transformer votre approche business grâce à l'expertise de pointe.
-                  </p>
-                  
-                  <div className="flex flex-wrap justify-center gap-4">
-                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 transition-opacity font-medium text-white" asChild>
-                      <Link to="/contact" className="flex items-center gap-2">
-                        <span>Contacter un expert</span>
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                    <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10" asChild>
-                      <Link to="/services" className="flex items-center gap-2">
-                        <span>Explorer tous nos services</span>
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-      
-      <Footer />
-    </div>
-  );
-};
-
-export default AITrainingPage;
-
