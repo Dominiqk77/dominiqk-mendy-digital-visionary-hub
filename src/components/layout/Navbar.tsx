@@ -164,14 +164,14 @@ const Navbar = () => {
             </div>}
           
           {isMobile && (
-            <Drawer open={isOpen} onOpenChange={setIsOpen}>
+            <Drawer>
               <DrawerTrigger asChild>
                 <button 
                   onClick={() => setIsOpen(!isOpen)}
-                  className="p-3 rounded-lg text-foreground fixed top-4 right-4 z-50 bg-portfolio-darkblue/60 backdrop-blur-md border border-portfolio-purple/30 shadow-lg hover:bg-portfolio-darkblue/80 transition-all"
+                  className="p-2 rounded-lg text-foreground fixed top-3 right-3 z-50 bg-portfolio-darkblue/70 backdrop-blur-md border border-portfolio-purple/30 shadow-md hover:bg-portfolio-darkblue/80 transition-all"
                   aria-label="Menu"
                 >
-                  <Menu className="h-6 w-6 text-white" />
+                  <Menu className="h-5 w-5 text-white" />
                 </button>
               </DrawerTrigger>
               <DrawerContent className="max-h-[85vh] bg-gradient-to-b from-portfolio-darkblue/95 to-black/90 backdrop-blur-lg border-t border-portfolio-purple/20">
@@ -183,8 +183,8 @@ const Navbar = () => {
                       </div>
                       <span className="text-lg font-bold text-white">Dominiqk Mendy</span>
                     </div>
-                    <button onClick={() => setIsOpen(false)} className="p-2 rounded-full bg-portfolio-purple/20 text-white">
-                      <X className="h-5 w-5" />
+                    <button onClick={() => setIsOpen(false)} className="p-1.5 rounded-full bg-portfolio-purple/20 text-white">
+                      <X className="h-4 w-4" />
                     </button>
                   </div>
                   
