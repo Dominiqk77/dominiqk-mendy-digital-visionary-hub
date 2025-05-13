@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/layout/Navbar';
@@ -673,4 +674,76 @@ const SenServices = () => {
             </div>
             
             <Tabs defaultValue="citizen" className="w-full">
-              <TabsList className="grid grid-cols-2 w-full max-w-md mx-
+              <TabsList className="grid grid-cols-2 w-full max-w-md mx-auto mb-8">
+                <TabsTrigger value="citizen">Interface Citoyenne</TabsTrigger>
+                <TabsTrigger value="admin">Interface Administrative</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="citizen" className="mt-4">
+                <div className="relative">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
+                  <Card className="bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
+                    <CardContent className="p-0">
+                      <img 
+                        src="/lovable-uploads/e991c404-fa68-4476-bad5-65316d44cf46.png" 
+                        alt="Interface citoyenne" 
+                        className="w-full h-auto"
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="admin" className="mt-4">
+                <div className="relative">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
+                  <Card className="bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
+                    <CardContent className="p-0">
+                      <img 
+                        src="/lovable-uploads/1d07325e-d8c2-4e54-ac4e-3caf0120f9eb.png" 
+                        alt="Interface administrative" 
+                        className="w-full h-auto"
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </PageContainer>
+        </section>
+        
+        {/* Contact section */}
+        <section className="py-20 bg-black/30 backdrop-blur-md border-t border-white/10">
+          <PageContainer>
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl font-bold mb-4 text-white">Intéressé par ce projet ?</h2>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
+              <p className="text-white mb-8">
+                Vous souhaitez en savoir plus sur SenServices ou discuter d'un projet similaire pour votre organisation ?
+                N'hésitez pas à me contacter.
+              </p>
+              <div className="flex justify-center gap-4">
+                <Button className="bg-gradient-primary hover:opacity-90 text-white font-medium shadow-lg shadow-primary/20" asChild>
+                  <Link to="/contact" className="flex items-center gap-2">
+                    <Mail size={16} />
+                    <span>Me contacter</span>
+                  </Link>
+                </Button>
+                <Button variant="outline" className="border-white/30 hover:bg-white/10 text-white font-medium" asChild>
+                  <Link to="/services/egouvernance" className="flex items-center gap-2">
+                    <span>Services E-Gouvernance</span>
+                    <ArrowRight size={16} />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </PageContainer>
+        </section>
+      </main>
+      
+      <Footer />
+    </div>
+  );
+};
+
+export default SenServices;
