@@ -19,6 +19,8 @@ import ExpertisePage from "./pages/Expertise";
 import PortfolioPage from "./pages/Portfolio";
 import StartProject from "./pages/StartProject";
 import AITrainingPage from "./pages/services/AITrainingPage";
+import EGovernance from "./pages/services/EGovernance";
+import SenServices from "./pages/projects/SenServices";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +38,7 @@ const App = () => (
           <Route path="/services/digital-marketing" element={<MarketingServices />} />
           <Route path="/services/consulting" element={<ConsultingServices />} />
           <Route path="/services/ai-training" element={<AITrainingPage />} />
+          <Route path="/services/egouvernance" element={<EGovernance />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/academy" element={<AcademyPage />} />
           <Route path="/tools" element={<ToolsPage />} />
@@ -43,6 +46,7 @@ const App = () => (
           <Route path="/expertise" element={<ExpertisePage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/start-project" element={<StartProject />} />
+          <Route path="/projects/senservices" element={<SenServices />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
