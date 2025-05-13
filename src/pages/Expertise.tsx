@@ -1,15 +1,23 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { 
   Check, Award, Bookmark, Zap, 
   BookOpen, Lightbulb, Server, Database, 
-  CircuitBoard, Atom, Star, Layers
+  CircuitBoard, Atom, Star, Layers,
+  Code, Globe, PieChart, BarChart3, 
+  LineChart, TrendingUp, BrainCircuit, 
+  Cpu, Network, ShieldCheck, Smartphone, 
+  LucideIcon, Monitor, Palette, Users,
+  MessageSquare, Share2, FileText, Rocket,
+  Building, PenTool, Briefcase, TreePine
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { Card, CardContent } from '@/components/ui/card';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { cn } from '@/lib/utils';
 
 // Space particles background component
 const SpaceBackground = () => {
@@ -205,6 +213,25 @@ const DataFlowAnimation = () => {
   );
 };
 
+// Expertise Category interface
+interface ExpertiseCategory {
+  id: string;
+  title: string;
+  icon: React.ReactNode;
+  skills: ExpertiseItem[];
+}
+
+// Expertise Item interface
+interface ExpertiseItem {
+  id: string;
+  title: string;
+  icon: React.ReactNode;
+  description: string;
+  points: string[];
+  techStat: string;
+  category: string;
+}
+
 const Expertise = () => {
   // Ref for scroll animations
   const sectionRef = useRef(null);
@@ -214,6 +241,12 @@ const Expertise = () => {
   });
   
   const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5], [0.5, 1]);
+
+  // State for category filter
+  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({});
+  const [visibleCount, setVisibleCount] = useState<number>(12);
 
   useEffect(() => {
     // Set page title for SEO
@@ -231,12 +264,33 @@ const Expertise = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Toggle description expansion
+  const toggleDescription = (id: string) => {
+    setExpandedDescriptions(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
+  // Load more items
+  const loadMore = () => {
+    setVisibleCount(prev => prev + 8);
+  };
+
+  // Reset filters
+  const resetFilters = () => {
+    setActiveCategory('all');
+    setSearchQuery('');
+  };
+
   // Simulated real-time tech stats
   const [techStats, setTechStats] = useState({
     aiAccuracy: 97.8,
     serverUptime: 99.95,
     projectCompletion: 94.2,
-    clientSatisfaction: 98.6
+    clientSatisfaction: 98.6,
+    apiPerformance: 96.3,
+    dataQuality: 95.7
   });
 
   // Simulate real-time data updates
@@ -246,18 +300,74 @@ const Expertise = () => {
         aiAccuracy: parseFloat((prev.aiAccuracy + (Math.random() * 0.2 - 0.1)).toFixed(1)),
         serverUptime: parseFloat((prev.serverUptime + (Math.random() * 0.1 - 0.05)).toFixed(2)),
         projectCompletion: parseFloat((prev.projectCompletion + (Math.random() * 0.3 - 0.15)).toFixed(1)),
-        clientSatisfaction: parseFloat((prev.clientSatisfaction + (Math.random() * 0.2 - 0.1)).toFixed(1))
+        clientSatisfaction: parseFloat((prev.clientSatisfaction + (Math.random() * 0.2 - 0.1)).toFixed(1)),
+        apiPerformance: parseFloat((prev.apiPerformance + (Math.random() * 0.3 - 0.15)).toFixed(1)),
+        dataQuality: parseFloat((prev.dataQuality + (Math.random() * 0.2 - 0.1)).toFixed(1))
       }));
     }, 5000);
     
     return () => clearInterval(statInterval);
   }, []);
 
-  const expertiseAreas = [
+  // Define expertise categories
+  const expertiseCategories: ExpertiseCategory[] = [
     {
+      id: 'ai',
+      title: 'Intelligence Artificielle',
+      icon: <BrainCircuit className="h-6 w-6 text-primary" />,
+      skills: []
+    },
+    {
+      id: 'dev',
+      title: 'Développement',
+      icon: <Code className="h-6 w-6 text-primary" />,
+      skills: []
+    },
+    {
+      id: 'digital',
+      title: 'Marketing Digital',
+      icon: <PieChart className="h-6 w-6 text-primary" />,
+      skills: []
+    },
+    {
+      id: 'data',
+      title: 'Data Science',
+      icon: <BarChart3 className="h-6 w-6 text-primary" />,
+      skills: []
+    },
+    {
+      id: 'cloud',
+      title: 'Cloud & DevOps',
+      icon: <Server className="h-6 w-6 text-primary" />,
+      skills: []
+    },
+    {
+      id: 'design',
+      title: 'Design & UX',
+      icon: <Palette className="h-6 w-6 text-primary" />,
+      skills: []
+    },
+    {
+      id: 'business',
+      title: 'Business & Consulting',
+      icon: <Briefcase className="h-6 w-6 text-primary" />,
+      skills: []
+    },
+    {
+      id: 'sustainable',
+      title: 'Développement Durable',
+      icon: <TreePine className="h-6 w-6 text-primary" />,
+      skills: []
+    }
+  ];
+
+  // Define all expertise areas
+  const expertiseAreas: ExpertiseItem[] = [
+    {
+      id: 'ai-ml',
       title: "Intelligence Artificielle",
       icon: <Atom className="h-8 w-8 text-primary" />,
-      description: "Développement de solutions IA personnalisées, machine learning, chatbots et systèmes de recommandation adaptés aux besoins spécifiques du marché africain.",
+      description: "Développement de solutions IA personnalisées, machine learning, chatbots et systèmes de recommandation adaptés aux besoins spécifiques du marché africain et international.",
       points: [
         "Modèles prédictifs et analytiques",
         "Traitement du langage naturel (NLP)",
@@ -265,12 +375,14 @@ const Expertise = () => {
         "Systèmes de recommandation",
         "Optimisation par IA"
       ],
-      techStat: `${techStats.aiAccuracy}% précision`
+      techStat: `${techStats.aiAccuracy}% précision`,
+      category: 'ai'
     },
     {
+      id: 'web-dev',
       title: "Développement Web & Mobile",
       icon: <CircuitBoard className="h-8 w-8 text-primary" />,
-      description: "Création d'applications web et mobile performantes, évolutives et sécurisées utilisant les technologies modernes adaptées aux infrastructures locales.",
+      description: "Création d'applications web et mobile performantes, évolutives et sécurisées utilisant les technologies modernes adaptées aux infrastructures locales et internationales.",
       points: [
         "Applications web progressives (PWA)",
         "Applications mobiles natives et hybrides",
@@ -278,9 +390,11 @@ const Expertise = () => {
         "Systèmes de paiement mobile",
         "Architectures cloud et serverless"
       ],
-      techStat: `${techStats.serverUptime}% uptime`
+      techStat: `${techStats.serverUptime}% uptime`,
+      category: 'dev'
     },
     {
+      id: 'digital-marketing',
       title: "Marketing Numérique",
       icon: <Bookmark className="h-8 w-8 text-primary" />,
       description: "Stratégies digitales sur mesure pour accroître la visibilité, générer des leads qualifiés et fidéliser votre clientèle en Afrique et à l'international.",
@@ -291,9 +405,11 @@ const Expertise = () => {
         "Marketing d'automation et CRM",
         "Analyse de données et optimisation"
       ],
-      techStat: `${techStats.clientSatisfaction}% satisfaction`
+      techStat: `${techStats.clientSatisfaction}% satisfaction`,
+      category: 'digital'
     },
     {
+      id: 'egovernance',
       title: "E-Gouvernance",
       icon: <Award className="h-8 w-8 text-primary" />,
       description: "Accompagnement des institutions publiques dans leur transformation numérique pour améliorer les services aux citoyens et l'efficacité administrative.",
@@ -304,9 +420,11 @@ const Expertise = () => {
         "Sécurisation des données publiques",
         "Formation des fonctionnaires"
       ],
-      techStat: `${techStats.projectCompletion}% réussite`
+      techStat: `${techStats.projectCompletion}% réussite`,
+      category: 'business'
     },
     {
+      id: 'training',
       title: "Formation & Transfert de Compétences",
       icon: <BookOpen className="h-8 w-8 text-primary" />,
       description: "Programmes de formation et mentorat pour développer les compétences numériques locales et favoriser l'autonomie technologique.",
@@ -317,9 +435,11 @@ const Expertise = () => {
         "Certification en développement web",
         "Ateliers design thinking"
       ],
-      techStat: `${techStats.clientSatisfaction}% satisfaction`
+      techStat: `${techStats.clientSatisfaction}% satisfaction`,
+      category: 'business'
     },
     {
+      id: 'consulting',
       title: "Consulting Stratégique",
       icon: <Star className="h-8 w-8 text-primary" />,
       description: "Conseil en transformation digitale pour entreprises et startups africaines avec une approche centrée sur les spécificités du continent.",
@@ -330,510 +450,395 @@ const Expertise = () => {
         "Développement de produits digitaux",
         "Internationalisation et scaling"
       ],
-      techStat: `${techStats.projectCompletion}% complétion`
+      techStat: `${techStats.projectCompletion}% complétion`,
+      category: 'business'
+    },
+    {
+      id: 'deep-learning',
+      title: "Deep Learning",
+      icon: <Network className="h-8 w-8 text-primary" />,
+      description: "Conception et implémentation de réseaux de neurones profonds pour résoudre des problèmes complexes dans divers domaines.",
+      points: [
+        "Réseaux de neurones convolutifs (CNN)",
+        "Réseaux de neurones récurrents (RNN)",
+        "Apprentissage par renforcement",
+        "Transformers et BERT",
+        "Transfer learning"
+      ],
+      techStat: `${techStats.aiAccuracy}% précision`,
+      category: 'ai'
+    },
+    {
+      id: 'nlp',
+      title: "Traitement du Langage Naturel",
+      icon: <MessageSquare className="h-8 w-8 text-primary" />,
+      description: "Développement de solutions linguistiques intelligentes, adaptées aux langues africaines et au contexte multiculturel.",
+      points: [
+        "Chatbots multilingues",
+        "Analyse de sentiment",
+        "Extraction d'informations",
+        "Traduction automatique",
+        "Résumé automatique de texte"
+      ],
+      techStat: `${(techStats.aiAccuracy - 2.1).toFixed(1)}% précision`,
+      category: 'ai'
+    },
+    {
+      id: 'frontend',
+      title: "Développement Frontend",
+      icon: <Monitor className="h-8 w-8 text-primary" />,
+      description: "Création d'interfaces utilisateur modernes, réactives et accessibles avec les frameworks JavaScript les plus récents.",
+      points: [
+        "React, Vue.js, Angular",
+        "Interfaces mobiles réactives",
+        "State management avancé",
+        "Animations et transitions",
+        "Tests unitaires et d'intégration"
+      ],
+      techStat: `${techStats.projectCompletion}% qualité`,
+      category: 'dev'
+    },
+    {
+      id: 'backend',
+      title: "Développement Backend",
+      icon: <Database className="h-8 w-8 text-primary" />,
+      description: "Conception d'architectures serveur robustes, évolutives et sécurisées pour supporter des applications complexes.",
+      points: [
+        "Node.js, Python, Java",
+        "API REST et GraphQL",
+        "Microservices et serverless",
+        "Bases de données SQL et NoSQL",
+        "Performance et sécurité"
+      ],
+      techStat: `${techStats.apiPerformance}% performance`,
+      category: 'dev'
+    },
+    {
+      id: 'mobile-dev',
+      title: "Développement Mobile",
+      icon: <Smartphone className="h-8 w-8 text-primary" />,
+      description: "Création d'applications mobiles natives et multiplateformes optimisées pour les marchés africains et internationaux.",
+      points: [
+        "React Native et Flutter",
+        "iOS et Android natif",
+        "Optimisation pour faible connectivité",
+        "Intégration avec API locales",
+        "Mode hors ligne"
+      ],
+      techStat: `${techStats.projectCompletion}% satisfaction`,
+      category: 'dev'
+    },
+    {
+      id: 'devops',
+      title: "DevOps & Cloud",
+      icon: <Server className="h-8 w-8 text-primary" />,
+      description: "Mise en place de pipelines CI/CD, solutions cloud et pratiques DevSecOps pour optimiser le développement et le déploiement.",
+      points: [
+        "AWS, Azure, GCP",
+        "Docker et Kubernetes",
+        "CI/CD avec GitHub Actions/Jenkins",
+        "Infrastructure as Code",
+        "Monitoring et observabilité"
+      ],
+      techStat: `${techStats.serverUptime}% uptime`,
+      category: 'cloud'
+    },
+    {
+      id: 'data-science',
+      title: "Data Science",
+      icon: <BarChart3 className="h-8 w-8 text-primary" />,
+      description: "Analyse de données complexes pour extraire des insights stratégiques et transformer les données en valeur commerciale.",
+      points: [
+        "Analyse prédictive",
+        "Segmentation client",
+        "Détection d'anomalies",
+        "Modélisation statistique",
+        "Data mining"
+      ],
+      techStat: `${techStats.dataQuality}% précision`,
+      category: 'data'
+    },
+    {
+      id: 'big-data',
+      title: "Big Data",
+      icon: <Database className="h-8 w-8 text-primary" />,
+      description: "Solutions pour collecter, stocker, traiter et analyser des volumes massifs de données à grande échelle.",
+      points: [
+        "Hadoop et Spark",
+        "Streaming de données en temps réel",
+        "Data warehousing",
+        "ETL et pipelines de données",
+        "Data lakes"
+      ],
+      techStat: `${techStats.apiPerformance}% performance`,
+      category: 'data'
+    },
+    {
+      id: 'digital-strategy',
+      title: "Stratégie Digitale",
+      icon: <TrendingUp className="h-8 w-8 text-primary" />,
+      description: "Élaboration de feuilles de route digitales alignées sur les objectifs commerciaux et les spécificités du marché africain.",
+      points: [
+        "Audit digital et benchmarking",
+        "Roadmap de transformation",
+        "Stratégie multicanale",
+        "Indicateurs de performance",
+        "Gouvernance digitale"
+      ],
+      techStat: `${techStats.projectCompletion}% efficacité`,
+      category: 'business'
+    },
+    {
+      id: 'seo-sem',
+      title: "SEO & SEM",
+      icon: <Globe className="h-8 w-8 text-primary" />,
+      description: "Optimisation pour les moteurs de recherche et gestion de campagnes publicitaires pour maximiser la visibilité en ligne.",
+      points: [
+        "SEO technique et on-page",
+        "SEO local pour marchés africains",
+        "Campagnes Google Ads",
+        "Référencement multilingue",
+        "Analytics et reporting"
+      ],
+      techStat: `${techStats.clientSatisfaction}% ROI`,
+      category: 'digital'
+    },
+    {
+      id: 'content-marketing',
+      title: "Marketing de Contenu",
+      icon: <FileText className="h-8 w-8 text-primary" />,
+      description: "Création et diffusion de contenu de valeur pour attirer, engager et fidéliser une audience ciblée.",
+      points: [
+        "Stratégie de contenu",
+        "Production multiformat",
+        "Calendrier éditorial",
+        "Distribution et amplification",
+        "Mesure de performance"
+      ],
+      techStat: `${techStats.clientSatisfaction - 1.2}% engagement`,
+      category: 'digital'
+    },
+    {
+      id: 'social-media',
+      title: "Social Media",
+      icon: <Share2 className="h-8 w-8 text-primary" />,
+      description: "Stratégies de présence sur les réseaux sociaux adaptées aux spécificités des plateformes populaires en Afrique.",
+      points: [
+        "Community management",
+        "Social ads ciblées",
+        "Contenu engageant",
+        "Social selling",
+        "Social listening"
+      ],
+      techStat: `${techStats.clientSatisfaction}% engagement`,
+      category: 'digital'
+    },
+    {
+      id: 'cyber-security',
+      title: "Cybersécurité",
+      icon: <ShieldCheck className="h-8 w-8 text-primary" />,
+      description: "Protection des actifs numériques contre les menaces avec des solutions adaptées au contexte africain.",
+      points: [
+        "Audit de sécurité",
+        "Implémentation RGPD/GDPR",
+        "Sécurisation des applications",
+        "Gestion des identités",
+        "Formation et sensibilisation"
+      ],
+      techStat: `${techStats.serverUptime}% sécurité`,
+      category: 'cloud'
+    },
+    {
+      id: 'ui-ux',
+      title: "UI/UX Design",
+      icon: <Palette className="h-8 w-8 text-primary" />,
+      description: "Conception d'interfaces utilisateur intuitives et d'expériences adaptées aux usages et préférences locales.",
+      points: [
+        "Design centré utilisateur",
+        "Tests d'utilisabilité",
+        "Design systems",
+        "Wireframing et prototypage",
+        "Interfaces accessibles"
+      ],
+      techStat: `${techStats.clientSatisfaction}% satisfaction`,
+      category: 'design'
+    },
+    {
+      id: 'fintech',
+      title: "Solutions FinTech",
+      icon: <Zap className="h-8 w-8 text-primary" />,
+      description: "Développement de solutions financières digitales adaptées au contexte africain et à l'inclusion financière.",
+      points: [
+        "Mobile banking",
+        "Paiements électroniques",
+        "Micro-finance digitale",
+        "Transferts d'argent",
+        "KYC et conformité"
+      ],
+      techStat: `${techStats.serverUptime}% fiabilité`,
+      category: 'dev'
+    },
+    {
+      id: 'blockchain',
+      title: "Blockchain & Web3",
+      icon: <CircuitBoard className="h-8 w-8 text-primary" />,
+      description: "Développement d'applications décentralisées et utilisation de la blockchain pour résoudre des problèmes spécifiques.",
+      points: [
+        "Smart contracts",
+        "DeFi et tokenisation",
+        "NFT et actifs numériques",
+        "Solutions de traçabilité",
+        "Identité décentralisée"
+      ],
+      techStat: `${techStats.apiPerformance}% performance`,
+      category: 'dev'
+    },
+    {
+      id: 'sustainable-tech',
+      title: "Technologies Durables",
+      icon: <TreePine className="h-8 w-8 text-primary" />,
+      description: "Solutions technologiques pour le développement durable et la lutte contre les défis environnementaux en Afrique.",
+      points: [
+        "Suivi environnemental par IA",
+        "Applications d'agriculture de précision",
+        "Solutions d'énergie propre",
+        "Gestion intelligente des ressources",
+        "Économie circulaire digitale"
+      ],
+      techStat: `${techStats.projectCompletion}% impact`,
+      category: 'sustainable'
+    },
+    {
+      id: 'chatbots',
+      title: "Chatbots & Assistants Virtuels",
+      icon: <MessageSquare className="h-8 w-8 text-primary" />,
+      description: "Conception d'agents conversationnels intelligents pour automatiser le service client et l'assistance.",
+      points: [
+        "Chatbots multilingues",
+        "Intégration WhatsApp/Messenger",
+        "IA conversationnelle",
+        "Workflows automatisés",
+        "Analytics conversationnels"
+      ],
+      techStat: `${techStats.aiAccuracy - 1.3}% précision`,
+      category: 'ai'
+    },
+    {
+      id: 'elearning',
+      title: "Plateformes E-Learning",
+      icon: <BookOpen className="h-8 w-8 text-primary" />,
+      description: "Développement de solutions d'apprentissage en ligne adaptées aux contraintes d'infrastructure africaines.",
+      points: [
+        "LMS sur mesure",
+        "Contenu interactif",
+        "Mobile learning",
+        "Évaluation automatisée",
+        "Certification blockchain"
+      ],
+      techStat: `${techStats.clientSatisfaction}% satisfaction`,
+      category: 'dev'
+    },
+    {
+      id: 'ecommerce',
+      title: "E-commerce & Marketplace",
+      icon: <Building className="h-8 w-8 text-primary" />,
+      description: "Création de plateformes de vente en ligne et places de marché adaptées aux réalités logistiques africaines.",
+      points: [
+        "Solutions e-commerce sur mesure",
+        "Marketplaces B2B et B2C",
+        "Intégration paiement mobile",
+        "Logistique et livraison du dernier km",
+        "Multicanalité"
+      ],
+      techStat: `${techStats.projectCompletion}% conversion`,
+      category: 'dev'
+    },
+    {
+      id: 'startup',
+      title: "Startup Studio",
+      icon: <Rocket className="h-8 w-8 text-primary" />,
+      description: "Accompagnement de startups africaines de l'idéation au scaling, avec une méthodologie adaptée à l'écosystème local.",
+      points: [
+        "Idéation et validation",
+        "MVP et prototypage rapide",
+        "Business model canvas",
+        "Levée de fonds",
+        "Stratégie de croissance"
+      ],
+      techStat: `${techStats.projectCompletion}% réussite`,
+      category: 'business'
+    },
+    {
+      id: 'agile',
+      title: "Méthodologies Agiles",
+      icon: <Briefcase className="h-8 w-8 text-primary" />,
+      description: "Implémentation et coaching en méthodologies agiles adaptées au contexte des équipes africaines.",
+      points: [
+        "Scrum et Kanban",
+        "Product Ownership",
+        "Management visuel",
+        "Équipes distribuées",
+        "Culture de l'amélioration continue"
+      ],
+      techStat: `${techStats.projectCompletion}% efficacité`,
+      category: 'business'
+    },
+    {
+      id: 'data-viz',
+      title: "Data Visualization",
+      icon: <PieChart className="h-8 w-8 text-primary" />,
+      description: "Création de visualisations de données interactives et tableaux de bord pour faciliter la prise de décision.",
+      points: [
+        "Dashboards interactifs",
+        "Storytelling visuel",
+        "Infographies personnalisées",
+        "Reportings automatisés",
+        "KPI et métriques"
+      ],
+      techStat: `${techStats.dataQuality}% clarté`,
+      category: 'data'
+    },
+    {
+      id: 'api-dev',
+      title: "API & Intégrations",
+      icon: <Code className="h-8 w-8 text-primary" />,
+      description: "Conception et développement d'API robustes et d'intégrations entre systèmes hétérogènes.",
+      points: [
+        "API REST et GraphQL",
+        "Documentation OpenAPI",
+        "Intégrations tierces",
+        "API Gateway et sécurité",
+        "Webhooks et événements"
+      ],
+      techStat: `${techStats.apiPerformance}% performance`,
+      category: 'dev'
+    },
+    {
+      id: 'iot',
+      title: "Internet des Objets (IoT)",
+      icon: <Cpu className="h-8 w-8 text-primary" />,
+      description: "Solutions IoT innovantes pour relever les défis spécifiques au contexte africain.",
+      points: [
+        "Capteurs et dispositifs connectés",
+        "Edge computing",
+        "Plateformes IoT",
+        "Protocoles de communication",
+        "Analytics IoT"
+      ],
+      techStat: `${techStats.apiPerformance - 1.3}% fiabilité`,
+      category: 'cloud'
     }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
+  // Filter expertise areas based on category and search query
+  const filteredExpertise = expertiseAreas
+    .filter(item => activeCategory === 'all' || item.category === activeCategory)
+    .filter(item => 
+      searchQuery === '' || 
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.points.some(point => point.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5
-      }
-    }
-  };
-
-  const heroVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: {
-        when: "beforeChildren",
-        staggerChildren: 0.2
-      } 
-    }
-  };
-
-  const childVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        type: "spring",
-        stiffness: 100
-      }
-    }
-  };
-
-  return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden bg-gradient-to-b from-gray-950 via-portfolio-darkblue to-black">
-      <Navbar />
-      
-      {/* Background elements */}
-      <SpaceBackground />
-      <NebulaBg />
-      <FuturisticGrid />
-      
-      <main className="flex-grow pt-20 relative">
-        {/* Hero Section */}
-        <section ref={sectionRef} className="py-16 md:py-24 relative overflow-hidden">
-          <DataFlowAnimation />
-          
-          {/* Grid overlay */}
-          <div className="absolute inset-0 grid grid-cols-12 pointer-events-none opacity-5">
-            {[...Array(12)].map((_, i) => (
-              <div key={i} className="h-full w-px bg-gradient-to-b from-transparent via-portfolio-blue/30 to-transparent"></div>
-            ))}
-            {[...Array(12)].map((_, i) => (
-              <div key={i} className="absolute h-px w-full bg-gradient-to-r from-transparent via-portfolio-blue/30 to-transparent" style={{ top: `${i * 8.33}%` }}></div>
-            ))}
-          </div>
-          
-          {/* Main content */}
-          <div className="container mx-auto px-4 relative z-10">
-            <motion.div 
-              className="max-w-3xl mx-auto text-center"
-              variants={heroVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              <motion.div
-                animate={{ 
-                  opacity: [0.1, 0.2, 0.1],
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{ 
-                  duration: 5,
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }}
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full bg-portfolio-purple blur-[80px]"
-              />
-              
-              <motion.h1 
-                variants={childVariants}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 relative"
-              >
-                Mon <span className="relative">
-                  <span className="text-gradient">Expertise</span>
-                  <span className="absolute -bottom-1 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-portfolio-blue to-transparent"></span>
-                </span>
-              </motion.h1>
-              
-              <motion.div 
-                variants={childVariants}
-                className="h-[1px] w-24 mx-auto mb-8 bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink"
-              />
-              
-              <motion.p 
-                variants={childVariants}
-                className="text-xl md:text-2xl mb-8 text-gray-300"
-              >
-                Un savoir-faire africain au service de <span className="text-gradient">l'innovation numérique</span> mondiale
-              </motion.p>
-              
-              <motion.div
-                variants={childVariants}
-                className="flex flex-wrap justify-center gap-4 mt-8"
-              >
-                <Button 
-                  size="lg" 
-                  className="bg-gradient-primary hover:opacity-90 transition-opacity shadow-lg shadow-primary/20"
-                  asChild
-                >
-                  <Link to="/contact">Discuter de votre projet</Link>
-                </Button>
-                
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  className="border border-gray-700/50 hover:border-white transition-colors backdrop-blur-sm"
-                  asChild
-                >
-                  <Link to="/services">Explorer les services</Link>
-                </Button>
-              </motion.div>
-              
-              {/* Animated status indicators */}
-              <motion.div 
-                variants={childVariants}
-                className="flex justify-center space-x-8 mt-16 text-sm"
-              >
-                <div className="flex items-center">
-                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-2"></span>
-                  <span>Système actif</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="w-2 h-2 rounded-full bg-portfolio-blue animate-pulse mr-2"></span>
-                  <span>Données en direct</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="w-2 h-2 rounded-full bg-portfolio-pink animate-pulse mr-2"></span>
-                  <span>IA opérationnelle</span>
-                </div>
-              </motion.div>
-              
-              {/* Floating elements */}
-              <div className="absolute top-1/4 left-1/4 w-4 h-4">
-                <motion.div 
-                  className="w-full h-full bg-portfolio-purple/20 rounded-full"
-                  animate={{ 
-                    scale: [1, 1.5, 1],
-                    opacity: [0.3, 0.6, 0.3],
-                  }}
-                  transition={{ 
-                    duration: 3,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
-                />
-              </div>
-              <div className="absolute bottom-1/4 right-1/4 w-6 h-6">
-                <motion.div 
-                  className="w-full h-full bg-portfolio-blue/20 rounded-full"
-                  animate={{ 
-                    scale: [1, 1.3, 1],
-                    opacity: [0.2, 0.5, 0.2],
-                  }}
-                  transition={{ 
-                    duration: 4,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    delay: 1
-                  }}
-                />
-              </div>
-            </motion.div>
-          </div>
-        </section>
-        
-        {/* Expertise Areas */}
-        <section className="py-16 md:py-24 relative">
-          {/* Tech nodes in background */}
-          <TechNodes />
-          
-          {/* Background gradient */}
-          <div className="absolute inset-0">
-            <div className="absolute bottom-0 left-1/4 w-1/2 h-1/2 bg-portfolio-purple opacity-5 rounded-full blur-[150px]"></div>
-            <div className="absolute top-1/4 right-1/4 w-1/3 h-1/3 bg-portfolio-pink opacity-5 rounded-full blur-[120px]"></div>
-          </div>
-          
-          <div className="container mx-auto px-4 relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Domaines d'Expertise</h2>
-            
-            <motion.div 
-              className="h-1 w-24 mx-auto mb-16 bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            />
-            
-            <motion.div 
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
-              {expertiseAreas.map((area, index) => (
-                <motion.div 
-                  key={index}
-                  variants={itemVariants}
-                  className="backdrop-blur-sm border border-gray-700/30 rounded-xl p-6 relative overflow-hidden cosmic-card"
-                  whileHover={{ 
-                    scale: 1.02, 
-                    boxShadow: "0 0 25px rgba(155, 135, 245, 0.15)" 
-                  }}
-                >
-                  {/* Tech decoration */}
-                  <div className="absolute top-0 right-0 w-20 h-20 opacity-5">
-                    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="40" cy="40" r="20" stroke="currentColor" strokeWidth="1" />
-                      <circle cx="40" cy="40" r="30" stroke="currentColor" strokeWidth="0.5" />
-                      <circle cx="40" cy="40" r="40" stroke="currentColor" strokeWidth="0.25" />
-                    </svg>
-                  </div>
-                  
-                  {/* Tech decoration line top */}
-                  <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-portfolio-purple to-transparent"></div>
-                  
-                  <div className="p-3 rounded-full bg-primary/10 w-fit mb-4 relative">
-                    {area.icon}
-                    <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                  </div>
-                  
-                  <div className="flex justify-between items-center mb-3">
-                    <h3 className="text-xl font-bold">{area.title}</h3>
-                    <div className="text-xs px-2 py-1 rounded-full border border-gray-700/40 bg-gray-800/30 flex items-center">
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse mr-1.5"></span>
-                      {area.techStat}
-                    </div>
-                  </div>
-                  
-                  <p className="text-gray-400 mb-4">{area.description}</p>
-                  
-                  <ul className="space-y-2">
-                    {area.points.map((point, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <Check className="h-5 w-5 text-primary mr-2 mt-0.5" />
-                        <span className="text-sm">{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  {/* Animated data line */}
-                  <div className="absolute bottom-4 right-4 h-[30px] w-[60px]">
-                    <svg width="60" height="30" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
-                      <motion.polyline
-                        points="0,15 10,10 20,20 30,5 40,25 50,15 60,10"
-                        fill="none"
-                        stroke="rgba(14, 165, 233, 0.5)"
-                        strokeWidth="1"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        animate={{ pathLength: 1, opacity: 0.5 }}
-                        transition={{ duration: 2, delay: index * 0.1 }}
-                      />
-                    </svg>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
-        
-        {/* Real-time technology metrics */}
-        <section className="py-10 relative overflow-hidden">
-          <div className="absolute inset-0 grid grid-cols-12 pointer-events-none opacity-5">
-            {[...Array(12)].map((_, i) => (
-              <div key={i} className="h-full w-px bg-gradient-to-b from-transparent via-portfolio-blue to-transparent"></div>
-            ))}
-          </div>
-          
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="border border-gray-800/40 backdrop-blur-sm rounded-xl p-6 cosmic-card">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-bold flex items-center">
-                  <Layers className="h-5 w-5 mr-2 text-portfolio-blue" />
-                  Capacités Techniques
-                </h3>
-                <div className="flex items-center">
-                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-2"></span>
-                  <span className="text-sm text-gray-400">MONITORING ACTIF</span>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <motion.div 
-                  className="p-4 border border-gray-800/30 rounded-lg bg-black/20"
-                  whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(155, 135, 245, 0.1)" }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm text-gray-400">IA ACCURACY</span>
-                    <Server className="h-4 w-4 text-portfolio-purple" />
-                  </div>
-                  <div className="text-2xl font-bold mb-2">{techStats.aiAccuracy}%</div>
-                  <div className="h-1 w-full bg-gray-800 rounded overflow-hidden">
-                    <motion.div 
-                      className="h-full bg-portfolio-purple"
-                      initial={{ width: "0%" }}
-                      animate={{ width: `${techStats.aiAccuracy}%` }}
-                      transition={{ duration: 1, type: "spring" }}
-                    ></motion.div>
-                  </div>
-                </motion.div>
-                
-                <motion.div 
-                  className="p-4 border border-gray-800/30 rounded-lg bg-black/20"
-                  whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(14, 165, 233, 0.1)" }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm text-gray-400">UPTIME</span>
-                    <Database className="h-4 w-4 text-portfolio-blue" />
-                  </div>
-                  <div className="text-2xl font-bold mb-2">{techStats.serverUptime}%</div>
-                  <div className="h-1 w-full bg-gray-800 rounded overflow-hidden">
-                    <motion.div 
-                      className="h-full bg-portfolio-blue"
-                      initial={{ width: "0%" }}
-                      animate={{ width: `${techStats.serverUptime}%` }}
-                      transition={{ duration: 1, type: "spring", delay: 0.2 }}
-                    ></motion.div>
-                  </div>
-                </motion.div>
-                
-                <motion.div 
-                  className="p-4 border border-gray-800/30 rounded-lg bg-black/20"
-                  whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(212, 70, 239, 0.1)" }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm text-gray-400">PROJETS</span>
-                    <CircuitBoard className="h-4 w-4 text-portfolio-pink" />
-                  </div>
-                  <div className="text-2xl font-bold mb-2">{techStats.projectCompletion}%</div>
-                  <div className="h-1 w-full bg-gray-800 rounded overflow-hidden">
-                    <motion.div 
-                      className="h-full bg-portfolio-pink"
-                      initial={{ width: "0%" }}
-                      animate={{ width: `${techStats.projectCompletion}%` }}
-                      transition={{ duration: 1, type: "spring", delay: 0.4 }}
-                    ></motion.div>
-                  </div>
-                </motion.div>
-                
-                <motion.div 
-                  className="p-4 border border-gray-800/30 rounded-lg bg-black/20"
-                  whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(234, 179, 8, 0.1)" }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm text-gray-400">SATISFACTION</span>
-                    <Star className="h-4 w-4 text-yellow-500" />
-                  </div>
-                  <div className="text-2xl font-bold mb-2">{techStats.clientSatisfaction}%</div>
-                  <div className="h-1 w-full bg-gray-800 rounded overflow-hidden">
-                    <motion.div 
-                      className="h-full bg-yellow-500"
-                      initial={{ width: "0%" }}
-                      animate={{ width: `${techStats.clientSatisfaction}%` }}
-                      transition={{ duration: 1, type: "spring", delay: 0.6 }}
-                    ></motion.div>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </div>
-        </section>
-        
-        {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-br from-portfolio-darkblue to-black relative overflow-hidden">
-          {/* Animated stars */}
-          <div className="absolute inset-0 overflow-hidden opacity-10">
-            <div className="absolute top-0 left-0 w-full h-full">
-              {[...Array(30)].map((_, i) => (
-                <motion.div 
-                  key={i}
-                  className="absolute rounded-full bg-portfolio-blue"
-                  style={{
-                    width: `${Math.random() * 3 + 1}px`,
-                    height: `${Math.random() * 3 + 1}px`,
-                    top: `${Math.random() * 100}%`,
-                    left: `${Math.random() * 100}%`,
-                  }}
-                  animate={{
-                    opacity: [0.3, 1, 0.3],
-                    scale: [1, 1.5, 1]
-                  }}
-                  transition={{
-                    duration: Math.random() * 3 + 2,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    delay: Math.random() * 2
-                  }}
-                />
-              ))}
-            </div>
-            <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-portfolio-purple opacity-10 rounded-full blur-[100px]" />
-          </div>
-          
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
-              <motion.h2 
-                className="text-3xl md:text-4xl font-bold mb-6"
-                initial={{ opacity: 0, y: -20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                Prêt à transformer vos idées en réalité?
-              </motion.h2>
-              
-              <motion.div 
-                className="h-1 w-24 mx-auto mb-8 bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              />
-              
-              <motion.p 
-                className="text-lg md:text-xl mb-8 text-gray-300"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                Mon expertise est à votre service pour vous accompagner dans tous vos projets d'innovation numérique.
-              </motion.p>
-              
-              <motion.div 
-                className="flex flex-col sm:flex-row gap-4 justify-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-              >
-                <Button 
-                  size="lg" 
-                  className="bg-gradient-primary hover:opacity-90 transition-opacity shadow-lg shadow-primary/20"
-                  asChild
-                >
-                  <Link to="/contact">Contactez-moi</Link>
-                </Button>
-                
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  className="border border-gray-700/50 hover:border-white transition-colors backdrop-blur-sm"
-                  asChild
-                >
-                  <Link to="/services">Découvrir mes services</Link>
-                </Button>
-              </motion.div>
-              
-              {/* Tech decoration - animated data flow lines */}
-              <div className="flex justify-center space-x-8 mt-12 opacity-50">
-                {[...Array(5)].map((_, i) => (
-                  <motion.div 
-                    key={i} 
-                    className="flex flex-col items-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.8 + i * 0.1 }}
-                  >
-                    <div 
-                      className="w-1 h-12 bg-gradient-to-b from-transparent via-portfolio-blue to-transparent"
-                      style={{ animationDelay: `${i * 0.2}s` }}
-                    ></div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-      
-      <Footer />
-    </div>
-  );
-};
-
-export default Expertise;
-
+  // Assign expertise to categories
+  expertiseCategories.
