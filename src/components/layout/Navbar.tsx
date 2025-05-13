@@ -6,12 +6,14 @@ import { cn } from '@/lib/utils';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { useIsMobile } from '@/hooks/use-mobile';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const isMobile = useIsMobile();
   const location = useLocation();
+
   const toggleDropdown = (name: string) => {
     if (activeDropdown === name) {
       setActiveDropdown(null);
@@ -19,6 +21,7 @@ const Navbar = () => {
       setActiveDropdown(name);
     }
   };
+
   const scrollToSection = (sectionId: string, e?: React.MouseEvent) => {
     if (e) {
       e.preventDefault();
@@ -35,6 +38,7 @@ const Navbar = () => {
       });
     }
   };
+
   const navigation = [{
     name: 'Accueil',
     href: '/'
@@ -71,6 +75,7 @@ const Navbar = () => {
     name: 'Contact',
     href: '/contact'
   }];
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -84,6 +89,7 @@ const Navbar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -96,6 +102,7 @@ const Navbar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen]);
+
   return <nav className={cn("fixed w-full top-0 z-50 transition-all duration-300", scrolled ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-0.5" : "bg-transparent py-1")}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
@@ -154,32 +161,35 @@ const Navbar = () => {
             </div>}
           
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-md text-foreground hover:bg-gray-100">
+            <button 
+              onClick={() => setIsOpen(!isOpen)} 
+              className="p-2 rounded-md text-foreground hover:bg-gray-100 fixed top-4 right-4 z-50 bg-white/80 shadow-md backdrop-blur-sm"
+            >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
         
-        {isOpen && <div className="md:hidden mt-4 animate-fade-in" data-mobile-menu>
-            <div className="flex flex-col space-y-2 pt-2 pb-4">
+        {isOpen && <div className="md:hidden mt-4 animate-fade-in fixed inset-0 top-16 bg-white/95 backdrop-blur-md z-40 overflow-y-auto pb-20" data-mobile-menu>
+            <div className="flex flex-col space-y-2 pt-2 pb-4 px-4">
               {navigation.map(item => <div key={item.name} className="w-full">
                   {item.dropdown ? <>
-                      <button onClick={() => toggleDropdown(item.name)} className="w-full flex justify-between items-center px-3 py-2 text-base font-medium rounded-md hover:bg-gray-100 animate-gradient-slow">
-                        <span>{item.name}</span>
-                        <ChevronDown className={cn("h-4 w-4 transition-transform", activeDropdown === item.name ? "rotate-180" : "")} />
+                      <button onClick={() => toggleDropdown(item.name)} className="w-full flex justify-between items-center px-3 py-4 text-base font-medium rounded-md hover:bg-gray-100 animate-gradient-slow text-foreground">
+                        <span className="text-lg">{item.name}</span>
+                        <ChevronDown className={cn("h-5 w-5 transition-transform", activeDropdown === item.name ? "rotate-180" : "")} />
                       </button>
                       
                       {activeDropdown === item.name && <div className="pl-4 space-y-1 animate-fade-in bg-gray-50/90 backdrop-blur-sm rounded-md mt-1 mb-2">
-                          {item.children?.map(child => <Link key={child.name} to={child.href} className="block px-3 py-3 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-primary rounded-md animate-gradient-slow" onClick={() => setIsOpen(false)}>
+                          {item.children?.map(child => <Link key={child.name} to={child.href} className="block px-3 py-4 text-lg font-medium text-gray-600 hover:bg-gray-100 hover:text-primary rounded-md animate-gradient-slow" onClick={() => setIsOpen(false)}>
                               {child.name}
                             </Link>)}
                         </div>}
-                    </> : <Link to={item.href} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-gray-100 animate-gradient-slow" onClick={() => setIsOpen(false)}>
+                    </> : <Link to={item.href} className="block px-3 py-4 text-lg font-medium rounded-md hover:bg-gray-100 animate-gradient-slow text-foreground" onClick={() => setIsOpen(false)}>
                         {item.name}
                       </Link>}
                 </div>)}
-              <div className="pt-2">
-                <Button className="w-full animate-gradient-slow bg-transparent text-foreground border border-gray-300 hover:bg-gray-100 transition-colors" asChild>
+              <div className="pt-4">
+                <Button className="w-full animate-gradient-slow bg-transparent text-foreground border border-gray-300 hover:bg-gray-100 transition-colors py-6 text-lg" asChild>
                   <Link to="/start-project" onClick={() => setIsOpen(false)}>
                     Démarrer un projet
                   </Link>
@@ -190,4 +200,5 @@ const Navbar = () => {
       </div>
     </nav>;
 };
+
 export default Navbar;
