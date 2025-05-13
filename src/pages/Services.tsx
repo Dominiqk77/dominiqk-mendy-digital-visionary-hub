@@ -37,7 +37,7 @@ const ServicesPage = () => {
                 Des solutions numériques innovantes et personnalisées pour propulser votre entreprise vers de nouveaux horizons.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90" asChild>
+                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 text-white" asChild>
                   <Link to="/start-project">
                     <Rocket className="mr-2 h-5 w-5" /> Lancer votre projet
                   </Link>
@@ -214,12 +214,12 @@ const ServicesPage = () => {
                   </p>
                   
                   <div className="flex flex-wrap justify-center gap-4">
-                    <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity" asChild>
+                    <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity text-white" asChild>
                       <Link to="/contact">
                         Discuter avec un expert
                       </Link>
                     </Button>
-                    <Button size="lg" variant="outline" className="border-white/50 hover:bg-white/10 text-white" asChild>
+                    <Button size="lg" variant="transparent" className="text-white border-white/50 hover:bg-white/10" asChild>
                       <Link to="/start-project">
                         Démarrer un projet
                       </Link>
