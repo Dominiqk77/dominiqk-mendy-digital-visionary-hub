@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp, Award, Globe, Server, Database } from 'lucide-react';
@@ -6,8 +5,8 @@ import { TrendingUp, Award, Globe, Server, Database } from 'lucide-react';
 const Stats = () => {
   // Initial and target values for the stats
   const stats = [
-    { id: 1, title: "Projets réalisés", value: 0, target: 250, suffix: "+" },
-    { id: 2, title: "Clients satisfaits", value: 0, target: 95, suffix: "+" },
+    { id: 1, title: "Projets réalisés", value: 0, target: 2000, suffix: "+" },
+    { id: 2, title: "Clients satisfaits", value: 0, target: 4000, suffix: "+" },
     { id: 3, title: "Taux de conversion", value: 0, target: 98, suffix: "%" },
     { id: 4, title: "Solutions IA déployées", value: 0, target: 45, suffix: "+" }
   ];
