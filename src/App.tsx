@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ServicesPage from "./pages/Services";
@@ -29,28 +29,26 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/services/ai-solutions" element={<AIServices />} />
-          <Route path="/services/web-development" element={<WebServices />} />
-          <Route path="/services/digital-marketing" element={<MarketingServices />} />
-          <Route path="/services/consulting" element={<ConsultingServices />} />
-          <Route path="/services/ai-training" element={<AITrainingPage />} />
-          <Route path="/services/egouvernance" element={<EGovernance />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/academy" element={<AcademyPage />} />
-          <Route path="/tools" element={<ToolsPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/expertise" element={<ExpertisePage />} />
-          <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="/start-project" element={<StartProject />} />
-          <Route path="/projects/senservices" element={<SenServices />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/ai-solutions" element={<AIServices />} />
+        <Route path="/services/web-development" element={<WebServices />} />
+        <Route path="/services/digital-marketing" element={<MarketingServices />} />
+        <Route path="/services/consulting" element={<ConsultingServices />} />
+        <Route path="/services/ai-training" element={<AITrainingPage />} />
+        <Route path="/services/egouvernance" element={<EGovernance />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/academy" element={<AcademyPage />} />
+        <Route path="/tools" element={<ToolsPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/expertise" element={<ExpertisePage />} />
+        <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path="/start-project" element={<StartProject />} />
+        <Route path="/projects/senservices" element={<SenServices />} />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </TooltipProvider>
   </QueryClientProvider>
 );
