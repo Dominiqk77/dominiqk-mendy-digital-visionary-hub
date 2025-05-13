@@ -1,16 +1,173 @@
 
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Facebook, Twitter, Linkedin, Instagram, Youtube, MapPin, Mail, Phone } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+// Space particles component for footer
+const SpaceBackground = () => {
+  const [stars, setStars] = useState<{id: number, x: number, y: number, size: number, opacity: number}[]>([]);
+  
+  useEffect(() => {
+    const generateStars = () => {
+      const newStars = Array.from({ length: 100 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 2.5 + 0.5,
+        opacity: Math.random() * 0.7 + 0.3
+      }));
+      setStars(newStars);
+    };
+    
+    generateStars();
+    
+    // Regenerate some stars periodically for subtle animation
+    const interval = setInterval(() => {
+      setStars(prev => {
+        const newStars = [...prev];
+        for (let i = 0; i < 8; i++) {
+          const randomIndex = Math.floor(Math.random() * newStars.length);
+          newStars[randomIndex] = {
+            ...newStars[randomIndex],
+            opacity: Math.random() * 0.7 + 0.3
+          };
+        }
+        return newStars;
+      });
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      {stars.map(star => (
+        <motion.div
+          key={star.id}
+          className="absolute rounded-full bg-blue-100"
+          style={{
+            left: `${star.x}%`,
+            top: `${star.y}%`,
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            opacity: star.opacity,
+            boxShadow: `0 0 ${star.size * 2}px rgba(147, 197, 253, ${star.opacity})`,
+          }}
+          animate={{
+            opacity: [star.opacity, star.opacity * 1.5, star.opacity],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 3 + Math.random() * 3,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut",
+            delay: Math.random() * 5
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Moving nebula component for footer
+const NebulaBg = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      <div className="absolute top-0 left-0 w-full h-full opacity-15">
+        <div className="absolute top-[20%] left-[10%] w-[60%] h-[60%] rounded-full bg-indigo-500/20 blur-[100px] animate-float" style={{ animationDuration: '15s' }}></div>
+        <div className="absolute top-[40%] right-[15%] w-[40%] h-[40%] rounded-full bg-purple-500/15 blur-[80px] animate-float" style={{ animationDuration: '20s', animationDelay: '2s' }}></div>
+        <div className="absolute bottom-[10%] left-[30%] w-[50%] h-[40%] rounded-full bg-blue-500/15 blur-[120px] animate-float" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
+      </div>
+    </div>
+  );
+};
+
+// Technology nodes animation for footer
+const TechNodes = () => {
+  // Points for the tech nodes
+  const [points, setPoints] = useState<{id: number, x: number, y: number, size: number}[]>([]);
+  
+  // Generate random points
+  useEffect(() => {
+    const newPoints = Array.from({ length: 15 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 3 + 1.5
+    }));
+    setPoints(newPoints);
+  }, []);
+  
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 opacity-20">
+        {points.map((point) => (
+          <motion.div 
+            key={point.id}
+            className="absolute w-2 h-2 bg-primary rounded-full"
+            style={{ 
+              left: `${point.x}%`, 
+              top: `${point.y}%`, 
+              width: `${point.size}px`,
+              height: `${point.size}px`
+            }}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.7, 1, 0.7],
+              boxShadow: ['0 0 0px rgba(14, 165, 233, 0)', '0 0 10px rgba(14, 165, 233, 0.5)', '0 0 0px rgba(14, 165, 233, 0)'],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: point.id * 0.2
+            }}
+          />
+        ))}
+        
+        {/* Connect some nodes with lines */}
+        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          {points.slice(0, 10).map((point, i) => {
+            const nextPoint = points[(i + 1) % points.length];
+            if (Math.abs(point.x - nextPoint.x) < 30 && Math.abs(point.y - nextPoint.y) < 30) {
+              return (
+                <motion.line 
+                  key={`line-${i}`}
+                  x1={`${point.x}%`}
+                  y1={`${point.y}%`}
+                  x2={`${nextPoint.x}%`}
+                  y2={`${nextPoint.y}%`}
+                  stroke="#0EA5E9"
+                  strokeWidth="0.5"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 0.15 }}
+                  transition={{ duration: 2, delay: i * 0.2 }}
+                />
+              );
+            }
+            return null;
+          })}
+        </svg>
+      </div>
+    </div>
+  );
+};
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-gray-900 text-white pt-16 pb-8">
-      <div className="container mx-auto px-4">
+    <footer className="bg-gray-900 text-white pt-16 pb-8 relative overflow-hidden">
+      {/* Background elements */}
+      <SpaceBackground />
+      <NebulaBg />
+      <TechNodes />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About Section with Logo */}
           <div>
@@ -99,8 +256,44 @@ const Footer = () => {
                 placeholder="Votre email"
                 className="bg-gray-800 border-gray-700 text-white"
               />
-              <Button className="bg-gradient-primary hover:opacity-90 w-full">S'abonner</Button>
+              <Button className="bg-gradient-primary hover:opacity-90 w-full">
+                S'abonner
+                <motion.span 
+                  className="ml-1"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  →
+                </motion.span>
+              </Button>
             </div>
+          </div>
+        </div>
+
+        {/* Technology Icons */}
+        <div className="mt-16 mb-8 hidden md:block">
+          <div className="flex justify-center items-center space-x-8 opacity-50 hover:opacity-80 transition-opacity">
+            <motion.div whileHover={{ scale: 1.2 }} className="w-8 h-8">
+              <img src="/icons/react.svg" alt="React" className="h-full w-auto" />
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.2 }} className="w-8 h-8">
+              <img src="/icons/vue.svg" alt="Vue.js" className="h-full w-auto" />
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.2 }} className="w-8 h-8">
+              <img src="/icons/angular.svg" alt="Angular" className="h-full w-auto" />
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.2 }} className="w-8 h-8">
+              <img src="/icons/nodejs.svg" alt="Node.js" className="h-full w-auto" />
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.2 }} className="w-8 h-8">
+              <img src="/icons/python.svg" alt="Python" className="h-full w-auto" />
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.2 }} className="w-8 h-8">
+              <img src="/icons/tensorflow.svg" alt="TensorFlow" className="h-full w-auto" />
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.2 }} className="w-8 h-8">
+              <img src="/icons/firebase.svg" alt="Firebase" className="h-full w-auto" />
+            </motion.div>
           </div>
         </div>
 
