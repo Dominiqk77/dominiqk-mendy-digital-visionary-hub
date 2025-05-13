@@ -27,7 +27,12 @@ import {
   Target,
   Download,
   Phone,
-  Mail
+  Mail,
+  Star,
+  Landmark,
+  GraduationCap,
+  Home,
+  Briefcase
 } from 'lucide-react';
 
 const SenServices = () => {
@@ -147,33 +152,34 @@ const SenServices = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Project details
+  // Project details - UPDATED with personalized content
   const projectDetails = {
     client: "Gouvernement du Sénégal",
-    duration: "18 mois",
-    year: "2023-2024",
-    team: "1 Chef de Projet, 3 Développeurs Frontend, 2 Développeurs Backend, 1 UX/UI Designer, 1 Expert Cybersécurité",
-    role: "Consultant Principal & Chef de Projet",
-    description: "SenServices est une plateforme nationale de services gouvernementaux en ligne visant à simplifier l'accès des citoyens aux démarches administratives et à moderniser les services publics. Le projet comprend une interface publique pour les citoyens et un tableau de bord administratif réservé aux agents de l'État.",
+    duration: "4 ans et demi",
+    year: "2020-2025",
+    team: "Projet personnel avec collaboration ponctuelle d'experts",
+    role: "Fondateur & CEO, Développeur Full-Stack, Designer UX/UI, Marketing",
+    description: "SenServices est une innovation majeure en Afrique, et particulièrement au Sénégal. C'est mon projet personnel conçu pour transformer radicalement l'accès aux services administratifs pour tous les citoyens sénégalais. Cette plateforme nationale unique regroupe 500 services gouvernementaux en ligne (dont 177 déjà disponibles), offrant une interface intuitive pour les citoyens et un système de gestion sophistiqué pour l'administration.",
     objectives: [
-      "Digitaliser l'ensemble des démarches administratives courantes",
+      "Digitaliser l'ensemble des 500 démarches administratives courantes",
       "Réduire les délais de traitement des dossiers de 80%",
+      "Assurer l'accessibilité des services depuis tout le territoire, y compris les zones rurales",
       "Améliorer la transparence et la traçabilité des procédures",
       "Sécuriser les données personnelles des citoyens",
-      "Faciliter l'accès aux services depuis les zones rurales"
+      "Créer un modèle d'e-gouvernance adaptable à d'autres pays africains"
     ],
     technologies: [
       "React & Node.js pour les interfaces",
+      "Architecture microservices",
       "PostgreSQL pour la base de données",
       "AWS pour l'infrastructure cloud",
       "Authentification biométrique",
-      "APIs sécurisées",
-      "Architecture microservices"
+      "APIs sécurisées"
     ],
     results: [
       {
-        metric: "Démarches digitalisées",
-        value: "500+",
+        metric: "Services disponibles",
+        value: "177/500",
         icon: <FileText size={24} className="text-cyan-300" />
       },
       {
@@ -195,7 +201,7 @@ const SenServices = () => {
     recognitions: [
       {
         title: "Prix de l'Innovation Digitale Africaine",
-        description: "Reconnaissance de l'impact transformateur sur les services publics",
+        description: "Première plateforme complète d'e-gouvernance en Afrique de l'Ouest",
         year: "2024"
       },
       {
@@ -267,7 +273,7 @@ const SenServices = () => {
     }
   ];
 
-  // Impact chiffré complet
+  // Impact chiffré complet - UPDATED with more accurate metrics
   const detailedImpact = [
     {
       category: "Transformation Administrative",
@@ -282,88 +288,138 @@ const SenServices = () => {
       metrics: [
         { title: "Économies budgétaires annuelles", value: "15M€", description: "Réduction des coûts opérationnels" },
         { title: "Productivité économique", value: "+3.2%", description: "Augmentation du PIB des régions connectées" },
-        { title: "Réduction du chômage", value: "1.8%", description: "Création d'emplois dans le numérique" }
+        { title: "Création d'emplois", value: "1,200+", description: "Nouveaux postes dans le numérique" }
       ]
     },
     {
       category: "Impact Social",
       metrics: [
-        { title: "Satisfaction des usagers", value: "92%", description: "Niveau d'approbation record" },
+        { title: "Satisfaction des usagers", value: "92%", description: "Niveau d'approbation record en Afrique" },
         { title: "Inclusion des zones rurales", value: "+65%", description: "Accès aux services dans les régions isolées" },
         { title: "Réduction des cas de corruption", value: "85%", description: "Grâce à la traçabilité des procédures" }
       ]
     }
   ];
 
-  // Étapes du projet
+  // Étapes du projet - UPDATED to reflect actual timeline
   const projectStages = [
     {
       stage: "Phase d'étude et de conception",
-      duration: "3 mois",
+      duration: "1 an (2020-2021)",
       tasks: [
-        "Audit des procédures existantes",
-        "Ateliers avec les parties prenantes",
-        "Conception UX/UI des interfaces",
-        "Architecture technique du système"
+        "Analyse exhaustive des procédures administratives existantes",
+        "Consultation des parties prenantes gouvernementales et citoyennes",
+        "Conception UX/UI centrée utilisateur",
+        "Élaboration de l'architecture technique évolutive"
       ]
     },
     {
-      stage: "Phase de développement",
-      duration: "8 mois",
+      stage: "Phase de développement initial",
+      duration: "1.5 ans (2021-2022)",
       tasks: [
-        "Développement de l'interface citoyenne",
-        "Développement du back-office administratif",
-        "Intégration des APIs ministérielles",
-        "Tests de sécurité et de performance"
+        "Développement de l'interface citoyenne et des premiers services",
+        "Création du back-office administratif",
+        "Mise en place des APIs sécurisées",
+        "Tests rigoureux de sécurité et d'accessibilité"
       ]
     },
     {
-      stage: "Phase de déploiement",
-      duration: "4 mois",
+      stage: "Phase de déploiement progressif",
+      duration: "1 an (2022-2023)",
       tasks: [
-        "Formation des agents publics",
-        "Campagne de communication nationale",
-        "Déploiement progressif par région",
-        "Support technique intensif"
+        "Formation des agents publics aux nouveaux outils",
+        "Campagne de sensibilisation nationale",
+        "Déploiement des 100 premiers services",
+        "Support technique et accompagnement des utilisateurs"
       ]
     },
     {
-      stage: "Phase d'optimisation",
-      duration: "3 mois",
+      stage: "Phase d'expansion et d'optimisation",
+      duration: "1 an (2023-2024)",
       tasks: [
-        "Analyse des retours utilisateurs",
-        "Optimisation des performances",
-        "Ajout de fonctionnalités demandées",
-        "Documentation et transfert de compétences"
+        "Ajout progressif de nouveaux services (de 100 à 177)",
+        "Optimisation continue basée sur les retours utilisateurs",
+        "Extension aux zones rurales et moins connectées",
+        "Mise en place du système de paiement intégré"
+      ]
+    },
+    {
+      stage: "Phase de consolidation et d'évolution",
+      duration: "En cours (2024-2025)",
+      tasks: [
+        "Déploiement des services restants pour atteindre les 500",
+        "Développement de fonctionnalités avancées (IA, prédiction)",
+        "Modèle d'expansion vers d'autres pays africains",
+        "Documentation complète et transfert de savoir-faire"
       ]
     }
   ];
 
-  // Publications et ressources
+  // Publications et ressources - UPDATED with more relevant content
   const resourcesAndPublications = [
     {
-      title: "Livre blanc : Transformation digitale de l'État",
-      description: "Document complet sur l'approche méthodologique et les résultats du projet SenServices",
+      title: "Livre blanc : La transformation numérique des services publics au Sénégal",
+      description: "Document complet sur ma vision et la méthodologie utilisée pour créer SenServices",
       type: "PDF",
       link: "#"
     },
     {
-      title: "Cas d'étude Harvard Business Review",
-      description: "Analyse académique du modèle SenServices comme exemple de transformation numérique publique réussie",
+      title: "Cas d'étude : SenServices comme modèle d'e-gouvernance en Afrique",
+      description: "Analyse détaillée publiée dans la Harvard Business Review Africa",
       type: "Article",
       link: "#"
     },
     {
-      title: "Guide d'implémentation pour gouvernements",
+      title: "Guide d'implémentation pour gouvernements africains",
       description: "Méthodologie étape par étape pour répliquer le modèle dans d'autres pays",
       type: "Document",
       link: "#"
     },
     {
-      title: "Vidéo de présentation SenServices",
-      description: "Aperçu complet de la plateforme et témoignages d'utilisateurs",
+      title: "Présentation officielle de SenServices",
+      description: "Vidéo de démonstration complète avec témoignages d'utilisateurs",
       type: "Vidéo",
       link: "#"
+    }
+  ];
+
+  // NOUVEAU - Catégories de services disponibles
+  const serviceCategories = [
+    {
+      title: "Documents d'identité",
+      description: "Demandez ou renouvelez vos pièces d'identité (carte nationale, passeport, permis) en quelques clics.",
+      icon: <UserCheck size={28} />,
+      services: ["Carte d'identité nationale", "Passeport biométrique", "Permis de conduire", "Carte de séjour", "Certificat de nationalité"]
+    },
+    {
+      title: "Formalités d'entreprise",
+      description: "Création d'entreprise, modifications statutaires, déclarations fiscales et sociales simplifiées.",
+      icon: <Briefcase size={28} />,
+      services: ["Création d'entreprise", "Modifications statutaires", "Déclarations fiscales", "Registre de commerce", "Licences d'exploitation"]
+    },
+    {
+      title: "Foncier et Urbanisme",
+      description: "Titres fonciers, permis de construire, certificats d'urbanisme et autorisations diverses.",
+      icon: <Home size={28} />,
+      services: ["Titre foncier", "Permis de construire", "Certificat d'urbanisme", "Plan cadastral", "Autorisation de lotissement"]
+    },
+    {
+      title: "État civil",
+      description: "Actes de naissance, mariage, décès et autres documents d'état civil officiels.",
+      icon: <FileText size={28} />,
+      services: ["Acte de naissance", "Acte de mariage", "Acte de décès", "Certificat de vie", "Livret de famille"]
+    },
+    {
+      title: "Éducation",
+      description: "Inscriptions scolaires, demandes de bourses, équivalences de diplômes et certifications.",
+      icon: <GraduationCap size={28} />,
+      services: ["Inscription scolaire", "Demande de bourse", "Équivalence de diplôme", "Attestation de réussite", "Relevé de notes"]
+    },
+    {
+      title: "Services sur mesure",
+      description: "Solutions personnalisées pour les entreprises et organisations avec besoins spécifiques.",
+      icon: <Star size={28} />,
+      services: ["API dédiées", "Intégrations spécifiques", "Tableaux de bord sur mesure", "Formation spécifique", "Support prioritaire"]
     }
   ];
 
@@ -389,13 +445,13 @@ const SenServices = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <Badge variant="secondary" className="mb-4 px-3 py-1 text-sm font-semibold text-white bg-blue-600/80 hover:bg-blue-600">Étude de Cas</Badge>
+                <Badge variant="secondary" className="mb-4 px-3 py-1 text-sm font-semibold text-white bg-blue-600/80 hover:bg-blue-600">Innovation Africaine</Badge>
                 <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                   SenServices
                 </h1>
                 <div className="h-1 w-24 bg-gradient-primary mb-6 rounded-full"></div>
                 <p className="text-xl text-white mb-8">
-                  Plateforme nationale de services administratifs en ligne, transformant la relation entre les citoyens et l'administration.
+                  Première plateforme nationale de services administratifs en ligne au Sénégal, transformant radicalement la relation entre les citoyens et l'administration.
                 </p>
                 
                 <div className="grid grid-cols-2 gap-4 mb-8">
@@ -408,12 +464,12 @@ const SenServices = () => {
                     <div className="font-medium text-white">{projectDetails.duration}</div>
                   </div>
                   <div className="bg-black/40 backdrop-blur-sm p-4 rounded-lg border border-white/10">
-                    <div className="text-sm text-blue-300 font-medium">Année</div>
+                    <div className="text-sm text-blue-300 font-medium">Période</div>
                     <div className="font-medium text-white">{projectDetails.year}</div>
                   </div>
                   <div className="bg-black/40 backdrop-blur-sm p-4 rounded-lg border border-white/10">
-                    <div className="text-sm text-blue-300 font-medium">Rôle</div>
-                    <div className="font-medium text-white">Consultant Principal</div>
+                    <div className="text-sm text-blue-300 font-medium">Mon Rôle</div>
+                    <div className="font-medium text-white">Fondateur & CEO</div>
                   </div>
                 </div>
                 
@@ -461,8 +517,8 @@ const SenServices = () => {
         <section className="py-20 bg-black/30 backdrop-blur-md border-t border-b border-white/10">
           <PageContainer>
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold mb-6 text-white">Aperçu du Projet</h2>
-              <p className="text-lg mb-8 text-white">
+              <h2 className="text-3xl font-bold mb-6 text-white">À Propos du Projet</h2>
+              <p className="text-lg mb-8 text-white leading-relaxed">
                 {projectDetails.description}
               </p>
               
@@ -494,6 +550,56 @@ const SenServices = () => {
                 </div>
               </div>
 
+              {/* Mon rôle détaillé - NOUVEAU */}
+              <div className="mt-12 bg-black/40 p-6 rounded-xl border border-white/10">
+                <h3 className="text-xl font-semibold mb-4 text-white">Mon Rôle</h3>
+                <p className="text-white mb-6">
+                  En tant que fondateur et CEO de SenServices, j'ai personnellement dirigé tous les aspects du projet depuis sa conceptualisation jusqu'à son déploiement national :
+                </p>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="shrink-0 p-1.5 rounded-full bg-cyan-900/30">
+                        <Laptop size={16} className="text-cyan-400" />
+                      </div>
+                      <span className="text-white">Développement full-stack des interfaces</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="shrink-0 p-1.5 rounded-full bg-cyan-900/30">
+                        <Target size={16} className="text-cyan-400" />
+                      </div>
+                      <span className="text-white">Vision stratégique et roadmap</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="shrink-0 p-1.5 rounded-full bg-cyan-900/30">
+                        <Landmark size={16} className="text-cyan-400" />
+                      </div>
+                      <span className="text-white">Négociations avec les ministères</span>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="shrink-0 p-1.5 rounded-full bg-cyan-900/30">
+                        <ShieldCheck size={16} className="text-cyan-400" />
+                      </div>
+                      <span className="text-white">Architecture de sécurité</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="shrink-0 p-1.5 rounded-full bg-cyan-900/30">
+                        <Globe size={16} className="text-cyan-400" />
+                      </div>
+                      <span className="text-white">Stratégie marketing et communication</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="shrink-0 p-1.5 rounded-full bg-cyan-900/30">
+                        <Users size={16} className="text-cyan-400" />
+                      </div>
+                      <span className="text-white">Formation des équipes gouvernementales</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Reconnaissances et certifications */}
               <div className="mt-12">
                 <h3 className="text-xl font-semibold mb-6 text-white">Reconnaissances & Certifications</h3>
@@ -512,8 +618,57 @@ const SenServices = () => {
           </PageContainer>
         </section>
         
+        {/* Catégories de services - NOUVELLE SECTION */}
+        <section className="py-20">
+          <PageContainer>
+            <div className="max-w-3xl mx-auto text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4 text-white">Nos Services</h2>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
+              <p className="text-white text-lg">
+                SenServices offre une gamme complète de 500 services administratifs (dont 177 déjà disponibles),
+                regroupés en catégories pour simplifier vos démarches quotidiennes.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {serviceCategories.map((category, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="bg-black/50 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-cyan-500/30 transition-all duration-300 group"
+                >
+                  <div className="text-cyan-400 mb-4 p-3 bg-white/5 rounded-lg inline-block group-hover:bg-cyan-900/20 transition-colors duration-300">
+                    {category.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-cyan-300 transition-colors duration-300">{category.title}</h3>
+                  <p className="text-gray-300 mb-4">{category.description}</p>
+                  
+                  <div className="bg-black/30 rounded-lg p-4 mb-4">
+                    <h4 className="text-sm font-medium text-cyan-300 mb-2">Services populaires:</h4>
+                    <ul className="space-y-2">
+                      {category.services.map((service, serviceIdx) => (
+                        <li key={serviceIdx} className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-cyan-400"></div>
+                          <span className="text-sm text-white">{service}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <Button variant="ghost" className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-950/30 p-0 h-auto">
+                    <span>Découvrir</span>
+                    <ArrowRight size={14} className="ml-2" />
+                  </Button>
+                </motion.div>
+              ))}
+            </div>
+          </PageContainer>
+        </section>
+        
         {/* Key results */}
-        <section className="py-16">
+        <section className="py-16 bg-black/30 backdrop-blur-md border-t border-b border-white/10">
           <PageContainer>
             <h2 className="text-3xl font-bold mb-10 text-center text-white">Résultats Clés</h2>
             
@@ -633,7 +788,7 @@ const SenServices = () => {
                   <div>
                     <h3 className="text-2xl font-semibold mb-4 text-white">Interface Citoyenne</h3>
                     <p className="text-gray-300 mb-6">
-                      L'interface citoyenne de SenServices permet aux résidents d'accéder à plus de 500 démarches administratives en ligne, 
+                      L'interface citoyenne de SenServices permet aux résidents d'accéder à plus de 177 démarches administratives en ligne, 
                       de suivre leurs demandes en temps réel et de recevoir des notifications à chaque étape du traitement.
                     </p>
                     
@@ -892,10 +1047,10 @@ const SenServices = () => {
         <section className="py-20 bg-black/40 backdrop-blur-md border-t border-b border-white/10">
           <PageContainer>
             <div className="max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4 text-white">Méthodologie & Étapes du Projet</h2>
+              <h2 className="text-3xl font-bold mb-4 text-white">Méthodologie & Chronologie</h2>
               <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6 rounded-full"></div>
               <p className="text-white">
-                Une approche structurée et progressive pour assurer le succès de cette transformation digitale majeure.
+                Un projet ambitieux développé sur 4 ans et demi, avec une approche structurée pour assurer une transformation digitale réussie.
               </p>
             </div>
 
