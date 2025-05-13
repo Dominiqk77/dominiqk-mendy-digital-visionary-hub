@@ -42,7 +42,7 @@ const ServicesPage = () => {
                     <Rocket className="mr-2 h-5 w-5" /> Lancer votre projet
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-white/30 hover:bg-white/10 text-white" asChild>
+                <Button size="lg" variant="transparent" className="text-white border-white border hover:bg-white/10" asChild>
                   <Link to="/portfolio">
                     Voir nos réalisations
                   </Link>
