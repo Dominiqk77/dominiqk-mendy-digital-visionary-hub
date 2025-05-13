@@ -505,7 +505,7 @@ const SenServices = () => {
                     />
                   </CardContent>
                 </Card>
-                <div className="absolute -bottom-4 -right-4 bg-primary text-white p-3 rounded-lg font-medium shadow-lg shadow-primary/30 transform rotate-3">
+                <div className="absolute -bottom-4 -right-4 bg-primary text-white p-3 rounded-lg font-medium shadow-lg shadow-primary/30 transform rotate-3 z-20">
                   Taux de satisfaction: 92%
                 </div>
               </motion.div>
