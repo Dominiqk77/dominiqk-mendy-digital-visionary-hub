@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { Button } from '@/components/ui/button';
@@ -8,8 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowRight, Search, BrainCircuit, Code, LineChart, Globe, Database, Layout, Rocket, Lightbulb, Palette, FileCode, Monitor, Share2, Blocks, BookOpen, Users, Phone, ShoppingCart, BadgeCheck, Zap, Briefcase, Target, BarChart3, MessageSquare, FileText, DollarSign, Award, Headphones, Video, PenTool } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import SpaceBackground from '../components/backgrounds/SpaceBackground';
-import DataVisualization from '../components/backgrounds/DataVisualization';
 
 // SEO metadata
 const pageTitle = "Services de Consultation Tech & IA | Dominique Mendy | Expert Digital Sénégalais";
@@ -331,7 +329,6 @@ const allServices = {
     }]
   }
 };
-
 const ServicesPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<keyof typeof allServices>("ai");
   const [searchTerm, setSearchTerm] = useState("");
@@ -339,24 +336,8 @@ const ServicesPage = () => {
   // Filter services based on search term
   const filteredServices = searchTerm ? Object.values(allServices).flatMap(category => category.services.filter(service => service.title.toLowerCase().includes(searchTerm.toLowerCase()) || service.description.toLowerCase().includes(searchTerm.toLowerCase()))) : [];
 
-  // Animation variants for motion components
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { 
-        staggerChildren: 0.1 
-      } 
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
-  };
-
   // Set page metadata
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = pageTitle;
 
     // Set meta description
@@ -384,78 +365,29 @@ const ServicesPage = () => {
     // Scroll to top
     window.scrollTo(0, 0);
   }, []);
-
-  return (
-    <div className="min-h-screen flex flex-col relative">
-      {/* Global space background */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <SpaceBackground />
-      </div>
-      
+  return <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <main className="flex-grow relative z-10">
-        {/* Hero Section with data visualization */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-gray-900/90 to-black/90 text-white relative overflow-hidden">
-          <div className="absolute inset-0 z-0 opacity-30">
-            <DataVisualization />
-          </div>
-          
-          {/* Tech grid overlay */}
-          <div className="absolute inset-0 tech-grid z-0 opacity-20"></div>
-          
-          {/* Glowing orbs */}
-          <div className="absolute top-1/4 right-1/4 w-48 h-48 bg-portfolio-purple opacity-10 rounded-full blur-[100px] planet-glow"></div>
-          <div className="absolute bottom-1/3 left-1/4 w-64 h-64 bg-portfolio-blue opacity-10 rounded-full blur-[100px] planet-glow"></div>
-          
-          <div className="container mx-auto px-4 relative z-10">
+      <main className="flex-grow">
+        {/* Hero Section */}
+        <section className="py-16 md:py-24 bg-gradient-to-b from-gray-900 to-black text-white">
+          <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <motion.h1 
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
-              >
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                 Solutions Numériques <span className="text-gradient">Innovantes</span>
-              </motion.h1>
-              
-              <motion.p 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-xl text-gray-300 mb-10"
-              >
+              </h1>
+              <p className="text-xl text-gray-300 mb-10">
                 Plus de 100 services d'expertise pour propulser votre transformation digitale et votre croissance en Afrique et à l'international
-              </motion.p>
+              </p>
               
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="relative max-w-xl mx-auto mb-10"
-              >
-                <Input 
-                  type="text" 
-                  placeholder="Rechercher un service..." 
-                  className="pl-12 bg-black/40 backdrop-blur-sm border-gray-700 text-white placeholder:text-gray-400 pr-4 py-6 text-lg" 
-                  value={searchTerm} 
-                  onChange={e => setSearchTerm(e.target.value)} 
-                />
+              <div className="relative max-w-xl mx-auto mb-10">
+                <Input type="text" placeholder="Rechercher un service..." className="pl-12 bg-black/40 border-gray-700 text-white placeholder:text-gray-400 pr-4 py-6 text-lg" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              </motion.div>
+              </div>
               
-              {searchTerm && (
-                <div className="max-w-xl mx-auto bg-black/60 backdrop-blur-md rounded-lg border border-gray-800 mb-8 max-h-80 overflow-y-auto">
-                  {filteredServices.length > 0 ? (
-                    <ul className="divide-y divide-gray-800">
-                      {filteredServices.map((service, index) => (
-                        <motion.li 
-                          key={index} 
-                          className="p-4 hover:bg-gray-800/40"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.3, delay: index * 0.05 }}
-                        >
+              {searchTerm && <div className="max-w-xl mx-auto bg-black/60 backdrop-blur-md rounded-lg border border-gray-800 mb-8 max-h-80 overflow-y-auto">
+                  {filteredServices.length > 0 ? <ul className="divide-y divide-gray-800">
+                      {filteredServices.map((service, index) => <li key={index} className="p-4 hover:bg-gray-800/40">
                           <Link to={service.link} className="flex items-center gap-3">
                             <div className="text-primary">{service.icon}</div>
                             <div>
@@ -463,89 +395,56 @@ const ServicesPage = () => {
                               <p className="text-sm text-gray-400">{service.price}</p>
                             </div>
                           </Link>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <div className="p-4 text-center">
+                        </li>)}
+                    </ul> : <div className="p-4 text-center">
                       <p>Aucun service ne correspond à votre recherche</p>
-                    </div>
-                  )}
-                </div>
-              )}
+                    </div>}
+                </div>}
               
-              <motion.div 
-                className="flex flex-wrap justify-center gap-4"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                {Object.entries(allServices).map(([key, category], index) => (
-                  <motion.div key={key} variants={itemVariants}>
-                    <Button 
-                      variant={selectedCategory === key ? "default" : "outline"} 
-                      className={selectedCategory === key ? "bg-primary text-white font-medium" : "text-white border-gray-600 hover:bg-gray-800/40 font-medium"} 
-                      onClick={() => setSelectedCategory(key as keyof typeof allServices)}
-                    >
-                      <span className="mr-2">{category.icon}</span>
-                      {category.title}
-                    </Button>
-                  </motion.div>
-                ))}
-              </motion.div>
+              <div className="flex flex-wrap justify-center gap-4">
+                {Object.entries(allServices).map(([key, category]) => <Button key={key} variant={selectedCategory === key ? "default" : "outline"} className={selectedCategory === key ? "bg-primary text-white font-medium" : "text-white border-gray-600 hover:bg-gray-800/40 font-medium"} onClick={() => setSelectedCategory(key as keyof typeof allServices)}>
+                    <span className="mr-2 text-senegal-red">{category.icon}</span>
+                    <span className="text-zinc-950">{category.title}</span>
+                  </Button>)}
+              </div>
             </div>
           </div>
         </section>
         
         {/* Services Section */}
-        <section className="py-20 relative">
-          <div className="absolute inset-0 data-grid z-0 opacity-10"></div>
-          
-          <div className="container mx-auto px-4 relative z-10">
+        <section className="py-20">
+          <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center mb-16">
-              <motion.h2 
-                initial={{ opacity: 0, y: -20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-bold mb-4"
-              >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 {allServices[selectedCategory].title}
-              </motion.h2>
+              </h2>
               <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
-              <motion.p 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="text-lg text-muted-foreground"
-              >
+              <p className="text-lg text-muted-foreground">
                 {allServices[selectedCategory].description}
-              </motion.p>
+              </p>
             </div>
             
-            <motion.div 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              {allServices[selectedCategory].services.map((service, index) => (
-                <motion.div 
-                  key={index} 
-                  variants={itemVariants}
-                >
-                  <Card className="service-card border-gradient border-gradient-cosmic h-full flex flex-col backdrop-blur-sm bg-white/5 hover:bg-white/10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {allServices[selectedCategory].services.map((service, index) => <motion.div key={index} initial={{
+              opacity: 0,
+              y: 20
+            }} animate={{
+              opacity: 1,
+              y: 0
+            }} transition={{
+              duration: 0.4,
+              delay: index * 0.1
+            }}>
+                  <Card className="service-card border-gradient border-gradient-light h-full flex flex-col">
                     <CardHeader className="pb-0">
-                      <div className="text-primary technology-icon">
+                      <div className="text-primary">
                         {service.icon}
                       </div>
                       <CardTitle className="mt-4 text-xl">{service.title}</CardTitle>
                     </CardHeader>
                     <CardContent className="pt-4 flex-grow">
                       <CardDescription className="text-base mb-4">{service.description}</CardDescription>
-                      <p className="text-sm font-medium text-gradient-cosmic">{service.price}</p>
+                      <p className="text-sm font-medium text-primary">{service.price}</p>
                     </CardContent>
                     <CardFooter>
                       <Button variant="ghost" className="p-0 hover:bg-transparent hover:text-primary group w-full" asChild>
@@ -556,18 +455,15 @@ const ServicesPage = () => {
                       </Button>
                     </CardFooter>
                   </Card>
-                </motion.div>
-              ))}
-            </motion.div>
+                </motion.div>)}
+            </div>
           </div>
         </section>
         
         {/* CTA Section */}
-        <section className="py-20 bg-gray-50/80 backdrop-blur-sm relative">
-          <div className="absolute inset-0 star-bg z-0 opacity-30"></div>
-          
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-5xl mx-auto bg-gradient-to-r from-gray-900 to-black rounded-2xl overflow-hidden border-gradient border-gradient-glow">
+        <section className="py-20 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto bg-gradient-to-r from-gray-900 to-black rounded-2xl overflow-hidden border-gradient border-gradient-strong">
               <div className="p-12 md:p-16 relative">
                 {/* Background effects */}
                 <div className="absolute top-0 right-0 w-48 h-48 bg-primary opacity-20 blur-3xl rounded-full"></div>
@@ -576,56 +472,20 @@ const ServicesPage = () => {
                 {/* Senegal flag stripe with very low opacity */}
                 <div className="absolute inset-0 opacity-5 senegal-flag-gradient"></div>
                 
-                {/* Floating data points */}
-                <div className="absolute inset-0 overflow-hidden">
-                  {[...Array(10)].map((_, i) => (
-                    <div 
-                      key={i}
-                      className="data-line" 
-                      style={{
-                        width: `${Math.random() * 30 + 20}px`,
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                        animationDelay: `${i * 0.5}s`
-                      }}
-                    ></div>
-                  ))}
-                </div>
-                
                 <div className="relative z-10 text-center">
-                  <motion.h2 
-                    initial={{ opacity: 0, y: -20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                    className="text-3xl md:text-4xl font-bold mb-6 text-white"
-                  >
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
                     Besoin d'un service personnalisé ?
-                  </motion.h2>
-                  
-                  <motion.p 
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    viewport={{ once: true }}
-                    className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto"
-                  >
+                  </h2>
+                  <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
                     Chaque entreprise et chaque projet est unique. Contactez-moi pour discuter de vos besoins spécifiques et obtenir une proposition adaptée à votre contexte.
-                  </motion.p>
+                  </p>
                   
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    viewport={{ once: true }}
-                  >
-                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 transition-opacity font-medium text-white" asChild>
-                      <Link to="/contact" className="flex items-center gap-2">
-                        <span>Demander un devis gratuit</span>
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </motion.div>
+                  <Button size="lg" className="bg-gradient-primary hover:opacity-90 transition-opacity font-medium text-white" asChild>
+                    <Link to="/contact" className="flex items-center gap-2">
+                      <span>Demander un devis gratuit</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -633,109 +493,74 @@ const ServicesPage = () => {
         </section>
         
         {/* FAQ Section */}
-        <section className="py-20 relative">
-          <div className="absolute inset-0 tech-bg-gradient z-0 opacity-70"></div>
-          
-          <div className="container mx-auto px-4 relative z-10">
+        <section className="py-20">
+          <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <div className="text-center mb-12">
-                <motion.h2 
-                  initial={{ opacity: 0, y: -20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="text-3xl md:text-4xl font-bold mb-4"
-                >
-                  Questions Fréquentes
-                </motion.h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">Questions Fréquentes</h2>
                 <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
               </div>
               
-              <motion.div 
-                className="space-y-6"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                {/* Keep existing FAQ items, but wrapped in motion.div */}
-                <motion.div variants={itemVariants}>
-                  <Card className="border-gradient border-gradient-light backdrop-blur-sm bg-white/80">
-                    <CardHeader>
-                      <CardTitle className="text-xl">Comment se déroule une collaboration ?</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Notre collaboration débute par une phase de découverte pour comprendre vos besoins, suivie d'une proposition détaillée. Après validation, nous entrons dans les phases de conception, développement et déploiement avec des points de validation réguliers. Un suivi post-déploiement est assuré pour garantir votre satisfaction.</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+              <div className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-xl">Comment se déroule une collaboration ?</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p>Notre collaboration débute par une phase de découverte pour comprendre vos besoins, suivie d'une proposition détaillée. Après validation, nous entrons dans les phases de conception, développement et déploiement avec des points de validation réguliers. Un suivi post-déploiement est assuré pour garantir votre satisfaction.</p>
+                  </CardContent>
+                </Card>
                 
-                <motion.div variants={itemVariants}>
-                  <Card className="border-gradient border-gradient-light backdrop-blur-sm bg-white/80">
-                    <CardHeader>
-                      <CardTitle className="text-xl">Quels sont les délais de réalisation ?</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Les délais varient selon la complexité du projet. Un site vitrine peut être livré en 2-4 semaines, une application plus complexe en 2-6 mois. Chaque projet bénéficie d'un calendrier détaillé avec des jalons clairement définis pour assurer le respect des échéances.</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-xl">Quels sont les délais de réalisation ?</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p>Les délais varient selon la complexité du projet. Un site vitrine peut être livré en 2-4 semaines, une application plus complexe en 2-6 mois. Chaque projet bénéficie d'un calendrier détaillé avec des jalons clairement définis pour assurer le respect des échéances.</p>
+                  </CardContent>
+                </Card>
                 
-                <motion.div variants={itemVariants}>
-                  <Card className="border-gradient border-gradient-light backdrop-blur-sm bg-white/80">
-                    <CardHeader>
-                      <CardTitle className="text-xl">Proposez-vous des services de maintenance ?</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Oui, je propose différentes formules de maintenance adaptées à vos besoins : maintenance technique (mises à jour, sécurité), maintenance évolutive (ajout de fonctionnalités) et support utilisateur. Ces services garantissent la pérennité et l'évolution de vos solutions numériques.</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-xl">Proposez-vous des services de maintenance ?</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p>Oui, je propose différentes formules de maintenance adaptées à vos besoins : maintenance technique (mises à jour, sécurité), maintenance évolutive (ajout de fonctionnalités) et support utilisateur. Ces services garantissent la pérennité et l'évolution de vos solutions numériques.</p>
+                  </CardContent>
+                </Card>
                 
-                <motion.div variants={itemVariants}>
-                  <Card className="border-gradient border-gradient-light backdrop-blur-sm bg-white/80">
-                    <CardHeader>
-                      <CardTitle className="text-xl">Travaillez-vous avec des clients internationaux ?</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Absolument. Je collabore avec des clients dans toute l'Afrique et à l'international. Les réunions peuvent se tenir à distance via visioconférence, et je me déplace régulièrement pour des workshops ou des formations en présentiel quand nécessaire.</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-xl">Travaillez-vous avec des clients internationaux ?</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p>Absolument. Je collabore avec des clients dans toute l'Afrique et à l'international. Les réunions peuvent se tenir à distance via visioconférence, et je me déplace régulièrement pour des workshops ou des formations en présentiel quand nécessaire.</p>
+                  </CardContent>
+                </Card>
                 
-                <motion.div variants={itemVariants}>
-                  <Card className="border-gradient border-gradient-light backdrop-blur-sm bg-white/80">
-                    <CardHeader>
-                      <CardTitle className="text-xl">Comment sont structurés vos tarifs ?</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Mes tarifs sont structurés en fonction de la complexité du projet, des technologies utilisées et du niveau d'expertise requis. Je propose des forfaits projet, des contrats à temps partiel ou des formules d'abonnement mensuel selon vos besoins. Chaque proposition commerciale détaille précisément le périmètre et les livrables.</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </motion.div>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-xl">Comment sont structurés vos tarifs ?</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p>Mes tarifs sont structurés en fonction de la complexité du projet, des technologies utilisées et du niveau d'expertise requis. Je propose des forfaits projet, des contrats à temps partiel ou des formules d'abonnement mensuel selon vos besoins. Chaque proposition commerciale détaille précisément le périmètre et les livrables.</p>
+                  </CardContent>
+                </Card>
+              </div>
               
-              <motion.div 
-                className="mt-12 text-center"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                viewport={{ once: true }}
-              >
+              <div className="mt-12 text-center">
                 <Button variant="outline" className="font-medium" asChild>
                   <Link to="/contact" className="flex items-center gap-2">
                     <span>Une autre question ? Contactez-moi</span>
                   </Link>
                 </Button>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
       </main>
       
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default ServicesPage;

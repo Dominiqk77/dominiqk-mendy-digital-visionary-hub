@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Quote } from 'lucide-react';
-import FloatingElements from '../animations/FloatingElements';
 
 const Testimonials = () => {
   const testimonials = [
@@ -53,18 +52,10 @@ const Testimonials = () => {
   }, [isPaused, testimonials.length]);
 
   return (
-    <section className="py-20 relative overflow-hidden">
-      {/* Cosmic background overlay */}
-      <div className="absolute inset-0 bg-black/80 z-0"></div>
-      
-      {/* Floating elements in the background */}
-      <FloatingElements count={8} variant="space" containerClassName="z-0" />
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-20 bg-gray-900 text-white">
+      <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-            Ce que <span className="text-gradient-cosmic">disent mes clients</span>
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ce que disent mes clients</h2>
           <div className="h-1 w-24 bg-gradient-primary animate-gradient-pulse mx-auto mb-6"></div>
           <p className="text-lg text-gray-300">
             Des témoignages qui reflètent mon engagement envers l'excellence et la satisfaction client
@@ -84,18 +75,18 @@ const Testimonials = () => {
               >
                 {testimonials.map((testimonial) => (
                   <div key={testimonial.id} className="w-full flex-shrink-0 px-4">
-                    <Card className="cosmic-card backdrop-blur-lg bg-black/40 border-gray-800/40 hover:border-primary/30 transition-all duration-500">
+                    <Card className="bg-black/40 backdrop-blur-sm border-gray-800">
                       <CardContent className="p-8">
                         <div className="flex justify-center mb-6">
                           <div className="relative">
-                            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-primary planet-glow">
+                            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-primary">
                               <img 
                                 src={testimonial.image} 
                                 alt={testimonial.name} 
                                 className="w-full h-full object-cover"
                               />
                             </div>
-                            <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-1 animate-pulse-slow">
+                            <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-1">
                               <Quote className="w-4 h-4 text-white" />
                             </div>
                           </div>
@@ -118,15 +109,13 @@ const Testimonials = () => {
             </div>
             
             {/* Navigation dots */}
-            <div className="flex justify-center space-x-3 mt-8">
+            <div className="flex justify-center space-x-2 mt-8">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    activeIndex === index 
-                      ? "bg-primary scale-125 animate-pulse-slow shadow-[0_0_10px_rgba(155,135,245,0.6)]" 
-                      : "bg-gray-600"
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    activeIndex === index ? "bg-primary animate-pulse" : "bg-gray-600"
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
