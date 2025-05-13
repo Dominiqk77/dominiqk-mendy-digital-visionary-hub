@@ -1,52 +1,75 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import ServicesPage from "./pages/Services";
-import AIServices from "./pages/services/AIServices";
-import WebServices from "./pages/services/WebServices";
-import MarketingServices from "./pages/services/MarketingServices";
-import ConsultingServices from "./pages/services/ConsultingServices";
-import ContactPage from "./pages/Contact";
-import AcademyPage from "./pages/Academy";
-import ToolsPage from "./pages/Tools";
-import BlogPage from "./pages/Blog";
-import ExpertisePage from "./pages/Expertise";
-import PortfolioPage from "./pages/Portfolio";
-import StartProject from "./pages/StartProject";
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import CombinedBackground from './components/backgrounds/CombinedBackground';
 
-const queryClient = new QueryClient();
+// Pages
+import Index from './pages/Index';
+import Contact from './pages/Contact';
+import Services from './pages/Services';
+import Portfolio from './pages/Portfolio';
+import Blog from './pages/Blog';
+import StartProject from './pages/StartProject';
+import Expertise from './pages/Expertise';
+import Academy from './pages/Academy';
+import Tools from './pages/Tools';
+import NotFound from './pages/NotFound';
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+// Service Sub-pages
+import AIServices from './pages/services/AIServices';
+import WebServices from './pages/services/WebServices';
+import MarketingServices from './pages/services/MarketingServices';
+import ConsultingServices from './pages/services/ConsultingServices';
+
+// Components
+import { Toaster } from './components/ui/toaster';
+import './App.css';
+
+// ScrollToTop component to ensure page scrolls to top on route change
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
+function App() {
+  return (
+    <Router>
+      <ScrollToTop />
+      <div className="relative min-h-screen">
+        {/* Global background for all pages */}
+        <div className="fixed inset-0 -z-20">
+          <CombinedBackground opacity={0.4} />
+        </div>
+        
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/start-project" element={<StartProject />} />
+          <Route path="/expertise" element={<Expertise />} />
+          <Route path="/academy" element={<Academy />} />
+          <Route path="/tools" element={<Tools />} />
+          
+          {/* Service sub-pages */}
           <Route path="/services/ai-solutions" element={<AIServices />} />
           <Route path="/services/web-development" element={<WebServices />} />
           <Route path="/services/digital-marketing" element={<MarketingServices />} />
           <Route path="/services/consulting" element={<ConsultingServices />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/academy" element={<AcademyPage />} />
-          <Route path="/tools" element={<ToolsPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/expertise" element={<ExpertisePage />} />
-          <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="/start-project" element={<StartProject />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+        
+        <Toaster />
+      </div>
+    </Router>
+  );
+}
 
 export default App;
