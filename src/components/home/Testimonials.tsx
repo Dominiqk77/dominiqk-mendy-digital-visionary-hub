@@ -63,7 +63,7 @@ const Testimonials = () => {
         </div>
         
         <div 
-          className="max-w-4xl mx-auto"
+          className="max-w-6xl mx-auto"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
