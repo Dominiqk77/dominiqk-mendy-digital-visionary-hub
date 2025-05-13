@@ -5,14 +5,12 @@ import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { useIsMobile } from '@/hooks/use-mobile';
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const isMobile = useIsMobile();
   const location = useLocation();
-
   const toggleDropdown = (name: string) => {
     if (activeDropdown === name) {
       setActiveDropdown(null);
@@ -20,7 +18,6 @@ const Navbar = () => {
       setActiveDropdown(name);
     }
   };
-
   const scrollToSection = (sectionId: string, e?: React.MouseEvent) => {
     if (e) {
       e.preventDefault();
@@ -37,7 +34,6 @@ const Navbar = () => {
       });
     }
   };
-
   const navigation = [{
     name: 'Accueil',
     href: '/'
@@ -74,7 +70,6 @@ const Navbar = () => {
     name: 'Contact',
     href: '/contact'
   }];
-
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -88,7 +83,6 @@ const Navbar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -101,7 +95,6 @@ const Navbar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen]);
-
   return <nav className={cn("fixed w-full top-0 z-50 transition-all duration-300", scrolled ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-0.5" : "bg-transparent py-1")}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
@@ -109,11 +102,7 @@ const Navbar = () => {
             <Link to="/" className="flex items-center space-x-3">
               <div className="relative group w-14 h-14 md:w-16 md:h-16 transition-all duration-300 hover:scale-105">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-full opacity-50 group-hover:opacity-75 blur-md animate-pulse-slow"></div>
-                <img 
-                  src="/lovable-uploads/1d07325e-d8c2-4e54-ac4e-3caf0120f9eb.png" 
-                  alt="QK Logo" 
-                  className="w-full h-full object-contain relative z-10"
-                />
+                
               </div>
               <span className="text-lg md:text-xl font-bold tracking-tight animate-gradient-slow hidden sm:block">
                 Dominiqk Mendy
