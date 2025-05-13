@@ -917,7 +917,7 @@ const Expertise = () => {
                 variant="outline"
                 size="sm"
                 onClick={resetFilters}
-                className="border-gray-700 text-white font-medium hover:text-white hover:bg-gray-800"
+                className="border-gray-700 text-white font-semibold hover:text-white hover:bg-gray-800"
               >
                 Réinitialiser les filtres
               </Button>
@@ -929,7 +929,9 @@ const Expertise = () => {
                 variant={activeCategory === 'all' ? "default" : "outline"}
                 size="sm"
                 onClick={() => setActiveCategory('all')}
-                className={activeCategory === 'all' ? 'bg-primary text-white font-medium hover:bg-primary/90' : 'border-gray-700 text-white font-medium hover:bg-gray-800 hover:text-white'}
+                className={activeCategory === 'all' 
+                  ? 'bg-cyan-600 text-white font-semibold hover:bg-cyan-700' 
+                  : 'border-gray-700 bg-gray-800/70 text-white font-semibold hover:bg-gray-700'}
               >
                 Tous
               </Button>
@@ -940,10 +942,14 @@ const Expertise = () => {
                   variant={activeCategory === category.id ? "default" : "outline"}
                   size="sm"
                   onClick={() => setActiveCategory(category.id)}
-                  className={`flex items-center gap-1 ${activeCategory === category.id ? 'bg-primary text-white font-medium hover:bg-primary/90' : 'border-gray-700 text-white font-medium hover:bg-gray-800 hover:text-white'}`}
+                  className={`flex items-center gap-1 ${
+                    activeCategory === category.id 
+                    ? 'bg-cyan-600 text-white font-semibold hover:bg-cyan-700' 
+                    : 'border-gray-700 bg-gray-800/70 text-white font-semibold hover:bg-gray-700'
+                  }`}
                 >
                   {category.icon}
-                  <span className="hidden sm:inline font-medium">{category.title}</span>
+                  <span className="hidden sm:inline">{category.title}</span>
                 </Button>
               ))}
             </div>
@@ -1009,7 +1015,7 @@ const Expertise = () => {
             <div className="flex justify-center mt-12">
               <Button 
                 onClick={loadMore}
-                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-medium"
+                className="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold"
               >
                 Voir plus d'expertises
                 <motion.div
