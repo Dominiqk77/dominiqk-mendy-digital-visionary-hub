@@ -9,104 +9,85 @@ import { ArrowRight, Code, FileCode, Globe, Database, Layout, Rocket, Users, Pho
 import { Link } from 'react-router-dom';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
-// Space background animation component for web services
-const WebSpaceBackground = () => {
+// Animated space background component
+const SpaceBackground = () => {
+  const [stars, setStars] = useState<{id: number, x: number, y: number, size: number, opacity: number, speed: number}[]>([]);
+  
+  useEffect(() => {
+    // Generate random stars
+    const generateStars = () => {
+      const newStars = Array.from({ length: 200 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 2.5 + 0.5,
+        opacity: Math.random() * 0.7 + 0.3,
+        speed: Math.random() * 0.05 + 0.01
+      }));
+      setStars(newStars);
+    };
+
+    generateStars();
+  }, []);
+
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Code grid background with subtle animation */}
-      <div className="absolute inset-0 bg-black opacity-5">
-        <div className="tech-grid w-full h-full"></div>
-      </div>
-      
-      {/* Floating code snippets */}
-      {Array.from({ length: 6 }).map((_, i) => (
+    <div className="absolute inset-0 overflow-hidden bg-black pointer-events-none">
+      {/* Stars background with animation */}
+      {stars.map((star) => (
         <motion.div
-          key={`code-${i}`}
-          className="absolute bg-gray-100/10 backdrop-blur-sm rounded-md p-2 text-xs font-mono text-primary/60 border border-gray-200/20"
+          key={`star-${star.id}`}
+          className="absolute rounded-full bg-white"
           style={{
-            left: `${10 + (i * 15)}%`,
-            top: `${5 + (i * 12)}%`,
-            width: `${120 + (i * 20)}px`,
+            left: `${star.x}%`,
+            top: `${star.y}%`,
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            opacity: star.opacity,
           }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ 
-            opacity: 0.6, 
-            y: [0, -10, 0],
-            rotateZ: [0, i % 2 === 0 ? 2 : -2, 0]
+          animate={{
+            opacity: [star.opacity, star.opacity * 1.5, star.opacity],
+            scale: [1, 1.2, 1],
+            y: [`${star.y}%`, `${star.y + star.speed * 10}%`, `${star.y}%`]
           }}
           transition={{
-            duration: 8 + i,
             repeat: Infinity,
-            repeatType: 'reverse',
-            ease: 'easeInOut',
-            delay: i * 0.5
+            duration: 3 + Math.random() * 7,
+            ease: "easeInOut"
           }}
-        >
-          {i % 2 === 0 ? 
-            '<div className="web-service">' : 
-            i % 3 === 0 ? 
-            'function createSolution() {' :
-            'const webApp = new WebApp();'
-          }
-        </motion.div>
+        />
       ))}
       
-      {/* Abstract UI wireframes */}
-      {Array.from({ length: 4 }).map((_, i) => (
-        <motion.div 
-          key={`wireframe-${i}`}
-          className="absolute rounded-lg border border-gray-300/20 bg-white/5"
+      {/* Nebula effects */}
+      <div className="absolute top-20 left-10 w-96 h-96 rounded-full bg-purple-500/10 blur-3xl"></div>
+      <div className="absolute bottom-40 right-20 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl"></div>
+      
+      {/* Shooting stars */}
+      {Array.from({ length: 3 }).map((_, index) => (
+        <motion.div
+          key={`shooting-${index}`}
+          className="absolute h-0.5 bg-white rounded-full"
           style={{
-            right: `${8 + (i * 10)}%`,
-            bottom: `${15 + (i * 8)}%`,
-            width: `${80 + (i * 10)}px`,
-            height: `${120 + (i * 15)}px`,
+            top: `${20 + index * 25}%`,
+            left: "-10%",
+            width: "5%",
           }}
-          initial={{ opacity: 0 }}
-          animate={{ 
-            opacity: [0.2, 0.4, 0.2],
-            scale: [1, 1.02, 1],
+          animate={{
+            left: ["0%", "120%"],
+            top: [`${20 + index * 25}%`, `${30 + index * 20}%`],
+            opacity: [0, 0.8, 0]
           }}
           transition={{
-            duration: 5 + i,
+            duration: 2,
             repeat: Infinity,
-            repeatType: 'reverse',
-            ease: 'easeInOut',
-            delay: i * 0.8
+            repeatDelay: 7 + index * 3,
+            ease: "easeInOut"
           }}
-        >
-          <div className="w-full h-3 bg-gray-200/10 rounded-t-lg"></div>
-          <div className="flex flex-col p-2 gap-1">
-            <div className="w-3/4 h-2 bg-gray-200/10 rounded"></div>
-            <div className="w-1/2 h-2 bg-gray-200/10 rounded"></div>
-            <div className="w-5/6 h-2 bg-gray-200/10 rounded mt-2"></div>
-          </div>
-        </motion.div>
+        />
       ))}
       
-      {/* Data flow lines */}
-      <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <motion.path 
-          d="M100,100 C150,150 200,50 250,200 S350,150 400,300"
-          stroke="rgba(14, 165, 233, 0.2)"
-          strokeWidth="2"
-          fill="none"
-          strokeDasharray="10,10"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.7 }}
-          transition={{ duration: 3, repeat: Infinity, repeatType: "loop" }}
-        />
-        <motion.path 
-          d="M500,100 C450,200 350,150 300,250 S200,300 150,400"
-          stroke="rgba(139, 92, 246, 0.2)"
-          strokeWidth="2"
-          fill="none"
-          strokeDasharray="10,10"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.7 }}
-          transition={{ duration: 4, repeat: Infinity, repeatType: "loop", delay: 1 }}
-        />
-      </svg>
+      {/* Distant galaxies */}
+      <div className="absolute top-1/4 right-1/4 w-20 h-20 rounded-full bg-gradient-to-br from-purple-500/20 to-transparent blur-xl"></div>
+      <div className="absolute bottom-1/4 left-1/3 w-16 h-16 rounded-full bg-gradient-to-br from-blue-500/20 to-transparent blur-xl"></div>
     </div>
   );
 };
@@ -244,12 +225,12 @@ const WebServices = () => {
     <div className="min-h-screen flex flex-col relative">
       <Navbar />
       
-      {/* Space background with web-themed elements */}
-      <WebSpaceBackground />
+      {/* Replace the old WebSpaceBackground with new SpaceBackground */}
+      <SpaceBackground />
       
       <main className="flex-grow relative z-10">
-        {/* Hero Section */}
-        <section className="py-20 md:py-28 bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
+        {/* Hero Section - update text colors for better readability on space background */}
+        <section className="py-20 md:py-28 relative overflow-hidden">
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto">
               <motion.div 
@@ -258,10 +239,10 @@ const WebServices = () => {
                 transition={{ duration: 0.7 }}
                 className="text-center mb-12"
               >
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
                   Solutions Web & Mobile <span className="text-gradient">Innovantes</span>
                 </h1>
-                <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
                   Développement d'applications et sites web performants, évolutifs et à fort impact pour les entreprises innovantes à l'international
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
@@ -278,7 +259,7 @@ const WebServices = () => {
                 </div>
               </motion.div>
               
-              {/* Tech Stack Icons */}
+              {/* Tech Stack Icons - update for better visibility */}
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -288,7 +269,7 @@ const WebServices = () => {
                 {["react", "vue", "angular", "nodejs", "wordpress", "nextjs", "flutter", "firebase", "aws"].map((tech) => (
                   <motion.div 
                     key={tech}
-                    className="w-12 h-12 flex items-center justify-center bg-white/10 backdrop-blur-sm rounded-lg p-2"
+                    className="w-12 h-12 flex items-center justify-center bg-white/20 backdrop-blur-md rounded-lg p-2"
                     whileHover={{ y: -5, scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
