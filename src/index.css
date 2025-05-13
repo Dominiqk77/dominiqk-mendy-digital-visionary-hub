@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -124,6 +123,21 @@
       text-shadow: 0 0 15px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.5);
     }
   }
+
+  @keyframes scroll-hint-pulse {
+    0% {
+      transform: translateX(0);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translateX(10px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 0.5;
+    }
+  }
 }
  
 @layer base {
@@ -172,6 +186,24 @@
   /* Effet texte brillant */
   .text-shadow-lg {
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Styles pour les indications de défilement */
+  .pulse-scroll-hint {
+    position: relative;
+  }
+  
+  .pulse-scroll-hint::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 25px;
+    background: linear-gradient(to right, transparent, rgba(155, 135, 245, 0.3) 70%);
+    animation: scroll-hint-pulse 1.5s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: 0 8px 8px 0;
   }
 }
 

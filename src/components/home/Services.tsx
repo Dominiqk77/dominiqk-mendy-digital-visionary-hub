@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, Code, LineChart, BrainCircuit, Database, Layout, Globe, Rocket, Lightbulb, Palette, FileCode, Monitor, Share2, Blocks, BookOpen, Users, Phone, ShoppingCart, BadgeCheck, Zap } from 'lucide-react';
+import { ArrowRight, Code, LineChart, BrainCircuit, Database, Layout, Globe, Rocket, Lightbulb, Palette, FileCode, Monitor, Share2, Blocks, BookOpen, Users, Phone, ShoppingCart, BadgeCheck, Zap, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -11,6 +11,8 @@ const Services = () => {
   const [selectedCategory, setSelectedCategory] = useState("featured");
   const isMobile = useIsMobile();
   const tabsListRef = useRef<HTMLDivElement>(null);
+  const [showLeftScroll, setShowLeftScroll] = useState(false);
+  const [showRightScroll, setShowRightScroll] = useState(true);
 
   // Featured services
   const featuredServices = [
@@ -231,6 +233,28 @@ const Services = () => {
     setSelectedCategory(value);
   };
 
+  // Check scroll position of the tabs container
+  const checkScrollPosition = () => {
+    if (tabsListRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = tabsListRef.current;
+      setShowLeftScroll(scrollLeft > 20);
+      setShowRightScroll(scrollLeft < scrollWidth - clientWidth - 20);
+    }
+  };
+
+  // Scroll tabs horizontally
+  const scrollTabs = (direction: 'left' | 'right') => {
+    if (tabsListRef.current) {
+      const scrollAmount = 150; // Adjust as needed
+      const currentScroll = tabsListRef.current.scrollLeft;
+      
+      tabsListRef.current.scrollTo({
+        left: direction === 'left' ? currentScroll - scrollAmount : currentScroll + scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   // Optimize scroll tabs into view when selected on mobile
   useEffect(() => {
     if (isMobile && tabsListRef.current) {
@@ -250,7 +274,40 @@ const Services = () => {
         });
       }
     }
+    
+    // Check scroll indicators after tab change
+    checkScrollPosition();
   }, [selectedCategory, isMobile]);
+
+  // Add scroll event listener to update indicators
+  useEffect(() => {
+    const tabsListElement = tabsListRef.current;
+    if (tabsListElement) {
+      tabsListElement.addEventListener('scroll', checkScrollPosition);
+      // Initial check
+      checkScrollPosition();
+      
+      // Add initial scroll pulse animation for mobile
+      if (isMobile) {
+        const pulseAnimation = () => {
+          if (tabsListElement && tabsListElement.scrollWidth > tabsListElement.clientWidth) {
+            tabsListElement.classList.add('pulse-scroll-hint');
+            setTimeout(() => {
+              tabsListElement.classList.remove('pulse-scroll-hint');
+            }, 1500);
+          }
+        };
+        
+        setTimeout(pulseAnimation, 1000);
+      }
+    }
+    
+    return () => {
+      if (tabsListElement) {
+        tabsListElement.removeEventListener('scroll', checkScrollPosition);
+      }
+    };
+  }, [isMobile]);
 
   return (
     <section className="py-20 bg-gray-50" id="services">
@@ -264,10 +321,21 @@ const Services = () => {
         </div>
 
         <Tabs defaultValue="featured" value={selectedCategory} onValueChange={handleCategoryChange} className="w-full mb-12">
-          <div className="flex justify-center mb-8 overflow-hidden">
+          <div className="relative flex justify-center mb-8 overflow-hidden">
+            {/* Left scroll indicator */}
+            {isMobile && showLeftScroll && (
+              <button 
+                onClick={() => scrollTabs('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 bg-portfolio-purple/50 text-white rounded-r-md shadow-md flex items-center justify-center"
+                aria-label="Défiler à gauche"
+              >
+                <ChevronLeft size={18} />
+              </button>
+            )}
+            
             <TabsList 
               ref={tabsListRef}
-              className="bg-muted/50 flex w-full md:w-auto overflow-x-auto p-1 rounded-lg snap-x snap-mandatory"
+              className="bg-muted/50 flex w-full md:w-auto overflow-x-auto p-1 rounded-lg snap-x snap-mandatory relative scroll-smooth"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               <TabsTrigger 
@@ -301,6 +369,24 @@ const Services = () => {
                 Consulting
               </TabsTrigger>
             </TabsList>
+            
+            {/* Right scroll indicator */}
+            {isMobile && showRightScroll && (
+              <button 
+                onClick={() => scrollTabs('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 bg-portfolio-purple/50 text-white rounded-l-md shadow-md flex items-center justify-center"
+                aria-label="Défiler à droite"
+              >
+                <ChevronRight size={18} />
+              </button>
+            )}
+            
+            {/* Mobile scroll hint text */}
+            {isMobile && (
+              <div className="absolute -bottom-6 left-0 right-0 text-xs text-center text-portfolio-purple animate-pulse pointer-events-none">
+                Faites défiler pour voir plus d'options →
+              </div>
+            )}
           </div>
 
           {Object.keys(allCategoriesMap).map((category) => (
