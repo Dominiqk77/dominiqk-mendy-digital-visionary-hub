@@ -841,4 +841,195 @@ const Expertise = () => {
     );
 
   // Assign expertise to categories
-  expertiseCategories.
+  expertiseCategories.forEach(category => {
+    category.skills = expertiseAreas.filter(item => item.category === category.id);
+  });
+
+  return (
+    <div className="min-h-screen flex flex-col bg-black text-white relative overflow-hidden">
+      {/* Background elements */}
+      <SpaceBackground />
+      <NebulaBg />
+      <TechNodes />
+      <FuturisticGrid />
+      <DataFlowAnimation />
+      
+      <Navbar />
+      
+      <main className="flex-grow z-10 relative">
+        <section 
+          ref={sectionRef}
+          className="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center max-w-3xl mx-auto mb-16"
+          >
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 via-purple-500 to-indigo-500">
+              Expertise & Compétences
+            </h1>
+            <p className="text-lg md:text-xl text-gray-300">
+              Découvrez mon arsenal technologique et stratégique pour transformer votre vision en réalité numérique
+            </p>
+          </motion.div>
+          
+          {/* Live Stats Display */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+            {[
+              { label: 'Précision IA', value: `${techStats.aiAccuracy}%` },
+              { label: 'Uptime Serveurs', value: `${techStats.serverUptime}%` },
+              { label: 'Complétion Projets', value: `${techStats.projectCompletion}%` }
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
+                className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-lg p-4 text-center"
+              >
+                <p className="text-gray-400 text-sm">{stat.label}</p>
+                <p className="text-2xl font-bold text-primary">{stat.value}</p>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Search and filters */}
+          <div className="mb-10 space-y-6">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <div className="relative w-full sm:w-96">
+                <input
+                  type="text"
+                  placeholder="Rechercher une expertise..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full px-4 py-2 bg-gray-900/70 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-white placeholder-gray-400"
+                />
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+              </div>
+              
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={resetFilters}
+                className="border-gray-700 text-gray-300 hover:text-white hover:bg-gray-800"
+              >
+                Réinitialiser les filtres
+              </Button>
+            </div>
+            
+            {/* Category filters */}
+            <div className="flex flex-wrap gap-2 justify-center">
+              <Button
+                variant={activeCategory === 'all' ? "default" : "outline"}
+                size="sm"
+                onClick={() => setActiveCategory('all')}
+                className={activeCategory === 'all' ? 'bg-primary hover:bg-primary/90' : 'border-gray-700 hover:bg-gray-800'}
+              >
+                Tous
+              </Button>
+              
+              {expertiseCategories.map((category) => (
+                <Button
+                  key={category.id}
+                  variant={activeCategory === category.id ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`flex items-center gap-1 ${activeCategory === category.id ? 'bg-primary hover:bg-primary/90' : 'border-gray-700 hover:bg-gray-800'}`}
+                >
+                  {category.icon}
+                  <span className="hidden sm:inline">{category.title}</span>
+                </Button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Expertise grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredExpertise.slice(0, visibleCount).map((expertise) => (
+              <motion.div
+                key={expertise.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="group"
+              >
+                <Card className="h-full overflow-hidden border-0 bg-gradient-to-b from-gray-900 to-gray-950 shadow-xl hover:shadow-primary/10 transition-all duration-300">
+                  <CardContent className="p-6 h-full flex flex-col">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="p-3 rounded-lg bg-gray-800/50 backdrop-blur-sm">
+                        {expertise.icon}
+                      </div>
+                      <div className="px-3 py-1 rounded-full text-xs bg-blue-900/30 border border-blue-800 text-blue-300">
+                        {expertise.techStat}
+                      </div>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold mb-2 text-white group-hover:text-primary transition-colors">
+                      {expertise.title}
+                    </h3>
+                    
+                    <p className={`text-gray-300 mb-4 ${expandedDescriptions[expertise.id] ? '' : 'line-clamp-3'}`}>
+                      {expertise.description}
+                    </p>
+                    
+                    {expertise.description.length > 120 && (
+                      <button
+                        onClick={() => toggleDescription(expertise.id)}
+                        className="text-primary text-sm hover:text-primary-dark focus:outline-none mb-4"
+                      >
+                        {expandedDescriptions[expertise.id] ? 'Voir moins' : 'En savoir plus'}
+                      </button>
+                    )}
+                    
+                    <div className="mt-auto">
+                      <h4 className="text-sm font-semibold mb-2 text-gray-400">Compétences clés:</h4>
+                      <ul className="space-y-1">
+                        {expertise.points.slice(0, 3).map((point, index) => (
+                          <li key={index} className="flex items-start gap-2 text-sm">
+                            <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-300">{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Load more button */}
+          {filteredExpertise.length > visibleCount && (
+            <div className="flex justify-center mt-12">
+              <Button 
+                onClick={loadMore}
+                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white"
+              >
+                Voir plus d'expertises
+                <motion.div
+                  animate={{ y: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="ml-2"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </motion.div>
+              </Button>
+            </div>
+          )}
+        </section>
+      </main>
+      
+      <Footer />
+    </div>
+  );
+};
+
+export default Expertise;
