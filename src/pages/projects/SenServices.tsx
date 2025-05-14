@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/layout/Navbar';
@@ -644,24 +643,62 @@ const SenServices = () => {
               </TabsList>
               
               <TabsContent value="citizen" className="mt-4">
-                <div className="relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
-                  <Card className="bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
-                    <CardContent className="p-0">
-                      <img src="/lovable-uploads/e991c404-fa68-4476-bad5-65316d44cf46.png" alt="Interface citoyenne" className="w-full h-auto" />
-                    </CardContent>
-                  </Card>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="relative">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
+                    <Card className="bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
+                      <CardContent className="p-0">
+                        <img 
+                          src="/lovable-uploads/61406fcd-d8bd-4eba-8cb6-42c42e5e67c0.png" 
+                          alt="Interface citoyenne - Documents d'identité" 
+                          className="w-full h-auto" 
+                        />
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  <div className="relative">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
+                    <Card className="bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
+                      <CardContent className="p-0">
+                        <img 
+                          src="/lovable-uploads/b1a39273-856c-4a25-a8b9-d16c984d5719.png" 
+                          alt="Interface citoyenne - Objectifs" 
+                          className="w-full h-auto" 
+                        />
+                      </CardContent>
+                    </Card>
+                  </div>
                 </div>
               </TabsContent>
               
               <TabsContent value="admin" className="mt-4">
-                <div className="relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
-                  <Card className="bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
-                    <CardContent className="p-0">
-                      <img src="/lovable-uploads/1d07325e-d8c2-4e54-ac4e-3caf0120f9eb.png" alt="Interface administrative" className="w-full h-auto" />
-                    </CardContent>
-                  </Card>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="relative">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
+                    <Card className="bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
+                      <CardContent className="p-0">
+                        <img 
+                          src="/lovable-uploads/3dc03f5f-4997-43fa-89f4-2f4d7c7902fa.png" 
+                          alt="Interface administrative - Tableau de bord" 
+                          className="w-full h-auto" 
+                        />
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  <div className="relative">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
+                    <Card className="bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
+                      <CardContent className="p-0">
+                        <img 
+                          src="/lovable-uploads/c71c1a88-d2bb-4502-8763-f5fb7209e5fd.png" 
+                          alt="Interface administrative - Statistiques" 
+                          className="w-full h-auto" 
+                        />
+                      </CardContent>
+                    </Card>
+                  </div>
                 </div>
               </TabsContent>
             </Tabs>
