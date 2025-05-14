@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { Badge } from "@/components/ui/badge";
 import SenServicesBackground from '../../components/space/SenServicesBackground';
 import { ArrowRight, Clock, Calendar, BarChart3, ShieldCheck, Users, Check, FileText, Laptop, Database, Globe, UserCheck, Building, Award, Target, Download, Phone, Mail, Star, Landmark, GraduationCap, Home, Briefcase } from 'lucide-react';
+
 const SenServices = () => {
   // Page metadata
   useEffect(() => {
@@ -36,7 +37,7 @@ const SenServices = () => {
     year: "2020-2025",
     team: "Projet personnel avec collaboration ponctuelle d'experts",
     role: "Fondateur & CEO, Développeur Full-Stack, Designer UX/UI, Marketing",
-    description: "SenServices est une innovation majeure en Afrique, et particulièrement au Sénégal. C'est mon projet personnel conçu pour transformer radicalement l'accès aux services administratifs pour tous les citoyens sénégalais. Cette plateforme nationale unique regroupe 500 services gouvernementaux en ligne (dont 177 déjà disponibles), offrant une interface intuitive pour les citoyens et un système de gestion sophistiqué pour l'administration.",
+    description: "SenServices représente une révolution numérique sans précédent pour le Sénégal et l'Afrique tout entière. Fruit de ma vision patriotique et de mon expertise acquise pendant 11 ans d'expatriation entre Londres et Marrakech, ce projet ambitieux est né de ma détermination à transformer radicalement la relation entre l'État sénégalais et ses citoyens. En tant que fondateur de Millennium Capital Invest Ltd, j'ai développé cette plateforme visionnaire pendant 4 ans et demi, m'entourant des meilleurs experts juridiques, technologiques et spécialistes du marché sénégalais. Actuellement en phase bêta, SenServices (disponible au téléchargement) unifie 500 services gouvernementaux (dont 177 déjà opérationnels) sur une interface intuitive et sécurisée, représentant un investissement stratégique qui générera des milliards de FCFA d'économies annuelles pour l'État et les citoyens. Nous recherchons activement des partenariats officiels avec le gouvernement, les ministères et les entreprises sénégalaises. Soutenez ce projet d'envergure nationale qui propulse le Sénégal à l'avant-garde de l'innovation gouvernementale mondiale et incarne la souveraineté numérique africaine.",
     objectives: ["Digitaliser l'ensemble des 500 démarches administratives courantes", "Réduire les délais de traitement des dossiers de 80%", "Assurer l'accessibilité des services depuis tout le territoire, y compris les zones rurales", "Améliorer la transparence et la traçabilité des procédures", "Sécuriser les données personnelles des citoyens", "Créer un modèle d'e-gouvernance adaptable à d'autres pays africains"],
     technologies: ["React & Node.js pour les interfaces", "Architecture microservices", "PostgreSQL pour la base de données", "AWS pour l'infrastructure cloud", "Authentification biométrique", "APIs sécurisées"],
     results: [{
