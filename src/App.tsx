@@ -21,6 +21,7 @@ import StartProject from "./pages/StartProject";
 import AITrainingPage from "./pages/services/AITrainingPage";
 import EGovernance from "./pages/services/EGovernance";
 import SenServices from "./pages/projects/SenServices";
+import ChatBot from "./components/chat/ChatBot";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ const App = () => (
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ChatBot />
     </TooltipProvider>
   </QueryClientProvider>
 );

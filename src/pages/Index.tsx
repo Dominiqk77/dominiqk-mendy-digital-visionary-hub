@@ -14,9 +14,6 @@ import CTASection from '../components/home/CTASection';
 import Certifications from '../components/home/Certifications';
 import EnhancedSpaceBackground from '../components/space/EnhancedSpaceBackground';
 
-// Add framer-motion dependency for animations
-import { motion } from 'framer-motion';
-
 const Index = () => {
   const location = useLocation();
 
