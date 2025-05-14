@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import { Badge } from "@/components/ui/badge";
 import SenServicesBackground from '../../components/space/SenServicesBackground';
 import { ArrowRight, Clock, Calendar, BarChart3, ShieldCheck, Users, Check, FileText, Laptop, Database, Globe, UserCheck, Building, Award, Target, Download, Phone, Mail, Star, Landmark, GraduationCap, Home, Briefcase } from 'lucide-react';
-
 const SenServices = () => {
   // Page metadata
   useEffect(() => {
@@ -250,80 +249,25 @@ const SenServices = () => {
   }];
 
   // Liste complète de plus de 30 rôles - NOUVELLE LISTE EXHAUSTIVE
-  const myDetailedRoles = [
-    {
-      category: "Direction & Vision",
-      roles: [
-        "Fondateur & CEO",
-        "Visionnaire Stratégique",
-        "Chef de Projet E-gouvernance",
-        "Responsable Planification Stratégique",
-        "Architecte de Solution Gouvernementale",
-        "Consultant en Transformation Digitale d'État",
-        "Gestionnaire de Relations Ministérielles",
-        "Directeur d'Innovation Publique"
-      ]
-    },
-    {
-      category: "Développement Technique",
-      roles: [
-        "Architecte Système",
-        "Développeur Full-Stack",
-        "Développeur Frontend React/Angular",
-        "Développeur Backend Node.js/Python",
-        "Ingénieur DevOps",
-        "Administrateur Cloud AWS/Azure",
-        "Spécialiste APIs & Microservices",
-        "Ingénieur Sécurité Informatique",
-        "Expert Bases de Données & Performance",
-        "Développeur Mobile React Native"
-      ]
-    },
-    {
-      category: "Design & Expérience",
-      roles: [
-        "Designer UX/UI",
-        "Chercheur UX (tests utilisateurs)",
-        "Concepteur d'Interfaces Accessibles",
-        "Spécialiste UI Multilingue",
-        "Expert en Ergonomie Mobile",
-        "Designer d'Expériences Administratives Simplifiées"
-      ]
-    },
-    {
-      category: "Gestion & Finance",
-      roles: [
-        "Modélisateur Économique",
-        "Analyste ROI Projet Gouvernemental",
-        "Gestionnaire Budget & Ressources",
-        "Expert en Financement Innovant",
-        "Consultant en Optimisation des Coûts"
-      ]
-    },
-    {
-      category: "Marketing & Adoption",
-      roles: [
-        "Stratège Marketing Digital",
-        "Responsable Communication Institutionnelle",
-        "Spécialiste Adoption Utilisateur",
-        "Formateur Agents Administratifs",
-        "Expert Sensibilisation Citoyenne",
-        "Coordinateur de Partenariats Public-Privé",
-        "Responsable Relations Médias",
-        "Expert Acquisition Utilisateurs"
-      ]
-    },
-    {
-      category: "Expertise Juridique",
-      roles: [
-        "Conseiller Juridique Dématérialisation",
-        "Expert RGPD & Protection des Données",
-        "Spécialiste Conformité Légale",
-        "Analyste Cadre Réglementaire"
-      ]
-    }
-  ];
-  
+  const myDetailedRoles = [{
+    category: "Direction & Vision",
+    roles: ["Fondateur & CEO", "Visionnaire Stratégique", "Chef de Projet E-gouvernance", "Responsable Planification Stratégique", "Architecte de Solution Gouvernementale", "Consultant en Transformation Digitale d'État", "Gestionnaire de Relations Ministérielles", "Directeur d'Innovation Publique"]
+  }, {
+    category: "Développement Technique",
+    roles: ["Architecte Système", "Développeur Full-Stack", "Développeur Frontend React/Angular", "Développeur Backend Node.js/Python", "Ingénieur DevOps", "Administrateur Cloud AWS/Azure", "Spécialiste APIs & Microservices", "Ingénieur Sécurité Informatique", "Expert Bases de Données & Performance", "Développeur Mobile React Native"]
+  }, {
+    category: "Design & Expérience",
+    roles: ["Designer UX/UI", "Chercheur UX (tests utilisateurs)", "Concepteur d'Interfaces Accessibles", "Spécialiste UI Multilingue", "Expert en Ergonomie Mobile", "Designer d'Expériences Administratives Simplifiées"]
+  }, {
+    category: "Gestion & Finance",
+    roles: ["Modélisateur Économique", "Analyste ROI Projet Gouvernemental", "Gestionnaire Budget & Ressources", "Expert en Financement Innovant", "Consultant en Optimisation des Coûts"]
+  }, {
+    category: "Marketing & Adoption",
+    roles: ["Stratège Marketing Digital", "Responsable Communication Institutionnelle", "Spécialiste Adoption Utilisateur", "Formateur Agents Administratifs", "Expert Sensibilisation Citoyenne", "Coordinateur de Partenariats Public-Privé", "Responsable Relations Médias", "Expert Acquisition Utilisateurs"]
+  }, {
+    category: "Expertise Juridique",
+    roles: ["Conseiller Juridique Dématérialisation", "Expert RGPD & Protection des Données", "Spécialiste Conformité Légale", "Analyste Cadre Réglementaire"]
+  }];
   return <div className="min-h-screen flex flex-col overflow-hidden relative">
       {/* Space-themed night blue background with stars */}
       <SenServicesBackground />
@@ -452,19 +396,15 @@ const SenServices = () => {
                   En tant qu'entrepreneur sénégalais expatrié et fondateur de Millennium Capital Invest Ltd, j'ai personnellement développé et dirigé tous les aspects de SenServices durant 4 ans et demi, assumant plus de 30 rôles clés pour transformer ma vision en réalité concrète:
                 </p>
                 
-                {myDetailedRoles.map((roleCat, idx) => (
-                  <div key={idx} className="mb-6">
+                {myDetailedRoles.map((roleCat, idx) => <div key={idx} className="mb-6">
                     <h4 className="text-primary font-semibold mb-3 text-lg">{roleCat.category}</h4>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                      {roleCat.roles.map((role, roleIdx) => (
-                        <div key={roleIdx} className="flex items-center gap-2 bg-black/20 p-2 rounded-lg">
+                      {roleCat.roles.map((role, roleIdx) => <div key={roleIdx} className="flex items-center gap-2 bg-black/20 p-2 rounded-lg">
                           <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
                           <span className="text-sm text-white">{role}</span>
-                        </div>
-                      ))}
+                        </div>)}
                     </div>
-                  </div>
-                ))}
+                  </div>)}
                 
                 <div className="mt-4 p-3 bg-primary/10 rounded-lg border border-primary/20">
                   <p className="text-white text-sm">
@@ -540,7 +480,7 @@ const SenServices = () => {
         {/* Key results */}
         <section className="py-16 bg-black/30 backdrop-blur-md border-t border-b border-white/10">
           <PageContainer>
-            <h2 className="text-3xl font-bold mb-10 text-center text-white">Résultats Clés</h2>
+            <h2 className="text-3xl font-bold mb-10 text-center text-white">Objectifs Clés 2025 - 2030</h2>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {projectDetails.results.map((result, idx) => <motion.div key={idx} initial={{
@@ -648,11 +588,7 @@ const SenServices = () => {
                     <div className="absolute -inset-1 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
                     <Card className="bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
                       <CardContent className="p-0">
-                        <img 
-                          src="/lovable-uploads/61406fcd-d8bd-4eba-8cb6-42c42e5e67c0.png" 
-                          alt="Interface citoyenne - Documents d'identité" 
-                          className="w-full h-auto" 
-                        />
+                        <img src="/lovable-uploads/61406fcd-d8bd-4eba-8cb6-42c42e5e67c0.png" alt="Interface citoyenne - Documents d'identité" className="w-full h-auto" />
                       </CardContent>
                     </Card>
                   </div>
@@ -661,11 +597,7 @@ const SenServices = () => {
                     <div className="absolute -inset-1 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
                     <Card className="bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
                       <CardContent className="p-0">
-                        <img 
-                          src="/lovable-uploads/b1a39273-856c-4a25-a8b9-d16c984d5719.png" 
-                          alt="Interface citoyenne - Objectifs" 
-                          className="w-full h-auto" 
-                        />
+                        <img src="/lovable-uploads/b1a39273-856c-4a25-a8b9-d16c984d5719.png" alt="Interface citoyenne - Objectifs" className="w-full h-auto" />
                       </CardContent>
                     </Card>
                   </div>
@@ -678,11 +610,7 @@ const SenServices = () => {
                     <div className="absolute -inset-1 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
                     <Card className="bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
                       <CardContent className="p-0">
-                        <img 
-                          src="/lovable-uploads/3dc03f5f-4997-43fa-89f4-2f4d7c7902fa.png" 
-                          alt="Interface administrative - Tableau de bord" 
-                          className="w-full h-auto" 
-                        />
+                        <img src="/lovable-uploads/3dc03f5f-4997-43fa-89f4-2f4d7c7902fa.png" alt="Interface administrative - Tableau de bord" className="w-full h-auto" />
                       </CardContent>
                     </Card>
                   </div>
@@ -691,11 +619,7 @@ const SenServices = () => {
                     <div className="absolute -inset-1 bg-gradient-to-r from-primary to-portfolio-pink rounded-2xl blur opacity-30"></div>
                     <Card className="bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
                       <CardContent className="p-0">
-                        <img 
-                          src="/lovable-uploads/c71c1a88-d2bb-4502-8763-f5fb7209e5fd.png" 
-                          alt="Interface administrative - Statistiques" 
-                          className="w-full h-auto" 
-                        />
+                        <img src="/lovable-uploads/c71c1a88-d2bb-4502-8763-f5fb7209e5fd.png" alt="Interface administrative - Statistiques" className="w-full h-auto" />
                       </CardContent>
                     </Card>
                   </div>
