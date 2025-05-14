@@ -413,6 +413,107 @@ const SenServices = () => {
                 </div>
               </div>
 
+              {/* NOUVEL APPEL À L'ACTION POUR PARTENARIATS */}
+              <div className="mt-12 bg-gradient-to-r from-black/60 via-primary/20 to-black/60 p-8 rounded-xl border-2 border-primary/30 shadow-lg shadow-primary/10">
+                <div className="flex flex-col md:flex-row gap-8 items-center">
+                  <div className="w-full md:w-2/3">
+                    <h3 className="text-2xl font-bold text-white mb-4">Appel aux Partenaires Stratégiques</h3>
+                    <div className="h-1 w-24 bg-gradient-primary mb-6 rounded-full"></div>
+                    
+                    <p className="text-white text-lg mb-4">
+                      <span className="font-semibold text-primary">SenServices est prêt à 90%</span> et recherche activement des partenariats avec le gouvernement sénégalais, les ministères et les entreprises pour son lancement officiel.
+                    </p>
+                    
+                    <p className="text-white mb-6">
+                      Ce projet visionnaire représente une opportunité unique de transformation numérique pour le Sénégal, avec un potentiel de générer des milliards de FCFA d'économies annuelles pour l'État et d'améliorer radicalement l'expérience des citoyens avec l'administration.
+                    </p>
+                    
+                    <div className="space-y-4 mb-6">
+                      <div className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center mt-0.5 shrink-0">
+                          <span className="text-white font-bold">1</span>
+                        </div>
+                        <p className="text-white">
+                          <span className="font-semibold">Pour le Gouvernement et les Ministères:</span> Nous proposons un partenariat public-privé pour évaluer, tester et implémenter progressivement SenServices au sein de l'administration.
+                        </p>
+                      </div>
+                      
+                      <div className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center mt-0.5 shrink-0">
+                          <span className="text-white font-bold">2</span>
+                        </div>
+                        <p className="text-white">
+                          <span className="font-semibold">Pour les Entreprises Sénégalaises:</span> Devenez partenaires technologiques ou financiers d'un projet à fort impact social et économique, avec des opportunités d'intégration et d'adaptation à vos besoins spécifiques.
+                        </p>
+                      </div>
+                      
+                      <div className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center mt-0.5 shrink-0">
+                          <span className="text-white font-bold">3</span>
+                        </div>
+                        <p className="text-white">
+                          <span className="font-semibold">Pour les Investisseurs:</span> Soutenez un projet innovant à fort potentiel de croissance, avec des perspectives de déploiement dans toute l'Afrique de l'Ouest.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="w-full md:w-1/3 bg-black/50 p-6 rounded-xl border border-white/10">
+                    <h4 className="text-primary font-semibold mb-4 text-center">État actuel du projet</h4>
+                    <div className="space-y-4">
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span className="text-white">Développement</span>
+                          <span className="text-primary font-medium">100%</span>
+                        </div>
+                        <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                          <div className="h-full bg-primary rounded-full" style={{ width: '100%' }}></div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span className="text-white">Tests utilisateurs</span>
+                          <span className="text-primary font-medium">95%</span>
+                        </div>
+                        <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                          <div className="h-full bg-primary rounded-full" style={{ width: '95%' }}></div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span className="text-white">Sécurité & Conformité</span>
+                          <span className="text-primary font-medium">90%</span>
+                        </div>
+                        <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                          <div className="h-full bg-primary rounded-full" style={{ width: '90%' }}></div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span className="text-white">Partenariats officiels</span>
+                          <span className="text-primary font-medium">15%</span>
+                        </div>
+                        <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                          <div className="h-full bg-primary rounded-full" style={{ width: '15%' }}></div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-6">
+                      <Button className="w-full bg-gradient-primary hover:opacity-90 text-white font-medium shadow-lg" asChild>
+                        <a href="https://www.senservicesenegal.com/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                          <span>Devenir Partenaire</span>
+                          <ArrowRight size={16} />
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Achievements - REMPLACE LES RECONNAISSANCES ET CERTIFICATIONS */}
               <div className="mt-12">
                 <h3 className="text-xl font-semibold mb-6 text-white">Réalisations & Jalons Significatifs</h3>
