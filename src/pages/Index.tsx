@@ -12,6 +12,7 @@ import Stats from '../components/home/Stats';
 import Testimonials from '../components/home/Testimonials';
 import CTASection from '../components/home/CTASection';
 import Certifications from '../components/home/Certifications';
+import EnhancedSpaceBackground from '../components/space/EnhancedSpaceBackground';
 
 // Add framer-motion dependency for animations
 import { motion } from 'framer-motion';
@@ -23,21 +24,22 @@ const Index = () => {
     // Set page title for SEO
     document.title = 'Dominiqk Mendy | Expert N°1 en Innovation Numérique & IA | Consultant Digital Sénégalais';
     
-    // Set meta description for SEO
+    // Set meta description for SEO with updated project timeline
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', 
         'Dominiqk Mendy, premier expert Sénégalais en innovation numérique, IA, développement web et marketing digital. ' +
-        'Consultant stratégique pour entreprises Africaines en transformation digitale et e-gouvernance.'
+        'Fondateur de SenServices, projet révolutionnaire lancé en beta en février 2025 après 5 ans de développement. ' +
+        'Consultant stratégique pour la transformation digitale et e-gouvernance du Sénégal.'
       );
     }
     
-    // Set keywords for SEO
+    // Set keywords for SEO with SenServices focus
     const metaKeywords = document.querySelector('meta[name="keywords"]');
     if (metaKeywords) {
       metaKeywords.setAttribute('content', 
-        'Dominiqk Mendy, Expert Numérique Sénégal, IA Afrique, Transformation Digitale Sénégal, ' +
-        'Innovation Numérique Afrique, Consultant Digital Dakar, Solutions IA Afrique, ' +
+        'Dominiqk Mendy, Expert Numérique Sénégal, SenServices Sénégal, Transformation Digitale Sénégal, ' +
+        'Innovation Numérique Afrique, E-Services Sénégal, Solutions IA Afrique, ' +
         'Expert Tech Sénégalais, Digital Innovation Sénégal, Premier Consultant IA Afrique'
       );
     }
@@ -67,11 +69,38 @@ const Index = () => {
 
   }, [location]);
 
+  // Replace all links to point to SenServices website
+  useEffect(() => {
+    // Find all buttons and links that need to be updated
+    const updateLinks = () => {
+      const allLinks = document.querySelectorAll('a');
+      const senServicesUrl = 'https://www.senservicesenegal.com/';
+      
+      allLinks.forEach(link => {
+        // Only update internal links that don't already point to SenServices
+        if (link.getAttribute('href')?.startsWith('/') || 
+            (link.getAttribute('href') && !link.getAttribute('href')?.includes('senservicesenegal.com'))) {
+          link.setAttribute('href', senServicesUrl);
+        }
+      });
+    };
+    
+    // Run after a short delay to ensure all components are rendered
+    const timer = setTimeout(() => {
+      updateLinks();
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col overflow-hidden">
+    <div className="min-h-screen flex flex-col overflow-hidden relative">
+      {/* Replace the default background with our enhanced space background */}
+      <EnhancedSpaceBackground />
+      
       <Navbar />
       
-      <main className="flex-grow overflow-hidden">
+      <main className="flex-grow overflow-hidden relative z-10">
         <Hero />
         <About />
         <Services />

@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from 'lucide-react';
@@ -5,14 +6,17 @@ import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+
 declare global {
   interface Window {
     particlesJS: any;
   }
 }
+
 const Hero = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+  
   const scrollToAbout = () => {
     const aboutSection = document.getElementById('about');
     if (aboutSection) {
@@ -21,13 +25,15 @@ const Hero = () => {
       });
     }
   };
+
+  // Update particlesJS configuration for enhanced effect
   useEffect(() => {
     const initParticles = () => {
       if (window.particlesJS) {
         window.particlesJS('particles-js', {
           "particles": {
             "number": {
-              "value": 80,
+              "value": 120,
               "density": {
                 "enable": true,
                 "value_area": 800
@@ -44,10 +50,10 @@ const Hero = () => {
               }
             },
             "opacity": {
-              "value": 0.5,
-              "random": false,
+              "value": 0.6,
+              "random": true,
               "anim": {
-                "enable": false,
+                "enable": true,
                 "speed": 1,
                 "opacity_min": 0.1,
                 "sync": false
@@ -57,8 +63,8 @@ const Hero = () => {
               "value": 3,
               "random": true,
               "anim": {
-                "enable": false,
-                "speed": 40,
+                "enable": true,
+                "speed": 2,
                 "size_min": 0.1,
                 "sync": false
               }
@@ -72,14 +78,14 @@ const Hero = () => {
             },
             "move": {
               "enable": true,
-              "speed": 2,
+              "speed": 2.5,
               "direction": "none",
-              "random": false,
+              "random": true,
               "straight": false,
               "out_mode": "out",
               "bounce": false,
               "attract": {
-                "enable": false,
+                "enable": true,
                 "rotateX": 600,
                 "rotateY": 1200
               }
@@ -128,16 +134,20 @@ const Hero = () => {
         });
       }
     };
+
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
     script.async = true;
     script.onload = initParticles;
     document.body.appendChild(script);
+
     return () => {
       document.body.removeChild(script);
     };
   }, []);
-  return <div className="relative h-auto min-h-[700px] sm:min-h-[700px] flex items-center overflow-hidden bg-gradient-to-r from-portfolio-darkblue to-black pt-16 pb-8 sm:pt-8 sm:pb-0">
+
+  return (
+    <div className="relative h-auto min-h-[700px] sm:min-h-[700px] flex items-center overflow-hidden bg-transparent pt-16 pb-8 sm:pt-8 sm:pb-0">
       <div id="particles-js" className="absolute inset-0 z-0"></div>
       
       <div className="absolute inset-0 z-0 opacity-10 portfolio-gradient"></div>
@@ -156,16 +166,16 @@ const Hero = () => {
             
             <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
               <Button size="lg" className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 transition-opacity">
-                <Link to="/contact" className="flex items-center justify-center">
+                <a href="https://www.senservicesenegal.com/" className="flex items-center justify-center">
                   Démarrer une collaboration
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                </a>
               </Button>
               <Button size="lg" variant="transparent" className="w-full sm:w-auto">
-                <Link to="/services" className="flex items-center justify-center">
-                  Explorez les services
+                <a href="https://www.senservicesenegal.com/" className="flex items-center justify-center">
+                  Découvrir SenServices
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                </a>
               </Button>
             </div>
           </div>
@@ -238,13 +248,15 @@ const Hero = () => {
               <AvatarFallback>CP</AvatarFallback>
             </Avatar>
           </div>
-          <p className="text-white text-sm ml-2"><span className="font-semibold text-primary">2k+</span> projets terminés avec succès</p>
+          <p className="text-white text-sm ml-2"><span className="font-semibold text-primary">Projet Beta</span> lancé en février 2025</p>
         </div>
         
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer hidden md:block" onClick={scrollToAbout}>
           <ChevronDown className="h-8 w-8 text-white" />
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default Hero;
