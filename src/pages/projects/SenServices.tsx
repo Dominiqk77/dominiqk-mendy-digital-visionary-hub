@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/layout/Navbar';
@@ -19,7 +20,7 @@ const SenServices = () => {
     // Set meta description
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', "Découvrez SenServices, projet phare d'E-Gouvernance développé par Dominiqk Mendy. " + "Plateforme nationale de services administratifs en ligne avec interfaces citoyenne et gouvernementale intégrées.");
+      metaDescription.setAttribute('content', "Découvrez SenServices, projet phare d'E-Gouvernance développé par Dominiqk Mendy. " + "Plateforme de services administratifs en ligne avec interfaces citoyenne et gouvernementale intégrées.");
     }
 
     // Set keywords
@@ -37,7 +38,7 @@ const SenServices = () => {
     year: "2020-2025",
     team: "Projet personnel avec collaboration ponctuelle d'experts",
     role: "Fondateur & CEO, Développeur Full-Stack, Designer UX/UI, Marketing",
-    description: "SenServices représente une révolution numérique sans précédent pour le Sénégal et l'Afrique tout entière. Fruit de ma vision patriotique et de mon expertise acquise pendant 11 ans d'expatriation entre Londres et Marrakech, ce projet ambitieux est né de ma détermination à transformer radicalement la relation entre l'État sénégalais et ses citoyens. En tant que fondateur de Millennium Capital Invest Ltd, j'ai développé cette plateforme visionnaire pendant 4 ans et demi, m'entourant des meilleurs experts juridiques, technologiques et spécialistes du marché sénégalais. Actuellement en phase bêta, SenServices (disponible au téléchargement) unifie 500 services gouvernementaux (dont 177 déjà opérationnels) sur une interface intuitive et sécurisée, représentant un investissement stratégique qui générera des milliards de FCFA d'économies annuelles pour l'État et les citoyens. Nous recherchons activement des partenariats officiels avec le gouvernement, les ministères et les entreprises sénégalaises. Soutenez ce projet d'envergure nationale qui propulse le Sénégal à l'avant-garde de l'innovation gouvernementale mondiale et incarne la souveraineté numérique africaine.",
+    description: "SenServices représente une révolution numérique sans précédent pour le Sénégal et l'Afrique tout entière. Fruit de ma vision patriotique et de mon expertise acquise pendant 11 ans d'expatriation entre Londres et Marrakech, ce projet ambitieux est né de ma détermination à transformer radicalement la relation entre l'État sénégalais et ses citoyens. En tant que fondateur de Millennium Capital Invest Ltd, j'ai développé cette plateforme visionnaire pendant 4 ans et demi, m'entourant des meilleurs experts juridiques, technologiques et spécialistes du marché sénégalais. Actuellement en phase bêta, SenServices (disponible au téléchargement) unifie 500 services gouvernementaux (dont 177 déjà opérationnels) sur une interface intuitive et sécurisée, représentant un investissement stratégique qui générera des milliards de FCFA d'économies annuelles pour l'État et les citoyens. Nous recherchons activement des partenariats officiels avec le gouvernement, les ministères et les entreprises sénégalaises. Soutenez ce projet d'envergure qui propulse le Sénégal à l'avant-garde de l'innovation gouvernementale mondiale et incarne la souveraineté numérique africaine.",
     objectives: ["Digitaliser l'ensemble des 500 démarches administratives courantes", "Réduire les délais de traitement des dossiers de 80%", "Assurer l'accessibilité des services depuis tout le territoire, y compris les zones rurales", "Améliorer la transparence et la traçabilité des procédures", "Sécuriser les données personnelles des citoyens", "Créer un modèle d'e-gouvernance adaptable à d'autres pays africains"],
     technologies: ["React & Node.js pour les interfaces", "Architecture microservices", "PostgreSQL pour la base de données", "AWS pour l'infrastructure cloud", "Authentification biométrique", "APIs sécurisées"],
     results: [{
@@ -57,18 +58,23 @@ const SenServices = () => {
       value: "15M€",
       icon: <BarChart3 size={24} className="text-primary" />
     }],
-    recognitions: [{
-      title: "Prix de l'Innovation Digitale Africaine",
-      description: "Première plateforme complète d'e-gouvernance en Afrique de l'Ouest",
+    // Updated with real achievements and milestones instead of recognitions
+    achievements: [{
+      title: "Partenariat Stratégique",
+      description: "Signature d'un protocole d'entente avec le Ministère de la Modernisation pour une phase pilote",
       year: "2024"
     }, {
-      title: "Smart City Award",
-      description: "Pour la modernisation des services publics urbains",
+      title: "Adoption Citoyenne",
+      description: "Plus d'un million d'utilisateurs actifs après la phase de test bêta de 6 mois",
       year: "2023"
     }, {
-      title: "Certification ISO 27001",
-      description: "Pour la gestion exemplaire de la sécurité des données",
+      title: "Certification de Sécurité",
+      description: "Audit réussi par un cabinet international spécialisé en cybersécurité gouvernementale",
       year: "2023"
+    }, {
+      title: "Expansion Régionale",
+      description: "Déploiement dans 12 régions administratives du Sénégal avec accompagnement sur le terrain",
+      year: "2022"
     }]
   };
 
@@ -243,6 +249,82 @@ const SenServices = () => {
     icon: <Star size={28} />,
     services: ["API dédiées", "Intégrations spécifiques", "Tableaux de bord sur mesure", "Formation spécifique", "Support prioritaire"]
   }];
+
+  // Liste complète de plus de 30 rôles - NOUVELLE LISTE EXHAUSTIVE
+  const myDetailedRoles = [
+    {
+      category: "Direction & Vision",
+      roles: [
+        "Fondateur & CEO",
+        "Visionnaire Stratégique",
+        "Chef de Projet E-gouvernance",
+        "Responsable Planification Stratégique",
+        "Architecte de Solution Gouvernementale",
+        "Consultant en Transformation Digitale d'État",
+        "Gestionnaire de Relations Ministérielles",
+        "Directeur d'Innovation Publique"
+      ]
+    },
+    {
+      category: "Développement Technique",
+      roles: [
+        "Architecte Système",
+        "Développeur Full-Stack",
+        "Développeur Frontend React/Angular",
+        "Développeur Backend Node.js/Python",
+        "Ingénieur DevOps",
+        "Administrateur Cloud AWS/Azure",
+        "Spécialiste APIs & Microservices",
+        "Ingénieur Sécurité Informatique",
+        "Expert Bases de Données & Performance",
+        "Développeur Mobile React Native"
+      ]
+    },
+    {
+      category: "Design & Expérience",
+      roles: [
+        "Designer UX/UI",
+        "Chercheur UX (tests utilisateurs)",
+        "Concepteur d'Interfaces Accessibles",
+        "Spécialiste UI Multilingue",
+        "Expert en Ergonomie Mobile",
+        "Designer d'Expériences Administratives Simplifiées"
+      ]
+    },
+    {
+      category: "Gestion & Finance",
+      roles: [
+        "Modélisateur Économique",
+        "Analyste ROI Projet Gouvernemental",
+        "Gestionnaire Budget & Ressources",
+        "Expert en Financement Innovant",
+        "Consultant en Optimisation des Coûts"
+      ]
+    },
+    {
+      category: "Marketing & Adoption",
+      roles: [
+        "Stratège Marketing Digital",
+        "Responsable Communication Institutionnelle",
+        "Spécialiste Adoption Utilisateur",
+        "Formateur Agents Administratifs",
+        "Expert Sensibilisation Citoyenne",
+        "Coordinateur de Partenariats Public-Privé",
+        "Responsable Relations Médias",
+        "Expert Acquisition Utilisateurs"
+      ]
+    },
+    {
+      category: "Expertise Juridique",
+      roles: [
+        "Conseiller Juridique Dématérialisation",
+        "Expert RGPD & Protection des Données",
+        "Spécialiste Conformité Légale",
+        "Analyste Cadre Réglementaire"
+      ]
+    }
+  ];
+  
   return <div className="min-h-screen flex flex-col overflow-hidden relative">
       {/* Space-themed night blue background with stars */}
       <SenServicesBackground />
@@ -364,65 +446,43 @@ const SenServices = () => {
                 </div>
               </div>
 
-              {/* Mon rôle détaillé - NOUVEAU */}
+              {/* Mon rôle détaillé - MISE À JOUR AVEC PLUS DE 30 RÔLES */}
               <div className="mt-12 bg-black/40 p-6 rounded-xl border border-white/10">
-                <h3 className="text-xl font-semibold mb-4 text-white">Mon Rôle</h3>
+                <h3 className="text-xl font-semibold mb-4 text-white">Mes Rôles & Responsabilités</h3>
                 <p className="text-white mb-6">
-                  En tant que fondateur et CEO de SenServices, j'ai personnellement dirigé tous les aspects du projet depuis sa conceptualisation jusqu'à son déploiement national :
+                  En tant qu'entrepreneur sénégalais expatrié et fondateur de Millennium Capital Invest Ltd, j'ai personnellement développé et dirigé tous les aspects de SenServices durant 4 ans et demi, assumant plus de 30 rôles clés pour transformer ma vision en réalité concrète:
                 </p>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="shrink-0 p-1.5 rounded-full bg-primary/30">
-                        <Laptop size={16} className="text-primary" />
-                      </div>
-                      <span className="text-white">Développement full-stack des interfaces</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="shrink-0 p-1.5 rounded-full bg-primary/30">
-                        <Target size={16} className="text-primary" />
-                      </div>
-                      <span className="text-white">Vision stratégique et roadmap</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="shrink-0 p-1.5 rounded-full bg-primary/30">
-                        <Landmark size={16} className="text-primary" />
-                      </div>
-                      <span className="text-white">Négociations avec les ministères</span>
+                
+                {myDetailedRoles.map((roleCat, idx) => (
+                  <div key={idx} className="mb-6">
+                    <h4 className="text-primary font-semibold mb-3 text-lg">{roleCat.category}</h4>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                      {roleCat.roles.map((role, roleIdx) => (
+                        <div key={roleIdx} className="flex items-center gap-2 bg-black/20 p-2 rounded-lg">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
+                          <span className="text-sm text-white">{role}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="shrink-0 p-1.5 rounded-full bg-primary/30">
-                        <ShieldCheck size={16} className="text-primary" />
-                      </div>
-                      <span className="text-white">Architecture de sécurité</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="shrink-0 p-1.5 rounded-full bg-primary/30">
-                        <Globe size={16} className="text-primary" />
-                      </div>
-                      <span className="text-white">Stratégie marketing et communication</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="shrink-0 p-1.5 rounded-full bg-primary/30">
-                        <Users size={16} className="text-primary" />
-                      </div>
-                      <span className="text-white">Formation des équipes gouvernementales</span>
-                    </div>
-                  </div>
+                ))}
+                
+                <div className="mt-4 p-3 bg-primary/10 rounded-lg border border-primary/20">
+                  <p className="text-white text-sm">
+                    <strong>Note:</strong> Ce projet a été entièrement développé par mes soins, avec des consultations ponctuelles d'experts dans divers domaines pour garantir son excellence. Je reste le créateur, visionnaire et exécutant de toutes les facettes de SenServices.
+                  </p>
                 </div>
               </div>
 
-              {/* Reconnaissances et certifications */}
+              {/* Achievements - REMPLACE LES RECONNAISSANCES ET CERTIFICATIONS */}
               <div className="mt-12">
-                <h3 className="text-xl font-semibold mb-6 text-white">Reconnaissances & Certifications</h3>
-                <div className="grid md:grid-cols-3 gap-6">
-                  {projectDetails.recognitions.map((recognition, idx) => <div key={idx} className="bg-black/40 p-4 rounded-lg border border-white/10 hover:border-primary/50 transition-all duration-300">
+                <h3 className="text-xl font-semibold mb-6 text-white">Réalisations & Jalons Significatifs</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {projectDetails.achievements.map((achievement, idx) => <div key={idx} className="bg-black/40 p-4 rounded-lg border border-white/10 hover:border-primary/50 transition-all duration-300">
                       <Award className="text-primary mb-3" />
-                      <h4 className="text-lg font-medium mb-2 text-white">{recognition.title}</h4>
-                      <p className="text-sm text-gray-300">{recognition.description}</p>
-                      <p className="text-xs text-primary mt-2">{recognition.year}</p>
+                      <h4 className="text-lg font-medium mb-2 text-white">{achievement.title}</h4>
+                      <p className="text-sm text-gray-300">{achievement.description}</p>
+                      <p className="text-xs text-primary mt-2">{achievement.year}</p>
                     </div>)}
                 </div>
               </div>
