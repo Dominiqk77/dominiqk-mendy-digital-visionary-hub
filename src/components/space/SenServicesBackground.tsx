@@ -127,61 +127,6 @@ const SenServicesBackground = () => {
 
     animate();
 
-    // Enhanced shooting stars
-    const createShootingStar = () => {
-      const x = Math.random() * canvas.width;
-      const y = 0;
-      const length = Math.random() * 150 + 100; // Longer shooting stars
-      const angle = Math.PI / 4 + Math.random() * Math.PI / 4;
-      const speed = Math.random() * 20 + 10; // Faster shooting stars
-      
-      const draw = () => {
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        const tailX = x + Math.cos(angle) * length;
-        const tailY = y + Math.sin(angle) * length;
-        ctx.lineTo(tailX, tailY);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-        
-        // Enhanced glow effect with gradient
-        const gradient = ctx.createLinearGradient(x, y, tailX, tailY);
-        gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
-        gradient.addColorStop(0.3, 'rgba(200, 220, 255, 0.6)');
-        gradient.addColorStop(1, 'rgba(180, 210, 255, 0)');
-        
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.lineTo(tailX, tailY);
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = 5;
-        ctx.stroke();
-      };
-      
-      let currentX = x;
-      let currentY = y;
-      
-      const animate = () => {
-        currentX += Math.cos(angle) * speed;
-        currentY += Math.sin(angle) * speed;
-        
-        if (currentX < canvas.width && currentY < canvas.height) {
-          draw();
-          requestAnimationFrame(animate);
-        }
-      };
-      
-      animate();
-    };
-    
-    // Create shooting stars more frequently
-    const shootingStarInterval = setInterval(() => {
-      if (Math.random() > 0.6) { // Increased frequency (40% chance)
-        createShootingStar();
-      }
-    }, 1500);
-
     // Handle window resize
     const handleResize = () => {
       canvas.width = window.innerWidth;
@@ -193,7 +138,6 @@ const SenServicesBackground = () => {
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-      clearInterval(shootingStarInterval);
     };
   }, []);
 
