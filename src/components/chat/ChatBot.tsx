@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Bot, Send, MessageSquare, X, CalendarClock, FileUp } from 'lucide-react';
+import { Bot, Send, MessageSquare, X, CalendarClock, FileUp, Key } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
@@ -10,7 +10,8 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter
+  DialogFooter,
+  DialogDescription
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
@@ -20,6 +21,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 type Message = {
   id: string;
@@ -65,11 +67,23 @@ const ChatBot = () => {
   const [isDocumentDialogOpen, setIsDocumentDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isConversationHistoryOpen, setIsConversationHistoryOpen] = useState(false);
+  const [openAIKey, setOpenAIKey] = useState<string>('');
+  const [isAPIKeyDialogOpen, setIsAPIKeyDialogOpen] = useState(false);
+  const [useOpenAI, setUseOpenAI] = useState<boolean>(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+
+  // Check for saved API key on mount
+  useEffect(() => {
+    const savedKey = localStorage.getItem('openai_api_key');
+    if (savedKey) {
+      setOpenAIKey(savedKey);
+      setUseOpenAI(true);
+    }
+  }, []);
 
   // Initialize new conversation or load existing one
   useEffect(() => {
@@ -161,6 +175,41 @@ const ChatBot = () => {
     }
   }, [isOpen]);
 
+  // Handle API Key save
+  const handleSaveAPIKey = () => {
+    if (!openAIKey.trim()) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez entrer une clé API valide",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('openai_api_key', openAIKey);
+    setUseOpenAI(true);
+    setIsAPIKeyDialogOpen(false);
+    
+    toast({
+      title: "Succès",
+      description: "Clé API OpenAI enregistrée avec succès",
+    });
+  };
+
+  // Handle clearing API Key
+  const handleClearAPIKey = () => {
+    localStorage.removeItem('openai_api_key');
+    setOpenAIKey('');
+    setUseOpenAI(false);
+    setIsAPIKeyDialogOpen(false);
+    
+    toast({
+      title: "Succès",
+      description: "Clé API OpenAI supprimée avec succès",
+    });
+  };
+
   // Handle sending a message
   const handleSendMessage = async () => {
     if (!input.trim()) return;
@@ -180,22 +229,27 @@ const ChatBot = () => {
     setIsTyping(true);
 
     try {
-      // Simulate API call with timeout
-      setTimeout(async () => {
-        const response = await generateResponse(input);
-        
-        // Add bot message
-        const botMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          content: response,
-          sender: 'bot',
-          timestamp: new Date(),
-          type: 'text'
-        };
-        
-        setMessages(prev => [...prev, botMessage]);
-        setIsTyping(false);
-      }, 1000);
+      // Generate response using OpenAI if API key is set, otherwise use local fallback
+      let response = '';
+      
+      if (useOpenAI && openAIKey) {
+        response = await generateOpenAIResponse(input, messages);
+      } else {
+        // Use local fallback
+        response = await generateLocalResponse(input);
+      }
+      
+      // Add bot message
+      const botMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: response,
+        sender: 'bot',
+        timestamp: new Date(),
+        type: 'text'
+      };
+      
+      setMessages(prev => [...prev, botMessage]);
+      setIsTyping(false);
     } catch (error) {
       console.error('Error generating response:', error);
       setIsTyping(false);
@@ -210,6 +264,79 @@ const ChatBot = () => {
       };
       
       setMessages(prev => [...prev, errorMessage]);
+    }
+  };
+
+  // Generate response with OpenAI API
+  const generateOpenAIResponse = async (userMessage: string, messageHistory: Message[]): Promise<string> => {
+    try {
+      // Convert messages history to OpenAI format
+      const formattedMessages = messageHistory
+        .slice(-10) // Only include last 10 messages to avoid token limits
+        .map(msg => ({
+          role: msg.sender === 'user' ? 'user' : 'assistant',
+          content: msg.content
+        }));
+      
+      // Add system message
+      formattedMessages.unshift({
+        role: 'system',
+        content: `Tu es l'assistant virtuel de Dominiqk Mendy, un expert en innovation numérique, IA, développement web, et marketing digital.
+          Tu dois être professionnel, précis, courtois mais concis dans tes réponses.
+          Tu dois parler à la première personne comme si tu représentais Dominiqk Mendy et son entreprise.
+          Ton objectif principal est de convertir les visiteurs en clients en proposant des rendez-vous téléphoniques ou des consultations.
+          Tu dois toujours essayer de conclure la conversation par une proposition commerciale ou un rendez-vous.
+          Information sur SenServices: C'est une plateforme nationale en cours de développement (90% terminé), prévue pour février 2025,
+          visant à révolutionner les services digitaux au Sénégal. Ce projet est à la recherche de partenaires gouvernementaux et privés.
+          Tu es expert en transformation digitale et solutions technologiques pour le Sénégal et l'Afrique.`
+      });
+      
+      // Add current message
+      formattedMessages.push({
+        role: 'user',
+        content: userMessage
+      });
+      
+      // Call OpenAI API
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${openAIKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'gpt-3.5-turbo',
+          messages: formattedMessages,
+          temperature: 0.7,
+          max_tokens: 300
+        })
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('OpenAI API error:', errorData);
+        
+        // If API key is invalid, clear it and switch to local mode
+        if (response.status === 401) {
+          localStorage.removeItem('openai_api_key');
+          setUseOpenAI(false);
+          toast({
+            title: "Erreur d'API",
+            description: "Clé API OpenAI invalide. Mode local activé.",
+            variant: "destructive",
+          });
+          return generateLocalResponse(userMessage);
+        }
+        
+        throw new Error(`API error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.choices[0].message.content;
+    } catch (error) {
+      console.error('Error calling OpenAI:', error);
+      // Fallback to local response if OpenAI fails
+      return generateLocalResponse(userMessage);
     }
   };
 
@@ -377,6 +504,15 @@ const ChatBot = () => {
                 variant="ghost" 
                 size="icon"
                 className="text-white hover:bg-white/20 mr-1"
+                onClick={() => setIsAPIKeyDialogOpen(true)}
+                title="Paramètres API"
+              >
+                <Key size={16} />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className="text-white hover:bg-white/20 mr-1"
                 onClick={() => setIsConversationHistoryOpen(true)}
                 title="Historique des conversations"
               >
@@ -392,6 +528,19 @@ const ChatBot = () => {
               </Button>
             </div>
           </div>
+
+          {/* API status indicator */}
+          {useOpenAI ? (
+            <div className="bg-green-500/10 border-b border-green-500/20 py-1 px-3 text-xs flex items-center">
+              <div className="w-2 h-2 rounded-full bg-green-500 mr-2"></div>
+              <span className="text-green-500">Mode OpenAI activé</span>
+            </div>
+          ) : (
+            <div className="bg-amber-500/10 border-b border-amber-500/20 py-1 px-3 text-xs flex items-center">
+              <div className="w-2 h-2 rounded-full bg-amber-500 mr-2"></div>
+              <span className="text-amber-500">Mode local (limité)</span>
+            </div>
+          )}
 
           {/* Messages area */}
           <div className="flex-1 p-3 overflow-y-auto bg-gradient-to-b from-gray-900/50 to-black/70 backdrop-blur-sm">
@@ -492,6 +641,64 @@ const ChatBot = () => {
               </Button>
             </div>
           </div>
+
+          {/* API Key Dialog */}
+          <Dialog open={isAPIKeyDialogOpen} onOpenChange={setIsAPIKeyDialogOpen}>
+            <DialogContent className="sm:max-w-[425px] bg-background text-foreground">
+              <DialogHeader>
+                <DialogTitle>Paramètres OpenAI API</DialogTitle>
+                <DialogDescription>
+                  Connectez une clé API OpenAI pour rendre le chatbot plus intelligent.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                {useOpenAI && (
+                  <Alert className="bg-green-500/10 border-green-500/20">
+                    <AlertDescription className="text-green-500">
+                      Mode OpenAI activé. Le chatbot utilisera l'API pour générer des réponses.
+                    </AlertDescription>
+                  </Alert>
+                )}
+                <div className="grid gap-2">
+                  <Label htmlFor="apikey">Clé API OpenAI</Label>
+                  <Input
+                    id="apikey"
+                    type="password"
+                    placeholder="sk-..."
+                    value={openAIKey}
+                    onChange={(e) => setOpenAIKey(e.target.value)}
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Votre clé API est stockée localement et n'est jamais partagée.
+                  </p>
+                </div>
+              </div>
+              <DialogFooter className="flex flex-col sm:flex-row gap-2">
+                {useOpenAI && (
+                  <Button 
+                    variant="outline" 
+                    className="w-full sm:w-auto border-red-500 text-red-500 hover:bg-red-500/10"
+                    onClick={handleClearAPIKey}
+                  >
+                    Supprimer la clé
+                  </Button>
+                )}
+                <Button 
+                  variant="outline" 
+                  className="w-full sm:w-auto"
+                  onClick={() => setIsAPIKeyDialogOpen(false)}
+                >
+                  Annuler
+                </Button>
+                <Button 
+                  className="w-full sm:w-auto"
+                  onClick={handleSaveAPIKey}
+                >
+                  Enregistrer
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
 
           {/* Appointment Dialog */}
           <Dialog open={isAppointmentDialogOpen} onOpenChange={setIsAppointmentDialogOpen}>
@@ -647,9 +854,8 @@ const ChatBot = () => {
   );
 };
 
-// This function will generate responses based on user input
-// In a real implementation, this would call an API endpoint
-const generateResponse = async (userMessage: string): Promise<string> => {
+// Local response generator as fallback when OpenAI is not available
+const generateLocalResponse = async (userMessage: string): Promise<string> => {
   const message = userMessage.toLowerCase();
   
   // Simple response logic - in a real implementation, this would call GPT or another AI service
