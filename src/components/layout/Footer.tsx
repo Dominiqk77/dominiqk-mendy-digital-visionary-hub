@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -158,6 +157,27 @@ const TechNodes = () => {
   );
 };
 
+// Animated gradient logo component
+const AnimatedGradientLogo = () => {
+  return (
+    <div className="flex flex-col items-center mb-4">
+      <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan bg-[length:200%_auto] animate-gradient-slow bg-clip-text text-transparent">
+        Dominiqk Mendy
+      </h3>
+      <div className="h-1 w-24 bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan mt-2"></div>
+    </div>
+  );
+};
+
+// QK Initials Logo
+const QKLogo = () => {
+  return (
+    <div className="w-12 h-12 mr-3 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan bg-[length:200%_auto] animate-gradient-slow">
+      <span className="text-white font-bold text-xl">QK</span>
+    </div>
+  );
+};
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
@@ -173,21 +193,9 @@ const Footer = () => {
           {/* About Section with Logo */}
           <div>
             <div className="flex items-center mb-4">
-              <div className="relative w-12 h-12 mr-3">
-                <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full opacity-60 blur-md animate-pulse-slow"></div>
-                <div className="relative w-full h-full rounded-full overflow-hidden">
-                  <AspectRatio ratio={1/1} className="w-full h-full">
-                    <img 
-                      src="/lovable-uploads/60c23356-ad17-4782-854f-87572465f4f9.png" 
-                      alt="QK Logo" 
-                      className="w-full h-full object-contain"
-                    />
-                  </AspectRatio>
-                </div>
-              </div>
-              <h3 className="text-xl font-bold animate-gradient-slow">Dominiqk Mendy</h3>
+              <QKLogo />
+              <AnimatedGradientLogo />
             </div>
-            <div className="h-1 w-16 bg-gradient-primary mb-6"></div>
             <p className="mb-6 text-gray-300">
               Expert en innovation numérique et marketing digital, transformant les visions en réalité numérique pour propulser votre entreprise vers une croissance sans précédent.
             </p>
