@@ -159,12 +159,13 @@ const AnimatedGradientLogo = () => {
     </div>;
 };
 
-// QK Initials Logo
+// QK Initials Logo with text gradient
 const QKLogo = () => {
   return <div className="w-12 h-12 mr-3 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan bg-[length:200%_auto] animate-gradient-slow">
-      
+      <span className="text-xl font-bold text-white">QK</span>
     </div>;
 };
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return <footer className="bg-gray-900 text-white pt-16 pb-8 relative overflow-hidden">
@@ -177,10 +178,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About Section with Logo */}
           <div>
-            <div className="flex items-center mb-4">
-              <QKLogo />
-              <AnimatedGradientLogo />
-            </div>
+            <AnimatedGradientLogo />
             <p className="mb-6 text-gray-300">
               Expert en innovation numérique et marketing digital, transformant les visions en réalité numérique pour propulser votre entreprise vers une croissance sans précédent.
             </p>
