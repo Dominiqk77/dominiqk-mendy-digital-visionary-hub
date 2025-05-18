@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Bot, Send, MessageSquare, X, CalendarClock, FileUp, Key } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -22,6 +21,7 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import SpaceBackground from "../space/SpaceBackground";
 
 type Message = {
   id: string;
@@ -484,7 +484,7 @@ const ChatBot = () => {
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-lg z-50 space-button text-white p-0"
+          className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-lg z-50 bg-gradient-to-br from-purple-500/90 to-blue-500/90 hover:from-purple-600/90 hover:to-blue-600/90 text-white p-0 animate-pulse-glow"
         >
           <MessageSquare size={24} />
         </Button>
@@ -492,11 +492,11 @@ const ChatBot = () => {
 
       {/* Chat window */}
       {isOpen && (
-        <Card className="fixed bottom-6 right-6 w-80 sm:w-96 h-[500px] max-h-[80vh] flex flex-col rounded-lg shadow-xl z-50 border-gradient border-gradient-light overflow-hidden">
+        <Card className="fixed bottom-6 right-6 w-80 sm:w-96 h-[500px] max-h-[80vh] flex flex-col rounded-xl shadow-2xl z-50 overflow-hidden neo-blur border border-white/10">
           {/* Chat header */}
-          <div className="bg-gradient-primary p-3 flex items-center justify-between">
+          <div className="relative bg-gradient-to-r from-purple-500/80 to-blue-500/80 p-3 flex items-center justify-between backdrop-blur-md">
             <div className="flex items-center">
-              <Bot className="text-white mr-2" size={20} />
+              <Bot className="text-white mr-2 animate-pulse-slow" size={20} />
               <h3 className="text-white font-medium">Assistant de Dominiqk</h3>
             </div>
             <div className="flex">
@@ -531,78 +531,81 @@ const ChatBot = () => {
 
           {/* API status indicator */}
           {useOpenAI ? (
-            <div className="bg-green-500/10 border-b border-green-500/20 py-1 px-3 text-xs flex items-center">
-              <div className="w-2 h-2 rounded-full bg-green-500 mr-2"></div>
+            <div className="bg-green-500/10 border-b border-green-500/20 py-1 px-3 text-xs flex items-center backdrop-blur-md">
+              <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
               <span className="text-green-500">Mode OpenAI activé</span>
             </div>
           ) : (
-            <div className="bg-amber-500/10 border-b border-amber-500/20 py-1 px-3 text-xs flex items-center">
+            <div className="bg-amber-500/10 border-b border-amber-500/20 py-1 px-3 text-xs flex items-center backdrop-blur-md">
               <div className="w-2 h-2 rounded-full bg-amber-500 mr-2"></div>
               <span className="text-amber-500">Mode local (limité)</span>
             </div>
           )}
 
           {/* Messages area */}
-          <div className="flex-1 p-3 overflow-y-auto bg-gradient-to-b from-gray-900/50 to-black/70 backdrop-blur-sm">
-            {messages.map((message) => (
-              <div 
-                key={message.id}
-                className={`mb-3 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
+          <div className="relative flex-1 p-3 overflow-y-auto">
+            <SpaceBackground />
+            <div className="relative z-10">
+              {messages.map((message) => (
                 <div 
-                  className={`max-w-[80%] p-3 rounded-lg ${
-                    message.sender === 'user' 
-                      ? 'bg-primary text-white rounded-br-none' 
-                      : 'bg-secondary/10 border border-gray-700 rounded-bl-none'
-                  }`}
+                  key={message.id}
+                  className={`mb-3 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  {message.type === 'appointment' && message.metadata?.appointmentDate ? (
-                    <div>
-                      <div className="font-medium">Demande de rendez-vous</div>
-                      <div className="text-sm">
-                        Date: {format(new Date(message.metadata.appointmentDate), 'dd/MM/yyyy', { locale: fr })}
+                  <div 
+                    className={`max-w-[80%] p-3 rounded-xl ${
+                      message.sender === 'user' 
+                        ? 'bg-gradient-to-br from-purple-500/70 to-blue-500/70 text-white backdrop-blur-md border border-white/10' 
+                        : 'bg-white/10 backdrop-blur-lg border border-white/20'
+                    }`}
+                  >
+                    {message.type === 'appointment' && message.metadata?.appointmentDate ? (
+                      <div>
+                        <div className="font-medium">Demande de rendez-vous</div>
+                        <div className="text-sm">
+                          Date: {format(new Date(message.metadata.appointmentDate), 'dd/MM/yyyy', { locale: fr })}
+                        </div>
+                        <div className="text-sm">
+                          Heure: {message.metadata.appointmentTime}
+                        </div>
                       </div>
-                      <div className="text-sm">
-                        Heure: {message.metadata.appointmentTime}
+                    ) : message.type === 'document' ? (
+                      <div>
+                        <div className="font-medium">Document envoyé</div>
+                        <div className="text-sm">
+                          Nom: {message.metadata?.documentName}
+                        </div>
+                        <div className="text-sm">
+                          Taille: {message.metadata?.documentSize}
+                        </div>
                       </div>
-                    </div>
-                  ) : message.type === 'document' ? (
-                    <div>
-                      <div className="font-medium">Document envoyé</div>
-                      <div className="text-sm">
-                        Nom: {message.metadata?.documentName}
-                      </div>
-                      <div className="text-sm">
-                        Taille: {message.metadata?.documentSize}
-                      </div>
-                    </div>
-                  ) : (
-                    message.content
-                  )}
-                </div>
-              </div>
-            ))}
-
-            {isTyping && (
-              <div className="flex mb-3">
-                <div className="bg-secondary/10 border border-gray-700 p-3 rounded-lg rounded-bl-none max-w-[80%]">
-                  <div className="flex space-x-2">
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                    ) : (
+                      message.content
+                    )}
                   </div>
                 </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
+              ))}
+
+              {isTyping && (
+                <div className="flex mb-3">
+                  <div className="bg-white/10 backdrop-blur-lg border border-white/20 p-3 rounded-xl max-w-[80%]">
+                    <div className="flex space-x-2">
+                      <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
+                      <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 rounded-full bg-pink-400 animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
           </div>
 
           {/* Action buttons area */}
-          <div className="px-3 py-1 flex justify-center space-x-2 border-t border-gray-700 bg-black/30">
+          <div className="px-3 py-2 flex justify-center space-x-2 border-t border-white/10 bg-black/30 backdrop-blur-md">
             <Button
               variant="outline"
               size="sm"
-              className="text-xs border-gray-700 hover:bg-gray-800"
+              className="text-xs border-white/20 bg-white/5 hover:bg-white/10 text-white"
               onClick={() => setIsAppointmentDialogOpen(true)}
             >
               <CalendarClock className="h-4 w-4 mr-1" />
@@ -611,7 +614,7 @@ const ChatBot = () => {
             <Button
               variant="outline"
               size="sm"
-              className="text-xs border-gray-700 hover:bg-gray-800"
+              className="text-xs border-white/20 bg-white/5 hover:bg-white/10 text-white"
               onClick={() => setIsDocumentDialogOpen(true)}
             >
               <FileUp className="h-4 w-4 mr-1" />
@@ -620,7 +623,7 @@ const ChatBot = () => {
           </div>
 
           {/* Input area */}
-          <div className="p-3 border-t border-gray-700 bg-black/50">
+          <div className="p-3 border-t border-white/10 bg-black/50 backdrop-blur-md">
             <div className="flex">
               <Textarea
                 ref={inputRef}
@@ -628,13 +631,13 @@ const ChatBot = () => {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
                 placeholder="Posez votre question..."
-                className="resize-none bg-background border-gray-700 focus:border-primary"
+                className="resize-none bg-white/5 border-white/20 focus:border-purple-400 text-white placeholder:text-gray-400"
                 rows={1}
               />
               <Button 
                 onClick={handleSendMessage}
                 disabled={isTyping || !input.trim()}
-                className="ml-2 space-button text-white"
+                className="ml-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white"
                 size="icon"
               >
                 <Send size={18} />
@@ -644,10 +647,10 @@ const ChatBot = () => {
 
           {/* API Key Dialog */}
           <Dialog open={isAPIKeyDialogOpen} onOpenChange={setIsAPIKeyDialogOpen}>
-            <DialogContent className="sm:max-w-[425px] bg-background text-foreground">
+            <DialogContent className="sm:max-w-[425px] bg-black/80 backdrop-blur-xl border border-white/20 text-white">
               <DialogHeader>
                 <DialogTitle>Paramètres OpenAI API</DialogTitle>
-                <DialogDescription>
+                <DialogDescription className="text-gray-400">
                   Connectez une clé API OpenAI pour rendre le chatbot plus intelligent.
                 </DialogDescription>
               </DialogHeader>
@@ -660,15 +663,16 @@ const ChatBot = () => {
                   </Alert>
                 )}
                 <div className="grid gap-2">
-                  <Label htmlFor="apikey">Clé API OpenAI</Label>
+                  <Label htmlFor="apikey" className="text-white">Clé API OpenAI</Label>
                   <Input
                     id="apikey"
                     type="password"
                     placeholder="sk-..."
                     value={openAIKey}
                     onChange={(e) => setOpenAIKey(e.target.value)}
+                    className="bg-white/10 border-white/20 text-white"
                   />
-                  <p className="text-xs text-muted-foreground mt-1">
+                  <p className="text-xs text-gray-400 mt-1">
                     Votre clé API est stockée localement et n'est jamais partagée.
                   </p>
                 </div>
@@ -677,7 +681,7 @@ const ChatBot = () => {
                 {useOpenAI && (
                   <Button 
                     variant="outline" 
-                    className="w-full sm:w-auto border-red-500 text-red-500 hover:bg-red-500/10"
+                    className="w-full sm:w-auto border-red-500/50 text-red-500 hover:bg-red-500/10"
                     onClick={handleClearAPIKey}
                   >
                     Supprimer la clé
@@ -685,13 +689,13 @@ const ChatBot = () => {
                 )}
                 <Button 
                   variant="outline" 
-                  className="w-full sm:w-auto"
+                  className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10"
                   onClick={() => setIsAPIKeyDialogOpen(false)}
                 >
                   Annuler
                 </Button>
                 <Button 
-                  className="w-full sm:w-auto"
+                  className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white"
                   onClick={handleSaveAPIKey}
                 >
                   Enregistrer
@@ -702,19 +706,19 @@ const ChatBot = () => {
 
           {/* Appointment Dialog */}
           <Dialog open={isAppointmentDialogOpen} onOpenChange={setIsAppointmentDialogOpen}>
-            <DialogContent className="sm:max-w-[425px] bg-background text-foreground">
+            <DialogContent className="sm:max-w-[425px] bg-black/80 backdrop-blur-xl border border-white/20 text-white">
               <DialogHeader>
                 <DialogTitle>Prendre un rendez-vous</DialogTitle>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="date">Date du rendez-vous</Label>
+                  <Label htmlFor="date" className="text-white">Date du rendez-vous</Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
-                        className={`w-full justify-start text-left font-normal ${
-                          appointmentDate ? "" : "text-muted-foreground"
+                        className={`w-full justify-start text-left font-normal bg-white/10 border-white/20 text-white ${
+                          appointmentDate ? "" : "text-gray-400"
                         }`}
                       >
                         {appointmentDate ? (
@@ -724,24 +728,25 @@ const ChatBot = () => {
                         )}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
+                    <PopoverContent className="w-auto p-0 bg-black/90 border border-white/20" align="start">
                       <Calendar
                         mode="single"
                         selected={appointmentDate}
                         onSelect={setAppointmentDate}
                         initialFocus
                         disabled={(date) => date < new Date()}
+                        className="bg-transparent"
                       />
                     </PopoverContent>
                   </Popover>
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="time">Heure du rendez-vous</Label>
+                  <Label htmlFor="time" className="text-white">Heure du rendez-vous</Label>
                   <select
                     id="time"
                     value={appointmentTime}
                     onChange={(e) => setAppointmentTime(e.target.value)}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    className="flex h-10 w-full rounded-md border bg-white/10 border-white/20 px-3 py-2 text-sm text-white"
                   >
                     <option value="">Sélectionner une heure</option>
                     <option value="09:00">09:00</option>
@@ -758,10 +763,14 @@ const ChatBot = () => {
                 <Button 
                   variant="outline" 
                   onClick={() => setIsAppointmentDialogOpen(false)}
+                  className="border-white/20 text-white hover:bg-white/10"
                 >
                   Annuler
                 </Button>
-                <Button onClick={handleScheduleAppointment}>
+                <Button 
+                  onClick={handleScheduleAppointment}
+                  className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white"
+                >
                   Confirmer
                 </Button>
               </DialogFooter>
@@ -770,18 +779,18 @@ const ChatBot = () => {
 
           {/* Document Upload Dialog */}
           <Dialog open={isDocumentDialogOpen} onOpenChange={setIsDocumentDialogOpen}>
-            <DialogContent className="sm:max-w-[425px] bg-background text-foreground">
+            <DialogContent className="sm:max-w-[425px] bg-black/80 backdrop-blur-xl border border-white/20 text-white">
               <DialogHeader>
                 <DialogTitle>Envoyer un document</DialogTitle>
               </DialogHeader>
               <div className="grid gap-4 py-4">
-                <Label htmlFor="file">Sélectionner un fichier</Label>
+                <Label htmlFor="file" className="text-white">Sélectionner un fichier</Label>
                 <Input
                   ref={fileInputRef}
                   id="file"
                   type="file"
                   onChange={handleFileSelect}
-                  className="cursor-pointer"
+                  className="cursor-pointer bg-white/10 border-white/20 text-white"
                 />
                 {selectedFile && (
                   <div className="text-sm">
@@ -797,10 +806,15 @@ const ChatBot = () => {
                     setIsDocumentDialogOpen(false);
                     setSelectedFile(null);
                   }}
+                  className="border-white/20 text-white hover:bg-white/10"
                 >
                   Annuler
                 </Button>
-                <Button onClick={handleDocumentUpload} disabled={!selectedFile}>
+                <Button 
+                  onClick={handleDocumentUpload} 
+                  disabled={!selectedFile}
+                  className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white"
+                >
                   Envoyer
                 </Button>
               </DialogFooter>
@@ -809,7 +823,7 @@ const ChatBot = () => {
 
           {/* Conversation History Dialog */}
           <Dialog open={isConversationHistoryOpen} onOpenChange={setIsConversationHistoryOpen}>
-            <DialogContent className="sm:max-w-[425px] bg-background text-foreground">
+            <DialogContent className="sm:max-w-[425px] bg-black/80 backdrop-blur-xl border border-white/20 text-white">
               <DialogHeader>
                 <DialogTitle>Historique des conversations</DialogTitle>
               </DialogHeader>
@@ -822,14 +836,18 @@ const ChatBot = () => {
                         <Button
                           key={conversation.id}
                           variant={conversation.id === currentConversationId ? "secondary" : "outline"}
-                          className="w-full justify-start text-left"
+                          className={`w-full justify-start text-left ${
+                            conversation.id === currentConversationId 
+                              ? "bg-white/20" 
+                              : "bg-white/5 border-white/20 text-white hover:bg-white/10"
+                          }`}
                           onClick={() => switchConversation(conversation.id)}
                         >
                           <div className="truncate w-full">
                             <div className="font-medium">
                               Conversation du {formatConversationDate(conversation.startedAt)}
                             </div>
-                            <div className="text-xs text-muted-foreground truncate">
+                            <div className="text-xs text-gray-400 truncate">
                               {conversation.messages.length} messages
                             </div>
                           </div>
@@ -838,11 +856,14 @@ const ChatBot = () => {
                     }
                   </div>
                 ) : (
-                  <p className="text-center text-muted-foreground">Aucune conversation trouvée</p>
+                  <p className="text-center text-gray-400">Aucune conversation trouvée</p>
                 )}
               </div>
               <DialogFooter>
-                <Button onClick={startNewConversation}>
+                <Button 
+                  onClick={startNewConversation}
+                  className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white"
+                >
                   Nouvelle conversation
                 </Button>
               </DialogFooter>
