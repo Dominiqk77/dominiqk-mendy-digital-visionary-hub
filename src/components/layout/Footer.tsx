@@ -149,9 +149,9 @@ const TechNodes = () => {
     </div>;
 };
 
-// Animated gradient logo component
+// Animated gradient logo component - modified to align left
 const AnimatedGradientLogo = () => {
-  return <div className="flex flex-col items-center mb-4">
+  return <div className="flex flex-col items-start mb-4">
       <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan bg-[length:200%_auto] animate-gradient-slow bg-clip-text text-transparent">
         Dominiqk Mendy
       </h3>
