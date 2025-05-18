@@ -110,13 +110,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
           <div className="flex-shrink-0">
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="relative group w-14 h-14 md:w-16 md:h-16 transition-all duration-300 hover:scale-105">
-                <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full opacity-60 group-hover:opacity-80 blur-md animate-pulse-slow"></div>
-                <div className="relative w-full h-full rounded-full overflow-hidden flex items-center justify-center">
-                  <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan bg-[length:200%_auto] animate-gradient-slow bg-clip-text text-transparent">QK</span>
-                </div>
-              </div>
+            <Link to="/" className="flex items-center">
               <span className="text-lg md:text-xl font-bold tracking-tight bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan bg-[length:200%_auto] animate-gradient-slow bg-clip-text text-transparent">
                 Dominiqk Mendy
               </span>
@@ -175,11 +169,8 @@ const Navbar = () => {
               <DrawerContent className="max-h-[85vh] bg-gradient-to-b from-portfolio-darkblue/95 to-black/90 backdrop-blur-lg border-t border-portfolio-purple/20">
                 <div className="p-4">
                   <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center space-x-3">
-                      <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                        <img src="/lovable-uploads/60c23356-ad17-4782-854f-87572465f4f9.png" alt="QK Logo" className="w-full h-full object-cover" />
-                      </div>
-                      <span className="text-lg font-bold text-white">Dominiqk Mendy</span>
+                    <div className="flex items-center">
+                      <span className="text-lg font-bold bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan bg-[length:200%_auto] animate-gradient-slow bg-clip-text text-transparent">Dominiqk Mendy</span>
                     </div>
                     <button onClick={() => setIsOpen(false)} className="p-1.5 rounded-full bg-portfolio-purple/20 text-white">
                       <X className="h-4 w-4" />
