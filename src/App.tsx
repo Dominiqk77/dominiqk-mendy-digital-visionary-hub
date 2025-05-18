@@ -22,6 +22,10 @@ import AITrainingPage from "./pages/services/AITrainingPage";
 import EGovernance from "./pages/services/EGovernance";
 import SenServices from "./pages/projects/SenServices";
 import ChatBot from "./components/chat/ChatBot";
+import AboutPage from "./pages/About";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import LegalNotices from "./pages/LegalNotices";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +51,10 @@ const App = () => (
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/start-project" element={<StartProject />} />
         <Route path="/projects/senservices" element={<SenServices />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/legal-notices" element={<LegalNotices />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

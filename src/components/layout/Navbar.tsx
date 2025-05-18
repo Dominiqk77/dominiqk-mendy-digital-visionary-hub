@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -44,7 +45,12 @@ const Navbar = () => {
     {
       name: 'Accueil',
       href: '/'
-    }, {
+    }, 
+    {
+      name: 'À propos',
+      href: '/about'
+    },
+    {
       name: 'Services',
       href: '/services',
       dropdown: true,
