@@ -12,6 +12,7 @@ import Stats from '../components/home/Stats';
 import Testimonials from '../components/home/Testimonials';
 import CTASection from '../components/home/CTASection';
 import Certifications from '../components/home/Certifications';
+import { Toaster } from "@/components/ui/toaster";
 
 const Index = () => {
   const location = useLocation();
@@ -110,6 +111,9 @@ const Index = () => {
       
       {/* Ensure the footer is consistent across all pages */}
       <Footer />
+      
+      {/* Toast notifications for testimonial submission */}
+      <Toaster />
     </div>
   );
 };
