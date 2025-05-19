@@ -227,8 +227,9 @@ const MarketingServices = () => {
       description: "Optimisation multi-canaux pour améliorer votre visibilité sur les moteurs de recherche et réseaux sociaux, avec une stratégie adaptée au contexte africain et international.",
       features: ["Audit SEO complet et technique", "Optimisation on-page et off-page", "Stratégie de contenu SEO", "Campagnes Google Ads optimisées"],
       valueProposition: "ROI mesurable et croissance organique durable",
-      color: "from-indigo-600/80 to-blue-500/80",
-      category: "acquisition"
+      color: "from-indigo-600 to-blue-500",
+      category: "acquisition",
+      bgColor: "bg-gradient-to-br from-indigo-600/20 via-blue-500/15 to-indigo-700/10"
     },
     {
       icon: <Rocket size={40} />,
@@ -236,8 +237,9 @@ const MarketingServices = () => {
       description: "Stratégies innovantes pour accélérer votre croissance avec un budget optimisé et des résultats rapides. Techniques d'acquisition disruptives adaptées à votre marché.",
       features: ["Tests A/B multicanaux", "Optimisation des conversions", "Automatisation marketing", "Stratégies de viralité"],
       valueProposition: "Croissance accélérée et optimisation des coûts d'acquisition",
-      color: "from-purple-600/80 to-pink-500/80",
-      category: "acquisition"
+      color: "from-purple-600 to-pink-500",
+      category: "acquisition",
+      bgColor: "bg-gradient-to-br from-purple-600/20 via-pink-500/15 to-purple-700/10"
     },
     {
       icon: <Share2 size={40} />,
@@ -245,8 +247,9 @@ const MarketingServices = () => {
       description: "Gestion professionnelle de vos réseaux sociaux et campagnes publicitaires pour maximiser votre engagement et toucher vos audiences cibles, en français et en anglais.",
       features: ["Création de contenus engageants", "Community management multilingue", "Campagnes Facebook & Instagram Ads", "Stratégie organique et payante"],
       valueProposition: "Communauté engagée et image de marque renforcée",
-      color: "from-blue-500/80 to-cyan-400/80",
-      category: "social"
+      color: "from-blue-500 to-cyan-400",
+      category: "social",
+      bgColor: "bg-gradient-to-br from-blue-500/20 via-cyan-400/15 to-blue-600/10"
     },
     {
       icon: <Zap size={40} />,
@@ -254,8 +257,9 @@ const MarketingServices = () => {
       description: "Création de parcours d'achat stratégiques pour convertir vos visiteurs en clients fidèles. Optimisation continue basée sur les données pour améliorer vos taux de conversion.",
       features: ["Architecture de conversion", "Pages de vente optimisées", "Emailings de nurturing", "Systèmes de relance automatisés"],
       valueProposition: "Taux de conversion doublés et revenus multipliés",
-      color: "from-green-500/80 to-emerald-400/80",
-      category: "acquisition"
+      color: "from-green-500 to-emerald-400",
+      category: "acquisition",
+      bgColor: "bg-gradient-to-br from-green-500/20 via-emerald-400/15 to-green-600/10"
     },
     {
       icon: <Layout size={40} />,
@@ -263,8 +267,9 @@ const MarketingServices = () => {
       description: "Production de contenu stratégique et narratif pour engager votre audience et renforcer votre autorité dans votre secteur, en français, anglais et langues locales.",
       features: ["Stratégie éditoriale multicanale", "Création de contenus premium", "Calendrier éditorial", "Distribution et promotion"],
       valueProposition: "Visibilité accrue et autorité thématique établie",
-      color: "from-amber-500/80 to-yellow-400/80",
-      category: "content"
+      color: "from-amber-500 to-yellow-400",
+      category: "content",
+      bgColor: "bg-gradient-to-br from-amber-500/20 via-yellow-400/15 to-amber-600/10"
     },
     {
       icon: <BookOpen size={40} />,
@@ -272,8 +277,9 @@ const MarketingServices = () => {
       description: "Programmes de formation personnalisés pour renforcer les compétences digitales de votre équipe et vous rendre autonome dans votre stratégie marketing.",
       features: ["Ateliers pratiques", "Coaching personnalisé", "Supports sur mesure", "Suivi post-formation"],
       valueProposition: "Équipe autonome et compétences internes développées",
-      color: "from-teal-500/80 to-cyan-400/80",
-      category: "content"
+      color: "from-teal-500 to-cyan-400",
+      category: "content",
+      bgColor: "bg-gradient-to-br from-teal-500/20 via-cyan-400/15 to-teal-600/10"
     },
     {
       icon: <PenTool size={40} />,
@@ -281,8 +287,9 @@ const MarketingServices = () => {
       description: "Développement de votre image de marque personnelle pour vous positionner comme leader d'opinion dans votre secteur et attirer naturellement les opportunités.",
       features: ["Audit d'image", "Stratégie de positionnement", "Création de contenu de leadership", "Placement média"],
       valueProposition: "Notoriété établie et opportunités business amplifiées",
-      color: "from-fuchsia-600/80 to-purple-500/80",
-      category: "content"
+      color: "from-fuchsia-600 to-purple-500",
+      category: "content",
+      bgColor: "bg-gradient-to-br from-fuchsia-600/20 via-purple-500/15 to-fuchsia-700/10"
     },
     {
       icon: <Video size={40} />,
@@ -290,8 +297,9 @@ const MarketingServices = () => {
       description: "Création de contenus vidéo engageants pour renforcer votre présence digitale et augmenter vos conversions. Formats adaptés à chaque plateforme.",
       features: ["Vidéos promotionnelles", "Motion design", "Animation 2D/3D", "Editing professionnel"],
       valueProposition: "Engagement x3 et mémorisation de marque renforcée",
-      color: "from-red-500/80 to-rose-400/80",
-      category: "content"
+      color: "from-red-500 to-rose-400",
+      category: "content",
+      bgColor: "bg-gradient-to-br from-red-500/20 via-rose-400/15 to-red-600/10"
     },
     {
       icon: <DollarSign size={40} />,
@@ -299,8 +307,9 @@ const MarketingServices = () => {
       description: "Gestion optimisée de vos campagnes publicitaires sur toutes les plateformes majeures avec un ROAS maximisé et des audiences parfaitement ciblées.",
       features: ["Stratégie multi-plateforme", "Ciblage précis des audiences", "Optimisation continue", "Rapports de performance détaillés"],
       valueProposition: "ROAS optimisé et budget publicitaire maximisé",
-      color: "from-blue-600/80 to-indigo-500/80",
-      category: "acquisition"
+      color: "from-blue-600 to-indigo-500",
+      category: "acquisition",
+      bgColor: "bg-gradient-to-br from-blue-600/20 via-indigo-500/15 to-blue-700/10"
     },
     {
       icon: <BarChart3 size={40} />,
@@ -308,8 +317,9 @@ const MarketingServices = () => {
       description: "Mise en place de systèmes de mesure avancés pour optimiser votre ROI marketing en temps réel et prendre des décisions basées sur les données.",
       features: ["Implementation Google Analytics 4", "Dashboards personnalisés", "Attribution multi-touch", "DataStudio / Looker"],
       valueProposition: "Décisions data-driven et optimisation continue du ROI",
-      color: "from-violet-600/80 to-purple-500/80",
-      category: "analytics"
+      color: "from-violet-600 to-purple-500",
+      category: "analytics",
+      bgColor: "bg-gradient-to-br from-violet-600/20 via-purple-500/15 to-violet-700/10"
     },
     {
       icon: <Target size={40} />,
@@ -317,8 +327,9 @@ const MarketingServices = () => {
       description: "Création de séquences d'emails personnalisées et automatisées pour nurturing et conversion de vos prospects, avec segmentation avancée.",
       features: ["Architecture de séquences", "Copywriting persuasif", "A/B testing", "Analyse de performance"],
       valueProposition: "Revenus récurrents et relation client renforcée",
-      color: "from-orange-500/80 to-amber-400/80",
-      category: "acquisition"
+      color: "from-orange-500 to-amber-400",
+      category: "acquisition",
+      bgColor: "bg-gradient-to-br from-orange-500/20 via-amber-400/15 to-orange-600/10"
     },
     {
       icon: <MessageSquare size={40} />,
@@ -326,8 +337,9 @@ const MarketingServices = () => {
       description: "Stratégies de collaboration avec des influenceurs et médias pour amplifier votre visibilité et bâtir votre crédibilité en Afrique et à l'international.",
       features: ["Identification des influenceurs", "Conception de campagnes", "Relations presse digitale", "Mesure d'impact"],
       valueProposition: "Portée démultipliée et crédibilité instantanée",
-      color: "from-pink-500/80 to-rose-400/80",
-      category: "social"
+      color: "from-pink-500 to-rose-400",
+      category: "social",
+      bgColor: "bg-gradient-to-br from-pink-500/20 via-rose-400/15 to-pink-600/10"
     }
   ];
 
@@ -519,17 +531,17 @@ const MarketingServices = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: idx * 0.1 }}
                           >
-                            <Card className="h-full space-card flex flex-col hover:border-portfolio-purple/50 transition-all duration-300 overflow-hidden">
+                            <Card className={`h-full space-card flex flex-col hover:border-portfolio-purple/50 transition-all duration-300 overflow-hidden ${service.bgColor} backdrop-blur-sm`}>
                               {/* Colorful top gradient */}
                               <div className={`h-2 w-full bg-gradient-to-r ${service.color}`}></div>
                               
                               <CardHeader className="relative">
-                                <div className="text-white mb-4 opacity-90">{service.icon}</div>
+                                <div className={`text-gradient-to-r ${service.color} text-white mb-4 opacity-90`}>{service.icon}</div>
                                 <CardTitle className="text-white">{service.title}</CardTitle>
                               </CardHeader>
                               
                               <CardContent className="flex-grow">
-                                <p className="text-gray-300 mb-4">{service.description}</p>
+                                <p className="text-gray-100 mb-4">{service.description}</p>
                                 <ul className="space-y-2 mb-6">
                                   {service.features.map((feature, i) => (
                                     <li key={i} className="flex items-start gap-2">
@@ -538,13 +550,13 @@ const MarketingServices = () => {
                                           <path d="M20 6L9 17l-5-5"></path>
                                         </svg>
                                       </div>
-                                      <span className="text-sm text-gray-300">{feature}</span>
+                                      <span className="text-sm text-gray-100">{feature}</span>
                                     </li>
                                   ))}
                                 </ul>
                                 
                                 {/* Value proposition badge */}
-                                <div className={`bg-gradient-to-r ${service.color} text-white px-4 py-2 rounded-md text-sm font-medium inline-block mb-4`}>
+                                <div className={`bg-gradient-to-r ${service.color} text-white px-4 py-2 rounded-md text-sm font-medium inline-block mb-4 shadow-lg backdrop-blur-sm`}>
                                   <BadgeCheck className="inline-block mr-1 h-4 w-4" /> 
                                   {service.valueProposition}
                                 </div>
@@ -881,23 +893,28 @@ const MarketingServices = () => {
                 {[
                   {
                     question: "Comment mesurez-vous le ROI de vos campagnes marketing ?",
-                    answer: "Nous établissons des KPIs clairs dès le départ et mettons en place des systèmes de tracking complets (Google Analytics, pixels de conversion, UTM parameters). Nous produisons des rapports réguliers avec analyse des métriques clés : CAC, LTV, ROAS, taux de conversion. Notre approche data-driven nous permet d'attribuer précisément les résultats business à chaque canal et tactique marketing."
+                    answer: "Nous établissons des KPIs clairs dès le départ et mettons en place des systèmes de tracking complets (Google Analytics, pixels de conversion, UTM parameters). Nous produisons des rapports réguliers avec analyse des métriques clés : CAC, LTV, ROAS, taux de conversion. Notre approche data-driven nous permet d'attribuer précisément les résultats business à chaque canal et tactique marketing.",
+                    color: "from-portfolio-purple/20 to-portfolio-blue/20"
                   },
                   {
                     question: "Comment adaptez-vous vos stratégies aux spécificités du marché africain ?",
-                    answer: "Nous prenons en compte les particularités des marchés africains : préférence pour le mobile, adoption des moyens de paiement locaux (Mobile Money), contraintes de connectivité, multilinguisme. Notre équipe inclut des experts locaux dans chaque marché clé pour garantir des messages culturellement pertinents et des tactiques adaptées au contexte local tout en maintenant des standards internationaux."
+                    answer: "Nous prenons en compte les particularités des marchés africains : préférence pour le mobile, adoption des moyens de paiement locaux (Mobile Money), contraintes de connectivité, multilinguisme. Notre équipe inclut des experts locaux dans chaque marché clé pour garantir des messages culturellement pertinents et des tactiques adaptées au contexte local tout en maintenant des standards internationaux.",
+                    color: "from-portfolio-blue/20 to-portfolio-cyan/20"
                   },
                   {
                     question: "Quelle est votre approche pour les entreprises qui visent à la fois les marchés africains et internationaux ?",
-                    answer: "Nous développons des stratégies hybrides avec un socle commun (brand identity, messaging principal) et des déclinaisons spécifiques par marché. Nous utilisons des plateformes qui permettent une gestion centralisée mais une exécution localisée. Notre expertise cross-culturelle nous permet de créer des campagnes qui résonnent à la fois localement et globalement."
+                    answer: "Nous développons des stratégies hybrides avec un socle commun (brand identity, messaging principal) et des déclinaisons spécifiques par marché. Nous utilisons des plateformes qui permettent une gestion centralisée mais une exécution localisée. Notre expertise cross-culturelle nous permet de créer des campagnes qui résonnent à la fois localement et globalement.",
+                    color: "from-portfolio-pink/20 to-portfolio-purple/20"
                   },
                   {
                     question: "Comment structurez-vous vos contrats de service marketing ?",
-                    answer: "Nous proposons trois modèles : retainer mensuel (pour un accompagnement continu), projet ponctuel (pour des campagnes spécifiques) ou commission au résultat (particulièrement pour l'acquisition). Chaque contrat inclut des objectifs clairs, un planning détaillé et des KPIs mesurables. Nous privilégions la transparence et la flexibilité pour nous adapter aux besoins spécifiques de chaque client."
+                    answer: "Nous proposons trois modèles : retainer mensuel (pour un accompagnement continu), projet ponctuel (pour des campagnes spécifiques) ou commission au résultat (particulièrement pour l'acquisition). Chaque contrat inclut des objectifs clairs, un planning détaillé et des KPIs mesurables. Nous privilégions la transparence et la flexibilité pour nous adapter aux besoins spécifiques de chaque client.",
+                    color: "from-portfolio-cyan/20 to-portfolio-green/20"
                   },
                   {
                     question: "Travaillez-vous avec des entreprises de toutes tailles ?",
-                    answer: "Oui, nous adaptons nos services aux besoins et budgets des startups, PME et grandes entreprises. Pour les startups, nous privilégions des approches growth hacking à coût optimisé. Pour les PME, nous proposons des stratégies marketing intégrées avec un bon équilibre coût/efficacité. Pour les grandes entreprises, nous développons des stratégies omnicanales sophistiquées avec reporting avancé."
+                    answer: "Oui, nous adaptons nos services aux besoins et budgets des startups, PME et grandes entreprises. Pour les startups, nous privilégions des approches growth hacking à coût optimisé. Pour les PME, nous proposons des stratégies marketing intégrées avec un bon équilibre coût/efficacité. Pour les grandes entreprises, nous développons des stratégies omnicanales sophistiquées avec reporting avancé.",
+                    color: "from-portfolio-green/20 to-portfolio-yellow/20"
                   }
                 ].map((item, idx) => (
                   <motion.div
@@ -907,12 +924,12 @@ const MarketingServices = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                   >
-                    <Card className="space-card hover:border-portfolio-purple/30">
+                    <Card className={`space-card hover:border-portfolio-purple/30 bg-gradient-to-br ${item.color} backdrop-blur-sm`}>
                       <CardHeader>
                         <CardTitle className="text-xl text-white">{item.question}</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-gray-300">{item.answer}</p>
+                        <p className="text-gray-100">{item.answer}</p>
                       </CardContent>
                     </Card>
                   </motion.div>
