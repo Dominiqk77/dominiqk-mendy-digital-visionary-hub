@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, Zap, Brain, Globe } from 'lucide-react';
@@ -141,8 +142,15 @@ const Hero = () => {
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
     script.async = true;
-    script.rel = 'preload';
-    script.as = 'script';
+    
+    // Fix: Remove invalid 'rel' and 'as' attributes from script element
+    // Instead, use proper DOM methods to add as preload link
+    const preloadLink = document.createElement('link');
+    preloadLink.rel = 'preload';
+    preloadLink.as = 'script';
+    preloadLink.href = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
+    document.head.appendChild(preloadLink);
+    
     script.onload = initParticles;
     document.body.appendChild(script);
 
@@ -293,7 +301,7 @@ const Hero = () => {
                       alt="Dominiqk Mendy" 
                       className="w-full h-full object-cover" 
                       loading="eager" 
-                      fetchpriority="high"
+                      fetchPriority="high"
                     />
                   </AspectRatio>
                 </div>
@@ -323,7 +331,7 @@ const Hero = () => {
                       alt="Dominiqk Mendy" 
                       className="w-full h-full object-cover" 
                       loading="eager" 
-                      fetchpriority="high"
+                      fetchPriority="high"
                     />
                   </AspectRatio>
                 </div>

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -13,6 +12,7 @@ import Testimonials from '../components/home/Testimonials';
 import CTASection from '../components/home/CTASection';
 import Certifications from '../components/home/Certifications';
 import { Toaster } from "@/components/ui/toaster";
+import { preloadImages } from '../lib/utils';
 
 const Index = () => {
   const location = useLocation();
@@ -47,15 +47,14 @@ const Index = () => {
         '/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png'
       ];
       
-      criticalImages.forEach(src => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = src;
-        document.head.appendChild(link);
+      // Use the preloadImages utility to efficiently load images
+      preloadImages(criticalImages).then(() => {
+        console.log('Critical images preloaded successfully');
+      }).catch(error => {
+        console.error('Error preloading images:', error);
       });
-
-      // Preload the particles.js script
+      
+      // Preload the particles.js script correctly
       const particlesScript = document.createElement('link');
       particlesScript.rel = 'preload';
       particlesScript.as = 'script';
