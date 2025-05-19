@@ -183,6 +183,48 @@
       opacity: 1;
     }
   }
+  
+  /* Data nodes animation */
+  @keyframes data-node-pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+  
+  /* Connection lines animation */
+  @keyframes connection-flow {
+    0% {
+      stroke-dashoffset: 100;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  /* Shimmer effect */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  /* Hover glow effect */
+  @keyframes hover-glow {
+    0%, 100% {
+      box-shadow: 0 0 5px rgba(99, 102, 241, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.7);
+    }
+  }
 }
  
 @layer base {
@@ -265,6 +307,50 @@
   .space-button {
     @apply bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20;
   }
+  
+  /* Professional card layouts for AI content */
+  .ai-feature-card {
+    @apply bg-black/30 backdrop-blur-md border border-portfolio-purple/20 rounded-xl p-6 transition-all duration-300 hover:border-portfolio-purple/50 hover:shadow-[0_0_15px_rgba(155,135,245,0.2)];
+  }
+  
+  /* Tech node */
+  .tech-node {
+    @apply w-3 h-3 rounded-full bg-portfolio-purple/80 absolute animate-pulse-slow;
+  }
+  
+  /* Connection lines */
+  .connection-line {
+    @apply absolute border-t border-portfolio-purple/20;
+    transform-origin: left center;
+  }
+  
+  /* AI solutions card */
+  .ai-solution-card {
+    @apply bg-black/40 backdrop-blur-lg border border-indigo-500/20 rounded-xl overflow-hidden transition-all duration-300;
+  }
+  
+  /* Animated gradient button */
+  .gradient-button {
+    @apply relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity text-white rounded-md px-6 py-3 font-medium;
+    background-size: 200% 100%;
+    animation: gradient-shift 8s ease infinite;
+  }
+  
+  /* Data visualization container */
+  .data-viz-container {
+    @apply relative bg-black/20 backdrop-blur-md border border-indigo-500/20 rounded-xl overflow-hidden p-6;
+  }
+  
+  /* Shimmer text effect */
+  .shimmer-text {
+    @apply relative;
+    background: linear-gradient(90deg, currentColor 0%, rgba(255,255,255,0.8) 50%, currentColor 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s infinite linear;
+  }
 }
 
 @layer utilities {
@@ -280,6 +366,14 @@
 
   .bg-gradient-primary {
     @apply bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600;
+  }
+
+  .bg-gradient-cosmic {
+    @apply bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600;
+  }
+  
+  .bg-gradient-neon {
+    @apply bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-neon;
   }
 
   /* Enhanced animation utilities */
@@ -335,5 +429,41 @@
   
   .nebula-glow-purple {
     @apply absolute rounded-full blur-3xl opacity-30 bg-purple-600/30 animate-pulse-slow;
+  }
+  
+  /* Data flow effect */
+  .data-flow-line {
+    @apply absolute w-0.5 h-20 bg-portfolio-blue/50 animate-data-flow;
+  }
+  
+  /* Futuristic border effect */
+  .futuristic-border {
+    @apply relative border border-indigo-500/30 rounded-lg overflow-hidden;
+    box-shadow: 
+      inset 0 0 10px rgba(99, 102, 241, 0.2),
+      0 0 15px rgba(99, 102, 241, 0.1);
+  }
+  
+  /* Tech grid background */
+  .tech-grid-bg {
+    @apply bg-neuron-pattern bg-[length:30px_30px];
+  }
+  
+  /* AI interface hover effect */
+  .ai-hover-effect {
+    @apply transition-all duration-300;
+    &:hover {
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
+    }
+  }
+  
+  /* Constellation background */
+  .constellation-bg {
+    background-image: 
+      radial-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 1px),
+      radial-gradient(rgba(139, 92, 246, 0.1) 2px, transparent 2px);
+    background-size: 30px 30px, 60px 60px;
+    background-position: 0 0, 15px 15px;
   }
 }

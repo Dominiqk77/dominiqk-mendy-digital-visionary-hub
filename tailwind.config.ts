@@ -69,13 +69,16 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))'
         },
-        // Remplacer les couleurs du Sénégal par une nouvelle palette professionnelle
         portfolio: {
           purple: '#9b87f5',
           blue: '#0EA5E9',
           pink: '#D946EF',
           darkblue: '#1A1F2C',
-          lightgray: '#F6F6F7'
+          lightgray: '#F6F6F7',
+          indigo: '#6366F1',
+          neon: '#22D3EE',
+          cosmic: '#845ADF',
+          space: '#0F172A'
         }
       },
       borderRadius: {
@@ -106,6 +109,22 @@ export default {
           },
           '50%': {
             transform: 'translateY(-20px)'
+          }
+        },
+        'float-subtle': {
+          '0%, 100%': {
+            transform: 'translateY(0)'
+          },
+          '50%': {
+            transform: 'translateY(-10px)'
+          }
+        },
+        'spin-slow': {
+          '0%': {
+            transform: 'rotate(0deg)'
+          },
+          '100%': {
+            transform: 'rotate(360deg)'
           }
         },
         'rotate-slow': {
@@ -159,21 +178,62 @@ export default {
             opacity: '1',
             'box-shadow': '0 0 10px rgba(255, 255, 255, 0.8)'
           }
+        },
+        'data-flow': {
+          '0%': {
+            transform: 'translateY(-100%)',
+            opacity: '0'
+          },
+          '10%': {
+            opacity: '1'
+          },
+          '90%': {
+            opacity: '1'
+          },
+          '100%': {
+            transform: 'translateY(1000%)',
+            opacity: '0'
+          }
+        },
+        'shimmer': {
+          '0%': {
+            backgroundPosition: '-200% 0'
+          },
+          '100%': {
+            backgroundPosition: '200% 0'
+          }
+        },
+        'caret-blink': {
+          '0%, 100%': {
+            opacity: '1'
+          },
+          '50%': {
+            opacity: '0'
+          }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'float': 'float 6s ease-in-out infinite',
+        'float-subtle': 'float-subtle 4s ease-in-out infinite',
         'rotate-slow': 'rotate-slow 20s linear infinite',
+        'spin-slow': 'spin-slow 20s linear infinite',
         'gradient-text': 'gradient-text 8s ease infinite',
         'gradient-pulse': 'gradient-pulse 8s ease infinite',
         'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
         'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
-        'twinkle': 'twinkle 3s ease-in-out infinite'
+        'twinkle': 'twinkle 3s ease-in-out infinite',
+        'data-flow': 'data-flow 5s linear infinite',
+        'shimmer': 'shimmer 2s infinite linear',
+        'caret-blink': 'caret-blink 1s ease-in-out infinite'
       },
       backgroundImage: {
         'hero-pattern': "url('/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png')",
+        'neuron-pattern': "radial-gradient(circle, rgba(99, 102, 241, 0.1) 1px, transparent 1px)",
+        'grid-pattern': "linear-gradient(to right, rgba(99, 102, 241, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(99, 102, 241, 0.1) 1px, transparent 1px)",
+        'cosmic-gradient': "linear-gradient(to bottom right, #0f172a, #1e293b, #334155)",
+        'tech-glow': "radial-gradient(circle at center, rgba(99, 102, 241, 0.2) 0%, transparent 70%)",
       }
     }
   },
