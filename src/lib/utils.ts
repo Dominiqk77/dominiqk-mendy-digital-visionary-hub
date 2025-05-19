@@ -29,3 +29,67 @@ export const createCircularAnimation = (element: HTMLElement, duration: number =
   
   requestAnimationFrame(animateCircle);
 };
+
+// Add new utility functions for performance optimization
+
+/**
+ * Preload images for faster display
+ * @param imageSrcs Array of image sources to preload
+ */
+export const preloadImages = (imageSrcs: string[]): Promise<void[]> => {
+  const promises = imageSrcs.map(src => {
+    return new Promise<void>((resolve, reject) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => resolve();
+      img.onerror = () => reject();
+    });
+  });
+  
+  return Promise.all(promises);
+};
+
+/**
+ * Apply a smoothScroll effect to any element
+ */
+export const smoothScroll = (target: string | HTMLElement, duration: number = 500): void => {
+  let targetElement: HTMLElement | null;
+  
+  if (typeof target === 'string') {
+    targetElement = document.querySelector(target);
+  } else {
+    targetElement = target;
+  }
+  
+  if (!targetElement) return;
+  
+  const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+  const startPosition = window.pageYOffset;
+  const distance = targetPosition - startPosition;
+  let startTime: number | null = null;
+  
+  const animation = (currentTime: number) => {
+    if (startTime === null) startTime = currentTime;
+    const timeElapsed = currentTime - startTime;
+    const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+    window.scrollTo(0, run);
+    if (timeElapsed < duration) requestAnimationFrame(animation);
+  };
+  
+  // Easing function
+  const easeInOutQuad = (t: number, b: number, c: number, d: number): number => {
+    t /= d / 2;
+    if (t < 1) return c / 2 * t * t + b;
+    t--;
+    return -c / 2 * (t * (t - 2) - 1) + b;
+  };
+  
+  requestAnimationFrame(animation);
+};
+
+/**
+ * Detect if the device is a mobile device
+ */
+export const isMobileDevice = (): boolean => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};

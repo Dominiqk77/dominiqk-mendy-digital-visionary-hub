@@ -4,6 +4,7 @@
   margin: 0 auto;
   text-align: center;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .logo {
@@ -40,4 +41,58 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Smooth scrolling improvements */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Adjust based on header height */
+}
+
+/* Better style for text selection */
+::selection {
+  background-color: rgba(155, 135, 245, 0.3);
+  color: white;
+}
+
+/* Enhanced animations for page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Optimized backdrop blur */
+.backdrop-blur-optimize {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Enhance focus styles for better accessibility without sacrificing design */
+:focus-visible {
+  outline: 2px solid rgba(155, 135, 245, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Improved image fade-in effect */
+img.fade-in {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+img.fade-in.loaded {
+  opacity: 1;
 }

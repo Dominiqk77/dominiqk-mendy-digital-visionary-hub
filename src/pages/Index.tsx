@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -16,6 +16,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 const Index = () => {
   const location = useLocation();
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     // Set page title for SEO
@@ -39,13 +40,44 @@ const Index = () => {
         'Expert Tech International, Digital Innovation, Consultant IA International'
       );
     }
+
+    // Preload critical assets
+    const preloadAssets = () => {
+      const criticalImages = [
+        '/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png'
+      ];
+      
+      criticalImages.forEach(src => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+      });
+
+      // Preload the particles.js script
+      const particlesScript = document.createElement('link');
+      particlesScript.rel = 'preload';
+      particlesScript.as = 'script';
+      particlesScript.href = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
+      document.head.appendChild(particlesScript);
+    };
+    
+    // Preload critical assets
+    preloadAssets();
+    
+    // Mark as loaded
+    setTimeout(() => setIsLoaded(true), 100);
     
     // Scroll to top on page load (unless there's a hash)
     if (!location.hash) {
-      window.scrollTo(0, 0);
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
 
-    // Handle anchor link navigation
+    // Handle anchor link navigation with smoother scrolling
     const handleAnchorClick = () => {
       const { hash } = location;
       if (hash) {
@@ -54,7 +86,10 @@ const Index = () => {
           const id = hash.replace('#', '');
           const element = document.getElementById(id);
           if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+            element.scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start'
+            });
           }
         }, 100);
       }
@@ -65,6 +100,20 @@ const Index = () => {
 
   }, [location]);
 
+  // Enable smooth scrolling for the entire page
+  useEffect(() => {
+    const html = document.querySelector('html');
+    if (html) {
+      html.style.scrollBehavior = 'smooth';
+    }
+    
+    return () => {
+      if (html) {
+        html.style.scrollBehavior = '';
+      }
+    };
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col overflow-hidden relative">
       {/* AI-themed background styling */}
@@ -72,8 +121,8 @@ const Index = () => {
         {/* AI-themed grid overlay */}
         <div className="absolute inset-0 bg-grid-small-white/5 z-0"></div>
         
-        {/* Neural network nodes */}
-        {Array.from({ length: 20 }).map((_, i) => (
+        {/* Neural network nodes with optimized rendering */}
+        {Array.from({ length: 15 }).map((_, i) => (
           <div 
             key={`node-${i}`}
             className="absolute rounded-full bg-portfolio-purple/30 backdrop-blur-sm"
@@ -89,15 +138,16 @@ const Index = () => {
           />
         ))}
         
-        {/* Nebula effects */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-portfolio-purple/20 blur-[120px] rounded-full animate-pulse-slow"></div>
+        {/* Enhanced nebula effects with better blur performance */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-portfolio-purple/20 blur-[120px] rounded-full animate-pulse-slow"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-portfolio-blue/20 blur-[150px] rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
         <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-portfolio-pink/15 blur-[100px] rounded-full animate-pulse-slow" style={{animationDelay: '1.5s'}}></div>
       </div>
       
       <Navbar />
       
-      <main className="flex-grow overflow-hidden relative z-10">
+      {/* Main content with optimized rendering and transitions */}
+      <main className={`flex-grow overflow-hidden relative z-10 transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         <Hero />
         <About />
         <Services />

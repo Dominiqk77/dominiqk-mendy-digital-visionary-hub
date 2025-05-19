@@ -32,7 +32,7 @@ const Hero = () => {
         window.particlesJS('particles-js', {
           "particles": {
             "number": {
-              "value": 100,
+              "value": 80, // Reduced number for better performance
               "density": {
                 "enable": true,
                 "value_area": 800
@@ -137,9 +137,12 @@ const Hero = () => {
       }
     };
 
+    // Load particles.js asynchronously with preload
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
     script.async = true;
+    script.rel = 'preload';
+    script.as = 'script';
     script.onload = initParticles;
     document.body.appendChild(script);
 
@@ -150,24 +153,24 @@ const Hero = () => {
 
   return (
     <div className="relative h-auto min-h-[700px] sm:min-h-[700px] flex items-center overflow-hidden bg-transparent pt-16 pb-8 sm:pt-8 sm:pb-0">
-      {/* AI-themed particle background */}
-      <div id="particles-js" className="absolute inset-0 z-0"></div>
+      {/* AI-themed particle background with reduced opacity for better performance */}
+      <div id="particles-js" className="absolute inset-0 z-0 opacity-90"></div>
       
-      {/* Enhanced AI-themed background elements */}
+      {/* Enhanced AI-themed background elements with better performance */}
       <div className="absolute inset-0 z-0 opacity-15 bg-grid-small-white/5"></div>
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-purple-600/30 blur-[120px] rounded-full animate-pulse-slow"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/20 blur-[150px] rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
       <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-pink-600/20 blur-[100px] rounded-full animate-pulse-slow" style={{animationDelay: '1s'}}></div>
       
-      {/* Neural network pattern - similar to AI Solutions page */}
+      {/* Neural network pattern - optimized with reduced elements */}
       <svg className="absolute inset-0 z-0 opacity-10 w-full h-full" width="100%" height="100%">
-        {Array.from({ length: 8 }).map((_, i) => (
+        {Array.from({ length: 6 }).map((_, i) => (
           <line 
             key={`line-h-${i}`}
             x1="0" 
-            y1={`${i * 12.5}%`} 
+            y1={`${i * 16}%`} 
             x2="100%" 
-            y2={`${i * 12.5}%`} 
+            y2={`${i * 16}%`} 
             stroke="#9b87f5" 
             strokeWidth="0.5" 
             strokeDasharray="10,20"
@@ -175,12 +178,12 @@ const Hero = () => {
             style={{animationDelay: `${i * 0.2}s`}}
           />
         ))}
-        {Array.from({ length: 8 }).map((_, i) => (
+        {Array.from({ length: 6 }).map((_, i) => (
           <line 
             key={`line-v-${i}`}
-            x1={`${i * 12.5}%`}
+            x1={`${i * 16}%`}
             y1="0" 
-            x2={`${i * 12.5}%`}
+            x2={`${i * 16}%`}
             y2="100%" 
             stroke="#0EA5E9" 
             strokeWidth="0.5" 
@@ -189,7 +192,7 @@ const Hero = () => {
             style={{animationDelay: `${i * 0.2 + 1}s`}}
           />
         ))}
-        {Array.from({ length: 15 }).map((_, i) => {
+        {Array.from({ length: 10 }).map((_, i) => {
           const x1 = Math.random() * 100;
           const y1 = Math.random() * 100;
           const x2 = x1 + (Math.random() * 30 - 15);
@@ -225,14 +228,14 @@ const Hero = () => {
                 Dominiqk Mendy
               </span>
               
-              {/* Restructured subtitle with "Expert en" followed by "Transformation Digitale" */}
+              {/* Restructured subtitle with "EXPERT EN" followed by "Transformation Digitale" */}
               <div className="mt-4 flex flex-col items-center md:items-start">
-                <span className="text-white text-2xl sm:text-3xl md:text-4xl">Expert en</span> 
+                <span className="text-white text-2xl sm:text-4xl md:text-5xl font-bold tracking-wider">EXPERT EN</span> 
                 <div className="relative mt-2">
                   <span className="text-gradient bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-pink bg-clip-text text-transparent text-3xl sm:text-4xl md:text-5xl font-bold relative z-10">
                     Transformation Digitale
                   </span>
-                  <div className="absolute -bottom-1 left-0 w-full h-3 bg-gradient-to-r from-portfolio-blue/20 via-portfolio-purple/20 to-portfolio-pink/20 rounded-full -z-0"></div>
+                  {/* Removed the underline div that was here */}
                 </div>
               </div>
             </h1>
@@ -277,7 +280,7 @@ const Hero = () => {
             </div>
           </div>
           
-          {/* Keep existing profile image section */}
+          {/* Keep existing profile image section with better image loading */}
           <div className="w-full md:w-1/2 flex justify-center mt-6 md:mt-0 animate-slide-in-right">
             {isMobile ? 
               <div className="relative max-w-[220px]">
@@ -285,7 +288,13 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full blur-3xl opacity-40 animate-pulse-slow"></div>
                 <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary">
                   <AspectRatio ratio={1 / 1} className="w-full h-full">
-                    <img src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" alt="Dominiqk Mendy" className="w-full h-full object-cover" />
+                    <img 
+                      src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
+                      alt="Dominiqk Mendy" 
+                      className="w-full h-full object-cover" 
+                      loading="eager" 
+                      fetchpriority="high"
+                    />
                   </AspectRatio>
                 </div>
                 {/* Enhanced expertise bubbles */}
@@ -309,7 +318,13 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full blur-3xl opacity-40 animate-pulse-slow"></div>
                 <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-primary">
                   <AspectRatio ratio={1 / 1} className="w-full h-full">
-                    <img src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" alt="Dominiqk Mendy" className="w-full h-full object-cover" />
+                    <img 
+                      src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
+                      alt="Dominiqk Mendy" 
+                      className="w-full h-full object-cover" 
+                      loading="eager" 
+                      fetchpriority="high"
+                    />
                   </AspectRatio>
                 </div>
                 {/* Enhanced expertise bubbles with better positioning and shadows */}
@@ -331,7 +346,7 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Enhanced client section with better styling */}
+        {/* Enhanced client section with better styling and loading */}
         <div className="flex items-center justify-center mt-8 sm:mt-12">
           <div className="flex -space-x-4">
             <Avatar className="border-2 border-white w-8 h-8 shadow-lg">
