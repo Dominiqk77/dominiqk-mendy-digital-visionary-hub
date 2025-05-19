@@ -166,18 +166,15 @@ const Hero = () => {
               </div>
             </div>
             
-            {/* Optimized title section with gradients inspired by the reference image */}
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight">
-              <span className="block text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] text-[#5b86ff] font-extrabold tracking-tight mb-2">
+              <span className="block animate-gradient-slow bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink bg-clip-text text-transparent bg-[length:400%_400%]">
                 Dominiqk Mendy
               </span>
-              <div className="flex flex-col md:flex-row items-center md:items-start gap-2 mt-2">
-                <span className="text-white text-[1.8rem] md:text-[2.2rem] font-medium">Expert en</span> 
-                <div className="relative">
-                  <span className="text-[2rem] md:text-[2.5rem] bg-gradient-to-r from-[#5b86ff] via-[#8269ff] to-[#ca6aff] bg-clip-text text-transparent font-bold tracking-tight">
-                    Transformation Digitale
-                  </span>
-                  <div className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-[#5b86ff] via-[#8269ff] to-[#ca6aff] rounded-full"></div>
+              <div className="flex items-center gap-2 mt-2">
+                <span className="text-white">Expert en</span> 
+                <div className="relative inline-flex">
+                  <span className="text-gradient relative z-10">Transformation Digitale</span>
+                  <div className="absolute -bottom-1 left-0 w-full h-3 bg-portfolio-purple/20 rounded-full -z-0"></div>
                 </div>
               </div>
             </h1>
@@ -313,3 +310,4 @@ const Hero = () => {
 };
 
 export default Hero;
+
