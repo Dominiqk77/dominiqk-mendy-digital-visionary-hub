@@ -21,7 +21,7 @@ const AboutPage = () => {
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', 
-        "Découvrez le parcours de Dominiqk Mendy, expert en transformation digitale, développement web et IA avec plus de 11 ans d'expérience internationale entre Londres et Marrakech."
+        "Découvrez le parcours de Dominiqk Mendy, expert en transformation digitale avec plus de 15 ans d'expérience internationale entre l'Europe, le Maroc et l'international."
       );
     }
     
@@ -34,36 +34,36 @@ const AboutPage = () => {
       year: "2023 - Présent",
       title: "Fondateur & CEO",
       company: "Millennium Capital Invest Ltd",
-      description: "Direction de projets innovants comme SenServices (e-gouvernance) et développement de solutions digitales pour clients internationaux.",
-      location: "Londres / Remote"
+      description: "Direction de projets innovants à l'échelle internationale et développement de solutions digitales pour clients de divers continents.",
+      location: "Marrakech / Londres / Remote"
     },
     {
       year: "2020 - 2023",
       title: "Consultant Senior en Transformation Digitale",
       company: "Millennium Capital Invest Ltd",
-      description: "Accompagnement d'entreprises africaines dans leur transition numérique et formation de talents locaux.",
+      description: "Accompagnement d'entreprises internationales dans leur transition numérique et formation de talents locaux et internationaux.",
       location: "Marrakech, Maroc"
     },
     {
       year: "2018 - 2020",
       title: "Lead Developer & Chef de Projet Tech",
       company: "GlobalTech Solutions",
-      description: "Direction d'une équipe de 8 développeurs et architecte principal sur des projets fintech et e-commerce.",
-      location: "Londres, Royaume-Uni"
+      description: "Direction d'une équipe de 8 développeurs et architecte principal sur des projets fintech et e-commerce internationaux.",
+      location: "Marrakech / Remote"
     },
     {
       year: "2015 - 2018",
       title: "Développeur Full-Stack Senior",
       company: "InnovateTech Ltd",
-      description: "Développement de solutions web complexes et intégration de technologies IA pour des clients du Fortune 500.",
-      location: "Londres, Royaume-Uni"
+      description: "Développement de solutions web complexes et intégration de technologies IA pour des clients internationaux.",
+      location: "Marrakech, Maroc / Remote"
     },
     {
       year: "2012 - 2015",
       title: "Développeur Full-Stack",
       company: "WebWorks International",
-      description: "Création de sites e-commerce et plateformes web pour PME et startups européennes.",
-      location: "Dakar, Sénégal / Remote"
+      description: "Création de sites e-commerce et plateformes web pour PME et startups européennes et nord-africaines.",
+      location: "Marrakech, Maroc / Remote"
     }
   ];
 
@@ -90,8 +90,8 @@ const AboutPage = () => {
   // Values
   const values = [
     {
-      title: "Innovation Africaine",
-      description: "Je crois profondément au potentiel de l'Afrique pour mener l'innovation technologique mondiale, avec des solutions créées par des Africains pour résoudre des défis africains.",
+      title: "Innovation Globale",
+      description: "Je crois profondément au potentiel de l'innovation technologique pour résoudre des défis mondiaux, en créant des ponts entre différentes cultures et marchés pour un impact maximal.",
       icon: <Landmark className="w-6 h-6" />
     },
     {
@@ -101,12 +101,12 @@ const AboutPage = () => {
     },
     {
       title: "Impact Social",
-      description: "La technologie doit servir un objectif plus grand que le profit - elle doit améliorer concrètement la vie des citoyens et contribuer au développement durable.",
+      description: "La technologie doit servir un objectif plus grand que le profit - elle doit améliorer concrètement la vie des citoyens et contribuer au développement durable dans toutes les régions du monde.",
       icon: <Users className="w-6 h-6" />
     },
     {
       title: "Transmission du Savoir",
-      description: "Je m'engage à former la prochaine génération de talents tech africains pour créer un écosystème digital robuste et indépendant sur le continent.",
+      description: "Je m'engage à former la prochaine génération de talents tech à l'international, en partageant mes connaissances et mon expertise pour créer un écosystème digital robuste et innovant.",
       icon: <GraduationCap className="w-6 h-6" />
     }
   ];
@@ -114,22 +114,22 @@ const AboutPage = () => {
   // Education and certifications
   const education = [
     {
-      degree: "Master en Ingénierie Informatique",
-      institution: "Imperial College London",
-      year: "2014-2016",
-      location: "Londres, Royaume-Uni"
+      degree: "Master en Management et Stratégies d'Entreprises",
+      institution: "ECOLE DE FORMATION PRIVEE RACINE",
+      year: "2015-2017",
+      location: "Marrakech, Maroc"
     },
     {
-      degree: "Bachelor en Computer Science",
-      institution: "King's College London",
-      year: "2011-2014",
-      location: "Londres, Royaume-Uni"
+      degree: "Licence en Marketing & Communication",
+      institution: "ENSUP DAKAR",
+      year: "2012-2014",
+      location: "Dakar, Sénégal"
     },
     {
       degree: "Formation Spécialisée IA & Machine Learning",
-      institution: "Stanford Online",
+      institution: "Coursera & edX",
       year: "2019",
-      location: "Programme en ligne"
+      location: "Formation en ligne"
     }
   ];
 
@@ -173,8 +173,8 @@ const AboutPage = () => {
       answer: "Ma méthode repose sur trois piliers: l'analyse approfondie des besoins réels (au-delà des demandes initiales), la priorisation stratégique des développements à fort impact, et l'accompagnement au changement. Je m'assure que la technologie serve la stratégie business, et non l'inverse."
     },
     {
-      question: "Travaillez-vous sur des projets internationaux ou seulement en Afrique?",
-      answer: "Bien que ma passion soit de contribuer au développement technologique de l'Afrique, je travaille régulièrement avec des clients internationaux. Cette exposition globale me permet d'apporter les meilleures pratiques mondiales à mes projets africains, tout en développant des solutions innovantes adaptées aux réalités locales."
+      question: "Travaillez-vous sur des projets internationaux uniquement?",
+      answer: "Mon expertise s'étend à l'échelle mondiale. Basé à Marrakech depuis 11 ans, je voyage régulièrement entre le Maroc, Londres, la France et l'Espagne pour servir mes clients internationaux. Cette mobilité me permet d'apporter une vision globale et des solutions adaptées aux réalités locales de chaque marché."
     },
     {
       question: "Comment assurez-vous la formation des équipes locales?",
@@ -210,7 +210,7 @@ const AboutPage = () => {
                 </h1>
                 <div className="h-1 w-24 bg-gradient-primary mb-6"></div>
                 <p className="text-xl text-gray-200 mb-8">
-                  Expert en transformation digitale avec plus de 11 ans d'expérience entre l'Europe et l'Afrique, je combine expertise technique et vision stratégique pour développer des solutions innovantes à fort impact.
+                  Expert en transformation digitale avec plus de 15 ans d'expérience internationale, je combine expertise technique et vision stratégique pour développer des solutions innovantes à fort impact sur plusieurs continents.
                 </p>
                 
                 <div className="flex flex-wrap gap-4">
@@ -243,7 +243,7 @@ const AboutPage = () => {
                 </div>
                 
                 <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg shadow-lg transform rotate-3">
-                  <span className="font-semibold">11+ années d'expérience</span>
+                  <span className="font-semibold">15+ années d'expérience</span>
                 </div>
               </motion.div>
             </motion.div>
@@ -258,22 +258,22 @@ const AboutPage = () => {
               
               <div className="space-y-10">
                 <div>
-                  <h3 className="text-2xl font-semibold mb-4 text-white">De Londres à l'Afrique: Un Voyage Tech</h3>
+                  <h3 className="text-2xl font-semibold mb-4 text-white">Un Expert International</h3>
                   <p className="text-gray-300 mb-4 leading-relaxed">
-                    Mon parcours professionnel a débuté à Londres, où j'ai eu la chance de travailler sur des projets tech innovants pour des entreprises internationales. Fort de cette expérience, j'ai décidé de retourner vers mes racines africaines avec une mission claire : contribuer au développement numérique du continent en apportant expertise technique et vision stratégique.
+                    Mon parcours professionnel s'étend sur plus de 15 années d'expérience internationale. Basé à Marrakech depuis 11 ans, je voyage régulièrement entre le Maroc, Londres, la France et l'Espagne pour servir une clientèle diversifiée et internationale, tout en développant des projets innovants comme SenServices, une plateforme d'e-gouvernance destinée à révolutionner les services administratifs.
                   </p>
                   <p className="text-gray-300 mb-4 leading-relaxed">
-                    Installé pendant plusieurs années à Marrakech, j'ai travaillé en étroite collaboration avec des entreprises africaines en phase de transformation digitale, tout en développant mes propres projets innovants comme SenServices, une plateforme d'e-gouvernance destinée à révolutionner les services administratifs au Sénégal.
+                    Ma formation inclut un Master en Management et Stratégies d'Entreprises à Marrakech, complété par de nombreuses certifications internationales en ligne dans des domaines de pointe comme l'intelligence artificielle, le cloud computing et le développement web avancé. Cette approche hybride m'a permis d'acquérir une expertise technique solide tout en maintenant une vision stratégique adaptée aux enjeux mondiaux.
                   </p>
                   <p className="text-gray-300 leading-relaxed">
-                    Aujourd'hui, je combine mon expertise technique en développement web et IA avec une vision stratégique pour créer des solutions digitales à fort impact. Ma passion est d'accompagner les organisations africaines dans leur transition numérique, tout en formant la prochaine génération de talents tech du continent.
+                    Aujourd'hui, je combine mon expertise technique en développement web et IA avec une vision stratégique pour créer des solutions digitales à fort impact pour des clients du monde entier. Ma passion est d'accompagner les organisations dans leur transition numérique, tout en formant la prochaine génération de talents tech internationaux.
                   </p>
                 </div>
                 
                 <div>
                   <h3 className="text-2xl font-semibold mb-4 text-white">Ma Vision</h3>
                   <p className="text-gray-300 leading-relaxed">
-                    Je crois profondément que la prochaine vague d'innovation mondiale viendra d'Afrique. Mon ambition est de contribuer à l'émergence d'un écosystème tech africain robuste, capable de développer des solutions adaptées aux défis uniques du continent, mais aussi de s'imposer sur la scène internationale.
+                    Je crois profondément que l'innovation technologique est un puissant vecteur de développement global. Mon ambition est de contribuer à l'émergence d'un écosystème tech mondial inclusif, où talents et expertises de tous horizons collaborent pour développer des solutions adaptées aux défis uniques de chaque marché, tout en partageant les meilleures pratiques internationales.
                   </p>
                   <div className="mt-6 grid md:grid-cols-2 gap-6">
                     {values.map((value, index) => (
@@ -395,7 +395,7 @@ const AboutPage = () => {
               <div>
                 <h3 className="text-xl font-semibold mb-6 text-white flex items-center gap-2">
                   <Book className="w-5 h-5" />
-                  <span>Formation Académique</span>
+                  <span>Formation Académique & Professionnelle</span>
                 </h3>
                 
                 <div className="space-y-6">

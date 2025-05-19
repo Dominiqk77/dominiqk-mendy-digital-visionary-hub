@@ -12,7 +12,7 @@ const FooterBrand = () => {
         </span>
       </Link>
       <p className="text-gray-400 max-w-xs">
-        Expert en transformation digitale, développement web et solutions IA innovantes pour l'Afrique et au-delà.
+        Expert en transformation digitale, développement web et solutions IA innovantes avec une présence internationale établie depuis Marrakech.
       </p>
       <div className="flex space-x-4">
         <a href="https://twitter.com/dominiqkmendy" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">

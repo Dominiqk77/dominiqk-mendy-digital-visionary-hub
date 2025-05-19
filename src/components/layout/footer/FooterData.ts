@@ -22,7 +22,7 @@ export const servicesSection: FooterNavSection = {
     { name: "Marketing Digital", href: "/services/digital-marketing" },
     { name: "Formation IA", href: "/services/ai-training" },
     { name: "E-Gouvernance", href: "/services/egouvernance" },
-    { name: "Consulting", href: "/services/consulting" }
+    { name: "Consulting International", href: "/services/consulting" }
   ]
 };
 
@@ -37,7 +37,7 @@ export const legalSection: FooterNavSection = {
 
 export const contactInfo: ContactInfo = {
   email: "contact@dominiqkmendy.com",
-  location: "Londres, UK / Dakar, Sénégal"
+  location: "Marrakech, Maroc / Londres, UK"
 };
 
 export const socialLinks = [

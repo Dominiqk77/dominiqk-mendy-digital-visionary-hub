@@ -23,17 +23,17 @@ const About = () => {
                 <h3 className="text-2xl font-bold text-white mb-4">Expert Référent de l'Innovation Numérique à l'International</h3>
                 
                 <p className="text-gray-300 mb-6">
-                  Leader visionnaire dans la transformation digitale à l'échelle mondiale avec plus de 15 années d'expertise multidisciplinaire, j'allie expertise technique, vision stratégique et expérience entrepreneuriale pour propulser les entreprises vers l'excellence numérique. Mon parcours diversifié m'a permis d'accompagner avec succès plus de 200 entreprises dans leur transformation digitale à travers le monde, générant en moyenne +250K€ de ROI pour mes clients.
+                  Leader visionnaire dans la transformation digitale à l'échelle mondiale avec plus de 15 années d'expertise multidisciplinaire, j'allie expertise technique, vision stratégique et expérience entrepreneuriale pour propulser les entreprises vers l'excellence numérique dans de multiples marchés internationaux. Mon parcours diversifié m'a permis d'accompagner avec succès plus de 200 entreprises dans leur transformation digitale à travers le monde, générant en moyenne +250K€ de ROI pour mes clients.
                 </p>
                 
                 <p className="text-gray-300">
-                  Expert chevronné en Intelligence Artificielle, développement web avancé et marketing digital, je suis reconnu pour ma capacité à créer des solutions innovantes qui répondent aux défis complexes du marché international. Mon approche holistique, fruit de 15 années d'expérience technique et commerciale, associe technologies de pointe et stratégies business pour des résultats mesurables et durables.
+                  Expert chevronné en Intelligence Artificielle, développement web avancé et marketing digital, je suis reconnu pour ma capacité à créer des solutions innovantes qui répondent aux défis complexes des marchés européens, africains et moyen-orientaux. Mon approche holistique, fruit de 15 années d'expérience technique et commerciale, associe technologies de pointe et stratégies business pour des résultats mesurables et durables sur tous les continents.
                 </p>
 
                 <div className="mt-8 p-6 border border-gray-700 rounded-lg bg-black/50 backdrop-blur-sm">
-                  <h4 className="text-secondary font-semibold mb-4">Mon Parcours Académique</h4>
+                  <h4 className="text-secondary font-semibold mb-4">Mon Parcours International</h4>
                   <p className="text-gray-300">
-                    Dès mon plus jeune âge, j'ai cultivé une passion innée pour la création, transformant chaque idée en une opportunité d'innovation, chaque rêve en un projet tangible. Mon parcours académique a débuté à Dakar, au Sénégal, où j'ai eu le privilège d'étudier dans des établissements reconnus pour leur excellence académique. Ma formation au Collège de la Cathédrale, au Collège Sacré-Cœur et au Collège Saint Michel de Dakar m'a permis d'acquérir des bases solides et une rigueur intellectuelle exemplaire. Cette éducation de qualité a façonné ma vision et ma méthode de travail, me dotant des compétences nécessaires pour devenir un Créateur et acteur engagé de la transformation numérique au Sénégal et à l'international.
+                    Dès mon plus jeune âge, j'ai cultivé une passion innée pour la création, transformant chaque idée en une opportunité d'innovation, chaque rêve en un projet tangible. Originaire du Sénégal où j'ai débuté ma formation, j'ai ensuite enrichi mon parcours par de multiples formations spécialisées à distance et des expériences internationales. Basé à Marrakech depuis 11 ans, je voyage régulièrement entre le Maroc, l'Europe (Londres, France, Espagne) pour servir une clientèle internationale et diversifiée. Cette mobilité internationale a façonné ma vision et ma méthode de travail, me dotant des compétences nécessaires pour devenir un acteur engagé de la transformation numérique à l'échelle mondiale.
                   </p>
                 </div>
               </div>
@@ -43,7 +43,7 @@ const About = () => {
           <div className="space-y-8">
             <div className="border-gradient p-1 rounded-lg animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <div className="bg-background p-6 rounded-lg">
-                <h3 className="text-xl font-bold mb-4">Formation d'Excellence</h3>
+                <h3 className="text-xl font-bold mb-4">Formation Internationale</h3>
                 <ul className="space-y-4">
                   <li className="flex">
                     <div className="mr-4 flex-shrink-0">
@@ -62,7 +62,7 @@ const About = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold">Licence en Marketing & Communication</h4>
-                      <p className="text-sm text-muted-foreground">ENSUP DAKAR | 2014-2012</p>
+                      <p className="text-sm text-muted-foreground">ENSUP DAKAR | 2012-2014</p>
                     </div>
                   </li>
                   <li className="flex">
@@ -71,7 +71,7 @@ const About = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold">Gestion Hôtelière</h4>
-                      <p className="text-sm text-muted-foreground">ESGHA DAKAR | 2011-2010</p>
+                      <p className="text-sm text-muted-foreground">ESGHA DAKAR | 2010-2011</p>
                     </div>
                   </li>
                 </ul>
@@ -122,7 +122,7 @@ const About = () => {
               <div className="bg-background p-6 rounded-lg">
                 <h3 className="text-xl font-bold mb-4">Impact & Vision</h3>
                 <p className="text-muted-foreground">
-                  Fort de plus de 15 années d'expérience, je me positionne comme un leader incontournable de la transformation digitale sur la scène internationale. Ma mission : démocratiser l'accès aux technologies avancées, former la nouvelle génération de talents numériques et propulser l'innovation technologique à l'échelle mondiale. Ma vaste expérience multidisciplinaire me permet d'apporter une vision unique et des solutions innovantes à chaque projet, créant ainsi un impact durable pour l'émergence digitale dans différentes régions du monde.
+                  Fort de plus de 15 années d'expérience, je me positionne comme un leader incontournable de la transformation digitale sur la scène internationale. Ma mission : démocratiser l'accès aux technologies avancées, former la nouvelle génération de talents numériques et propulser l'innovation technologique à l'échelle mondiale. Ma vaste expérience multidisciplinaire me permet d'apporter une vision unique et des solutions innovantes à chaque projet, créant ainsi un impact durable pour l'émergence digitale dans différentes régions du monde, de l'Europe à l'Afrique en passant par le Moyen-Orient.
                 </p>
               </div>
             </div>

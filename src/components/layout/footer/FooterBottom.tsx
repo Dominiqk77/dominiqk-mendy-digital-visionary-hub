@@ -9,7 +9,7 @@ const FooterBottom = () => {
     <div className="mt-12 pt-6 border-t border-white/10">
       <div className="flex flex-col md:flex-row justify-between items-center">
         <p className="text-gray-400 text-sm">
-          &copy; {currentYear} Dominiqk Mendy. Tous droits réservés.
+          &copy; {currentYear} Dominiqk Mendy. Tous droits réservés. | Marrakech · Londres · International
         </p>
         <div className="mt-4 md:mt-0 flex flex-wrap gap-4 text-sm text-gray-400">
           <Link to="/about" className="hover:text-white transition-colors">
