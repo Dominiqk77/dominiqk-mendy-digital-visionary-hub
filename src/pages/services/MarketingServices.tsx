@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -24,10 +23,141 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import EnhancedSpaceBackground from '@/components/space/EnhancedSpaceBackground';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import { Chart } from '@/components/ui/chart';
+
+// Import the proper chart components
+import * as RechartsPrimitive from "recharts";
+
+const Chart = ({ type, series, options }: { 
+  type: string, 
+  series: any[], 
+  options: any 
+}) => {
+  // Create a simple wrapper for recharts to match the previously used API
+  const renderChart = () => {
+    switch(type) {
+      case 'line':
+        return (
+          <RechartsPrimitive.LineChart data={series[0].data.map((value: number, index: number) => ({
+            name: options.xaxis?.categories?.[index] || index,
+            value,
+            ...series.reduce((acc: any, serie: any, serieIndex: number) => {
+              acc[serie.name] = serie.data[index];
+              return acc;
+            }, {})
+          }))}>
+            <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+            <RechartsPrimitive.XAxis dataKey="name" stroke="#94a3b8" />
+            <RechartsPrimitive.YAxis stroke="#94a3b8" />
+            <RechartsPrimitive.Tooltip contentStyle={{ backgroundColor: '#1e1e2a', border: '1px solid rgba(255,255,255,0.1)' }} />
+            <RechartsPrimitive.Legend />
+            {series.map((serie, index) => (
+              <RechartsPrimitive.Line 
+                key={serie.name}
+                type="monotone" 
+                dataKey={serie.name} 
+                stroke={options.colors?.[index] || '#8884d8'} 
+                activeDot={{ r: 8 }} 
+              />
+            ))}
+          </RechartsPrimitive.LineChart>
+        );
+      case 'area':
+        return (
+          <RechartsPrimitive.AreaChart data={series[0].data.map((value: number, index: number) => ({
+            name: options.xaxis?.categories?.[index] || index,
+            value,
+            ...series.reduce((acc: any, serie: any, serieIndex: number) => {
+              acc[serie.name] = serie.data[index];
+              return acc;
+            }, {})
+          }))}>
+            <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+            <RechartsPrimitive.XAxis dataKey="name" stroke="#94a3b8" />
+            <RechartsPrimitive.YAxis stroke="#94a3b8" />
+            <RechartsPrimitive.Tooltip contentStyle={{ backgroundColor: '#1e1e2a', border: '1px solid rgba(255,255,255,0.1)' }} />
+            <RechartsPrimitive.Legend />
+            {series.map((serie, index) => (
+              <RechartsPrimitive.Area 
+                key={serie.name}
+                type="monotone" 
+                dataKey={serie.name} 
+                stroke={options.colors?.[index] || '#8884d8'} 
+                fill={options.colors?.[index] || '#8884d8'} 
+                fillOpacity={0.3}
+              />
+            ))}
+          </RechartsPrimitive.AreaChart>
+        );
+      case 'bar':
+        return (
+          <RechartsPrimitive.BarChart data={series[0].data.map((value: number, index: number) => ({
+            name: options.xaxis?.categories?.[index] || index,
+            value,
+            ...series.reduce((acc: any, serie: any, serieIndex: number) => {
+              acc[serie.name] = serie.data[index];
+              return acc;
+            }, {})
+          }))}>
+            <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+            <RechartsPrimitive.XAxis dataKey="name" stroke="#94a3b8" />
+            <RechartsPrimitive.YAxis stroke="#94a3b8" />
+            <RechartsPrimitive.Tooltip contentStyle={{ backgroundColor: '#1e1e2a', border: '1px solid rgba(255,255,255,0.1)' }} />
+            <RechartsPrimitive.Legend />
+            {series.map((serie, index) => (
+              <RechartsPrimitive.Bar 
+                key={serie.name}
+                dataKey={serie.name} 
+                fill={options.colors?.[index] || '#8884d8'} 
+                radius={options.plotOptions?.bar?.borderRadius || 0}
+              />
+            ))}
+          </RechartsPrimitive.BarChart>
+        );
+      case 'donut':
+      case 'pie':
+        return (
+          <RechartsPrimitive.PieChart>
+            <RechartsPrimitive.Pie
+              data={series.map((value, index) => ({
+                name: options.labels?.[index] || `Item ${index}`,
+                value,
+              }))}
+              cx="50%"
+              cy="50%"
+              innerRadius={type === 'donut' ? 60 : 0}
+              outerRadius={80}
+              fill="#8884d8"
+              paddingAngle={2}
+              dataKey="value"
+            >
+              {series.map((value, index) => (
+                <RechartsPrimitive.Cell 
+                  key={`cell-${index}`} 
+                  fill={options.colors?.[index] || '#8884d8'} 
+                />
+              ))}
+            </RechartsPrimitive.Pie>
+            <RechartsPrimitive.Tooltip contentStyle={{ backgroundColor: '#1e1e2a', border: '1px solid rgba(255,255,255,0.1)' }} />
+            <RechartsPrimitive.Legend />
+          </RechartsPrimitive.PieChart>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="w-full h-full">
+      <RechartsPrimitive.ResponsiveContainer width="100%" height="100%">
+        {renderChart()}
+      </RechartsPrimitive.ResponsiveContainer>
+    </div>
+  );
+};
 
 const MarketingServices = () => {
   useEffect(() => {
