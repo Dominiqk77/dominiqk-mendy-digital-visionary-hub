@@ -5,7 +5,7 @@ import { Code } from 'lucide-react';
 
 const NavLogo = () => {
   return (
-    <div className="flex-shrink-0">
+    <div className="flex-shrink-0 py-1">
       <Link to="/" className="flex items-center gap-1.5 group">
         <div className="relative w-6 h-6 bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan rounded-md flex items-center justify-center overflow-hidden border border-white/20 shadow-glow">
           <Code size={14} className="text-white z-10" />

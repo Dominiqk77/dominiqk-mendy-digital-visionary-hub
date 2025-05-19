@@ -63,20 +63,20 @@ const Navbar = () => {
   return (
     <nav className={cn("fixed w-full top-0 z-50 transition-all duration-300", scrolled ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-2" : "bg-transparent py-3")}>
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between relative">
           <NavLogo />
           
           {!isMobile && <DesktopNav navigation={navigationItems} />}
           
           {isMobile && (
-            <Drawer>
+            <>
               <MobileMenuButton onClick={() => setIsOpen(!isOpen)} />
               <MobileNav 
                 navigation={navigationItems}
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
               />
-            </Drawer>
+            </>
           )}
         </div>
       </div>
