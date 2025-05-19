@@ -32,7 +32,7 @@ const ServicesPage = () => {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
                 Services <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-400 bg-clip-text text-transparent">Numériques</span>
               </h1>
-              <div className="h-1 w-24 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 mx-auto mb-6"></div>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
               <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
                 Des solutions numériques innovantes et personnalisées pour propulser votre entreprise vers de nouveaux horizons.
               </p>
@@ -97,7 +97,7 @@ const ServicesPage = () => {
                   <Link to={category.link} className="block">
                     <Card className="h-full bg-black/50 backdrop-blur-md border border-white/10 hover:border-white/30 transition-all overflow-hidden cosmic-hover">
                       <CardHeader>
-                        <div className={`rounded-full p-3 w-16 h-16 flex items-center justify-center bg-gradient-to-br ${category.color} mb-4 animate-pulse-slow shadow-space-glow`}>
+                        <div className={`rounded-full p-3 w-16 h-16 flex items-center justify-center bg-gradient-to-br ${category.color} mb-4 animate-pulse-slow`}>
                           {category.icon}
                         </div>
                         <CardTitle className="text-xl text-white">{category.title}</CardTitle>
@@ -134,7 +134,7 @@ const ServicesPage = () => {
               >
                 Pourquoi Nous Choisir
               </motion.h2>
-              <div className="h-1 w-24 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 mx-auto mb-6"></div>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -177,7 +177,7 @@ const ServicesPage = () => {
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   whileHover={{ y: -5 }}
                 >
-                  <Card className="h-full glass-space hover:bg-black/40 hover:border-white/20 transition-all shadow-space-glow">
+                  <Card className="h-full glass-space hover:bg-black/40 hover:border-white/20 transition-all">
                     <CardHeader>
                       <div className="text-blue-400 mb-4">
                         {feature.icon}
@@ -194,10 +194,6 @@ const ServicesPage = () => {
               ))}
             </div>
           </div>
-          
-          {/* Nebula effects for visual enhancement */}
-          <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-purple-500/10 blur-3xl"></div>
-          <div className="absolute bottom-1/3 left-1/4 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl"></div>
         </section>
 
         {/* CTA Section */}
