@@ -23,7 +23,7 @@ const testimonials = [
     company: "AGRO FOOD INDUSTRIE MARRAKECH",
     position: "Fondateur Directeur Général",
     quote: "Dominiqk a transformé notre présence en ligne avec une stratégie de marketing digital exceptionnelle. Grâce à son expertise, notre nouvelle gamme de produits a connu un succès immédiat sur le marché international.",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
+    image: "/lovable-uploads/3b1bf266-238b-4dd4-8ef8-13cec30e562e.png",
     country: "France",
     language: "French",
     rating: 5,
