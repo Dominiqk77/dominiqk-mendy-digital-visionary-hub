@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -67,8 +66,33 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col overflow-hidden relative">
-      {/* Replace the default background with our enhanced space background */}
-      <EnhancedSpaceBackground />
+      {/* We're keeping the enhanced space background but adding AI-themed styling */}
+      <div className="absolute inset-0 bg-portfolio-space z-0">
+        {/* AI-themed grid overlay */}
+        <div className="absolute inset-0 bg-grid-small-white/5 z-0"></div>
+        
+        {/* Neural network nodes */}
+        {Array.from({ length: 20 }).map((_, i) => (
+          <div 
+            key={`node-${i}`}
+            className="absolute rounded-full bg-portfolio-purple/30 backdrop-blur-sm"
+            style={{
+              width: `${Math.random() * 8 + 4}px`,
+              height: `${Math.random() * 8 + 4}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              boxShadow: '0 0 15px rgba(155, 135, 245, 0.5)',
+              animation: `pulse ${Math.random() * 4 + 3}s infinite alternate ease-in-out`,
+              animationDelay: `${Math.random() * 5}s`
+            }}
+          />
+        ))}
+        
+        {/* Nebula effects similar to AI Solutions page */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-portfolio-purple/20 blur-[120px] rounded-full animate-pulse-slow"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-portfolio-blue/20 blur-[150px] rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-portfolio-pink/15 blur-[100px] rounded-full animate-pulse-slow" style={{animationDelay: '1.5s'}}></div>
+      </div>
       
       <Navbar />
       
