@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/layout/Navbar';
@@ -30,9 +29,7 @@ import {
   Clock,
   Calendar,
   GraduationCap,
-  AtomIcon,
   User,
-  LightbulbIcon,
   ScrollText,
   Rocket
 } from 'lucide-react';
@@ -1013,4 +1010,3 @@ const AITrainingPage = () => {
 };
 
 export default AITrainingPage;
-
