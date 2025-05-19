@@ -359,7 +359,7 @@ const BlogPost = () => {
                 <span>{post.readTime}</span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">{post.title}</h1>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gradient bg-gradient-to-r from-indigo-400 via-purple-300 to-indigo-200 bg-clip-text text-transparent">{post.title}</h1>
               
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
@@ -403,10 +403,55 @@ const BlogPost = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="cosmic-card rounded-lg p-8 bg-gray-900/80 backdrop-blur-sm"
+                className="cosmic-card rounded-lg p-8 bg-gray-900/90 backdrop-blur-sm"
               >
+                <style jsx>{`
+                  .content-prose h2 {
+                    color: #9b87f5;
+                    font-size: 1.75rem;
+                    font-weight: 700;
+                    margin-top: 2rem;
+                    margin-bottom: 1rem;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    padding-bottom: 0.5rem;
+                  }
+                  
+                  .content-prose h3 {
+                    color: #b19dff;
+                    font-size: 1.35rem;
+                    font-weight: 600;
+                    margin-top: 1.5rem;
+                    margin-bottom: 0.75rem;
+                  }
+                  
+                  .content-prose p {
+                    margin-bottom: 1.25rem;
+                    line-height: 1.8;
+                  }
+                  
+                  .content-prose ul, .content-prose ol {
+                    margin-left: 1.5rem;
+                    margin-bottom: 1.25rem;
+                  }
+                  
+                  .content-prose li {
+                    margin-bottom: 0.5rem;
+                  }
+                  
+                  .content-prose a {
+                    color: #9b87f5;
+                    text-decoration: underline;
+                    text-decoration-thickness: 0.1em;
+                    text-underline-offset: 0.15em;
+                    transition: color 0.2s ease;
+                  }
+                  
+                  .content-prose a:hover {
+                    color: #c3b5ff;
+                  }
+                `}</style>
                 <div 
-                  className="prose prose-lg prose-invert max-w-none text-gray-100"
+                  className="prose prose-lg prose-invert max-w-none text-gray-100 content-prose"
                   dangerouslySetInnerHTML={{ __html: post.content }}
                 ></div>
                 
@@ -501,12 +546,6 @@ const BlogPost = () => {
                                     date < new Date() || 
                                     date > new Date(new Date().setMonth(new Date().getMonth() + 1))
                                   }
-                                  styles={{
-                                    day: { 
-                                      selected: "bg-indigo-600 text-white",
-                                      today: "text-indigo-600"
-                                    }
-                                  }}
                                 />
                               </div>
                               <div className="pt-4 flex justify-end">
@@ -531,8 +570,8 @@ const BlogPost = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <div className="cosmic-card rounded-lg p-6 mb-8 bg-gray-900/80 backdrop-blur-sm">
-                  <h3 className="text-xl font-bold mb-4 text-white">À propos de l'auteur</h3>
+                <div className="cosmic-card rounded-lg p-6 mb-8 bg-gray-900/90 backdrop-blur-sm">
+                  <h3 className="text-xl font-bold mb-4 text-indigo-300">À propos de l'auteur</h3>
                   <div className="flex items-center mb-4">
                     <div className="w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xl font-bold mr-4">
                       {post.author.charAt(0)}
@@ -550,8 +589,8 @@ const BlogPost = () => {
                   </Button>
                 </div>
                 
-                <div className="cosmic-card rounded-lg p-6 mb-8 bg-gray-900/80 backdrop-blur-sm">
-                  <h3 className="text-xl font-bold mb-4 text-white">Prenez rendez-vous</h3>
+                <div className="cosmic-card rounded-lg p-6 mb-8 bg-gray-900/90 backdrop-blur-sm">
+                  <h3 className="text-xl font-bold mb-4 text-indigo-300">Prenez rendez-vous</h3>
                   <p className="text-gray-100 mb-4">
                     Vous souhaitez discuter des points abordés dans cet article ou explorer comment les appliquer à votre contexte?
                   </p>
@@ -629,12 +668,6 @@ const BlogPost = () => {
                                 date < new Date() || 
                                 date > new Date(new Date().setMonth(new Date().getMonth() + 1))
                               }
-                              styles={{
-                                day: { 
-                                  selected: "bg-indigo-600 text-white",
-                                  today: "text-indigo-600"
-                                }
-                              }}
                             />
                           </div>
                           <div className="pt-4 flex justify-end">
@@ -648,8 +681,8 @@ const BlogPost = () => {
                   </Dialog>
                 </div>
                 
-                <div className="cosmic-card rounded-lg p-6 bg-gray-900/80 backdrop-blur-sm">
-                  <h3 className="text-xl font-bold mb-4 text-white">Articles similaires</h3>
+                <div className="cosmic-card rounded-lg p-6 bg-gray-900/90 backdrop-blur-sm">
+                  <h3 className="text-xl font-bold mb-4 text-indigo-300">Articles similaires</h3>
                   <div className="space-y-4">
                     <div className="group">
                       <p className="text-sm text-gray-200 mb-1">Intelligence Artificielle</p>
