@@ -31,17 +31,23 @@ const DesktopNav = ({ navigation }: DesktopNavProps) => {
                     {item.name}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-[230px] p-4 md:w-[350px] lg:w-[400px] bg-gradient-to-b from-portfolio-cosmic/95 to-portfolio-galactic/95 backdrop-blur-md border border-portfolio-purple/40 shadow-cosmic">
-                      <div className="grid gap-3">
+                    <div className="w-[230px] p-4 md:w-[350px] lg:w-[400px] bg-gradient-to-br from-portfolio-purple/90 via-portfolio-cosmic/95 to-portfolio-galactic/90 backdrop-blur-md border border-portfolio-purple/40 shadow-cosmic relative overflow-hidden">
+                      {/* Animated gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-portfolio-cosmic/30 via-portfolio-nebula/20 to-transparent animate-pulse-slow pointer-events-none"></div>
+                      
+                      {/* Decorative element */}
+                      <div className="absolute top-0 right-0 h-20 w-20 bg-gradient-to-bl from-portfolio-nebula/30 to-transparent rounded-full blur-xl -mr-10 -mt-10"></div>
+                      
+                      <div className="grid gap-3 relative z-10">
                         {item.children?.map(child => (
                           <NavigationMenuLink key={child.name} asChild>
                             <Link 
                               to={child.href} 
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-portfolio-purple/20 hover:text-white focus:bg-accent focus:text-accent-foreground animate-gradient-slow group"
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-portfolio-nebula/20 hover:text-white focus:bg-accent focus:text-accent-foreground animate-gradient-slow group"
                             >
                               <div className="text-sm font-medium leading-none text-white/90 group-hover:text-white group-hover:translate-x-1 transition-transform">
                                 {child.name}
-                                <span className="block h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-portfolio-purple to-portfolio-nebula transition-all duration-300 mt-1"></span>
+                                <span className="block h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-portfolio-nebula via-portfolio-purple to-portfolio-blue transition-all duration-300 mt-1"></span>
                               </div>
                             </Link>
                           </NavigationMenuLink>
