@@ -19,25 +19,24 @@ const Index = () => {
 
   useEffect(() => {
     // Set page title for SEO
-    document.title = 'Dominiqk Mendy | Expert N°1 en Innovation Numérique & IA | Consultant Digital Sénégalais';
+    document.title = 'Dominiqk Mendy | Expert N°1 en Innovation Numérique & IA | Consultant Digital International';
     
     // Set meta description for SEO with updated project timeline
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', 
-        'Dominiqk Mendy, premier expert Sénégalais en innovation numérique, IA, développement web et marketing digital. ' +
-        'Fondateur de SenServices, projet révolutionnaire lancé en beta en février 2025 après 5 ans de développement. ' +
-        'Consultant stratégique pour la transformation digitale et e-gouvernance du Sénégal.'
+        'Dominiqk Mendy, expert international en innovation numérique, IA, développement web et marketing digital. ' +
+        'Consultant stratégique pour la transformation digitale avec plus de 15 ans d\'expérience entre Marrakech, Londres et l\'international.'
       );
     }
     
-    // Set keywords for SEO with SenServices focus
+    // Set keywords for SEO with international focus
     const metaKeywords = document.querySelector('meta[name="keywords"]');
     if (metaKeywords) {
       metaKeywords.setAttribute('content', 
-        'Dominiqk Mendy, Expert Numérique Sénégal, SenServices Sénégal, Transformation Digitale Sénégal, ' +
-        'Innovation Numérique Afrique, E-Services Sénégal, Solutions IA Afrique, ' +
-        'Expert Tech Sénégalais, Digital Innovation Sénégal, Premier Consultant IA Afrique'
+        'Dominiqk Mendy, Expert Numérique International, Transformation Digitale, ' +
+        'Innovation Numérique, Solutions IA, ' +
+        'Expert Tech International, Digital Innovation, Consultant IA International'
       );
     }
     
@@ -65,30 +64,6 @@ const Index = () => {
     handleAnchorClick();
 
   }, [location]);
-
-  // Replace all links to point to SenServices website
-  useEffect(() => {
-    // Find all buttons and links that need to be updated
-    const updateLinks = () => {
-      const allLinks = document.querySelectorAll('a');
-      const senServicesUrl = 'https://www.senservicesenegal.com/';
-      
-      allLinks.forEach(link => {
-        // Only update internal links that don't already point to SenServices
-        if (link.getAttribute('href')?.startsWith('/') || 
-            (link.getAttribute('href') && !link.getAttribute('href')?.includes('senservicesenegal.com'))) {
-          link.setAttribute('href', senServicesUrl);
-        }
-      });
-    };
-    
-    // Run after a short delay to ensure all components are rendered
-    const timer = setTimeout(() => {
-      updateLinks();
-    }, 500);
-    
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <div className="min-h-screen flex flex-col overflow-hidden relative">

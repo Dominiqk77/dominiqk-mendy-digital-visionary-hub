@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const CTASection = () => {
   return (
@@ -48,14 +49,13 @@ const CTASection = () => {
             className="text-center mb-8"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-              Participez à la Transformation Digitale du Sénégal
+              Exploitez Mon Expertise Internationale
             </h2>
             <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-6"></div>
             <p className="text-lg text-gray-200">
-              SenServices est un projet visionnaire initié en 2020 et lancé en version bêta en février 2025, 
-              conçu pour révolutionner l'accès aux services administratifs et propulser le Sénégal dans l'ère 
-              digitale. Nous recherchons activement des partenariats avec des entités gouvernementales et privées 
-              pour accélérer son déploiement à l'échelle nationale.
+              Fort de plus de 15 années d'expérience entre l'Europe, le Maroc et l'international,
+              j'accompagne entreprises et organisations dans leur transformation digitale et le développement
+              de solutions innovantes adaptées à leurs besoins spécifiques.
             </p>
           </motion.div>
           
@@ -68,7 +68,7 @@ const CTASection = () => {
               className="bg-white/5 border border-white/10 rounded-xl p-6"
             >
               <h3 className="text-xl font-bold mb-3 text-white">
-                Pour les Citoyens
+                Services Principaux
               </h3>
               <ul className="space-y-2 text-gray-200">
                 <li className="flex items-center">
@@ -77,7 +77,7 @@ const CTASection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span>Accès simplifié à plus de 500 services administratifs</span>
+                  <span>Développement web et mobile de haute qualité</span>
                 </li>
                 <li className="flex items-center">
                   <div className="mr-2 text-blue-400">
@@ -85,7 +85,7 @@ const CTASection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span>Économie de temps et d'argent considérable</span>
+                  <span>Solutions IA innovantes et personnalisées</span>
                 </li>
                 <li className="flex items-center">
                   <div className="mr-2 text-blue-400">
@@ -93,7 +93,7 @@ const CTASection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span>Réduction des déplacements et des procédures</span>
+                  <span>Stratégie marketing digital internationale</span>
                 </li>
                 <li className="flex items-center">
                   <div className="mr-2 text-blue-400">
@@ -101,7 +101,7 @@ const CTASection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span>Transparence et suivi en temps réel des demandes</span>
+                  <span>Formation et accompagnement sur mesure</span>
                 </li>
               </ul>
             </motion.div>
@@ -114,7 +114,7 @@ const CTASection = () => {
               className="bg-white/5 border border-white/10 rounded-xl p-6"
             >
               <h3 className="text-xl font-bold mb-3 text-white">
-                Pour le Gouvernement
+                Pourquoi Me Choisir
               </h3>
               <ul className="space-y-2 text-gray-200">
                 <li className="flex items-center">
@@ -123,7 +123,7 @@ const CTASection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span>Économies budgétaires de 47 milliards FCFA par an</span>
+                  <span>Expertise internationale reconnue</span>
                 </li>
                 <li className="flex items-center">
                   <div className="mr-2 text-purple-400">
@@ -131,7 +131,7 @@ const CTASection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span>Efficacité accrue des services publics</span>
+                  <span>Solutions adaptées à vos besoins spécifiques</span>
                 </li>
                 <li className="flex items-center">
                   <div className="mr-2 text-purple-400">
@@ -139,7 +139,7 @@ const CTASection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span>Réduction de la bureaucratie et de la corruption</span>
+                  <span>Approche innovante et orientée résultats</span>
                 </li>
                 <li className="flex items-center">
                   <div className="mr-2 text-purple-400">
@@ -147,7 +147,7 @@ const CTASection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span>Données analytiques pour améliorer les politiques</span>
+                  <span>Accompagnement personnalisé et suivi attentif</span>
                 </li>
               </ul>
             </motion.div>
@@ -161,34 +161,29 @@ const CTASection = () => {
             className="text-center"
           >
             <p className="text-gray-200 mb-6">
-              Initié et développé entièrement par Dominiqk Mendy, fondateur de Millennium Capital Invest Ltd, 
-              ce projet innovant a le potentiel de transformer radicalement la relation entre l'État et les citoyens, 
-              tout en positionnant le Sénégal comme leader africain de l'e-gouvernance.
+              Basé à Marrakech depuis 11 ans, je travaille avec des clients internationaux et voyage régulièrement 
+              entre le Maroc, Londres, la France et l'Espagne pour offrir des services de la plus haute qualité à mes clients.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-colors">
-                <a 
-                  href="https://www.senservicesenegal.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <Link 
+                  to="/contact" 
                   className="flex items-center"
                 >
-                  Télécharger la version bêta
+                  Me contacter
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
+                </Link>
               </Button>
               
               <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                <a 
-                  href="https://www.senservicesenegal.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
+                <Link 
+                  to="/services" 
                   className="flex items-center"
                 >
-                  Soumettre un partenariat
+                  Découvrir mes services
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
+                </Link>
               </Button>
             </div>
           </motion.div>
