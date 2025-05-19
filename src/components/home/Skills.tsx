@@ -416,40 +416,57 @@ const Skills = () => {
         
         <div className="mt-20 max-w-7xl mx-auto">
           <h3 className="text-2xl font-bold text-center mb-12">Technologies & Outils</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8">
-            {technologiesUsed.map((tech, index) => (
-              <HoverCard key={index}>
-                <HoverCardTrigger asChild>
-                  <div className="flex flex-col items-center group cursor-pointer">
-                    <div className="w-16 h-16 flex items-center justify-center bg-white rounded-full shadow-sm p-3 transition-all duration-300 group-hover:shadow-md group-hover:scale-110">
-                      <img 
-                        src={tech.icon} 
-                        alt={tech.name} 
-                        className="w-full h-full object-contain"
-                      />
+          {/* Enhanced background for Technologies section */}
+          <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/70 backdrop-blur-md p-8 rounded-xl border border-slate-700/30 shadow-xl relative overflow-hidden">
+            {/* Background decorative elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 opacity-10 rounded-full blur-[100px]"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500 opacity-10 rounded-full blur-[100px]"></div>
+            
+            {/* Grid patterns */}
+            <div className="absolute inset-0 grid grid-cols-10 gap-4 opacity-5 pointer-events-none">
+              {Array(10).fill(0).map((_, i) => (
+                <div key={`v-${i}`} className="h-full w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent"></div>
+              ))}
+              {Array(10).fill(0).map((_, i) => (
+                <div key={`h-${i}`} className="absolute h-px w-full bg-gradient-to-r from-transparent via-blue-500 to-transparent" style={{ top: `${i * 10}%` }}></div>
+              ))}
+            </div>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 relative z-10">
+              {technologiesUsed.map((tech, index) => (
+                <HoverCard key={index}>
+                  <HoverCardTrigger asChild>
+                    <div className="flex flex-col items-center group cursor-pointer">
+                      <div className="w-16 h-16 flex items-center justify-center bg-white rounded-full shadow-md p-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-110 group-hover:shadow-indigo-500/20">
+                        <img 
+                          src={tech.icon} 
+                          alt={tech.name} 
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      <span className="mt-2 text-sm text-center font-medium text-slate-100">
+                        {tech.name}
+                      </span>
                     </div>
-                    <span className="mt-2 text-sm text-center font-medium">
-                      {tech.name}
-                    </span>
-                  </div>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-80 p-4">
-                  <div className="flex flex-col items-center">
-                    <div className="w-12 h-12 mb-2">
-                      <img 
-                        src={tech.icon} 
-                        alt={tech.name} 
-                        className="w-full h-full object-contain"
-                      />
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-80 p-4 bg-slate-900/90 backdrop-blur-md border border-slate-700 text-slate-100 shadow-xl">
+                    <div className="flex flex-col items-center">
+                      <div className="w-12 h-12 mb-2">
+                        <img 
+                          src={tech.icon} 
+                          alt={tech.name} 
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      <h4 className="font-bold">{tech.name}</h4>
+                      <p className="text-sm text-slate-300 mt-2 text-center">
+                        {tech.description}
+                      </p>
                     </div>
-                    <h4 className="font-bold">{tech.name}</h4>
-                    <p className="text-sm text-muted-foreground mt-2 text-center">
-                      {tech.description}
-                    </p>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
-            ))}
+                  </HoverCardContent>
+                </HoverCard>
+              ))}
+            </div>
           </div>
         </div>
       </div>
