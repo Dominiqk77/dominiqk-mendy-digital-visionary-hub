@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -90,7 +89,7 @@ const MarketingServices = () => {
                   {
                     metric: "+60%",
                     description: "Amélioration du taux de conversion moyen",
-                    icon: <ChartPieIcon className="w-12 h-12 text-indigo-400" />
+                    icon: <PieChart className="w-12 h-12 text-indigo-400" />
                   }
                 ].map((item, index) => (
                   <motion.div
@@ -135,7 +134,7 @@ const MarketingServices = () => {
                   color: "from-blue-600 to-indigo-600"
                 },
                 {
-                  icon: <MegaphoneIcon className="h-10 w-10" />,
+                  icon: <Megaphone className="h-10 w-10" />,
                   title: "Publicité Digitale",
                   description: "Campagnes publicitaires performantes sur les plateformes stratégiques pour maximiser votre retour sur investissement.",
                   features: ["Google Ads & Facebook Ads", "Remarketing intelligent", "Publicité native", "Campagnes display optimisées"],

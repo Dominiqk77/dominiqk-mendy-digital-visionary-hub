@@ -381,16 +381,44 @@ const Chart = ({
     return configEntries
   }, [series, options?.colors])
 
+  // Process data for charts
+  const data = React.useMemo(() => {
+    if (options?.data) return options.data;
+    
+    // For line, area charts: transform series data into recharts format
+    if (type === 'line' || type === 'area' || type === 'bar') {
+      if (series[0]?.data) {
+        const categories = options?.xaxis?.categories || [];
+        return categories.map((category: string, index: number) => {
+          const point: Record<string, any> = {
+            category,
+            name: category
+          };
+          
+          // Add data from each series
+          series.forEach((s) => {
+            if (s.name && s.data && index < s.data.length) {
+              point[s.name] = s.data[index];
+            }
+          });
+          
+          return point;
+        });
+      }
+    }
+    
+    return series[0]?.data || [];
+  }, [series, options?.data, options?.xaxis?.categories, type]);
+
   // Render the appropriate chart type
   const renderChart = () => {
     switch (type) {
       case "line":
         return (
-          <RechartsPrimitive.LineChart data={options?.data || []}>
+          <RechartsPrimitive.LineChart data={data}>
             {options?.xaxis?.categories && (
               <RechartsPrimitive.XAxis 
-                dataKey={options.xaxis.dataKey || "category"} 
-                categories={options.xaxis.categories} 
+                dataKey={options.xaxis.dataKey || "name"} 
               />
             )}
             <RechartsPrimitive.YAxis />
@@ -401,9 +429,7 @@ const Chart = ({
               <RechartsPrimitive.Line 
                 key={i} 
                 type="monotone" 
-                dataKey={s.dataKey || "value"} 
-                data={s.data} 
-                name={s.name} 
+                dataKey={s.name} 
                 stroke={options?.colors?.[i]}
               />
             ))}
@@ -411,7 +437,7 @@ const Chart = ({
         )
       case "bar":
         return (
-          <RechartsPrimitive.BarChart data={options?.data || series[0]?.data || []}>
+          <RechartsPrimitive.BarChart data={data}>
             <RechartsPrimitive.XAxis dataKey={options?.xaxis?.dataKey || "name"} />
             <RechartsPrimitive.YAxis />
             <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" />
@@ -420,8 +446,7 @@ const Chart = ({
             {series.map((s, i) => (
               <RechartsPrimitive.Bar 
                 key={i} 
-                dataKey={s.dataKey || "value"} 
-                name={s.name} 
+                dataKey={s.name} 
                 fill={options?.colors?.[i]}
               />
             ))}
@@ -429,7 +454,7 @@ const Chart = ({
         )
       case "area":
         return (
-          <RechartsPrimitive.AreaChart data={options?.data || []}>
+          <RechartsPrimitive.AreaChart data={data}>
             <RechartsPrimitive.XAxis dataKey={options?.xaxis?.dataKey || "name"} />
             <RechartsPrimitive.YAxis />
             <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" />
@@ -439,10 +464,9 @@ const Chart = ({
               <RechartsPrimitive.Area 
                 key={i} 
                 type="monotone" 
-                dataKey={s.dataKey || "value"} 
-                data={s.data} 
-                name={s.name} 
+                dataKey={s.name} 
                 fill={options?.colors?.[i]}
+                stroke={options?.colors?.[i]}
               />
             ))}
           </RechartsPrimitive.AreaChart>
