@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 import animatePlugin from "tailwindcss-animate";
 
@@ -82,7 +81,8 @@ export default {
           nebula: '#C084FC',
           starblue: '#38BDF8',
           deepspace: '#030712',
-          galactic: '#7E22CE'
+          galactic: '#7E22CE',
+          cyan: '#06B6D4'
         }
       },
       borderRadius: {
@@ -91,13 +91,17 @@ export default {
         sm: 'calc(var(--radius) - 4px)'
       },
       boxShadow: {
-        'cosmic': '0 0 20px rgba(155, 135, 245, 0.4)',
+        'cosmic': '0 0 25px rgba(155, 135, 245, 0.4)',
         'cosmic-lg': '0 0 40px rgba(155, 135, 245, 0.6)',
-        'neon': '0 0 12px rgba(14, 165, 233, 0.6)',
+        'neon': '0 0 15px rgba(14, 165, 233, 0.6)',
         'space': '0 4px 20px rgba(0, 0, 0, 0.4), 0 8px 16px rgba(0, 0, 0, 0.3)',
         'space-glow': '0 0 15px rgba(155, 135, 245, 0.3), 0 0 30px rgba(155, 135, 245, 0.2)',
         'glow-purple': '0 0 15px rgba(139, 92, 246, 0.5)',
-        'glow-blue': '0 0 15px rgba(14, 165, 233, 0.5)'
+        'glow-blue': '0 0 20px rgba(14, 165, 233, 0.5)',
+        'glow-pink': '0 0 15px rgba(217, 70, 239, 0.5)',
+        'glow-green': '0 0 15px rgba(34, 197, 94, 0.5)',
+        'glow-amber': '0 0 15px rgba(245, 158, 11, 0.5)',
+        'glow-cyan': '0 0 15px rgba(6, 182, 212, 0.5)'
       },
       keyframes: {
         'accordion-down': {
