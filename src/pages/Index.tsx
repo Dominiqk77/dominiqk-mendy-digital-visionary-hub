@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -11,7 +12,6 @@ import Stats from '../components/home/Stats';
 import Testimonials from '../components/home/Testimonials';
 import CTASection from '../components/home/CTASection';
 import Certifications from '../components/home/Certifications';
-import EnhancedSpaceBackground from '../components/space/EnhancedSpaceBackground';
 
 const Index = () => {
   const location = useLocation();
@@ -66,7 +66,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col overflow-hidden relative">
-      {/* We're keeping the enhanced space background but adding AI-themed styling */}
+      {/* AI-themed background styling */}
       <div className="absolute inset-0 bg-portfolio-space z-0">
         {/* AI-themed grid overlay */}
         <div className="absolute inset-0 bg-grid-small-white/5 z-0"></div>
@@ -88,7 +88,7 @@ const Index = () => {
           />
         ))}
         
-        {/* Nebula effects similar to AI Solutions page */}
+        {/* Nebula effects */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-portfolio-purple/20 blur-[120px] rounded-full animate-pulse-slow"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-portfolio-blue/20 blur-[150px] rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
         <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-portfolio-pink/15 blur-[100px] rounded-full animate-pulse-slow" style={{animationDelay: '1.5s'}}></div>
