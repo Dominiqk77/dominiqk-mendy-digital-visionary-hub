@@ -21,6 +21,9 @@ const FooterBottom = () => {
           <Link to="/terms-of-service" className="hover:text-white transition-colors">
             Conditions
           </Link>
+          <Link to="/legal-notices" className="hover:text-white transition-colors">
+            Mentions légales
+          </Link>
           <Link to="/contact" className="hover:text-white transition-colors">
             Contact
           </Link>

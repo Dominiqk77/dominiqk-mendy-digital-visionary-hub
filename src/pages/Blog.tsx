@@ -52,7 +52,7 @@ const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   
-  // Sample blog posts
+  // Updated blog posts with real content
   const blogPosts = [
     {
       id: 1,
@@ -468,4 +468,3 @@ const Blog = () => {
 };
 
 export default Blog;
-

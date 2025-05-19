@@ -15,6 +15,7 @@ import ContactPage from "./pages/Contact";
 import AcademyPage from "./pages/Academy";
 import ToolsPage from "./pages/Tools";
 import BlogPage from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import ExpertisePage from "./pages/Expertise";
 import PortfolioPage from "./pages/Portfolio";
 import StartProject from "./pages/StartProject";
@@ -47,6 +48,7 @@ const App = () => (
         <Route path="/academy" element={<AcademyPage />} />
         <Route path="/tools" element={<ToolsPage />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/expertise" element={<ExpertisePage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/start-project" element={<StartProject />} />
