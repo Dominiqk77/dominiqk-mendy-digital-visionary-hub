@@ -26,7 +26,7 @@ const MobileNav = ({ navigation, isOpen, setIsOpen }: MobileNavProps) => {
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerContent className="max-h-[85vh] bg-gradient-to-b from-portfolio-darkblue/95 to-black/90 backdrop-blur-lg border-t border-portfolio-purple/20">
+      <DrawerContent className="max-h-[85vh] bg-gradient-to-b from-portfolio-cosmic/95 to-portfolio-galactic/90 backdrop-blur-lg border-t border-portfolio-purple/30">
         <div className="p-4">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
@@ -56,11 +56,11 @@ const MobileNav = ({ navigation, isOpen, setIsOpen }: MobileNavProps) => {
                           <Link 
                             key={child.name} 
                             to={child.href} 
-                            className="flex items-center space-x-2 px-4 py-2.5 text-sm text-white/90 hover:text-white rounded-md hover:bg-white/5 transition-all" 
+                            className="flex items-center space-x-2 px-4 py-2.5 text-sm text-white/90 hover:text-white rounded-md hover:bg-portfolio-purple/20 transition-all group" 
                             onClick={() => setIsOpen(false)}
                           >
-                            <div className="w-1.5 h-1.5 rounded-full bg-portfolio-blue"></div>
-                            <span>{child.name}</span>
+                            <div className="w-1.5 h-1.5 rounded-full bg-portfolio-nebula"></div>
+                            <span className="group-hover:translate-x-1 transition-transform">{child.name}</span>
                           </Link>
                         ))}
                       </div>
@@ -69,7 +69,7 @@ const MobileNav = ({ navigation, isOpen, setIsOpen }: MobileNavProps) => {
                 ) : (
                   <Link 
                     to={item.href} 
-                    className="block px-4 py-3 text-base font-medium rounded-lg bg-white/5 backdrop-blur-sm text-white border-l-2 border-transparent hover:border-portfolio-purple hover:bg-white/10 transition-all" 
+                    className="block px-4 py-3 text-base font-medium rounded-lg bg-white/5 backdrop-blur-sm text-white border-l-2 border-transparent hover:border-portfolio-nebula hover:bg-white/10 transition-all" 
                     onClick={() => setIsOpen(false)}
                   >
                     {item.name}
@@ -81,7 +81,7 @@ const MobileNav = ({ navigation, isOpen, setIsOpen }: MobileNavProps) => {
           
           <div className="mt-6">
             <Button 
-              className="w-full py-5 bg-gradient-to-r from-portfolio-purple to-portfolio-blue text-white border-none shadow-lg hover:shadow-xl transition-all" 
+              className="w-full py-5 bg-gradient-to-r from-portfolio-cosmic to-portfolio-purple text-white border-none shadow-lg hover:shadow-xl transition-all" 
               asChild
             >
               <Link to="/start-project" onClick={() => setIsOpen(false)}>
