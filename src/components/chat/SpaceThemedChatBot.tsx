@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Send, X, Minimize2, Maximize2 } from 'lucide-react';
+import { Message, Send, X, Minimize2, Maximize2 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -60,7 +60,7 @@ const SpaceThemedChatBot = () => {
           className="w-14 h-14 rounded-full shadow-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 text-white flex items-center justify-center"
           aria-label="Chat with us"
         >
-          <MessageSquare size={24} />
+          <Message size={24} />
         </Button>
       </motion.div>
 
@@ -82,7 +82,7 @@ const SpaceThemedChatBot = () => {
               
               <div className="flex items-center gap-2 relative z-10">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
-                  <MessageSquare className="h-5 w-5 text-white" />
+                  <Message className="h-5 w-5 text-white" />
                 </div>
                 <div>
                   <h3 className="font-medium text-white">Assistant</h3>
