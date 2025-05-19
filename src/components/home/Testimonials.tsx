@@ -34,7 +34,7 @@ const testimonials = [
     company: "Digital Innovation Group",
     position: "Chief Technology Officer",
     quote: "Le travail de Dominiqk sur notre plateforme a révolutionné notre approche. Sa maîtrise des technologies de pointe a fait de notre solution un modèle dans notre secteur.",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
+    image: "/lovable-uploads/62e7c5f4-476c-4ca6-80b8-75e9973ecfa4.png",
     country: "Canada",
     language: "French",
     rating: 5,
