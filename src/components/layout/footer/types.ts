@@ -18,4 +18,15 @@ export interface SocialLink {
 export interface ContactInfo {
   email: string;
   location: string;
+  phone?: string;
+  hours?: {
+    days: string;
+    time: string;
+  };
+}
+
+export interface FooterBrandProps {
+  logoText?: string;
+  description?: string;
+  socialLinks?: SocialLink[];
 }

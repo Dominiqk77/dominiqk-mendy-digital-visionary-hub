@@ -1,11 +1,11 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FooterNavSection as FooterNavSectionType, ContactInfo } from './types';
-import { Mail, MapPin } from 'lucide-react';
+import { FooterNavSection, ContactInfo } from './types';
+import { Mail, MapPin, Phone, Clock } from 'lucide-react';
 
 interface FooterContactProps {
-  legalSection: FooterNavSectionType;
+  legalSection: FooterNavSection;
   contactInfo: ContactInfo;
   className?: string;
 }
@@ -13,28 +13,53 @@ interface FooterContactProps {
 const FooterContact = ({ legalSection, contactInfo, className }: FooterContactProps) => {
   return (
     <div className={className}>
-      <h3 className="text-white font-semibold mb-4">{legalSection.title}</h3>
-      <ul className="space-y-3">
-        {legalSection.items.map((item, index) => (
-          <li key={index}>
-            <Link to={item.href} className="text-gray-400 hover:text-white transition-colors">
-              {item.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <h3 className="text-white font-semibold mb-4">Contact</h3>
+      <div className="space-y-3 text-gray-400">
+        {contactInfo.email && (
+          <div className="flex items-start">
+            <Mail className="h-5 w-5 mr-2 text-gray-500 flex-shrink-0 mt-0.5" />
+            <a href={`mailto:${contactInfo.email}`} className="hover:text-white transition-colors">
+              {contactInfo.email}
+            </a>
+          </div>
+        )}
+        
+        {contactInfo.phone && (
+          <div className="flex items-start">
+            <Phone className="h-5 w-5 mr-2 text-gray-500 flex-shrink-0 mt-0.5" />
+            <a href={`tel:${contactInfo.phone}`} className="hover:text-white transition-colors">
+              {contactInfo.phone}
+            </a>
+          </div>
+        )}
+        
+        {contactInfo.location && (
+          <div className="flex items-start">
+            <MapPin className="h-5 w-5 mr-2 text-gray-500 flex-shrink-0 mt-0.5" />
+            <span>{contactInfo.location}</span>
+          </div>
+        )}
+        
+        {contactInfo.hours && (
+          <div className="flex items-start">
+            <Clock className="h-5 w-5 mr-2 text-gray-500 flex-shrink-0 mt-0.5" />
+            <span>{contactInfo.hours.days}: {contactInfo.hours.time}</span>
+          </div>
+        )}
+      </div>
       
-      <h3 className="text-white font-semibold mt-8 mb-4">Contact</h3>
-      <address className="not-italic text-gray-400 space-y-2">
-        <p className="flex items-center gap-2">
-          <Mail className="h-4 w-4" />
-          {contactInfo.email}
-        </p>
-        <p className="flex items-center gap-2">
-          <MapPin className="h-4 w-4" />
-          {contactInfo.location}
-        </p>
-      </address>
+      <div className="mt-6">
+        <h3 className="text-white font-semibold mb-3">{legalSection.title}</h3>
+        <ul className="space-y-2">
+          {legalSection.items.map((item, index) => (
+            <li key={index}>
+              <Link to={item.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                {item.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
