@@ -229,7 +229,8 @@ const MarketingServices = () => {
       valueProposition: "ROI mesurable et croissance organique durable",
       color: "from-indigo-600 to-blue-500",
       category: "acquisition",
-      bgColor: "bg-gradient-to-br from-indigo-600/20 via-blue-500/15 to-indigo-700/10"
+      bgColor: "from-indigo-600/70 to-blue-500/60",
+      iconBg: "bg-indigo-600"
     },
     {
       icon: <Rocket size={40} />,
@@ -239,7 +240,8 @@ const MarketingServices = () => {
       valueProposition: "Croissance accélérée et optimisation des coûts d'acquisition",
       color: "from-purple-600 to-pink-500",
       category: "acquisition",
-      bgColor: "bg-gradient-to-br from-purple-600/20 via-pink-500/15 to-purple-700/10"
+      bgColor: "from-purple-600/70 to-pink-500/60", 
+      iconBg: "bg-purple-600"
     },
     {
       icon: <Share2 size={40} />,
@@ -249,7 +251,8 @@ const MarketingServices = () => {
       valueProposition: "Communauté engagée et image de marque renforcée",
       color: "from-blue-500 to-cyan-400",
       category: "social",
-      bgColor: "bg-gradient-to-br from-blue-500/20 via-cyan-400/15 to-blue-600/10"
+      bgColor: "from-blue-500/70 to-cyan-400/60",
+      iconBg: "bg-blue-500"
     },
     {
       icon: <Zap size={40} />,
@@ -259,7 +262,8 @@ const MarketingServices = () => {
       valueProposition: "Taux de conversion doublés et revenus multipliés",
       color: "from-green-500 to-emerald-400",
       category: "acquisition",
-      bgColor: "bg-gradient-to-br from-green-500/20 via-emerald-400/15 to-green-600/10"
+      bgColor: "from-green-500/70 to-emerald-400/60",
+      iconBg: "bg-green-500"
     },
     {
       icon: <Layout size={40} />,
@@ -269,7 +273,8 @@ const MarketingServices = () => {
       valueProposition: "Visibilité accrue et autorité thématique établie",
       color: "from-amber-500 to-yellow-400",
       category: "content",
-      bgColor: "bg-gradient-to-br from-amber-500/20 via-yellow-400/15 to-amber-600/10"
+      bgColor: "from-amber-500/70 to-yellow-400/60",
+      iconBg: "bg-amber-500"
     },
     {
       icon: <BookOpen size={40} />,
@@ -279,7 +284,8 @@ const MarketingServices = () => {
       valueProposition: "Équipe autonome et compétences internes développées",
       color: "from-teal-500 to-cyan-400",
       category: "content",
-      bgColor: "bg-gradient-to-br from-teal-500/20 via-cyan-400/15 to-teal-600/10"
+      bgColor: "from-teal-500/70 to-cyan-400/60",
+      iconBg: "bg-teal-500"
     },
     {
       icon: <PenTool size={40} />,
@@ -289,7 +295,8 @@ const MarketingServices = () => {
       valueProposition: "Notoriété établie et opportunités business amplifiées",
       color: "from-fuchsia-600 to-purple-500",
       category: "content",
-      bgColor: "bg-gradient-to-br from-fuchsia-600/20 via-purple-500/15 to-fuchsia-700/10"
+      bgColor: "from-fuchsia-600/70 to-purple-500/60", 
+      iconBg: "bg-fuchsia-600"
     },
     {
       icon: <Video size={40} />,
@@ -299,7 +306,8 @@ const MarketingServices = () => {
       valueProposition: "Engagement x3 et mémorisation de marque renforcée",
       color: "from-red-500 to-rose-400",
       category: "content",
-      bgColor: "bg-gradient-to-br from-red-500/20 via-rose-400/15 to-red-600/10"
+      bgColor: "from-red-500/70 to-rose-400/60",
+      iconBg: "bg-red-500"
     },
     {
       icon: <DollarSign size={40} />,
@@ -309,7 +317,8 @@ const MarketingServices = () => {
       valueProposition: "ROAS optimisé et budget publicitaire maximisé",
       color: "from-blue-600 to-indigo-500",
       category: "acquisition",
-      bgColor: "bg-gradient-to-br from-blue-600/20 via-indigo-500/15 to-blue-700/10"
+      bgColor: "from-blue-600/70 to-indigo-500/60",
+      iconBg: "bg-blue-600"
     },
     {
       icon: <BarChart3 size={40} />,
@@ -319,7 +328,8 @@ const MarketingServices = () => {
       valueProposition: "Décisions data-driven et optimisation continue du ROI",
       color: "from-violet-600 to-purple-500",
       category: "analytics",
-      bgColor: "bg-gradient-to-br from-violet-600/20 via-purple-500/15 to-violet-700/10"
+      bgColor: "from-violet-600/70 to-purple-500/60",
+      iconBg: "bg-violet-600"
     },
     {
       icon: <Target size={40} />,
@@ -329,7 +339,8 @@ const MarketingServices = () => {
       valueProposition: "Revenus récurrents et relation client renforcée",
       color: "from-orange-500 to-amber-400",
       category: "acquisition",
-      bgColor: "bg-gradient-to-br from-orange-500/20 via-amber-400/15 to-orange-600/10"
+      bgColor: "from-orange-500/70 to-amber-400/60",
+      iconBg: "bg-orange-500"
     },
     {
       icon: <MessageSquare size={40} />,
@@ -339,7 +350,8 @@ const MarketingServices = () => {
       valueProposition: "Portée démultipliée et crédibilité instantanée",
       color: "from-pink-500 to-rose-400",
       category: "social",
-      bgColor: "bg-gradient-to-br from-pink-500/20 via-rose-400/15 to-pink-600/10"
+      bgColor: "from-pink-500/70 to-rose-400/60",
+      iconBg: "bg-pink-500"
     }
   ];
 
@@ -531,45 +543,50 @@ const MarketingServices = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: idx * 0.1 }}
                           >
-                            <Card className={`h-full space-card flex flex-col hover:border-portfolio-purple/50 transition-all duration-300 overflow-hidden ${service.bgColor} backdrop-blur-sm`}>
-                              {/* Colorful top gradient */}
-                              <div className={`h-2 w-full bg-gradient-to-r ${service.color}`}></div>
-                              
-                              <CardHeader className="relative">
-                                <div className={`text-gradient-to-r ${service.color} text-white mb-4 opacity-90`}>{service.icon}</div>
-                                <CardTitle className="text-white">{service.title}</CardTitle>
-                              </CardHeader>
-                              
-                              <CardContent className="flex-grow">
-                                <p className="text-gray-100 mb-4">{service.description}</p>
-                                <ul className="space-y-2 mb-6">
-                                  {service.features.map((feature, i) => (
-                                    <li key={i} className="flex items-start gap-2">
-                                      <div className="text-portfolio-blue mt-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                          <path d="M20 6L9 17l-5-5"></path>
-                                        </svg>
-                                      </div>
-                                      <span className="text-sm text-gray-100">{feature}</span>
-                                    </li>
-                                  ))}
-                                </ul>
+                            <Card className="h-full overflow-hidden rounded-xl border-0 transition-all duration-300">
+                              {/* Card with proper colored background */}
+                              <div className={`h-full flex flex-col bg-gradient-to-br ${service.bgColor} backdrop-blur-xl`}>
                                 
-                                {/* Value proposition badge */}
-                                <div className={`bg-gradient-to-r ${service.color} text-white px-4 py-2 rounded-md text-sm font-medium inline-block mb-4 shadow-lg backdrop-blur-sm`}>
-                                  <BadgeCheck className="inline-block mr-1 h-4 w-4" /> 
-                                  {service.valueProposition}
-                                </div>
-                              </CardContent>
-                              
-                              <CardFooter>
-                                <Button variant="ghost" className="w-full justify-between hover:bg-white/10 text-white" asChild>
-                                  <Link to="/contact">
-                                    <span>En savoir plus</span>
-                                    <ArrowRight size={16} />
-                                  </Link>
-                                </Button>
-                              </CardFooter>
+                                <CardHeader className="relative border-b border-white/10">
+                                  <div className="flex items-center gap-4">
+                                    <div className={`p-3 rounded-lg ${service.iconBg} bg-opacity-80 text-white shadow-lg`}>
+                                      {service.icon}
+                                    </div>
+                                    <CardTitle className="text-white text-xl">{service.title}</CardTitle>
+                                  </div>
+                                </CardHeader>
+                                
+                                <CardContent className="flex-grow pt-6 text-white">
+                                  <p className="text-gray-100 mb-4">{service.description}</p>
+                                  <ul className="space-y-2 mb-6">
+                                    {service.features.map((feature, i) => (
+                                      <li key={i} className="flex items-start gap-2">
+                                        <div className="text-white mt-1 bg-white/20 rounded-full p-0.5">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M20 6L9 17l-5-5"></path>
+                                          </svg>
+                                        </div>
+                                        <span className="text-sm text-white">{feature}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                  
+                                  {/* Value proposition badge */}
+                                  <div className={`bg-black/40 border border-white/20 text-white px-4 py-2 rounded-md text-sm font-medium inline-flex items-center gap-2 mb-4 shadow-lg backdrop-blur-sm`}>
+                                    <BadgeCheck className="inline-block h-4 w-4" /> 
+                                    {service.valueProposition}
+                                  </div>
+                                </CardContent>
+                                
+                                <CardFooter className="border-t border-white/10 pt-4">
+                                  <Button variant="ghost" className="w-full justify-between text-white hover:bg-black/20 group" asChild>
+                                    <Link to="/contact">
+                                      <span>En savoir plus</span>
+                                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                                    </Link>
+                                  </Button>
+                                </CardFooter>
+                              </div>
                             </Card>
                           </motion.div>
                         ))}
@@ -894,27 +911,27 @@ const MarketingServices = () => {
                   {
                     question: "Comment mesurez-vous le ROI de vos campagnes marketing ?",
                     answer: "Nous établissons des KPIs clairs dès le départ et mettons en place des systèmes de tracking complets (Google Analytics, pixels de conversion, UTM parameters). Nous produisons des rapports réguliers avec analyse des métriques clés : CAC, LTV, ROAS, taux de conversion. Notre approche data-driven nous permet d'attribuer précisément les résultats business à chaque canal et tactique marketing.",
-                    color: "from-portfolio-purple/20 to-portfolio-blue/20"
+                    color: "from-indigo-600/60 to-blue-500/50"
                   },
                   {
                     question: "Comment adaptez-vous vos stratégies aux spécificités du marché africain ?",
                     answer: "Nous prenons en compte les particularités des marchés africains : préférence pour le mobile, adoption des moyens de paiement locaux (Mobile Money), contraintes de connectivité, multilinguisme. Notre équipe inclut des experts locaux dans chaque marché clé pour garantir des messages culturellement pertinents et des tactiques adaptées au contexte local tout en maintenant des standards internationaux.",
-                    color: "from-portfolio-blue/20 to-portfolio-cyan/20"
+                    color: "from-purple-600/60 to-pink-500/50"
                   },
                   {
                     question: "Quelle est votre approche pour les entreprises qui visent à la fois les marchés africains et internationaux ?",
                     answer: "Nous développons des stratégies hybrides avec un socle commun (brand identity, messaging principal) et des déclinaisons spécifiques par marché. Nous utilisons des plateformes qui permettent une gestion centralisée mais une exécution localisée. Notre expertise cross-culturelle nous permet de créer des campagnes qui résonnent à la fois localement et globalement.",
-                    color: "from-portfolio-pink/20 to-portfolio-purple/20"
+                    color: "from-blue-600/60 to-cyan-500/50"
                   },
                   {
                     question: "Comment structurez-vous vos contrats de service marketing ?",
                     answer: "Nous proposons trois modèles : retainer mensuel (pour un accompagnement continu), projet ponctuel (pour des campagnes spécifiques) ou commission au résultat (particulièrement pour l'acquisition). Chaque contrat inclut des objectifs clairs, un planning détaillé et des KPIs mesurables. Nous privilégions la transparence et la flexibilité pour nous adapter aux besoins spécifiques de chaque client.",
-                    color: "from-portfolio-cyan/20 to-portfolio-green/20"
+                    color: "from-teal-600/60 to-green-500/50"
                   },
                   {
                     question: "Travaillez-vous avec des entreprises de toutes tailles ?",
                     answer: "Oui, nous adaptons nos services aux besoins et budgets des startups, PME et grandes entreprises. Pour les startups, nous privilégions des approches growth hacking à coût optimisé. Pour les PME, nous proposons des stratégies marketing intégrées avec un bon équilibre coût/efficacité. Pour les grandes entreprises, nous développons des stratégies omnicanales sophistiquées avec reporting avancé.",
-                    color: "from-portfolio-green/20 to-portfolio-yellow/20"
+                    color: "from-amber-600/60 to-yellow-500/50"
                   }
                 ].map((item, idx) => (
                   <motion.div
@@ -924,20 +941,22 @@ const MarketingServices = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                   >
-                    <Card className={`space-card hover:border-portfolio-purple/30 bg-gradient-to-br ${item.color} backdrop-blur-sm`}>
-                      <CardHeader>
-                        <CardTitle className="text-xl text-white">{item.question}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-100">{item.answer}</p>
-                      </CardContent>
+                    <Card className="overflow-hidden rounded-xl border-0">
+                      <div className={`h-full bg-gradient-to-br ${item.color} backdrop-blur-xl border border-white/10`}>
+                        <CardHeader className="border-b border-white/10">
+                          <CardTitle className="text-xl text-white">{item.question}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="pt-4">
+                          <p className="text-gray-100">{item.answer}</p>
+                        </CardContent>
+                      </div>
                     </Card>
                   </motion.div>
                 ))}
               </div>
               
               <div className="mt-12 text-center">
-                <Button className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 shadow-lg" size="lg" asChild>
+                <Button className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 shadow-lg text-white" size="lg" asChild>
                   <Link to="/contact">
                     Discuter de votre stratégie marketing
                     <ArrowRight className="ml-2 h-4 w-4" />

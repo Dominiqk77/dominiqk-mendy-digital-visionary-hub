@@ -11,7 +11,7 @@ const FooterBrand = () => {
       
       <Link to="/" className="inline-block relative z-10">
         <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent shadow-[0_0_15px_rgba(155,135,245,0.5)] animate-gradient-text">
-          Dominiqk Mendy
+          Dominique Mendy
         </span>
       </Link>
       <p className="text-gray-400 max-w-xs relative z-10 backdrop-blur-sm">
