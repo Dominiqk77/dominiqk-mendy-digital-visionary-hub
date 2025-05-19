@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
@@ -417,10 +416,11 @@ const Skills = () => {
         <div className="mt-20 max-w-7xl mx-auto">
           <h3 className="text-2xl font-bold text-center mb-12">Technologies & Outils</h3>
           {/* Enhanced background for Technologies section */}
-          <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/70 backdrop-blur-md p-8 rounded-xl border border-slate-700/30 shadow-xl relative overflow-hidden">
+          <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/80 backdrop-blur-md p-8 rounded-xl border border-slate-700/30 shadow-xl relative overflow-hidden">
             {/* Background decorative elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 opacity-10 rounded-full blur-[100px]"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500 opacity-10 rounded-full blur-[100px]"></div>
+            <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-600 opacity-5 rounded-full blur-[120px]"></div>
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-600 opacity-5 rounded-full blur-[120px]"></div>
+            <div className="absolute top-1/4 left-1/3 w-40 h-40 bg-purple-600 opacity-5 rounded-full blur-[80px]"></div>
             
             {/* Grid patterns */}
             <div className="absolute inset-0 grid grid-cols-10 gap-4 opacity-5 pointer-events-none">
