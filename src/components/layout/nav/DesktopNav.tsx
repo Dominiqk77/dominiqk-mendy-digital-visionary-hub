@@ -27,20 +27,21 @@ const DesktopNav = ({ navigation }: DesktopNavProps) => {
             <NavigationMenuItem key={item.name}>
               {item.dropdown ? (
                 <>
-                  <NavigationMenuTrigger className="animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white">
+                  <NavigationMenuTrigger className="animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white transition-all duration-300">
                     {item.name}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-[230px] p-4 md:w-[350px] lg:w-[400px] bg-white/95 backdrop-blur-sm">
+                    <div className="w-[230px] p-4 md:w-[350px] lg:w-[400px] bg-gradient-to-b from-portfolio-darkblue/95 to-black/95 backdrop-blur-md border border-portfolio-purple/20 shadow-cosmic">
                       <div className="grid gap-3">
                         {item.children?.map(child => (
                           <NavigationMenuLink key={child.name} asChild>
                             <Link 
                               to={child.href} 
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground animate-gradient-slow"
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-portfolio-purple/20 hover:text-white focus:bg-accent focus:text-accent-foreground animate-gradient-slow group"
                             >
-                              <div className="text-sm font-medium leading-none">
+                              <div className="text-sm font-medium leading-none text-white/90 group-hover:text-white group-hover:translate-x-1 transition-transform">
                                 {child.name}
+                                <span className="block h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-portfolio-purple to-portfolio-blue transition-all duration-300 mt-1"></span>
                               </div>
                             </Link>
                           </NavigationMenuLink>

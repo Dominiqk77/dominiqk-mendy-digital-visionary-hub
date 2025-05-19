@@ -15,6 +15,9 @@ export const navigationItems: NavigationItem[] = [
     href: '/services',
     dropdown: true,
     children: [{
+      name: 'Solutions IA',
+      href: '/services/ai-solutions'
+    }, {
       name: 'Développement Web',
       href: '/services/web-development'
     }, {
