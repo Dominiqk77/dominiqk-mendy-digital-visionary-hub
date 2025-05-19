@@ -170,7 +170,7 @@ const Hero = () => {
       <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-pink-600/20 blur-[100px] rounded-full animate-pulse-slow" style={{animationDelay: '1s'}}></div>
       
       {/* Neural network pattern - optimized with reduced elements */}
-      <svg className="absolute inset-0 z-0 opacity-10 w-full h-full" width="100%" height="100%">
+      <svg className="absolute inset-0 z-0 opacity-10 w-full h-full">
         {Array.from({ length: 6 }).map((_, i) => (
           <line 
             key={`line-h-${i}`}
@@ -225,62 +225,66 @@ const Hero = () => {
             <div className="inline-block px-4 py-1.5 bg-portfolio-purple/10 backdrop-blur-sm rounded-full text-portfolio-purple border border-portfolio-purple/20 text-sm font-medium mb-2">
               <div className="flex items-center gap-2">
                 <Brain size={16} className="text-portfolio-purple animate-pulse" />
-                <span>Innovation Digitale Premium</span>
+                <span className="font-space tracking-wide">Innovation Digitale Premium</span>
               </div>
             </div>
             
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight">
-              {/* Animated gradient for main name */}
-              <span className="block animate-gradient-slow bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink bg-clip-text text-transparent bg-[length:400%_400%]">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight font-montserrat tracking-tighter">
+              {/* Enhanced animated gradient for main name with improved timing */}
+              <span className="block animate-gradient-slow bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink bg-clip-text text-transparent bg-[length:400%_400%] transition-all duration-500 hover:scale-105 hover:shadow-glow-purple">
                 Dominiqk Mendy
               </span>
               
-              {/* Restructured subtitle with "EXPERT EN" followed by "Transformation Digitale" */}
+              {/* Restructured subtitle with enhanced animation and typography */}
               <div className="mt-4 flex flex-col items-center md:items-start">
-                <span className="text-white text-2xl sm:text-4xl md:text-5xl font-bold tracking-wider">EXPERT EN</span> 
-                <div className="relative mt-2">
-                  <span className="text-gradient bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-pink bg-clip-text text-transparent text-3xl sm:text-4xl md:text-5xl font-bold relative z-10">
+                <span className="text-white text-2xl sm:text-4xl md:text-5xl font-bold tracking-wider font-space uppercase animate-fade-in relative shadow-glow">
+                  EXPERT EN
+                  <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-transparent animate-shimmer"></span>
+                </span> 
+                <div className="relative mt-2 overflow-hidden">
+                  <span className="text-gradient-cosmic bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-pink bg-clip-text text-transparent text-3xl sm:text-4xl md:text-5xl font-bold font-space relative z-10 animate-slide-in-right" style={{animationDelay: "0.3s"}}>
                     Transformation Digitale
                   </span>
-                  {/* Removed the underline div that was here */}
+                  {/* Animated underline effect */}
+                  <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-pink animate-shimmer"></span>
                 </div>
               </div>
             </h1>
             
-            {/* Improved description with more specific value proposition */}
-            <p className="text-lg sm:text-xl text-gray-300 max-w-xl">
-              Consultant international spécialisé dans la <span className="text-portfolio-blue font-semibold">transformation numérique</span>, 
-              l'<span className="text-portfolio-purple font-semibold">intelligence artificielle</span>, et le 
-              <span className="text-portfolio-cyan font-semibold"> marketing digital</span> pour les entreprises innovantes à travers l'Afrique et l'Europe.
+            {/* Improved description with animated highlighting for key terms */}
+            <p className="text-lg sm:text-xl text-gray-300 max-w-xl font-poppins animate-fade-in" style={{animationDelay: "0.5s"}}>
+              Consultant international spécialisé dans la <span className="text-portfolio-blue font-semibold relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-portfolio-blue after:origin-bottom-right after:transition-transform after:duration-500 hover:after:scale-x-100 hover:after:origin-bottom-left">transformation numérique</span>, 
+              l'<span className="text-portfolio-purple font-semibold shimmer-text">intelligence artificielle</span>, et le 
+              <span className="text-portfolio-cyan font-semibold pulse-glow"> marketing digital</span> pour les entreprises innovantes à travers l'Afrique et l'Europe.
             </p>
             
-            {/* Added technology badges for visual enhancement */}
-            <div className="flex flex-wrap gap-2 mb-2">
-              <span className="px-2.5 py-1 text-xs font-medium bg-blue-500/20 text-blue-400 rounded-full backdrop-blur-sm border border-blue-500/20">
+            {/* Enhanced technology badges for visual appeal */}
+            <div className="flex flex-wrap gap-2 mb-2 animate-fade-in" style={{animationDelay: "0.7s"}}>
+              <span className="px-2.5 py-1 text-xs font-medium bg-blue-500/20 text-blue-400 rounded-full backdrop-blur-sm border border-blue-500/20 hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-105">
                 Intelligence Artificielle
               </span>
-              <span className="px-2.5 py-1 text-xs font-medium bg-purple-500/20 text-purple-400 rounded-full backdrop-blur-sm border border-purple-500/20">
+              <span className="px-2.5 py-1 text-xs font-medium bg-purple-500/20 text-purple-400 rounded-full backdrop-blur-sm border border-purple-500/20 hover:bg-purple-500/30 transition-all duration-300 transform hover:scale-105">
                 Web Development
               </span>
-              <span className="px-2.5 py-1 text-xs font-medium bg-green-500/20 text-green-400 rounded-full backdrop-blur-sm border border-green-500/20">
+              <span className="px-2.5 py-1 text-xs font-medium bg-green-500/20 text-green-400 rounded-full backdrop-blur-sm border border-green-500/20 hover:bg-green-500/30 transition-all duration-300 transform hover:scale-105">
                 Marketing Digital
               </span>
-              <span className="px-2.5 py-1 text-xs font-medium bg-amber-500/20 text-amber-400 rounded-full backdrop-blur-sm border border-amber-500/20">
+              <span className="px-2.5 py-1 text-xs font-medium bg-amber-500/20 text-amber-400 rounded-full backdrop-blur-sm border border-amber-500/20 hover:bg-amber-500/30 transition-all duration-300 transform hover:scale-105">
                 Consulting
               </span>
             </div>
             
-            {/* Improved CTA buttons with better descriptions and icons */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start pt-2">
-              <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 transition-all duration-300 font-medium">
+            {/* Improved CTA buttons with better animations */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start pt-2 animate-fade-in" style={{animationDelay: "0.9s"}}>
+              <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 transition-all duration-300 font-medium shadow-cosmic-lg hover:shadow-cosmic transform hover:scale-105">
                 <Link to="/services" className="flex items-center justify-center">
-                  <Zap className="mr-2 h-4 w-4" />
+                  <Zap className="mr-2 h-4 w-4 animate-pulse" />
                   Explorer mes services
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto border-portfolio-purple text-white hover:bg-portfolio-purple/10 transition-all duration-300">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto border-portfolio-purple text-white hover:bg-portfolio-purple/10 transition-all duration-300 transform hover:scale-105">
                 <Link to="/start-project" className="flex items-center justify-center">
-                  <Globe className="mr-2 h-4 w-4" />
+                  <Globe className="mr-2 h-4 w-4 animate-spin-slow" />
                   Démarrer un projet
                 </Link>
               </Button>
@@ -378,7 +382,7 @@ const Hero = () => {
             </Avatar>
           </div>
           <p className="text-white text-sm ml-2">
-            <span className="font-semibold text-portfolio-purple">Solutions Digitales Pro</span> disponibles dès maintenant
+            <span className="font-semibold text-portfolio-purple shimmer-text">Solutions Digitales Pro</span> disponibles dès maintenant
           </p>
         </div>
         
