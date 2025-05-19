@@ -14,8 +14,8 @@ import {
   Youtube,
   Settings,
   Globe,
-  ChartPieIcon,
-  MegaphoneIcon,
+  PieChart,
+  Megaphone,
   Lightbulb,
   LayoutGrid,
   BadgeCheck
@@ -24,6 +24,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import EnhancedSpaceBackground from '@/components/space/EnhancedSpaceBackground';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';

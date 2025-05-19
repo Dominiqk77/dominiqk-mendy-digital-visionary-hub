@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
 
@@ -353,7 +354,140 @@ function getPayloadConfigFromPayload(
     : config[key as keyof typeof config]
 }
 
+// Create a simplified Chart component that uses ChartContainer
+// This is what MarketingServices.tsx is trying to import
+const Chart = ({
+  type,
+  series,
+  options,
+  ...props
+}: {
+  type: "line" | "bar" | "area" | "pie" | "donut" | "radar" | "radialBar"
+  series: any[]
+  options?: any
+} & Omit<React.ComponentProps<typeof ChartContainer>, "config" | "children">) => {
+  // Create a basic config object
+  const config: ChartConfig = React.useMemo(() => {
+    // Create a config entry for each series
+    const configEntries = Array.isArray(series)
+      ? series.reduce((acc, item, index) => {
+          if (typeof item === "object" && item?.name) {
+            acc[item.name] = { label: item.name, color: options?.colors?.[index] || undefined }
+          }
+          return acc
+        }, {} as ChartConfig)
+      : {}
+    
+    return configEntries
+  }, [series, options?.colors])
+
+  // Render the appropriate chart type
+  const renderChart = () => {
+    switch (type) {
+      case "line":
+        return (
+          <RechartsPrimitive.LineChart data={options?.data || []}>
+            {options?.xaxis?.categories && (
+              <RechartsPrimitive.XAxis 
+                dataKey={options.xaxis.dataKey || "category"} 
+                categories={options.xaxis.categories} 
+              />
+            )}
+            <RechartsPrimitive.YAxis />
+            <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" />
+            <RechartsPrimitive.Tooltip />
+            <RechartsPrimitive.Legend />
+            {series.map((s, i) => (
+              <RechartsPrimitive.Line 
+                key={i} 
+                type="monotone" 
+                dataKey={s.dataKey || "value"} 
+                data={s.data} 
+                name={s.name} 
+                stroke={options?.colors?.[i]}
+              />
+            ))}
+          </RechartsPrimitive.LineChart>
+        )
+      case "bar":
+        return (
+          <RechartsPrimitive.BarChart data={options?.data || series[0]?.data || []}>
+            <RechartsPrimitive.XAxis dataKey={options?.xaxis?.dataKey || "name"} />
+            <RechartsPrimitive.YAxis />
+            <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" />
+            <RechartsPrimitive.Tooltip />
+            <RechartsPrimitive.Legend />
+            {series.map((s, i) => (
+              <RechartsPrimitive.Bar 
+                key={i} 
+                dataKey={s.dataKey || "value"} 
+                name={s.name} 
+                fill={options?.colors?.[i]}
+              />
+            ))}
+          </RechartsPrimitive.BarChart>
+        )
+      case "area":
+        return (
+          <RechartsPrimitive.AreaChart data={options?.data || []}>
+            <RechartsPrimitive.XAxis dataKey={options?.xaxis?.dataKey || "name"} />
+            <RechartsPrimitive.YAxis />
+            <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" />
+            <RechartsPrimitive.Tooltip />
+            <RechartsPrimitive.Legend />
+            {series.map((s, i) => (
+              <RechartsPrimitive.Area 
+                key={i} 
+                type="monotone" 
+                dataKey={s.dataKey || "value"} 
+                data={s.data} 
+                name={s.name} 
+                fill={options?.colors?.[i]}
+              />
+            ))}
+          </RechartsPrimitive.AreaChart>
+        )
+      case "pie":
+      case "donut":
+        return (
+          <RechartsPrimitive.PieChart>
+            <RechartsPrimitive.Pie 
+              data={series[0]?.data || series} 
+              dataKey={options?.dataKey || "value"} 
+              nameKey={options?.nameKey || "name"}
+              cx="50%" 
+              cy="50%" 
+              innerRadius={type === "donut" ? "60%" : 0}
+              outerRadius="80%" 
+              fill="#8884d8"
+              label
+            >
+              {(options?.labels || []).map((label: string, index: number) => (
+                <RechartsPrimitive.Cell 
+                  key={`cell-${index}`} 
+                  fill={options?.colors?.[index] || `#${Math.floor(Math.random()*16777215).toString(16)}`} 
+                />
+              ))}
+            </RechartsPrimitive.Pie>
+            <RechartsPrimitive.Tooltip />
+            <RechartsPrimitive.Legend />
+          </RechartsPrimitive.PieChart>
+        )
+      default:
+        return null
+    }
+  }
+
+  return (
+    <ChartContainer config={config} {...props}>
+      {renderChart()}
+    </ChartContainer>
+  )
+}
+Chart.displayName = "Chart"
+
 export {
+  Chart, // Export the new Chart component
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
