@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, X } from 'lucide-react';
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
 import { NavigationItem } from './types';

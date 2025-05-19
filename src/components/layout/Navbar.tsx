@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Drawer } from "@/components/ui/drawer";
 import NavLogo from './nav/NavLogo';
 import DesktopNav from './nav/DesktopNav';
 import MobileNav from './nav/MobileNav';
