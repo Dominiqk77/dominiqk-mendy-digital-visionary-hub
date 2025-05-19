@@ -14,16 +14,17 @@ import {
   Youtube,
   Settings,
   Globe,
-  ChartPieIcon,
-  MegaphoneIcon,
+  PieChart,
+  Megaphone,
   Lightbulb,
   LayoutGrid,
-  BadgeCheck
+  Badge as BadgeIcon
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import EnhancedSpaceBackground from '@/components/space/EnhancedSpaceBackground';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -89,7 +90,7 @@ const MarketingServices = () => {
                   {
                     metric: "+60%",
                     description: "Amélioration du taux de conversion moyen",
-                    icon: <ChartPieIcon className="w-12 h-12 text-indigo-400" />
+                    icon: <PieChart className="w-12 h-12 text-indigo-400" />
                   }
                 ].map((item, index) => (
                   <motion.div
@@ -134,7 +135,7 @@ const MarketingServices = () => {
                   color: "from-blue-600 to-indigo-600"
                 },
                 {
-                  icon: <MegaphoneIcon className="h-10 w-10" />,
+                  icon: <Megaphone className="h-10 w-10" />,
                   title: "Publicité Digitale",
                   description: "Campagnes publicitaires performantes sur les plateformes stratégiques pour maximiser votre retour sur investissement.",
                   features: ["Google Ads & Facebook Ads", "Remarketing intelligent", "Publicité native", "Campagnes display optimisées"],
@@ -254,7 +255,7 @@ const MarketingServices = () => {
                   description: "Création de contenu de valeur pour attirer et fidéliser votre audience."
                 },
                 {
-                  icon: <BadgeCheck />,
+                  icon: <BadgeIcon />,
                   title: "Marketing d'Influence",
                   description: "Partenariats stratégiques avec des influenceurs pertinents pour votre marque."
                 },

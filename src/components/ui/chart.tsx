@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
 
@@ -352,6 +353,150 @@ function getPayloadConfigFromPayload(
     ? config[configLabelKey]
     : config[key as keyof typeof config]
 }
+
+// Add the missing Chart export that's being imported in MarketingServices.tsx
+export const Chart = ({
+  type,
+  series,
+  options,
+  height,
+  width,
+}: {
+  type: "line" | "bar" | "area" | "pie" | "donut" | "radar" | "radialBar";
+  series: any[];
+  options?: any;
+  height?: number | string;
+  width?: number | string;
+}) => {
+  const config: ChartConfig = {};
+  
+  const renderChart = () => {
+    switch (type) {
+      case "line":
+        return (
+          <RechartsPrimitive.LineChart data={options?.chart?.data || []}>
+            {options?.xaxis?.categories && (
+              <RechartsPrimitive.XAxis 
+                dataKey="name" 
+                stroke={options?.xaxis?.labels?.style?.colors || "#94a3b8"}
+              />
+            )}
+            <RechartsPrimitive.YAxis stroke={options?.yaxis?.labels?.style?.colors || "#94a3b8"} />
+            <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" />
+            <RechartsPrimitive.Tooltip />
+            {series.map((s, i) => (
+              <RechartsPrimitive.Line
+                key={i}
+                type="monotone"
+                dataKey="value"
+                data={s.data.map((value: any, index: number) => ({
+                  name: options?.xaxis?.categories?.[index] || index,
+                  value
+                }))}
+                stroke={options?.colors?.[i] || "#8884d8"}
+                dot={{ stroke: options?.colors?.[i] || "#8884d8", strokeWidth: 2, r: 4 }}
+                name={s.name}
+              />
+            ))}
+          </RechartsPrimitive.LineChart>
+        );
+        
+      case "bar":
+        return (
+          <RechartsPrimitive.BarChart data={series[0]?.data?.map((value: any, index: number) => ({
+            name: options?.xaxis?.categories?.[index] || index,
+            value
+          })) || []}>
+            <RechartsPrimitive.XAxis 
+              dataKey="name" 
+              stroke={options?.xaxis?.labels?.style?.colors || "#94a3b8"} 
+            />
+            <RechartsPrimitive.YAxis stroke={options?.yaxis?.labels?.style?.colors || "#94a3b8"} />
+            <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" />
+            <RechartsPrimitive.Tooltip />
+            <RechartsPrimitive.Bar 
+              dataKey="value" 
+              fill={options?.colors?.[0] || "#8884d8"}
+              name={series[0]?.name}
+              radius={options?.plotOptions?.bar?.borderRadius || 0}
+            />
+          </RechartsPrimitive.BarChart>
+        );
+        
+      case "area":
+        return (
+          <RechartsPrimitive.AreaChart data={series[0]?.data?.map((value: any, index: number) => ({
+            name: options?.xaxis?.categories?.[index] || index,
+            value
+          })) || []}>
+            <RechartsPrimitive.XAxis 
+              dataKey="name" 
+              stroke={options?.xaxis?.labels?.style?.colors || "#94a3b8"} 
+            />
+            <RechartsPrimitive.YAxis stroke={options?.yaxis?.labels?.style?.colors || "#94a3b8"} />
+            <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" />
+            <RechartsPrimitive.Tooltip />
+            <RechartsPrimitive.Area 
+              type="monotone" 
+              dataKey="value" 
+              stroke={options?.colors?.[0] || "#8884d8"} 
+              fill={options?.colors?.[0] || "#8884d8"}
+              name={series[0]?.name}
+              fillOpacity={0.3}
+            />
+          </RechartsPrimitive.AreaChart>
+        );
+        
+      case "pie":
+      case "donut":
+        return (
+          <RechartsPrimitive.PieChart>
+            <RechartsPrimitive.Pie
+              data={series.map((value, index) => ({ 
+                name: options?.labels?.[index] || `Item ${index}`,
+                value
+              }))}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              outerRadius={type === "donut" ? 80 : 100}
+              innerRadius={type === "donut" ? 60 : 0}
+              fill="#8884d8"
+              dataKey="value"
+            >
+              {series.map((entry, index) => (
+                <RechartsPrimitive.Cell 
+                  key={`cell-${index}`} 
+                  fill={options?.colors?.[index] || `#${Math.floor(Math.random()*16777215).toString(16)}`} 
+                />
+              ))}
+            </RechartsPrimitive.Pie>
+            <RechartsPrimitive.Tooltip />
+            {options?.legend?.position === "bottom" && (
+              <RechartsPrimitive.Legend
+                layout="horizontal"
+                verticalAlign="bottom"
+                align="center"
+              />
+            )}
+          </RechartsPrimitive.PieChart>
+        );
+        
+      default:
+        return (
+          <div className="flex items-center justify-center h-full">
+            <p>Unsupported chart type: {type}</p>
+          </div>
+        );
+    }
+  };
+  
+  return (
+    <ChartContainer config={config} className="w-full h-full">
+      {renderChart()}
+    </ChartContainer>
+  );
+};
 
 export {
   ChartContainer,
