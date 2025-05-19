@@ -11,7 +11,7 @@ const MobileMenuButton = ({ onClick, isOpen }: MobileMenuButtonProps) => {
   return (
     <button 
       onClick={onClick}
-      className="p-2 rounded-lg text-foreground fixed top-4 right-3 z-[100] bg-portfolio-darkblue/70 backdrop-blur-md border border-portfolio-purple/30 shadow-md hover:bg-portfolio-darkblue/80 transition-all"
+      className="p-2 rounded-lg text-foreground fixed top-4 right-3 z-[100] bg-[#8B5CF6]/70 backdrop-blur-md border border-[#D6BCFA]/30 shadow-md hover:bg-[#7E69AB]/80 transition-all"
       aria-label="Menu"
       aria-expanded={isOpen}
     >
