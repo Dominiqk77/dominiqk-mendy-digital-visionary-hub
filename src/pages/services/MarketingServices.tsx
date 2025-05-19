@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowRight, LineChart, Share2, Rocket, Zap, Layout, BookOpen, Video, Target, BarChart3, MessageSquare, DollarSign, BadgeCheck, Briefcase, PenTool, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import SpaceBackground from '@/components/space/SpaceBackground';
 
 // Marketing space theme animation
 const MarketingSpaceBackground = () => {
@@ -18,7 +19,7 @@ const MarketingSpaceBackground = () => {
       <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
         <motion.path 
           d="M0,200 C150,100 300,300 450,150 S600,200 800,100" 
-          stroke="rgba(217, 70, 239, 0.1)"
+          stroke="rgba(155, 135, 245, 0.15)"
           strokeWidth="3"
           fill="none"
           initial={{ pathLength: 0, opacity: 0 }}
@@ -27,7 +28,7 @@ const MarketingSpaceBackground = () => {
         />
         <motion.path 
           d="M0,250 C200,280 350,180 550,250 S750,220 1000,300" 
-          stroke="rgba(14, 165, 233, 0.1)"
+          stroke="rgba(14, 165, 233, 0.15)"
           strokeWidth="2"
           fill="none"
           initial={{ pathLength: 0, opacity: 0 }}
@@ -40,7 +41,7 @@ const MarketingSpaceBackground = () => {
       {Array.from({ length: 5 }).map((_, i) => (
         <motion.div
           key={`analytics-${i}`}
-          className="absolute rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg p-3"
+          className="absolute rounded-lg bg-black/40 backdrop-blur-sm border border-portfolio-purple/20 shadow-lg p-3"
           style={{
             width: `${120 + (i * 30)}px`,
             height: `${80 + (i * 10)}px`,
@@ -61,7 +62,7 @@ const MarketingSpaceBackground = () => {
             delay: i * 0.7
           }}
         >
-          <div className="w-full h-3 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-full mb-2"></div>
+          <div className="w-full h-3 bg-gradient-to-r from-portfolio-purple/30 to-portfolio-blue/30 rounded-full mb-2"></div>
           <div className="w-2/3 h-2 bg-white/20 rounded-full mb-1.5"></div>
           <div className="w-1/2 h-2 bg-white/15 rounded-full"></div>
           
@@ -69,7 +70,7 @@ const MarketingSpaceBackground = () => {
           <svg className="absolute bottom-2 right-2 w-12 h-8" viewBox="0 0 50 25">
             <motion.path 
               d="M0,20 L10,15 L20,18 L30,10 L40,5 L50,12" 
-              stroke={i % 2 === 0 ? "rgba(14, 165, 233, 0.5)" : "rgba(217, 70, 239, 0.5)"}
+              stroke={i % 2 === 0 ? "rgba(155, 135, 245, 0.6)" : "rgba(14, 165, 233, 0.6)"}
               strokeWidth="2"
               fill="none"
               strokeLinecap="round"
@@ -109,21 +110,21 @@ const MarketingSpaceBackground = () => {
         >
           {i % 4 === 0 ? (
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" className="text-blue-400"></path>
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" className="text-portfolio-blue"></path>
             </svg>
           ) : i % 4 === 1 ? (
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none">
-              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" className="text-blue-500"></path>
+              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" className="text-portfolio-blue"></path>
             </svg>
           ) : i % 4 === 2 ? (
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" className="text-pink-500"></rect>
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" className="text-portfolio-pink"></rect>
               <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
               <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
             </svg>
           ) : (
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" className="text-blue-700"></path>
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" className="text-portfolio-purple"></path>
               <rect x="2" y="9" width="4" height="12"></rect>
               <circle cx="4" cy="4" r="2"></circle>
             </svg>
@@ -135,7 +136,7 @@ const MarketingSpaceBackground = () => {
       {Array.from({ length: 10 }).map((_, i) => (
         <motion.div
           key={`stream-${i}`}
-          className="absolute w-0.5 bg-gradient-to-b from-transparent via-primary/30 to-transparent"
+          className="absolute w-0.5 bg-gradient-to-b from-transparent via-portfolio-purple/30 to-transparent"
           style={{
             height: `${Math.random() * 200 + 100}px`,
             left: `${Math.random() * 90 + 5}%`,
@@ -150,6 +151,31 @@ const MarketingSpaceBackground = () => {
             repeat: Infinity,
             delay: Math.random() * 5,
             ease: "linear"
+          }}
+        />
+      ))}
+      
+      {/* Nebula glows */}
+      <div className="nebula-glow-purple w-96 h-96 -top-20 -left-20"></div>
+      <div className="nebula-glow-blue w-96 h-96 bottom-0 right-0"></div>
+      
+      {/* Stars */}
+      {Array.from({ length: 30 }).map((_, i) => (
+        <motion.div
+          key={`star-${i}`}
+          className="absolute w-1 h-1 bg-white rounded-full"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            opacity: [0.2, 0.8, 0.2],
+            scale: [1, 1.5, 1],
+          }}
+          transition={{
+            duration: 1 + Math.random() * 3,
+            repeat: Infinity,
+            repeatType: "reverse",
           }}
         />
       ))}
@@ -319,15 +345,15 @@ const MarketingServices = () => {
   ];
   
   return (
-    <div className="min-h-screen flex flex-col relative">
+    <div className="min-h-screen flex flex-col relative bg-portfolio-space">
       <Navbar />
       
-      {/* Marketing space background with data visualizations */}
+      {/* Custom Space Background with Marketing elements */}
       <MarketingSpaceBackground />
       
       <main className="flex-grow relative z-10">
         {/* Hero Section */}
-        <section className="py-20 md:py-28 bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
+        <section className="py-20 md:py-28 relative overflow-hidden">
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto">
               <motion.div 
@@ -336,19 +362,22 @@ const MarketingServices = () => {
                 transition={{ duration: 0.7 }}
                 className="text-center mb-12"
               >
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                  Stratégies Marketing <span className="text-gradient">Performantes</span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white relative">
+                  Stratégies Marketing{" "}
+                  <span className="bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-neon bg-clip-text text-transparent shadow-[0_0_25px_rgba(155,135,245,0.3)] animate-gradient-text">
+                    Performantes
+                  </span>
                 </h1>
                 <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
                   Boost de votre croissance grâce à des stratégies marketing digitales innovantes et data-driven pour captiver vos audiences en Afrique et à l'international
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Button size="lg" className="bg-gradient-primary hover:opacity-90" asChild>
+                  <Button size="lg" className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 shadow-[0_0_25px_rgba(155,135,245,0.3)] text-white" asChild>
                     <Link to="/contact">
-                      Booster votre croissance
+                      <Rocket className="mr-2 h-5 w-5" /> Booster votre croissance
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-white/30 hover:bg-white/10 text-white" asChild>
+                  <Button size="lg" variant="outline" className="border-white/30 hover:bg-white/10 text-white backdrop-blur-sm" asChild>
                     <Link to="/portfolio">
                       Voir nos case studies
                     </Link>
@@ -359,19 +388,19 @@ const MarketingServices = () => {
               {/* Key Metrics Animation */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
                 {[
-                  { value: "38%", label: "Augmentation moyenne du trafic web", color: "from-blue-500/20 to-blue-600/20" },
-                  { value: "157%", label: "Hausse moyenne du ROI publicitaire", color: "from-purple-500/20 to-purple-600/20" },
-                  { value: "+5.2x", label: "Amplification de votre audience sociale", color: "from-pink-500/20 to-pink-600/20" }
+                  { value: "38%", label: "Augmentation moyenne du trafic web", color: "from-portfolio-blue/20 to-portfolio-blue/10" },
+                  { value: "157%", label: "Hausse moyenne du ROI publicitaire", color: "from-portfolio-purple/20 to-portfolio-purple/10" },
+                  { value: "+5.2x", label: "Amplification de votre audience sociale", color: "from-portfolio-pink/20 to-portfolio-pink/10" }
                 ].map((metric, idx) => (
                   <motion.div
                     key={idx}
-                    className={`bg-gradient-to-br ${metric.color} backdrop-blur-sm rounded-xl border border-white/10 p-6 flex flex-col items-center`}
+                    className={`glass-space bg-gradient-to-br ${metric.color} p-6 flex flex-col items-center cosmic-hover`}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: 0.4 + (idx * 0.2) }}
                   >
                     <motion.div 
-                      className="text-4xl font-bold mb-2"
+                      className="text-4xl font-bold mb-2 text-white glow-text"
                       animate={{ scale: [1, 1.1, 1] }}
                       transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
                     >
@@ -386,19 +415,19 @@ const MarketingServices = () => {
         </section>
         
         {/* Services Tabs Section */}
-        <section className="py-20 bg-gray-50 relative">
+        <section className="py-20 relative z-10">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Nos Services Marketing Digital</h2>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
-              <p className="text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white glow-text">Nos Services Marketing Digital</h2>
+              <div className="h-1 w-24 bg-gradient-to-r from-portfolio-purple to-portfolio-blue mx-auto mb-6"></div>
+              <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
                 Des stratégies marketing intégrées pour assurer une croissance durable et mesurable de votre business, adaptées aux réalités africaines et standards internationaux
               </p>
               
               <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="w-full max-w-4xl mx-auto">
-                <TabsList className="w-full flex flex-wrap justify-center bg-gray-100 p-1 mb-10">
+                <TabsList className="w-full flex flex-wrap justify-center bg-black/40 backdrop-blur-md border border-white/10 p-1 mb-10">
                   {marketingCategories.map(cat => (
-                    <TabsTrigger key={cat.id} value={cat.id} className="flex-grow data-[state=active]:bg-white rounded-md">
+                    <TabsTrigger key={cat.id} value={cat.id} className="flex-grow data-[state=active]:bg-white/10 data-[state=active]:text-white rounded-md text-gray-300">
                       {cat.name}
                     </TabsTrigger>
                   ))}
@@ -416,29 +445,29 @@ const MarketingServices = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: idx * 0.1 }}
                           >
-                            <Card className="h-full flex flex-col hover:border-primary/50 transition-colors">
+                            <Card className="h-full space-card flex flex-col hover:border-portfolio-purple/50 transition-all duration-300">
                               <CardHeader>
-                                <div className="text-primary mb-4">{service.icon}</div>
-                                <CardTitle>{service.title}</CardTitle>
+                                <div className="text-portfolio-purple mb-4 opacity-90">{service.icon}</div>
+                                <CardTitle className="text-white">{service.title}</CardTitle>
                               </CardHeader>
                               <CardContent className="flex-grow">
-                                <p className="text-gray-600 mb-4">{service.description}</p>
+                                <p className="text-gray-300 mb-4">{service.description}</p>
                                 <ul className="space-y-2 mb-4">
                                   {service.features.map((feature, i) => (
                                     <li key={i} className="flex items-start gap-2">
-                                      <div className="text-primary mt-1">
+                                      <div className="text-portfolio-blue mt-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                           <path d="M20 6L9 17l-5-5"></path>
                                         </svg>
                                       </div>
-                                      <span className="text-sm">{feature}</span>
+                                      <span className="text-sm text-gray-300">{feature}</span>
                                     </li>
                                   ))}
                                 </ul>
-                                <p className="text-sm font-medium text-primary">{service.price}</p>
+                                <p className="text-sm font-medium text-portfolio-blue">{service.price}</p>
                               </CardContent>
                               <CardFooter>
-                                <Button variant="ghost" className="w-full justify-between hover:bg-gray-100" asChild>
+                                <Button variant="ghost" className="w-full justify-between hover:bg-white/10 text-white" asChild>
                                   <Link to="/contact">
                                     <span>En savoir plus</span>
                                     <ArrowRight size={16} />
@@ -457,13 +486,13 @@ const MarketingServices = () => {
         </section>
         
         {/* Our Approach Section */}
-        <section className="py-20 bg-white">
+        <section className="py-20 relative z-10 bg-black/30">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Notre Approche Data-Driven</h2>
-                <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white glow-text">Notre Approche Data-Driven</h2>
+                <div className="h-1 w-24 bg-gradient-to-r from-portfolio-purple to-portfolio-blue mx-auto mb-6"></div>
+                <p className="text-lg text-gray-300 max-w-3xl mx-auto">
                   Une méthodologie basée sur l'analyse de données et l'optimisation continue pour maximiser votre retour sur investissement
                 </p>
               </div>
@@ -474,25 +503,25 @@ const MarketingServices = () => {
                     icon: <BarChart3 size={36} />,
                     title: "Analyse Approfondie",
                     description: "Audit complet de votre présence digitale, analyse de votre audience et de votre marché, benchmark concurrentiel pour établir une base solide.",
-                    color: "blue"
+                    color: "portfolio-blue"
                   },
                   {
                     icon: <Target size={36} />,
                     title: "Stratégie Sur Mesure",
                     description: "Élaboration d'une stratégie omnicanale alignée avec vos objectifs business, votre budget et votre contexte marché spécifique.",
-                    color: "purple"
+                    color: "portfolio-purple"
                   },
                   {
                     icon: <Rocket size={36} />,
                     title: "Exécution Optimisée",
                     description: "Déploiement tactique de vos campagnes avec une approche test & learn, optimisation continue basée sur les premiers résultats.",
-                    color: "pink"
+                    color: "portfolio-pink"
                   },
                   {
                     icon: <LineChart size={36} />,
                     title: "Mesure & Ajustement",
                     description: "Reporting transparent et régulier, analyse de performance, ajustements stratégiques pour maximiser votre ROI marketing.",
-                    color: "green"
+                    color: "portfolio-neon"
                   }
                 ].map((step, idx) => (
                   <motion.div
@@ -503,12 +532,12 @@ const MarketingServices = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: idx * 0.1 }}
                   >
-                    <div className={`flex-shrink-0 w-16 h-16 rounded-full bg-${step.color}-100 flex items-center justify-center text-${step.color}-500`}>
+                    <div className={`flex-shrink-0 w-16 h-16 rounded-full bg-${step.color}/20 backdrop-blur-md flex items-center justify-center text-${step.color} border border-${step.color}/30`}>
                       {step.icon}
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                      <p className="text-gray-600">{step.description}</p>
+                      <h3 className="text-xl font-bold mb-2 text-white">{step.title}</h3>
+                      <p className="text-gray-300">{step.description}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -516,17 +545,17 @@ const MarketingServices = () => {
               
               {/* Marketing Channels Diagram */}
               <motion.div
-                className="mt-20 p-10 bg-gray-50 rounded-2xl border border-gray-100"
+                className="mt-20 p-10 glass-space border-portfolio-purple/20"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1 }}
               >
-                <h3 className="text-2xl font-bold text-center mb-8">Canaux Marketing Intégrés</h3>
+                <h3 className="text-2xl font-bold text-center mb-8 text-white glow-text">Canaux Marketing Intégrés</h3>
                 
                 <div className="relative h-[300px] max-w-3xl mx-auto">
                   {/* Center circle */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold shadow-lg z-10">
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-gradient-to-r from-portfolio-purple to-portfolio-blue flex items-center justify-center text-white font-bold shadow-lg z-10">
                     Votre Business
                   </div>
                   
@@ -549,7 +578,7 @@ const MarketingServices = () => {
                     return (
                       <motion.div
                         key={channel.name}
-                        className="absolute flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-md border border-gray-100"
+                        className="absolute flex items-center justify-center w-16 h-16 glass-space border-portfolio-purple/30 z-10"
                         style={{
                           left: `calc(50% + ${x}px)`,
                           top: `calc(50% + ${y}px)`,
@@ -559,10 +588,11 @@ const MarketingServices = () => {
                         whileInView={{ scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: 0.1 + (idx * 0.1) }}
+                        whileHover={{ scale: 1.1, boxShadow: "0 0 15px rgba(155,135,245,0.3)" }}
                       >
                         <div className="flex flex-col items-center">
-                          <div className="text-primary mb-1">{channel.icon}</div>
-                          <span className="text-xs font-medium">{channel.name}</span>
+                          <div className="text-portfolio-blue mb-1">{channel.icon}</div>
+                          <span className="text-xs font-medium text-gray-300">{channel.name}</span>
                         </div>
                       </motion.div>
                     );
@@ -583,7 +613,7 @@ const MarketingServices = () => {
                           y1="50%" 
                           x2={`calc(50% + ${x}px)`} 
                           y2={`calc(50% + ${y}px)`}
-                          stroke="rgba(209, 213, 219, 0.5)"
+                          stroke="rgba(155, 135, 245, 0.3)"
                           strokeWidth="2"
                           strokeDasharray="5,5"
                           initial={{ pathLength: 0 }}
@@ -601,12 +631,12 @@ const MarketingServices = () => {
         </section>
         
         {/* Case Studies Section */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 relative z-10">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Case Studies</h2>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white glow-text">Case Studies</h2>
+              <div className="h-1 w-24 bg-gradient-to-r from-portfolio-purple to-portfolio-blue mx-auto mb-6"></div>
+              <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
                 Découvrez comment nous avons aidé des entreprises à travers l'Afrique et l'Europe à atteindre leurs objectifs marketing
               </p>
             </div>
@@ -615,36 +645,35 @@ const MarketingServices = () => {
               {caseStudies.map((study, idx) => (
                 <motion.div
                   key={study.title}
-                  className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm"
+                  className="space-card overflow-hidden cosmic-hover"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: idx * 0.2 }}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
                 >
                   <div className="w-full h-48 relative">
                     <AspectRatio ratio={16/9}>
-                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 to-pink-500/30 flex items-center justify-center">
-                        <div className="text-4xl font-bold text-white">{study.title.substring(0, 1)}</div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-portfolio-purple/30 to-portfolio-blue/30 flex items-center justify-center">
+                        <div className="text-4xl font-bold text-white glow-text">{study.title.substring(0, 1)}</div>
                       </div>
                     </AspectRatio>
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-primary">
+                    <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-portfolio-purple">
                       {study.client}
                     </div>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">{study.title}</h3>
-                    <div className="bg-green-50 text-green-600 px-3 py-1 rounded-full text-sm font-medium inline-block mb-3">
+                    <h3 className="text-xl font-bold mb-2 text-white">{study.title}</h3>
+                    <div className="bg-portfolio-purple/20 text-portfolio-purple px-3 py-1 rounded-full text-sm font-medium inline-block mb-3 backdrop-blur-sm">
                       {study.results}
                     </div>
-                    <p className="text-gray-600">{study.description}</p>
+                    <p className="text-gray-300">{study.description}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
             
             <div className="text-center mt-12">
-              <Button className="bg-primary hover:bg-primary/90" asChild>
+              <Button className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 shadow-lg" asChild>
                 <Link to="/portfolio">
                   Voir tous nos case studies
                 </Link>
@@ -654,26 +683,26 @@ const MarketingServices = () => {
         </section>
         
         {/* International Expertise Section */}
-        <section className="py-20 bg-white">
+        <section className="py-20 relative z-10 bg-black/30">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Expertise Internationale</h2>
-                <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white glow-text">Expertise Internationale</h2>
+                <div className="h-1 w-24 bg-gradient-to-r from-portfolio-purple to-portfolio-blue mx-auto mb-6"></div>
+                <p className="text-lg text-gray-300 max-w-3xl mx-auto">
                   Notre connaissance des marchés africains et internationaux nous permet de créer des stratégies marketing adaptées à chaque contexte
                 </p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <motion.div
-                  className="bg-gray-50 p-8 rounded-2xl border border-gray-100"
+                  className="glass-space p-8 border-portfolio-blue/30"
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
                 >
-                  <h3 className="text-2xl font-bold mb-4">Marchés Africains</h3>
+                  <h3 className="text-2xl font-bold mb-4 text-white">Marchés Africains</h3>
                   <ul className="space-y-4">
                     {[
                       { country: "Sénégal", expertise: "Marketing digital omnicanal avec intégration des spécificités locales et mobile money" },
@@ -682,12 +711,12 @@ const MarketingServices = () => {
                       { country: "Nigeria", expertise: "Growth hacking et stratégies de scaling pour startups et scale-ups" }
                     ].map((item, idx) => (
                       <li key={idx} className="flex gap-4">
-                        <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-500">
+                        <div className="flex-shrink-0 w-10 h-10 bg-portfolio-blue/20 rounded-full flex items-center justify-center text-portfolio-blue border border-portfolio-blue/30">
                           <Briefcase size={20} />
                         </div>
                         <div>
-                          <h4 className="font-bold">{item.country}</h4>
-                          <p className="text-gray-600 text-sm">{item.expertise}</p>
+                          <h4 className="font-bold text-white">{item.country}</h4>
+                          <p className="text-gray-300 text-sm">{item.expertise}</p>
                         </div>
                       </li>
                     ))}
@@ -695,13 +724,13 @@ const MarketingServices = () => {
                 </motion.div>
                 
                 <motion.div
-                  className="bg-gray-50 p-8 rounded-2xl border border-gray-100"
+                  className="glass-space p-8 border-portfolio-purple/30"
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <h3 className="text-2xl font-bold mb-4">Marchés Internationaux</h3>
+                  <h3 className="text-2xl font-bold mb-4 text-white">Marchés Internationaux</h3>
                   <ul className="space-y-4">
                     {[
                       { country: "France", expertise: "Stratégies marketing multi-canal pour entreprises françaises et francophonie" },
@@ -710,12 +739,12 @@ const MarketingServices = () => {
                       { country: "Canada", expertise: "Marketing bilingue et stratégies adaptées au marché nord-américain" }
                     ].map((item, idx) => (
                       <li key={idx} className="flex gap-4">
-                        <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-500">
+                        <div className="flex-shrink-0 w-10 h-10 bg-portfolio-purple/20 rounded-full flex items-center justify-center text-portfolio-purple border border-portfolio-purple/30">
                           <Globe size={20} />
                         </div>
                         <div>
-                          <h4 className="font-bold">{item.country}</h4>
-                          <p className="text-gray-600 text-sm">{item.expertise}</p>
+                          <h4 className="font-bold text-white">{item.country}</h4>
+                          <p className="text-gray-300 text-sm">{item.expertise}</p>
                         </div>
                       </li>
                     ))}
@@ -725,28 +754,28 @@ const MarketingServices = () => {
               
               {/* Quote */}
               <motion.div
-                className="mt-16 p-8 md:p-12 bg-gradient-to-r from-gray-900 to-black text-white rounded-2xl relative overflow-hidden"
+                className="mt-16 p-8 md:p-12 bg-cosmic-gradient rounded-2xl relative overflow-hidden border border-white/10"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
                 {/* Abstract shapes */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
-                <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-portfolio-blue opacity-20 blur-3xl rounded-full"></div>
+                <div className="absolute bottom-0 left-0 w-80 h-80 bg-portfolio-purple opacity-20 blur-3xl rounded-full"></div>
                 
                 <div className="relative z-10">
                   <div className="text-5xl text-white/30 mb-4">"</div>
-                  <p className="text-xl md:text-2xl font-light mb-6 max-w-3xl">
-                    Notre approche du marketing digital combine la <span className="text-primary font-medium">data science avec la créativité</span>, 
-                    l'expertise des marchés africains avec les <span className="text-primary font-medium">standards internationaux</span>, pour créer des 
+                  <p className="text-xl md:text-2xl font-light mb-6 max-w-3xl text-white">
+                    Notre approche du marketing digital combine la <span className="text-portfolio-purple font-medium">data science avec la créativité</span>, 
+                    l'expertise des marchés africains avec les <span className="text-portfolio-blue font-medium">standards internationaux</span>, pour créer des 
                     stratégies qui résonnent authentiquement avec vos audiences tout en générant des résultats mesurables.
                   </p>
                   <div className="flex items-center">
-                    <div className="w-12 h-12 rounded-full bg-white/10 mr-4"></div>
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-portfolio-purple to-portfolio-blue mr-4"></div>
                     <div>
-                      <p className="font-bold">Dominique Mendy</p>
-                      <p className="text-sm text-gray-400">Expert Marketing Digital</p>
+                      <p className="font-bold text-white">Dominique Mendy</p>
+                      <p className="text-sm text-gray-300">Expert Marketing Digital</p>
                     </div>
                   </div>
                 </div>
@@ -756,12 +785,12 @@ const MarketingServices = () => {
         </section>
         
         {/* FAQ Section */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 relative z-10">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Questions Fréquentes</h2>
-                <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white glow-text">Questions Fréquentes</h2>
+                <div className="h-1 w-24 bg-gradient-to-r from-portfolio-purple to-portfolio-blue mx-auto mb-6"></div>
               </div>
               
               <div className="space-y-6">
@@ -794,12 +823,12 @@ const MarketingServices = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                   >
-                    <Card>
+                    <Card className="space-card hover:border-portfolio-purple/30">
                       <CardHeader>
-                        <CardTitle className="text-xl">{item.question}</CardTitle>
+                        <CardTitle className="text-xl text-white">{item.question}</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-gray-600">{item.answer}</p>
+                        <p className="text-gray-300">{item.answer}</p>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -807,7 +836,7 @@ const MarketingServices = () => {
               </div>
               
               <div className="mt-12 text-center">
-                <Button className="bg-gradient-primary hover:opacity-90" size="lg" asChild>
+                <Button className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 shadow-lg" size="lg" asChild>
                   <Link to="/contact">
                     Discuter de votre stratégie marketing
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -819,16 +848,22 @@ const MarketingServices = () => {
         </section>
         
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-gray-900 to-black text-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto bg-gradient-to-r from-purple-900/40 to-blue-900/40 rounded-2xl overflow-hidden border border-white/10">
+        <section className="py-20 relative">
+          {/* Nebula background effects */}
+          <div className="absolute inset-0">
+            <div className="nebula-glow-purple w-96 h-96 top-10 right-10 opacity-30"></div>
+            <div className="nebula-glow-blue w-96 h-96 bottom-10 left-10 opacity-30"></div>
+          </div>
+          
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-5xl mx-auto glass-space border-white/10">
               <div className="p-12 md:p-16 relative">
                 {/* Background effects */}
-                <div className="absolute top-0 right-0 w-48 h-48 bg-pink-500 opacity-20 blur-3xl rounded-full"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
+                <div className="absolute top-0 right-0 w-48 h-48 bg-portfolio-pink opacity-20 blur-3xl rounded-full"></div>
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-portfolio-blue opacity-20 blur-3xl rounded-full"></div>
                 
                 <div className="relative z-10 text-center">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white glow-text">
                     Prêt à booster votre croissance ?
                   </h2>
                   <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
@@ -836,12 +871,12 @@ const MarketingServices = () => {
                   </p>
                   
                   <div className="flex flex-wrap justify-center gap-4">
-                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 transition-opacity" asChild>
+                    <Button size="lg" className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 shadow-lg" asChild>
                       <Link to="/contact">
                         Audit marketing gratuit
                       </Link>
                     </Button>
-                    <Button size="lg" variant="outline" className="border-white/50 hover:bg-white/10" asChild>
+                    <Button size="lg" variant="outline" className="border-white/30 hover:bg-white/10 text-white backdrop-blur-sm" asChild>
                       <Link to="/services">
                         Explorer d'autres services
                       </Link>
