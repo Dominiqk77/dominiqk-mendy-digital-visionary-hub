@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -405,7 +406,8 @@ const BlogPost = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="cosmic-card rounded-lg p-8 bg-gray-900/90 backdrop-blur-sm"
               >
-                <style jsx>{`
+                <style>
+                  {`
                   .content-prose h2 {
                     color: #9b87f5;
                     font-size: 1.75rem;
@@ -449,7 +451,8 @@ const BlogPost = () => {
                   .content-prose a:hover {
                     color: #c3b5ff;
                   }
-                `}</style>
+                  `}
+                </style>
                 <div 
                   className="prose prose-lg prose-invert max-w-none text-gray-100 content-prose"
                   dangerouslySetInnerHTML={{ __html: post.content }}
@@ -542,6 +545,10 @@ const BlogPost = () => {
                                   onSelect={setDate}
                                   locale={fr}
                                   className="bg-gray-800 border border-white/20 rounded-md text-white"
+                                  classNames={{
+                                    day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                                    day_today: "bg-accent text-accent-foreground"
+                                  }}
                                   disabled={(date) => 
                                     date < new Date() || 
                                     date > new Date(new Date().setMonth(new Date().getMonth() + 1))
@@ -664,6 +671,10 @@ const BlogPost = () => {
                               onSelect={setDate}
                               locale={fr}
                               className="bg-gray-800 border border-white/20 rounded-md text-white"
+                              classNames={{
+                                day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                                day_today: "bg-accent text-accent-foreground"
+                              }}
                               disabled={(date) => 
                                 date < new Date() || 
                                 date > new Date(new Date().setMonth(new Date().getMonth() + 1))
