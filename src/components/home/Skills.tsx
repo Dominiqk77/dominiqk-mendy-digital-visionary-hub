@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
@@ -177,26 +178,106 @@ const Skills = () => {
   ];
 
   const technologiesUsed = [
-    { name: "React", icon: "/icons/react.svg" },
-    { name: "Node.js", icon: "/icons/nodejs.svg" },
-    { name: "Python", icon: "/icons/python.svg" },
-    { name: "TensorFlow", icon: "/icons/tensorflow.svg" },
-    { name: "AWS", icon: "/icons/aws.svg" },
-    { name: "Docker", icon: "/icons/docker.svg" },
-    { name: "MongoDB", icon: "/icons/mongodb.svg" },
-    { name: "PostgreSQL", icon: "/icons/postgresql.svg" },
-    { name: "Firebase", icon: "/icons/firebase.svg" },
-    { name: "Flutter", icon: "/icons/flutter.svg" },
-    { name: "Vue.js", icon: "/icons/vue.svg" },
-    { name: "Angular", icon: "/icons/angular.svg" },
-    { name: "PHP", icon: "/icons/php.svg" },
-    { name: "WordPress", icon: "/icons/wordpress.svg" },
-    { name: "Redux", icon: "/icons/redux.svg" },
-    { name: "GraphQL", icon: "/icons/graphql.svg" },
-    { name: "Figma", icon: "/icons/figma.svg" },
-    { name: "Canva", icon: "/icons/canva.svg" },
-    { name: "Tailwind CSS", icon: "/icons/tailwind.svg" },
-    { name: "Next.js", icon: "/icons/nextjs.svg" },
+    { 
+      name: "React", 
+      icon: "/icons/react.svg",
+      description: "J'utilise React comme framework principal pour développer des interfaces utilisateur interactives et performantes. Mon expertise inclut l'architecture de composants réutilisables, l'optimisation des performances avec React.memo et useCallback, et l'intégration de Redux pour la gestion d'états complexes."
+    },
+    { 
+      name: "Node.js", 
+      icon: "/icons/nodejs.svg",
+      description: "Je conçois des backends scalables avec Node.js en implémentant des architectures microservices. J'optimise les performances avec des techniques de clustering et de mise en cache avancées, tout en assurant une gestion efficace des opérations asynchrones."
+    },
+    { 
+      name: "Python", 
+      icon: "/icons/python.svg",
+      description: "Python est mon langage de prédilection pour l'analyse de données et le développement d'algorithmes d'IA. J'exploite des bibliothèques comme Pandas, NumPy et scikit-learn pour transformer des données brutes en insights stratégiques pour mes clients."
+    },
+    { 
+      name: "TensorFlow", 
+      icon: "/icons/tensorflow.svg",
+      description: "J'implémente des modèles de deep learning avec TensorFlow pour diverses applications: systèmes de recommandation personnalisés, analyse prédictive, et traitement du langage naturel avancé pour des solutions business intelligentes."
+    },
+    { 
+      name: "AWS", 
+      icon: "/icons/aws.svg",
+      description: "Mon expertise AWS inclut l'architecture de solutions cloud hautement disponibles et scalables avec des services comme EC2, Lambda, S3, et DynamoDB. Je maîtrise l'Infrastructure as Code via CloudFormation et Terraform pour des déploiements reproductibles."
+    },
+    { 
+      name: "Docker", 
+      icon: "/icons/docker.svg",
+      description: "J'orchestre des déploiements multi-environnements avec Docker en créant des conteneurs optimisés et sécurisés. J'implémente des pipelines CI/CD automatisés avec Docker Compose et Kubernetes pour une livraison continue fluide."
+    },
+    { 
+      name: "MongoDB", 
+      icon: "/icons/mongodb.svg",
+      description: "Je conçois des schémas MongoDB optimisés pour les applications à forte charge. Mon expertise inclut l'indexation avancée, le sharding pour la scalabilité horizontale, et l'implémentation de patterns d'accès aux données pour des performances maximales."
+    },
+    { 
+      name: "PostgreSQL", 
+      icon: "/icons/postgresql.svg",
+      description: "J'optimise les performances des bases de données PostgreSQL grâce à une modélisation fine des données, des requêtes SQL complexes optimisées, et la mise en place de partitionnement et de réplication pour des applications critiques à haute disponibilité."
+    },
+    { 
+      name: "Firebase", 
+      icon: "/icons/firebase.svg",
+      description: "J'intègre Firebase pour créer rapidement des applications temps réel avec authentification, stockage cloud et bases de données NoSQL. J'optimise les coûts d'utilisation tout en maximisant les performances et la fiabilité des applications."
+    },
+    { 
+      name: "Flutter", 
+      icon: "/icons/flutter.svg",
+      description: "Je développe des applications mobiles cross-platform hautement performantes avec Flutter, en implémentant des patterns d'architecture (BLoC, Provider) pour une codebase maintenable et en optimisant les animations pour une expérience utilisateur fluide."
+    },
+    { 
+      name: "Vue.js", 
+      icon: "/icons/vue.svg",
+      description: "J'exploite Vue.js pour créer des interfaces réactives et modulaires avec une attention particulière à la gestion d'état via Pinia/Vuex. Mon approche composant-first garantit des applications maintenables et évolutives."
+    },
+    { 
+      name: "Angular", 
+      icon: "/icons/angular.svg",
+      description: "Je développe des applications d'entreprise robustes avec Angular en implémentant des architectures modulaires, des services injectables optimisés, et des stratégies de détection de changement avancées pour des performances maximales."
+    },
+    { 
+      name: "PHP", 
+      icon: "/icons/php.svg",
+      description: "J'utilise PHP pour développer des applications web backend robustes, en intégrant des frameworks comme Laravel ou Symfony. J'implémente des architectures MVC optimisées avec des patterns de conception avancés pour des solutions scalables."
+    },
+    { 
+      name: "WordPress", 
+      icon: "/icons/wordpress.svg",
+      description: "Je crée des sites WordPress professionnels avec des thèmes et plugins personnalisés. Mon expertise inclut l'optimisation des performances, la sécurisation avancée et l'intégration d'API tierces pour des fonctionnalités étendues."
+    },
+    { 
+      name: "Redux", 
+      icon: "/icons/redux.svg",
+      description: "J'implémente Redux pour gérer des états complexes dans les applications React/React Native, avec une architecture flux rigoureuse, des sélecteurs memoizés, et l'intégration de middleware comme Redux Saga pour les opérations asynchrones."
+    },
+    { 
+      name: "GraphQL", 
+      icon: "/icons/graphql.svg",
+      description: "J'intègre GraphQL pour optimiser les requêtes API en éliminant le sur-fetching et sous-fetching de données. Je configure des résolveurs efficaces et implémente des politiques de cache avancées pour des performances optimales."
+    },
+    { 
+      name: "Figma", 
+      icon: "/icons/figma.svg",
+      description: "J'utilise Figma comme outil principal pour la conception UI/UX, en créant des design systems complets avec composants réutilisables, variables de design et prototypes interactifs pour valider l'expérience utilisateur avant le développement."
+    },
+    { 
+      name: "Canva", 
+      icon: "/icons/canva.svg",
+      description: "J'exploite Canva pour créer rapidement des assets marketing et contenus visuels de qualité. J'optimise le workflow de création visuelle en utilisant des templates personnalisés pour maintenir une cohérence de marque sur tous les canaux."
+    },
+    { 
+      name: "Tailwind CSS", 
+      icon: "/icons/tailwind.svg",
+      description: "Je développe des interfaces responsive avec Tailwind CSS en utilisant une approche utility-first. J'optimise le bundle final via PurgeCSS et j'étends le framework avec des plugins personnalisés pour des besoins spécifiques."
+    },
+    { 
+      name: "Next.js", 
+      icon: "/icons/nextjs.svg",
+      description: "Je développe des applications React hautes performances avec Next.js, en exploitant le SSR, SSG et ISR selon les besoins. J'implémente des stratégies avancées de data fetching, optimisation d'images et déploiement sur edge pour des performances globales."
+    },
   ];
 
   const handleTabChange = (value: string) => {
@@ -352,7 +433,7 @@ const Skills = () => {
                     </span>
                   </div>
                 </HoverCardTrigger>
-                <HoverCardContent className="text-center">
+                <HoverCardContent className="w-80 p-4">
                   <div className="flex flex-col items-center">
                     <div className="w-12 h-12 mb-2">
                       <img 
@@ -362,8 +443,8 @@ const Skills = () => {
                       />
                     </div>
                     <h4 className="font-bold">{tech.name}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Utilisé dans de nombreux projets professionnels
+                    <p className="text-sm text-muted-foreground mt-2 text-center">
+                      {tech.description}
                     </p>
                   </div>
                 </HoverCardContent>
