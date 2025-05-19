@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import {
   Carousel,
@@ -32,8 +31,8 @@ const testimonials = [
   {
     id: 2,
     name: "Sophie Moreau",
-    company: "Tech Innovation Sénégal",
-    position: "Directrice Marketing",
+    company: "Ministère du Numérique Sénégal",
+    position: "Directrice de la Transformation Digitale",
     quote: "Le travail de Dominiqk sur notre plateforme d'e-gouvernance a révolutionné notre approche. Sa maîtrise des technologies de pointe couplée à sa connaissance du contexte africain ont fait de notre solution un modèle dans la région.",
     image: "https://randomuser.me/api/portraits/women/44.jpg",
     country: "Senegal",

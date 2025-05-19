@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, Zap, Brain, Globe } from 'lucide-react';
@@ -288,7 +287,7 @@ const Hero = () => {
             </div>
           </div>
           
-          {/* Keep existing profile image section with better image loading */}
+          {/* Profile image section with fixed fetchPriority */}
           <div className="w-full md:w-1/2 flex justify-center mt-6 md:mt-0 animate-slide-in-right">
             {isMobile ? 
               <div className="relative max-w-[220px]">
@@ -300,7 +299,7 @@ const Hero = () => {
                       src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
                       alt="Dominiqk Mendy" 
                       className="w-full h-full object-cover" 
-                      loading="eager" 
+                      loading="eager"
                       fetchPriority="high"
                     />
                   </AspectRatio>
@@ -330,7 +329,7 @@ const Hero = () => {
                       src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
                       alt="Dominiqk Mendy" 
                       className="w-full h-full object-cover" 
-                      loading="eager" 
+                      loading="eager"
                       fetchPriority="high"
                     />
                   </AspectRatio>
