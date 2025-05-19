@@ -13,7 +13,7 @@ const Stats = () => {
     },
     {
       title: "Clients Internationaux",
-      value: "75+",
+      value: "1K+",
       description: "Projets menés avec succès pour des clients dans le monde entier",
       color: "from-purple-500 to-indigo-500"
     },
