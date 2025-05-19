@@ -207,7 +207,6 @@ const BlogPost = () => {
           <p>Cette capacité d'adaptation et d'innovation positionne l'Afrique non pas comme simple consommatrice de technologies web, mais comme un laboratoire d'expérimentation où émergent des solutions qui pourraient bien inspirer les pratiques de développement web à l'échelle mondiale.</p>
         `
       },
-      // Add more blog posts here with content...
       {
         id: 3,
         title: "Les nouvelles tendances du marketing digital au Sénégal",
@@ -544,16 +543,6 @@ const BlogPost = () => {
                                   onSelect={setDate}
                                   locale={fr}
                                   className="bg-gray-800 border border-white/20 rounded-md text-white pointer-events-auto"
-                                  classNames={{
-                                    day: {
-                                      selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-                                      today: "bg-accent text-accent-foreground"
-                                    }
-                                  }}
-                                  disabled={(date) => 
-                                    date < new Date() || 
-                                    date > new Date(new Date().setMonth(new Date().getMonth() + 1))
-                                  }
                                 />
                               </div>
                               <div className="pt-4 flex justify-end">
@@ -672,16 +661,6 @@ const BlogPost = () => {
                               onSelect={setDate}
                               locale={fr}
                               className="bg-gray-800 border border-white/20 rounded-md text-white pointer-events-auto"
-                              classNames={{
-                                day: {
-                                  selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-                                  today: "bg-accent text-accent-foreground"
-                                }
-                              }}
-                              disabled={(date) => 
-                                date < new Date() || 
-                                date > new Date(new Date().setMonth(new Date().getMonth() + 1))
-                              }
                             />
                           </div>
                           <div className="pt-4 flex justify-end">
