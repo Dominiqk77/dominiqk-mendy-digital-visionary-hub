@@ -286,9 +286,9 @@ const BlogPost = () => {
         <Navbar />
         <div className="flex-grow flex items-center justify-center">
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-4">Chargement de l'article...</h2>
+            <h2 className="text-2xl font-bold mb-4 text-white">Chargement de l'article...</h2>
             <Link to="/blog">
-              <Button variant="outline">
+              <Button variant="outline" className="text-white border-white/30 hover:bg-white/10">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Retour au blog
               </Button>
@@ -309,7 +309,7 @@ const BlogPost = () => {
   return (
     <div className="min-h-screen flex flex-col relative">
       <div className="fixed inset-0 bg-black z-[-2]"></div>
-      <div className="fixed inset-0 tech-grid opacity-30 z-[-1]"></div>
+      <div className="fixed inset-0 tech-grid opacity-20 z-[-1]"></div>
       
       {/* Star background */}
       <div className="fixed inset-0 z-[-1]">
@@ -335,7 +335,7 @@ const BlogPost = () => {
           {/* Back button */}
           <div className="mb-8">
             <Link to="/blog">
-              <Button variant="outline" size="sm" className="border-white/10 text-gray-300 hover:bg-gray-800/50">
+              <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Retour au blog
               </Button>
@@ -349,7 +349,7 @@ const BlogPost = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="flex items-center text-sm text-gray-400 mb-4">
+              <div className="flex items-center text-sm text-gray-200 mb-4">
                 <Tag className="h-4 w-4 mr-2" />
                 <span className="capitalize">{post.category}</span>
                 <span className="mx-2">•</span>
@@ -369,15 +369,15 @@ const BlogPost = () => {
                   </div>
                   <div>
                     <p className="font-medium text-white">{post.author}</p>
-                    <p className="text-sm text-gray-400">Consultant en stratégie digitale</p>
+                    <p className="text-sm text-gray-200">Consultant en stratégie digitale</p>
                   </div>
                 </div>
                 
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="border-white/10">
+                  <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
                     <Share className="h-4 w-4 mr-1" /> Partager
                   </Button>
-                  <Button variant="outline" size="sm" className="border-white/10">
+                  <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
                     <Bookmark className="h-4 w-4 mr-1" /> Sauvegarder
                   </Button>
                 </div>
@@ -404,29 +404,29 @@ const BlogPost = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="cosmic-card rounded-lg p-8"
+                className="cosmic-card rounded-lg p-8 bg-gray-900/80 backdrop-blur-sm"
               >
                 <div 
-                  className="prose prose-lg prose-invert max-w-none"
+                  className="prose prose-lg prose-invert max-w-none text-gray-100"
                   dangerouslySetInnerHTML={{ __html: post.content }}
                 ></div>
                 
                 {/* Article footer */}
-                <div className="mt-12 pt-6 border-t border-white/10">
+                <div className="mt-12 pt-6 border-t border-white/20">
                   <div className="flex flex-wrap items-center justify-between">
                     <div className="flex items-center space-x-4 mb-4 md:mb-0">
-                      <Button variant="outline" className="border-white/10 flex items-center gap-2">
+                      <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 flex items-center gap-2">
                         <ThumbsUp className="h-4 w-4" />
                         <span>{post.likes}</span>
                       </Button>
-                      <Button variant="outline" className="border-white/10 flex items-center gap-2">
+                      <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 flex items-center gap-2">
                         <MessageCircle className="h-4 w-4" />
                         <span>{post.comments}</span>
                       </Button>
                     </div>
                     
                     <div className="flex flex-wrap gap-2">
-                      <Button variant="outline" size="sm" className="border-white/10">
+                      <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
                         <Share className="h-4 w-4 mr-1" /> Partager
                       </Button>
                       <Dialog>
@@ -435,7 +435,7 @@ const BlogPost = () => {
                             <Calendar className="h-4 w-4 mr-1" /> Prendre RDV
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px] bg-gray-900 text-white border border-white/10">
+                        <DialogContent className="sm:max-w-[425px] bg-gray-900 text-white border border-white/20">
                           <DialogHeader>
                             <DialogTitle>Prendre rendez-vous</DialogTitle>
                           </DialogHeader>
@@ -449,7 +449,7 @@ const BlogPost = () => {
                                     <FormLabel>Nom complet</FormLabel>
                                     <FormControl>
                                       <Input 
-                                        className="bg-gray-800 border-white/10" 
+                                        className="bg-gray-800 border-white/20 text-white" 
                                         placeholder="Votre nom complet" 
                                         {...field} 
                                       />
@@ -465,7 +465,7 @@ const BlogPost = () => {
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
                                       <Input 
-                                        className="bg-gray-800 border-white/10" 
+                                        className="bg-gray-800 border-white/20 text-white" 
                                         type="email" 
                                         placeholder="votre@email.com" 
                                         {...field} 
@@ -482,7 +482,7 @@ const BlogPost = () => {
                                     <FormLabel>Sujet</FormLabel>
                                     <FormControl>
                                       <Input 
-                                        className="bg-gray-800 border-white/10" 
+                                        className="bg-gray-800 border-white/20 text-white" 
                                         placeholder="Sujet de votre rendez-vous" 
                                         {...field} 
                                       />
@@ -496,11 +496,16 @@ const BlogPost = () => {
                                   mode="single"
                                   selected={date}
                                   onSelect={setDate}
-                                  className="bg-gray-800 border border-white/10 rounded-md"
+                                  locale={fr}
+                                  className="bg-gray-800 border border-white/20 rounded-md text-white"
                                   disabled={(date) => 
                                     date < new Date() || 
                                     date > new Date(new Date().setMonth(new Date().getMonth() + 1))
                                   }
+                                  styles={{
+                                    day_selected: { background: "rgb(99 102 241)", color: "white" },
+                                    day_today: { color: "rgb(99 102 241)" }
+                                  }}
                                 />
                               </div>
                               <div className="pt-4 flex justify-end">
@@ -525,28 +530,28 @@ const BlogPost = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <div className="cosmic-card rounded-lg p-6 mb-8">
-                  <h3 className="text-xl font-bold mb-4">À propos de l'auteur</h3>
+                <div className="cosmic-card rounded-lg p-6 mb-8 bg-gray-900/80 backdrop-blur-sm">
+                  <h3 className="text-xl font-bold mb-4 text-white">À propos de l'auteur</h3>
                   <div className="flex items-center mb-4">
                     <div className="w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xl font-bold mr-4">
                       {post.author.charAt(0)}
                     </div>
                     <div>
                       <p className="font-medium text-white">{post.author}</p>
-                      <p className="text-sm text-gray-400">Expert en stratégie digitale & IA</p>
+                      <p className="text-sm text-gray-200">Expert en stratégie digitale & IA</p>
                     </div>
                   </div>
-                  <p className="text-gray-300 mb-4">
+                  <p className="text-gray-100 mb-4">
                     Passionné par l'innovation numérique en Afrique et l'impact des technologies émergentes sur le développement du continent.
                   </p>
-                  <Button variant="outline" className="w-full border-white/10">
+                  <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10">
                     Voir le profil
                   </Button>
                 </div>
                 
-                <div className="cosmic-card rounded-lg p-6 mb-8">
-                  <h3 className="text-xl font-bold mb-4">Prenez rendez-vous</h3>
-                  <p className="text-gray-300 mb-4">
+                <div className="cosmic-card rounded-lg p-6 mb-8 bg-gray-900/80 backdrop-blur-sm">
+                  <h3 className="text-xl font-bold mb-4 text-white">Prenez rendez-vous</h3>
+                  <p className="text-gray-100 mb-4">
                     Vous souhaitez discuter des points abordés dans cet article ou explorer comment les appliquer à votre contexte?
                   </p>
                   <Dialog>
@@ -556,7 +561,7 @@ const BlogPost = () => {
                         Réserver un créneau
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px] bg-gray-900 text-white border border-white/10">
+                    <DialogContent className="sm:max-w-[425px] bg-gray-900 text-white border border-white/20">
                       <DialogHeader>
                         <DialogTitle>Prendre rendez-vous</DialogTitle>
                       </DialogHeader>
@@ -570,7 +575,7 @@ const BlogPost = () => {
                                 <FormLabel>Nom complet</FormLabel>
                                 <FormControl>
                                   <Input 
-                                    className="bg-gray-800 border-white/10" 
+                                    className="bg-gray-800 border-white/20 text-white" 
                                     placeholder="Votre nom complet" 
                                     {...field} 
                                   />
@@ -586,7 +591,7 @@ const BlogPost = () => {
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
                                   <Input 
-                                    className="bg-gray-800 border-white/10" 
+                                    className="bg-gray-800 border-white/20 text-white" 
                                     type="email" 
                                     placeholder="votre@email.com" 
                                     {...field} 
@@ -603,7 +608,7 @@ const BlogPost = () => {
                                 <FormLabel>Sujet</FormLabel>
                                 <FormControl>
                                   <Input 
-                                    className="bg-gray-800 border-white/10" 
+                                    className="bg-gray-800 border-white/20 text-white" 
                                     placeholder="Sujet de votre rendez-vous" 
                                     {...field} 
                                   />
@@ -618,11 +623,15 @@ const BlogPost = () => {
                               selected={date}
                               onSelect={setDate}
                               locale={fr}
-                              className="bg-gray-800 border border-white/10 rounded-md"
+                              className="bg-gray-800 border border-white/20 rounded-md text-white"
                               disabled={(date) => 
                                 date < new Date() || 
                                 date > new Date(new Date().setMonth(new Date().getMonth() + 1))
                               }
+                              styles={{
+                                day_selected: { background: "rgb(99 102 241)", color: "white" },
+                                day_today: { color: "rgb(99 102 241)" }
+                              }}
                             />
                           </div>
                           <div className="pt-4 flex justify-end">
@@ -636,23 +645,23 @@ const BlogPost = () => {
                   </Dialog>
                 </div>
                 
-                <div className="cosmic-card rounded-lg p-6">
-                  <h3 className="text-xl font-bold mb-4">Articles similaires</h3>
+                <div className="cosmic-card rounded-lg p-6 bg-gray-900/80 backdrop-blur-sm">
+                  <h3 className="text-xl font-bold mb-4 text-white">Articles similaires</h3>
                   <div className="space-y-4">
                     <div className="group">
-                      <p className="text-sm text-gray-400 mb-1">Intelligence Artificielle</p>
+                      <p className="text-sm text-gray-200 mb-1">Intelligence Artificielle</p>
                       <Link to="/blog/1" className="text-white font-medium group-hover:text-indigo-400 transition-colors">
                         L'impact de l'IA générative sur les entreprises africaines
                       </Link>
                     </div>
                     <div className="group">
-                      <p className="text-sm text-gray-400 mb-1">Développement Web</p>
+                      <p className="text-sm text-gray-200 mb-1">Développement Web</p>
                       <Link to="/blog/2" className="text-white font-medium group-hover:text-indigo-400 transition-colors">
                         Développement web en Afrique: défis et opportunités
                       </Link>
                     </div>
                     <div className="group">
-                      <p className="text-sm text-gray-400 mb-1">Marketing Digital</p>
+                      <p className="text-sm text-gray-200 mb-1">Marketing Digital</p>
                       <Link to="/blog/3" className="text-white font-medium group-hover:text-indigo-400 transition-colors">
                         Les nouvelles tendances du marketing digital au Sénégal
                       </Link>
@@ -671,4 +680,3 @@ const BlogPost = () => {
 };
 
 export default BlogPost;
-

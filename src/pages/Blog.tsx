@@ -189,7 +189,7 @@ const Blog = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white"
               >
                 <span className="text-gradient-cosmic">Blog</span>
               </motion.h1>
@@ -198,7 +198,7 @@ const Blog = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-xl md:text-2xl mb-8 text-gray-300"
+                className="text-xl md:text-2xl mb-8 text-gray-100"
               >
                 Réflexions et analyses sur l'innovation numérique en Afrique
               </motion.p>
@@ -212,11 +212,11 @@ const Blog = () => {
                 <Input 
                   type="text" 
                   placeholder="Rechercher un article..." 
-                  className="pl-12 py-6 text-lg bg-gray-900/50 backdrop-blur-sm border border-white/10 text-white placeholder:text-gray-400"
+                  className="pl-12 py-6 text-lg bg-gray-900/50 backdrop-blur-sm border border-white/20 text-white placeholder:text-gray-300"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300" />
               </motion.div>
             </div>
           </div>
@@ -238,7 +238,7 @@ const Blog = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="cosmic-card rounded-lg overflow-hidden group"
+                    className="cosmic-card rounded-lg overflow-hidden group bg-gray-900/80 backdrop-blur-sm"
                   >
                     <div className="relative h-48 overflow-hidden">
                       <img 
@@ -251,7 +251,7 @@ const Blog = () => {
                       </div>
                     </div>
                     <div className="p-6">
-                      <div className="flex items-center text-sm text-gray-400 mb-3">
+                      <div className="flex items-center text-sm text-gray-200 mb-3">
                         <CalendarDays className="h-4 w-4 mr-1" />
                         <span>{post.date}</span>
                         <span className="mx-2">•</span>
@@ -263,17 +263,17 @@ const Blog = () => {
                         <Link to={`/blog/${post.id}`}>{post.title}</Link>
                       </h3>
                       
-                      <p className="text-gray-400 mb-4">{post.excerpt}</p>
+                      <p className="text-gray-200 mb-4">{post.excerpt}</p>
                       
                       <div className="flex items-center justify-between">
                         <div className="flex items-center">
                           <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white mr-2">
                             <User className="h-4 w-4" />
                           </div>
-                          <span className="text-sm text-gray-300">{post.author}</span>
+                          <span className="text-sm text-gray-100">{post.author}</span>
                         </div>
                         
-                        <div className="flex items-center space-x-3 text-sm text-gray-400">
+                        <div className="flex items-center space-x-3 text-sm text-gray-200">
                           <div className="flex items-center">
                             <ThumbsUp className="h-4 w-4 mr-1" />
                             <span>{post.likes}</span>
@@ -298,7 +298,7 @@ const Blog = () => {
             <div className="flex flex-col md:flex-row gap-8">
               {/* Categories */}
               <div className="md:w-1/4">
-                <div className="cosmic-card rounded-lg p-6">
+                <div className="cosmic-card rounded-lg p-6 bg-gray-900/80 backdrop-blur-sm">
                   <h3 className="text-xl font-bold mb-4 text-white">Catégories</h3>
                   <ul className="space-y-2">
                     {categories.map(category => (
@@ -308,7 +308,7 @@ const Blog = () => {
                           className={`w-full text-left py-2 px-3 rounded-md flex items-center transition-colors ${
                             selectedCategory === category.id ? 
                               'bg-indigo-600 text-white' : 
-                              'hover:bg-gray-800/50 text-gray-300'
+                              'hover:bg-gray-800/50 text-gray-100'
                           }`}
                         >
                           <Tag className="h-4 w-4 mr-2" />
@@ -328,7 +328,7 @@ const Blog = () => {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      className="border-white/10 text-gray-300 hover:bg-gray-800"
+                      className="border-white/20 text-white hover:bg-gray-800"
                       onClick={() => setSelectedCategory('all')}
                     >
                       Effacer les filtres
@@ -345,7 +345,7 @@ const Blog = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="cosmic-card rounded-lg overflow-hidden"
+                        className="cosmic-card rounded-lg overflow-hidden bg-gray-900/80 backdrop-blur-sm"
                       >
                         <div className="flex flex-col md:flex-row">
                           <div className="md:w-1/3 h-48 md:h-auto">
@@ -356,7 +356,7 @@ const Blog = () => {
                             />
                           </div>
                           <div className="md:w-2/3 p-6">
-                            <div className="flex items-center text-sm text-gray-400 mb-3">
+                            <div className="flex items-center text-sm text-gray-200 mb-3">
                               <CalendarDays className="h-4 w-4 mr-1" />
                               <span>{post.date}</span>
                               <span className="mx-2">•</span>
@@ -371,7 +371,7 @@ const Blog = () => {
                               <Link to={`/blog/${post.id}`}>{post.title}</Link>
                             </h3>
                             
-                            <p className="text-gray-400 mb-4">{post.excerpt}</p>
+                            <p className="text-gray-200 mb-4">{post.excerpt}</p>
                             
                             <div className="flex items-center justify-between">
                               <Button 
@@ -385,7 +385,7 @@ const Blog = () => {
                                 </Link>
                               </Button>
                               
-                              <div className="flex items-center space-x-3 text-sm text-gray-400">
+                              <div className="flex items-center space-x-3 text-sm text-gray-200">
                                 <div className="flex items-center">
                                   <ThumbsUp className="h-4 w-4 mr-1" />
                                   <span>{post.likes}</span>
@@ -401,15 +401,15 @@ const Blog = () => {
                       </motion.div>
                     ))
                   ) : (
-                    <div className="cosmic-card rounded-lg p-8 text-center">
-                      <div className="mb-4 text-gray-400">
+                    <div className="cosmic-card rounded-lg p-8 text-center bg-gray-900/80 backdrop-blur-sm">
+                      <div className="mb-4 text-gray-300">
                         <BookOpen className="h-12 w-12 mx-auto opacity-50" />
                       </div>
                       <h3 className="text-xl font-bold text-white mb-2">Aucun article trouvé</h3>
-                      <p className="text-gray-400 mb-4">Aucun article ne correspond à votre recherche ou à la catégorie sélectionnée.</p>
+                      <p className="text-gray-200 mb-4">Aucun article ne correspond à votre recherche ou à la catégorie sélectionnée.</p>
                       <Button 
                         variant="outline"
-                        className="border-white/10 text-gray-300 hover:bg-gray-800"
+                        className="border-white/20 text-white hover:bg-gray-800"
                         onClick={() => {
                           setSearchTerm('');
                           setSelectedCategory('all');
@@ -430,12 +430,12 @@ const Blog = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/20 to-black"></div>
           
           <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-3xl mx-auto cosmic-card p-8 md:p-12">
+            <div className="max-w-3xl mx-auto cosmic-card p-8 md:p-12 bg-gray-900/80 backdrop-blur-sm">
               <div className="absolute top-0 right-0 w-40 h-40 bg-indigo-600 rounded-full filter blur-[80px] opacity-30"></div>
               
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold mb-4 text-white">Restez informé</h2>
-                <p className="text-gray-300">
+                <p className="text-gray-100">
                   Abonnez-vous à ma newsletter pour recevoir mes derniers articles et actualités sur l'innovation numérique.
                 </p>
               </div>
@@ -444,7 +444,7 @@ const Blog = () => {
                 <Input 
                   type="email" 
                   placeholder="Votre adresse email" 
-                  className="flex-grow bg-gray-900/50 backdrop-blur-sm border border-white/10 text-white placeholder:text-gray-400"
+                  className="flex-grow bg-gray-900/50 backdrop-blur-sm border border-white/20 text-white placeholder:text-gray-300"
                 />
                 <Button 
                   type="submit"
@@ -454,7 +454,7 @@ const Blog = () => {
                 </Button>
               </form>
               
-              <div className="text-center mt-4 text-sm text-gray-400">
+              <div className="text-center mt-4 text-sm text-gray-200">
                 En vous inscrivant, vous acceptez notre politique de confidentialité.
               </div>
             </div>
