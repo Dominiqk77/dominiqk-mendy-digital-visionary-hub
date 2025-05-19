@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, X } from 'lucide-react';
-import { Drawer, DrawerContent } from "@/components/ui/drawer";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
 import { NavigationItem } from './types';
@@ -29,8 +29,8 @@ const MobileNav = ({ navigation, isOpen, setIsOpen }: MobileNavProps) => {
   };
 
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerContent className="max-h-[85vh] bg-gradient-to-b from-portfolio-cosmic/95 via-portfolio-galactic/90 to-portfolio-space/95 backdrop-blur-lg border-t border-portfolio-purple/30 relative overflow-hidden" data-mobile-menu>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogContent className="w-full p-0 max-h-[90vh] rounded-none border-none sm:rounded-lg bg-gradient-to-b from-portfolio-cosmic/95 via-portfolio-galactic/90 to-portfolio-space/95 backdrop-blur-lg border-t border-portfolio-purple/30 overflow-y-auto" data-mobile-menu>
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 h-40 w-40 bg-gradient-to-bl from-portfolio-nebula/20 to-transparent rounded-full blur-2xl"></div>
         <div className="absolute bottom-0 left-0 h-40 w-40 bg-gradient-to-tr from-portfolio-purple/20 to-transparent rounded-full blur-2xl"></div>
@@ -61,7 +61,6 @@ const MobileNav = ({ navigation, isOpen, setIsOpen }: MobileNavProps) => {
                     
                     {activeDropdown === item.name && (
                       <div className="ml-4 space-y-1 animate-fade-in mt-1 mb-2 relative">
-                        {/* Subtle gradient background for dropdown content */}
                         <div className="absolute inset-0 bg-gradient-to-br from-portfolio-nebula/10 to-portfolio-purple/10 rounded-lg"></div>
                         
                         {item.children?.map(child => (
@@ -103,8 +102,8 @@ const MobileNav = ({ navigation, isOpen, setIsOpen }: MobileNavProps) => {
             </Button>
           </div>
         </div>
-      </DrawerContent>
-    </Drawer>
+      </DialogContent>
+    </Dialog>
   );
 };
 

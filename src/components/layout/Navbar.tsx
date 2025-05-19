@@ -46,25 +46,12 @@ const Navbar = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (isOpen && !target.closest('[data-mobile-menu]')) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen]);
-
   const toggleMobileMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <nav className={cn("fixed w-full top-0 z-50 transition-all duration-300", scrolled ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-2" : "bg-transparent py-3")}>
+    <nav className={cn("fixed w-full top-0 z-40 transition-all duration-300", scrolled ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-2" : "bg-transparent py-3")}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between relative">
           <NavLogo />
@@ -73,7 +60,7 @@ const Navbar = () => {
           
           {isMobile && (
             <>
-              <MobileMenuButton onClick={toggleMobileMenu} />
+              <MobileMenuButton onClick={toggleMobileMenu} isOpen={isOpen} />
               <MobileNav 
                 navigation={navigationItems}
                 isOpen={isOpen}
