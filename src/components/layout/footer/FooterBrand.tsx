@@ -7,7 +7,7 @@ const FooterBrand = () => {
   return (
     <div className="md:col-span-1 space-y-4">
       <Link to="/" className="inline-block">
-        <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan bg-clip-text text-transparent">
+        <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent shadow-glow">
           Dominiqk Mendy
         </span>
       </Link>
