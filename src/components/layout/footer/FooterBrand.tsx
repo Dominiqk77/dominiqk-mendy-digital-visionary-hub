@@ -1,14 +1,13 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Github, Linkedin, Twitter, Code } from 'lucide-react';
+import { Github, Linkedin, Twitter } from 'lucide-react';
 
 const FooterBrand = () => {
   return (
     <div className="md:col-span-1 space-y-4">
-      <Link to="/" className="inline-flex items-center space-x-2">
-        <Code className="h-5 w-5 bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan bg-[length:200%_auto] animate-gradient-slow text-transparent fill-transparent stroke-current" />
-        <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent shadow-glow animate-gradient-slow">
+      <Link to="/" className="inline-block">
+        <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent shadow-glow">
           Dominiqk Mendy
         </span>
       </Link>

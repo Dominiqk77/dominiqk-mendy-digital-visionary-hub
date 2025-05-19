@@ -61,7 +61,7 @@ const Navbar = () => {
   }, [isOpen]);
 
   return (
-    <nav className={cn("fixed w-full top-0 z-50 transition-all duration-300", scrolled ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-2" : "bg-transparent py-3")}>
+    <nav className={cn("fixed w-full top-0 z-50 transition-all duration-300", scrolled ? "bg-background/80 backdrop-blur-md border-b shadow-sm py-0.5" : "bg-transparent py-1")}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
           <NavLogo />
