@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -503,8 +502,10 @@ const BlogPost = () => {
                                     date > new Date(new Date().setMonth(new Date().getMonth() + 1))
                                   }
                                   styles={{
-                                    day_selected: { background: "rgb(99 102 241)", color: "white" },
-                                    day_today: { color: "rgb(99 102 241)" }
+                                    day: { 
+                                      selected: "bg-indigo-600 text-white",
+                                      today: "text-indigo-600"
+                                    }
                                   }}
                                 />
                               </div>
@@ -629,8 +630,10 @@ const BlogPost = () => {
                                 date > new Date(new Date().setMonth(new Date().getMonth() + 1))
                               }
                               styles={{
-                                day_selected: { background: "rgb(99 102 241)", color: "white" },
-                                day_today: { color: "rgb(99 102 241)" }
+                                day: { 
+                                  selected: "bg-indigo-600 text-white",
+                                  today: "text-indigo-600"
+                                }
                               }}
                             />
                           </div>
