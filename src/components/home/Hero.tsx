@@ -1,7 +1,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown, Zap, Brain, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -150,105 +150,155 @@ const Hero = () => {
     <div className="relative h-auto min-h-[700px] sm:min-h-[700px] flex items-center overflow-hidden bg-transparent pt-16 pb-8 sm:pt-8 sm:pb-0">
       <div id="particles-js" className="absolute inset-0 z-0"></div>
       
+      {/* Enhanced background with nebula effect */}
       <div className="absolute inset-0 z-0 opacity-10 portfolio-gradient"></div>
+      <div className="absolute -top-24 -right-24 w-96 h-96 bg-purple-600/20 blur-[120px] rounded-full"></div>
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-600/20 blur-[100px] rounded-full"></div>
       
       <div className="container mx-auto px-4 sm:px-6 z-10 relative">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
           <div className="w-full md:w-1/2 space-y-5 text-center md:text-left animate-slide-in-left">
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
-              <span className="block animate-gradient-slow bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink bg-clip-text text-transparent bg-[length:400%_400%]">Dominiqk Mendy</span>
-              <span className="text-gradient">Visionnaire Digital</span>
+            {/* Enhanced title with better typography and emphasis */}
+            <div className="inline-block px-4 py-1.5 bg-portfolio-purple/10 backdrop-blur-sm rounded-full text-portfolio-purple border border-portfolio-purple/20 text-sm font-medium mb-2">
+              <div className="flex items-center gap-2">
+                <Brain size={16} className="text-portfolio-purple animate-pulse" />
+                <span>Innovation Digitale Premium</span>
+              </div>
+            </div>
+            
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight">
+              <span className="block animate-gradient-slow bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink bg-clip-text text-transparent bg-[length:400%_400%]">
+                Dominiqk Mendy
+              </span>
+              <div className="flex items-center gap-2 mt-2">
+                <span className="text-white">Expert en</span> 
+                <div className="relative inline-flex">
+                  <span className="text-gradient relative z-10">Transformation Digitale</span>
+                  <div className="absolute -bottom-1 left-0 w-full h-3 bg-portfolio-purple/20 rounded-full -z-0"></div>
+                </div>
+              </div>
             </h1>
             
-            <p className="text-sm sm:text-lg md:text-xl text-gray-300">
-              Expert en innovation numérique et leader tech Sénégalais transformant <span className="text-primary font-semibold">le paysage digital International</span> par des solutions technologiques révolutionnaires.
+            {/* Improved description with more specific value proposition */}
+            <p className="text-lg sm:text-xl text-gray-300 max-w-xl">
+              Consultant international spécialisé dans la <span className="text-portfolio-blue font-semibold">transformation numérique</span>, 
+              l'<span className="text-portfolio-purple font-semibold">intelligence artificielle</span>, et le 
+              <span className="text-portfolio-cyan font-semibold"> marketing digital</span> pour les entreprises innovantes à travers l'Afrique et l'Europe.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-              <Button size="lg" className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 transition-opacity">
-                <a href="https://www.senservicesenegal.com/" className="flex items-center justify-center">
-                  Démarrer une collaboration
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
+            {/* Added technology badges for visual enhancement */}
+            <div className="flex flex-wrap gap-2 mb-2">
+              <span className="px-2.5 py-1 text-xs font-medium bg-blue-500/20 text-blue-400 rounded-full backdrop-blur-sm border border-blue-500/20">
+                Intelligence Artificielle
+              </span>
+              <span className="px-2.5 py-1 text-xs font-medium bg-purple-500/20 text-purple-400 rounded-full backdrop-blur-sm border border-purple-500/20">
+                Web Development
+              </span>
+              <span className="px-2.5 py-1 text-xs font-medium bg-green-500/20 text-green-400 rounded-full backdrop-blur-sm border border-green-500/20">
+                Marketing Digital
+              </span>
+              <span className="px-2.5 py-1 text-xs font-medium bg-amber-500/20 text-amber-400 rounded-full backdrop-blur-sm border border-amber-500/20">
+                Consulting
+              </span>
+            </div>
+            
+            {/* Improved CTA buttons with better descriptions and icons */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start pt-2">
+              <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 transition-all duration-300 font-medium">
+                <Link to="/services" className="flex items-center justify-center">
+                  <Zap className="mr-2 h-4 w-4" />
+                  Explorer mes services
+                </Link>
               </Button>
-              <Button size="lg" variant="transparent" className="w-full sm:w-auto">
-                <a href="https://www.senservicesenegal.com/" className="flex items-center justify-center">
-                  Découvrir SenServices
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
+              <Button size="lg" variant="outline" className="w-full sm:w-auto border-portfolio-purple text-white hover:bg-portfolio-purple/10 transition-all duration-300">
+                <Link to="/start-project" className="flex items-center justify-center">
+                  <Globe className="mr-2 h-4 w-4" />
+                  Démarrer un projet
+                </Link>
               </Button>
             </div>
           </div>
           
           <div className="w-full md:w-1/2 flex justify-center mt-6 md:mt-0 animate-slide-in-right">
-            {isMobile ? <div className="relative max-w-[220px]">
+            {isMobile ? 
+              <div className="relative max-w-[220px]">
+                {/* Enhanced glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full blur-3xl opacity-40 animate-pulse-slow"></div>
                 <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary">
                   <AspectRatio ratio={1 / 1} className="w-full h-full">
                     <img src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" alt="Dominiqk Mendy" className="w-full h-full object-cover" />
                   </AspectRatio>
                 </div>
-                <div className="absolute -right-2 -top-2 w-16 h-16 bg-secondary rounded-full flex items-center justify-center z-20 animate-float">
+                {/* Enhanced expertise bubbles */}
+                <div className="absolute -right-2 -top-2 w-16 h-16 bg-secondary rounded-full flex items-center justify-center z-20 animate-float shadow-lg shadow-secondary/20">
                   <span className="text-white font-bold text-xs text-center p-1">Expert IA</span>
                 </div>
-                <div className="absolute -left-2 -bottom-2 w-20 h-20 bg-accent rounded-full flex items-center justify-center z-20 animate-float" style={{
+                <div className="absolute -left-2 -bottom-2 w-20 h-20 bg-accent rounded-full flex items-center justify-center z-20 animate-float shadow-lg shadow-accent/20" style={{
               animationDelay: '1s'
             }}>
                   <span className="text-white font-bold text-xs text-center p-1">Digital Marketing</span>
                 </div>
-                <div className="absolute right-0 -bottom-4 w-20 h-20 bg-primary rounded-full flex items-center justify-center z-20 animate-float" style={{
+                <div className="absolute right-0 -bottom-4 w-20 h-20 bg-primary rounded-full flex items-center justify-center z-20 animate-float shadow-lg shadow-primary/20" style={{
               animationDelay: '2s'
             }}>
                   <span className="text-white font-bold text-xs text-center p-1">Expert Web</span>
                 </div>
-              </div> : <div className="relative max-w-[280px] sm:max-w-[320px] mx-auto">
+              </div> 
+            : 
+              <div className="relative max-w-[280px] sm:max-w-[320px] mx-auto">
+                {/* Enhanced glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full blur-3xl opacity-40 animate-pulse-slow"></div>
                 <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-primary">
                   <AspectRatio ratio={1 / 1} className="w-full h-full">
                     <img src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" alt="Dominiqk Mendy" className="w-full h-full object-cover" />
                   </AspectRatio>
                 </div>
-                <div className="absolute -right-2 sm:-right-4 -top-2 sm:-top-4 w-20 h-20 sm:w-24 sm:h-24 bg-secondary rounded-full flex items-center justify-center z-20 animate-float">
+                {/* Enhanced expertise bubbles with better positioning and shadows */}
+                <div className="absolute -right-2 sm:-right-4 -top-2 sm:-top-4 w-20 h-20 sm:w-24 sm:h-24 bg-secondary rounded-full flex items-center justify-center z-20 animate-float shadow-lg shadow-secondary/20">
                   <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Expert IA</span>
                 </div>
-                <div className="absolute -left-2 sm:-left-4 -bottom-2 sm:-bottom-4 w-24 h-24 sm:w-28 sm:h-28 bg-accent rounded-full flex items-center justify-center z-20 animate-float" style={{
+                <div className="absolute -left-2 sm:-left-4 -bottom-2 sm:-bottom-4 w-24 h-24 sm:w-28 sm:h-28 bg-accent rounded-full flex items-center justify-center z-20 animate-float shadow-lg shadow-accent/20" style={{
               animationDelay: '1s'
             }}>
                   <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Digital Marketing</span>
                 </div>
-                <div className="absolute right-8 sm:right-12 -bottom-6 sm:-bottom-8 w-28 h-28 sm:w-32 sm:h-32 bg-primary rounded-full flex items-center justify-center z-20 animate-float" style={{
+                <div className="absolute right-8 sm:right-12 -bottom-6 sm:-bottom-8 w-28 h-28 sm:w-32 sm:h-32 bg-primary rounded-full flex items-center justify-center z-20 animate-float shadow-lg shadow-primary/20" style={{
               animationDelay: '2s'
             }}>
                   <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Expert Web</span>
                 </div>
-              </div>}
+              </div>
+            }
           </div>
         </div>
         
+        {/* Enhanced client section with better styling */}
         <div className="flex items-center justify-center mt-8 sm:mt-12">
           <div className="flex -space-x-4">
-            <Avatar className="border-2 border-white w-8 h-8">
+            <Avatar className="border-2 border-white w-8 h-8 shadow-lg">
               <AvatarImage src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=100&q=80" alt="Client professionnel 1" loading="eager" />
               <AvatarFallback>CP</AvatarFallback>
             </Avatar>
-            <Avatar className="border-2 border-white w-8 h-8">
+            <Avatar className="border-2 border-white w-8 h-8 shadow-lg">
               <AvatarImage src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" alt="Client professionnel 2" loading="eager" />
               <AvatarFallback>CP</AvatarFallback>
             </Avatar>
-            <Avatar className="border-2 border-white w-8 h-8">
+            <Avatar className="border-2 border-white w-8 h-8 shadow-lg">
               <AvatarImage src="https://images.unsplash.com/photo-1580518337843-f959e992563b?auto=format&fit=crop&w=100&q=80" alt="Client professionnel 3" loading="eager" />
               <AvatarFallback>CP</AvatarFallback>
             </Avatar>
-            <Avatar className="border-2 border-white w-8 h-8">
+            <Avatar className="border-2 border-white w-8 h-8 shadow-lg">
               <AvatarImage src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=100&q=80" alt="Client professionnel 4" loading="eager" />
               <AvatarFallback>CP</AvatarFallback>
             </Avatar>
-            <Avatar className="border-2 border-white w-8 h-8">
+            <Avatar className="border-2 border-white w-8 h-8 shadow-lg">
               <AvatarImage src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80" alt="Client professionnel 5" loading="eager" />
               <AvatarFallback>CP</AvatarFallback>
             </Avatar>
           </div>
-          <p className="text-white text-sm ml-2"><span className="font-semibold text-primary">Projet Beta</span> lancé en février 2025</p>
+          <p className="text-white text-sm ml-2">
+            <span className="font-semibold text-portfolio-purple">Solutions Digitales Pro</span> disponibles dès maintenant
+          </p>
         </div>
         
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer hidden md:block" onClick={scrollToAbout}>
@@ -260,3 +310,4 @@ const Hero = () => {
 };
 
 export default Hero;
+
