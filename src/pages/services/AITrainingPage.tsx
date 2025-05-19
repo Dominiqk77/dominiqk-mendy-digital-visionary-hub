@@ -1,598 +1,708 @@
 
-import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowRight, BrainCircuit, BookOpen, Award, Users, Globe, Zap, Target, Badge, Check, FileText, Briefcase, GraduationCap, Video, MessageSquare, Rocket, Star, Clock, Calendar, DollarSign, Send, Sparkles } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Badge as UIBadge } from "@/components/ui/badge";
-import PageContainer from '../../components/layout/PageContainer';
+import PageContainer from '@/components/layout/PageContainer';
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import { 
+  BrainCircuit, 
+  Sparkles, 
+  Bot, 
+  Database, 
+  LineChart, 
+  BookOpen, 
+  Code, 
+  Zap, 
+  Star, 
+  Award,
+  Users, 
+  Building, 
+  Layers,
+  ArrowRight,
+  CircleDashed,
+  MessageSquare,
+  CheckCircle,
+  Clock,
+  Calendar,
+  GraduationCap,
+  AtomIcon,
+  User,
+  LightbulbIcon,
+  ScrollText,
+  Rocket
+} from 'lucide-react';
 
-// SEO metadata
-const pageTitle = "Formation IA | Dominiqk Mendy | Expert Intelligence Artificielle";
-const pageDescription = "Formations professionnelles en intelligence artificielle par Dominiqk Mendy. Apprenez à maîtriser l'IA, le machine learning et la data science avec notre expert international.";
-const keywords = "formation IA, cours intelligence artificielle, apprentissage machine learning, data science, formation professionnelle IA, expert IA Afrique, formation tech Sénégal, cours IA Dakar";
-
-// Types for our course data
-type CourseLevel = "Débutant" | "Intermédiaire" | "Avancé" | "Expert";
-
-interface CourseModule {
-  title: string;
-  description: string;
-  duration: string;
-}
-
-interface Course {
-  id: string;
-  title: string;
-  description: string;
-  level: CourseLevel;
-  duration: string;
-  price: string;
-  icon: React.ReactNode;
-  modules: CourseModule[];
-  benefits: string[];
-  image: string;
-}
-
-const AITrainingPage = () => {
+// Neural Network Animation Component - Similar to the one in AIServices.tsx
+const NeuralNetwork = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [activeTab, setActiveTab] = React.useState("formations");
-
-  // Animation for stars in the canvas
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const animationFrameId = useRef<number>();
+  
   useEffect(() => {
+    const updateDimensions = () => {
+      if (canvasRef.current?.parentElement) {
+        const { width, height } = canvasRef.current.parentElement.getBoundingClientRect();
+        setDimensions({ width, height });
+      }
+    };
+    
+    window.addEventListener('resize', updateDimensions);
+    updateDimensions();
+    
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+  
+  useEffect(() => {
+    if (!canvasRef.current || dimensions.width === 0) return;
+    
     const canvas = canvasRef.current;
-    if (!canvas) return;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    // Stars properties
-    const stars: { x: number; y: number; radius: number; color: string; velocity: number }[] = [];
-    const generateStars = () => {
-      for (let i = 0; i < 200; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const radius = Math.random() * 1.5;
-        const color = `rgba(255, 255, 255, ${Math.random() * 0.8 + 0.2})`;
-        const velocity = Math.random() * 0.05;
-        stars.push({ x, y, radius, color, velocity });
+    
+    canvas.width = dimensions.width;
+    canvas.height = dimensions.height;
+    
+    // Create nodes
+    const layerSizes = [6, 10, 8, 6];
+    const totalLayers = layerSizes.length;
+    const layerSpacing = dimensions.width / (totalLayers + 1);
+    const layerYOffset = dimensions.height * 0.2;
+    const layerHeight = dimensions.height * 0.6;
+    
+    const nodes: { x: number, y: number, layer: number, index: number }[] = [];
+    
+    layerSizes.forEach((size, layerIdx) => {
+      const nodeSpacing = layerHeight / (size + 1);
+      
+      for (let i = 0; i < size; i++) {
+        nodes.push({
+          x: layerSpacing * (layerIdx + 1),
+          y: layerYOffset + nodeSpacing * (i + 1),
+          layer: layerIdx,
+          index: i
+        });
       }
-    };
-
-    generateStars();
-
-    // Technical particles (representing data nodes)
-    const nodes: { x: number; y: number; radius: number; connections: number[]; color: string }[] = [];
-    const generateNodes = () => {
-      const nodeCount = 25; // Increased for more visual impact
-      for (let i = 0; i < nodeCount; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const radius = Math.random() * 2.5 + 1; // Slightly larger nodes
-        const connections = [];
-        
-        // Enhanced color palette with theme colors
-        const colors = [
-          'rgba(155, 135, 245, 0.6)', // Primary purple
-          'rgba(14, 165, 233, 0.6)', // Ocean blue
-          'rgba(217, 70, 239, 0.6)', // Magenta pink
-          'rgba(124, 58, 237, 0.6)', // Vivid purple
-        ];
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        
-        // Each node connects to 1-3 other random nodes
-        const connectionCount = Math.floor(Math.random() * 3) + 1;
-        for (let j = 0; j < connectionCount; j++) {
-          const connectTo = Math.floor(Math.random() * nodeCount);
-          if (connectTo !== i && !connections.includes(connectTo)) {
-            connections.push(connectTo);
-          }
-        }
-        
-        nodes.push({ x, y, radius, connections, color });
-      }
-    };
-
-    generateNodes();
-
+    });
+    
     // Animation loop
+    const connections = [];
+    for (let i = 0; i < nodes.length; i++) {
+      const node1 = nodes[i];
+      for (let j = 0; j < nodes.length; j++) {
+        const node2 = nodes[j];
+        if (node2.layer === node1.layer + 1) {
+          connections.push({
+            from: node1,
+            to: node2,
+            progress: Math.random(),
+            speed: 0.003 + Math.random() * 0.003,
+            opacity: 0.1 + Math.random() * 0.2,
+            color: Math.random() > 0.8 ? '#845ADF' : '#6366F1'
+          });
+        }
+      }
+    }
+    
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Draw stars with enhanced glow effect
-      stars.forEach(star => {
+      // Draw connections with moving data
+      connections.forEach(conn => {
+        const gradient = ctx.createLinearGradient(
+          conn.from.x, conn.from.y, conn.to.x, conn.to.y
+        );
+        gradient.addColorStop(0, 'rgba(99, 102, 241, 0)');
+        gradient.addColorStop(conn.progress, conn.color);
+        gradient.addColorStop(1, 'rgba(99, 102, 241, 0)');
+        
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = star.color;
-        ctx.fill();
+        ctx.moveTo(conn.from.x, conn.from.y);
+        ctx.lineTo(conn.to.x, conn.to.y);
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 1;
+        ctx.stroke();
         
-        // Add subtle glow effect
-        ctx.shadowBlur = star.radius * 2;
-        ctx.shadowColor = "rgba(255, 255, 255, 0.5)";
-        
-        // Move stars slightly
-        star.y += star.velocity;
-        
-        // Reset star position if it goes off screen
-        if (star.y > canvas.height) {
-          star.y = 0;
-          star.x = Math.random() * canvas.width;
+        // Update data packet movement
+        conn.progress += conn.speed;
+        if (conn.progress > 1) {
+          conn.progress = 0;
+          conn.speed = 0.003 + Math.random() * 0.003;
+          conn.color = Math.random() > 0.8 ? '#845ADF' : '#6366F1';
         }
       });
       
-      // Reset shadow properties
-      ctx.shadowBlur = 0;
-      
-      // Draw nodes and connections with enhanced visual effects
-      nodes.forEach((node, index) => {
-        // Draw connections first (so they appear behind nodes)
-        node.connections.forEach(connIndex => {
-          if (connIndex < nodes.length) {
-            const connectedNode = nodes[connIndex];
-            
-            // Create gradient for connection lines
-            const gradient = ctx.createLinearGradient(
-              node.x, node.y, 
-              connectedNode.x, connectedNode.y
-            );
-            gradient.addColorStop(0, node.color);
-            gradient.addColorStop(1, connectedNode.color);
-            
-            ctx.beginPath();
-            ctx.moveTo(node.x, node.y);
-            ctx.lineTo(connectedNode.x, connectedNode.y);
-            ctx.strokeStyle = gradient;
-            ctx.lineWidth = 0.8; // Slightly thicker lines
-            ctx.stroke();
-            
-            // Add data pulse effect on connections occasionally
-            if (Math.random() < 0.005) {
-              const dataPulse = {
-                x: node.x,
-                y: node.y,
-                targetX: connectedNode.x,
-                targetY: connectedNode.y,
-                progress: 0,
-                speed: 0.01 + Math.random() * 0.02,
-                color: node.color
-              };
-              
-              // Animate data pulse
-              const animatePulse = () => {
-                dataPulse.progress += dataPulse.speed;
-                
-                if (dataPulse.progress <= 1) {
-                  const currentX = node.x + (connectedNode.x - node.x) * dataPulse.progress;
-                  const currentY = node.y + (connectedNode.y - node.y) * dataPulse.progress;
-                  
-                  ctx.beginPath();
-                  ctx.arc(currentX, currentY, 2, 0, Math.PI * 2);
-                  ctx.fillStyle = dataPulse.color;
-                  ctx.fill();
-                  
-                  requestAnimationFrame(animatePulse);
-                }
-              };
-              
-              animatePulse();
-            }
-          }
-        });
-        
-        // Draw the node with glow effect
+      // Draw nodes
+      nodes.forEach(node => {
         ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = node.color;
-        
-        // Add glow effect to nodes
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = node.color;
-        
+        ctx.arc(node.x, node.y, 3, 0, Math.PI * 2, false);
+        ctx.fillStyle = node.layer === 0 || node.layer === totalLayers - 1 ? 
+          'rgba(132, 90, 223, 0.8)' : 
+          'rgba(99, 102, 241, 0.6)';
         ctx.fill();
-        
-        // Reset shadow
-        ctx.shadowBlur = 0;
-        
-        // More dynamic movement
-        const time = Date.now() * 0.001;
-        node.x += Math.sin(time + index * 0.5) * 0.3;
-        node.y += Math.cos(time + index * 0.5) * 0.3;
       });
       
-      requestAnimationFrame(animate);
+      animationFrameId.current = requestAnimationFrame(animate);
     };
-
+    
     animate();
-
-    // Resize handler
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      stars.length = 0;
-      nodes.length = 0;
-      generateStars();
-      generateNodes();
+    
+    return () => {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
     };
+  }, [dimensions]);
+  
+  return <canvas ref={canvasRef} className="absolute inset-0 z-0 opacity-20" />;
+};
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+// AtomIcon component
+const AtomIcon = ({ className }: { className?: string }) => {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <circle cx="12" cy="12" r="1" />
+      <path d="M12 12v.01" />
+      <path d="M19.071 4.929c-1.738-1.738-6.293 1.222-10.142 5.071s-6.809 8.404-5.071 10.142c1.738 1.738 6.293-1.222 10.142-5.071s6.809-8.404 5.071-10.142Z" />
+      <path d="M4.929 4.929c-1.738 1.738 1.222 6.293 5.071 10.142s8.404 6.809 10.142 5.071c1.738-1.738-1.222-6.293-5.071-10.142S6.667 3.19 4.929 4.929Z" />
+    </svg>
+  );
+};
 
-  // Course data
-  const courses: Course[] = [
-    {
-      id: "ia-fondamentaux",
-      title: "Fondamentaux de l'Intelligence Artificielle",
-      description: "Une introduction complète aux concepts de base de l'IA, au machine learning et à la data science pour débutants. Apprenez les fondements théoriques et commencez à créer vos premiers modèles simples.",
-      level: "Débutant",
-      duration: "3 jours (21 heures)",
-      price: "450.000 FCFA",
-      icon: <BrainCircuit size={40} />,
-      modules: [
-        {
-          title: "Introduction à l'intelligence artificielle",
-          description: "Histoire, concepts fondamentaux et applications actuelles de l'IA",
-          duration: "3 heures"
-        },
-        {
-          title: "Principes du Machine Learning",
-          description: "Apprentissage supervisé, non supervisé et par renforcement",
-          duration: "6 heures"
-        },
-        {
-          title: "Initiation à Python pour l'IA",
-          description: "Bases de programmation Python et bibliothèques essentielles (NumPy, Pandas)",
-          duration: "6 heures"
-        },
-        {
-          title: "Premier modèle de ML avec scikit-learn",
-          description: "Création et évaluation d'un modèle simple de classification",
-          duration: "6 heures"
-        }
-      ],
-      benefits: [
-        "Compréhension solide des concepts fondamentaux de l'IA",
-        "Capacité à manipuler des données avec Python",
-        "Création de votre premier modèle de machine learning",
-        "Certificat de formation reconnu internationalement"
-      ],
-      image: "/placeholder.svg"
-    },
-    {
-      id: "deep-learning",
-      title: "Deep Learning & Neural Networks",
-      description: "Plongez dans le monde des réseaux de neurones et du deep learning. Apprenez à concevoir, entraîner et déployer des modèles sophistiqués pour résoudre des problèmes complexes.",
-      level: "Intermédiaire",
-      duration: "5 jours (35 heures)",
-      price: "750.000 FCFA",
-      icon: <Zap size={40} />,
-      modules: [
-        {
-          title: "Architecture des réseaux de neurones",
-          description: "Perceptrons, couches, fonctions d'activation et propagation avant",
-          duration: "7 heures"
-        },
-        {
-          title: "TensorFlow & Keras",
-          description: "Maîtrise des frameworks de deep learning les plus populaires",
-          duration: "7 heures"
-        },
-        {
-          title: "CNN pour Computer Vision",
-          description: "Traitement d'images et reconnaissance d'objets",
-          duration: "7 heures"
-        },
-        {
-          title: "RNN, LSTM et applications NLP",
-          description: "Traitement du langage naturel et analyse de séquences",
-          duration: "7 heures"
-        },
-        {
-          title: "Déploiement de modèles DL",
-          description: "Optimisation et mise en production de modèles de deep learning",
-          duration: "7 heures"
-        }
-      ],
-      benefits: [
-        "Maîtrise des architectures de réseaux de neurones avancées",
-        "Compétences pratiques en TensorFlow et Keras",
-        "Capacité à développer des solutions de vision par ordinateur et NLP",
-        "Expérience de déploiement de modèles en production"
-      ],
-      image: "/placeholder.svg"
-    },
-    {
-      id: "ia-generative",
-      title: "IA Générative & LLMs",
-      description: "Découvrez les technologies révolutionnaires derrière ChatGPT, DALL-E et autres modèles génératifs. Apprenez à les utiliser, les adapter et les déployer dans vos projets.",
-      level: "Avancé",
-      duration: "4 jours (28 heures)",
-      price: "850.000 FCFA",
-      icon: <Rocket size={40} />,
-      modules: [
-        {
-          title: "Fondements des modèles de langage",
-          description: "Architectures Transformer, attention et GPT",
-          duration: "7 heures"
-        },
-        {
-          title: "Fine-tuning et prompt engineering",
-          description: "Techniques d'adaptation de LLMs et conception de prompts efficaces",
-          duration: "7 heures"
-        },
-        {
-          title: "Modèles génératifs multimodaux",
-          description: "Génération de texte, images et audio avec IA",
-          duration: "7 heures"
-        },
-        {
-          title: "Intégration d'IA générative en production",
-          description: "APIs, optimisation et considérations éthiques",
-          duration: "7 heures"
-        }
-      ],
-      benefits: [
-        "Maîtrise des dernières technologies d'IA générative",
-        "Capacité à adapter des LLMs pour des besoins spécifiques",
-        "Compétences en prompt engineering avancé",
-        "Création d'applications innovantes combinant texte et images"
-      ],
-      image: "/placeholder.svg"
-    },
-    {
-      id: "ia-business",
-      title: "IA pour Dirigeants & Décideurs",
-      description: "Formation executive spécialement conçue pour les leaders et décideurs souhaitant comprendre les implications stratégiques de l'IA et son potentiel de transformation business.",
-      level: "Expert",
-      duration: "2 jours (14 heures)",
-      price: "950.000 FCFA",
-      icon: <Briefcase size={40} />,
-      modules: [
-        {
-          title: "Panorama stratégique de l'IA",
-          description: "État de l'art, tendances et impact business de l'IA",
-          duration: "3.5 heures"
-        },
-        {
-          title: "Transformation digitale par l'IA",
-          description: "Cas d'usage et retours sur investissement par secteur",
-          duration: "3.5 heures"
-        },
-        {
-          title: "Framework de gouvernance IA",
-          description: "Éthique, réglementation et gestion des risques",
-          duration: "3.5 heures"
-        },
-        {
-          title: "Feuille de route d'adoption de l'IA",
-          description: "Méthodologie pour implémenter l'IA dans votre organisation",
-          duration: "3.5 heures"
-        }
-      ],
-      benefits: [
-        "Vision stratégique claire de l'impact de l'IA sur votre secteur",
-        "Capacité à identifier les opportunités d'innovation par l'IA",
-        "Compréhension des enjeux éthiques et réglementaires",
-        "Plan d'action personnalisé pour votre organisation"
-      ],
-      image: "/placeholder.svg"
-    }
-  ];
+// LightbulbIcon component
+const LightbulbIcon = ({ className }: { className?: string }) => {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+      <path d="M9 18h6" />
+      <path d="M10 22h4" />
+    </svg>
+  );
+};
 
-  // Set page metadata
+const AITrainingPage = () => {
   useEffect(() => {
-    document.title = pageTitle;
-
-    // Set meta description
+    // Set page title for SEO
+    document.title = 'Formation IA | Dominiqk Mendy | Expert en Intelligence Artificielle';
+    
+    // Set meta description for SEO
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', pageDescription);
-    } else {
-      const newMetaDescription = document.createElement('meta');
-      newMetaDescription.name = "description";
-      newMetaDescription.content = pageDescription;
-      document.head.appendChild(newMetaDescription);
+      metaDescription.setAttribute('content', 
+        'Formations en Intelligence Artificielle personnalisées pour professionnels et entreprises - Apprenez les fondamentaux de l\'IA et développez des compétences pratiques avec un expert du domaine.'
+      );
     }
-
-    // Set keywords
-    const metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (metaKeywords) {
-      metaKeywords.setAttribute('content', keywords);
-    } else {
-      const newMetaKeywords = document.createElement('meta');
-      newMetaKeywords.name = "keywords";
-      newMetaKeywords.content = keywords;
-      document.head.appendChild(newMetaKeywords);
-    }
-
-    // Scroll to top
+    
+    // Scroll to top on page load
     window.scrollTo(0, 0);
   }, []);
 
-  // Testimonials data
+  // Sample training stats that change over time
+  const [trainingStats, setTrainingStats] = useState({
+    satisfaction: 97.4,
+    completion: 93.8,
+    practical: 95.2,
+    knowledge: 98.1
+  });
+
+  useEffect(() => {
+    // Update stats slightly every 3 seconds to simulate real-time data
+    const interval = setInterval(() => {
+      setTrainingStats(prev => ({
+        satisfaction: Number((prev.satisfaction + (Math.random() * 0.4 - 0.2)).toFixed(1)),
+        completion: Number((prev.completion + (Math.random() * 0.3 - 0.1)).toFixed(1)),
+        practical: Number((prev.practical + (Math.random() * 0.3 - 0.1)).toFixed(1)),
+        knowledge: Number((prev.knowledge + (Math.random() * 0.2 - 0.1)).toFixed(1))
+      }));
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  // Training programs
+  const trainingPrograms = [
+    {
+      title: "Fondamentaux de l'IA",
+      description: "Maîtrisez les concepts essentiels de l'intelligence artificielle et du machine learning dans ce programme complet.",
+      icon: <BrainCircuit className="h-10 w-10 text-purple-400" />,
+      features: [
+        "Introduction aux concepts clés de l'IA",
+        "Compréhension des algorithmes fondamentaux",
+        "Vision d'ensemble des applications pratiques",
+        "Exercices pratiques et études de cas"
+      ],
+      color: "from-indigo-600 to-purple-600",
+      badge: "Populaire"
+    },
+    {
+      title: "Machine Learning Avancé",
+      description: "Approfondissez votre connaissance des modèles de machine learning et apprenez à les implémenter efficacement.",
+      icon: <Database className="h-10 w-10 text-blue-400" />,
+      features: [
+        "Modèles supervisés et non supervisés",
+        "Techniques d'optimisation et d'évaluation",
+        "Feature engineering et sélection de modèles",
+        "Projets pratiques sur des datasets réels"
+      ],
+      color: "from-blue-600 to-cyan-600"
+    },
+    {
+      title: "Deep Learning & Réseaux de Neurones",
+      description: "Explorez en profondeur les architectures de réseaux de neurones et leurs applications avancées.",
+      icon: <Layers className="h-10 w-10 text-violet-400" />,
+      features: [
+        "Architectures CNN, RNN, LSTM, Transformers",
+        "Transfer learning et fine-tuning",
+        "Entraînement sur GPU et optimisation",
+        "Projets pratiques en vision et NLP"
+      ],
+      color: "from-violet-600 to-indigo-600",
+      badge: "Avancé"
+    },
+    {
+      title: "IA Générative & LLMs",
+      description: "Découvrez les dernières avancées en IA générative et modèles de langage à grande échelle.",
+      icon: <MessageSquare className="h-10 w-10 text-pink-400" />,
+      features: [
+        "Fondamentaux des modèles génératifs",
+        "Prompting avancé et ingénierie de prompts",
+        "Fine-tuning et RAG pour applications spécifiques",
+        "Intégration des LLMs dans des solutions business"
+      ],
+      color: "from-fuchsia-600 to-pink-600"
+    },
+    {
+      title: "IA pour Managers & Décideurs",
+      description: "Formation conçue spécifiquement pour les dirigeants et managers souhaitant comprendre et exploiter le potentiel de l'IA.",
+      icon: <Building className="h-10 w-10 text-amber-400" />,
+      features: [
+        "Stratégie d'adoption de l'IA en entreprise",
+        "Évaluation des opportunités et des risques",
+        "Cadre éthique et réglementaire",
+        "Conduite du changement et gestion des talents"
+      ],
+      color: "from-amber-600 to-orange-600"
+    },
+    {
+      title: "MLOps & Déploiement IA",
+      description: "Apprenez à industrialiser vos modèles d'IA et à mettre en place des pipelines robustes.",
+      icon: <Code className="h-10 w-10 text-green-400" />,
+      features: [
+        "Infrastructure et pipeline CI/CD pour l'IA",
+        "Monitoring et maintenance des modèles",
+        "Gestion de versions et reproductibilité",
+        "Optimisation des performances en production"
+      ],
+      color: "from-green-600 to-emerald-600"
+    },
+    {
+      title: "IA & Business Intelligence",
+      description: "Intégrez efficacement l'IA dans votre stratégie d'analyse de données et de business intelligence.",
+      icon: <LineChart className="h-10 w-10 text-sky-400" />,
+      features: [
+        "Analyse prédictive avancée",
+        "Automatisation des insights business",
+        "Visualisation intelligente des données",
+        "Création de tableaux de bord dynamiques"
+      ],
+      color: "from-sky-600 to-blue-600",
+      badge: "Spécialité"
+    },
+    {
+      title: "IA Responsable & Éthique",
+      description: "Développez et déployez des solutions d'IA éthiques, transparentes et conformes aux réglementations.",
+      icon: <Award className="h-10 w-10 text-purple-400" />,
+      features: [
+        "Biais, équité et transparence algorithmique",
+        "Confidentialité et sécurité des données",
+        "Gouvernance et conformité réglementaire",
+        "Conception responsable des systèmes d'IA"
+      ],
+      color: "from-purple-600 to-indigo-600"
+    }
+  ];
+
+  // Training formats
+  const trainingFormats = [
+    {
+      title: "Formation en entreprise",
+      description: "Programmes sur mesure délivrés directement dans vos locaux",
+      icon: <Building className="h-6 w-6" />,
+      details: "De 1 à 5 jours selon les besoins"
+    },
+    {
+      title: "Ateliers pratiques intensifs",
+      description: "Sessions hands-on pour maîtriser des compétences spécifiques",
+      icon: <Code className="h-6 w-6" />,
+      details: "Sessions de 1 à 2 jours, groupes de 5-15 personnes"
+    },
+    {
+      title: "Bootcamp IA complet",
+      description: "Programme immersif pour une transformation digitale complète",
+      icon: <Rocket className="h-6 w-6" />,
+      details: "2 semaines intensives, suivi personnalisé"
+    }
+  ];
+
+  // Testimonials
   const testimonials = [
     {
-      name: "Dr. Amadou Diallo",
-      role: "Directeur R&D, Dakar Digital Hub",
-      image: "/placeholder.svg",
-      text: "La formation Deep Learning dispensée par Dominiqk a transformé notre approche de l'innovation produit. Son expertise et sa pédagogie sont remarquables. Nous avons immédiatement pu appliquer les concepts dans nos projets."
+      quote: "La formation délivrée par Dominiqk a transformé notre approche de l'IA. Son expertise et sa pédagogie ont permis à notre équipe de développer rapidement des compétences concrètes.",
+      author: "Sarah M.",
+      position: "Directrice Innovation, Groupe Bancaire International",
+      avatar: <User className="h-10 w-10" />
     },
     {
-      name: "Fatou Ndiaye",
-      role: "Data Science Manager, Orange Sénégal",
-      image: "/placeholder.svg",
-      text: "Formation exceptionnelle qui a permis à mon équipe de monter en compétence rapidement sur les technologies d'IA générative. La qualité des supports et l'approche pratique nous ont particulièrement séduits."
+      quote: "Une formation exceptionnelle qui allie parfaitement théorie et pratique. Les concepts complexes sont rendus accessibles grâce à des exemples concrets adaptés à notre secteur.",
+      author: "Karim D.",
+      position: "CTO, Startup EdTech",
+      avatar: <User className="h-10 w-10" />
+    }
+  ];
+
+  // Expert credentials
+  const expertCredentials = [
+    {
+      title: "Formation continue",
+      description: "Je me forme quotidiennement aux dernières avancées en IA via des cours spécialisés, documentation technique et participation à des conférences internationales.",
+      icon: <BookOpen className="h-6 w-6 text-blue-400" />
     },
     {
-      name: "Emmanuel Koné",
-      role: "CEO, Abidjan Tech Solutions",
-      image: "/placeholder.svg",
-      text: "En tant que dirigeant, la formation 'IA pour Décideurs' m'a fourni exactement ce dont j'avais besoin : une vision claire et stratégique sans m'égarer dans les détails techniques. Je recommande vivement."
+      title: "Veille technologique",
+      description: "Analyse quotidienne des publications scientifiques et innovations majeures dans le domaine de l'intelligence artificielle et du machine learning.",
+      icon: <AtomIcon className="h-6 w-6 text-purple-400" />
+    },
+    {
+      title: "Expérimentation constante",
+      description: "Développement régulier de prototypes utilisant les derniers frameworks et modèles d'IA pour rester à la pointe de l'innovation.",
+      icon: <LightbulbIcon className="h-6 w-6 text-cyan-400" />
+    },
+    {
+      title: "Réseau d'experts",
+      description: "Collaboration active avec un réseau international de chercheurs et professionnels spécialisés en intelligence artificielle.",
+      icon: <Users className="h-6 w-6 text-green-400" />
+    }
+  ];
+
+  // Upcoming training sessions
+  const upcomingTrainings = [
+    {
+      title: "Bootcamp IA Générative",
+      date: "15-19 Juin 2025",
+      location: "Marrakech",
+      spots: "8 places disponibles"
+    },
+    {
+      title: "MLOps Fondamentaux",
+      date: "8-9 Juillet 2025",
+      location: "En ligne",
+      spots: "15 places disponibles"
+    },
+    {
+      title: "IA pour Managers",
+      date: "25 Août 2025",
+      location: "Casablanca",
+      spots: "12 places disponibles"
+    }
+  ];
+
+  // Learning outcomes
+  const learningOutcomes = [
+    {
+      title: "Compétences techniques",
+      description: "Maîtrise des frameworks IA, développement de modèles, optimisation d'algorithmes",
+      icon: <Code className="h-5 w-5 text-blue-400" />
+    },
+    {
+      title: "Vision stratégique",
+      description: "Capacité à identifier les opportunités d'application de l'IA dans votre contexte business",
+      icon: <LineChart className="h-5 w-5 text-purple-400" />
+    },
+    {
+      title: "Autonomie opérationnelle",
+      description: "Aptitude à concevoir, développer et déployer des solutions IA de bout en bout",
+      icon: <Rocket className="h-5 w-5 text-pink-400" />
+    },
+    {
+      title: "Évaluation critique",
+      description: "Compétences pour évaluer l'efficacité et la pertinence des solutions IA proposées",
+      icon: <Star className="h-5 w-5 text-amber-400" />
     }
   ];
 
   return (
     <div className="min-h-screen flex flex-col relative">
-      {/* Canvas background for space theme */}
-      <canvas 
-        ref={canvasRef} 
-        className="fixed inset-0 w-full h-full pointer-events-none z-0"
-      />
+      {/* Cosmic background */}
+      <div className="fixed inset-0 bg-black z-[-2]">
+        <div className="absolute inset-0">
+          {Array.from({ length: 200 }).map((_, i) => (
+            <div 
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                width: `${Math.random() * 3}px`,
+                height: `${Math.random() * 3}px`,
+                backgroundColor: 'white',
+                opacity: Math.random() * 0.7 + 0.3,
+                animation: `twinkle ${Math.random() * 5 + 3}s ease-in-out infinite`
+              }}
+            />
+          ))}
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/10 via-purple-900/10 to-black"></div>
+      </div>
+      <div className="fixed inset-0 tech-grid z-[-1] opacity-20"></div>
       
       <Navbar />
       
-      <main className="flex-grow relative z-10">
-        {/* Hero Section with enhanced gradient */}
-        <section className="py-16 md:py-24 relative overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl animate-pulse-slow"></div>
-          <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-blue-500/30 rounded-full blur-3xl animate-pulse-slow"></div>
+      <main className="flex-grow pt-20 relative">
+        {/* Hero Section */}
+        <section className="py-20 md:py-28 relative overflow-hidden">
+          {/* Neural network background animation */}
+          <div className="absolute inset-0 z-0">
+            <NeuralNetwork />
+          </div>
           
           <PageContainer className="relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
-              <motion.div 
+            <div className="flex flex-col md:flex-row items-center">
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.8 }}
+                className="md:w-1/2 mb-8 md:mb-0 md:pr-8"
               >
-                <div className="inline-block mb-4">
-                  <div className="p-4 bg-primary/20 rounded-full backdrop-blur-sm border border-primary/30">
-                    <GraduationCap size={48} className="text-primary animate-pulse" />
+                <div className="relative w-16 h-16 mb-6 group">
+                  <div className="absolute inset-0 bg-indigo-600/20 rounded-full animate-ping"></div>
+                  <div className="relative flex items-center justify-center w-full h-full bg-indigo-600/30 backdrop-blur-sm rounded-full border border-indigo-500/50 group-hover:border-indigo-400 transition-colors">
+                    <GraduationCap className="h-8 w-8 text-indigo-400" />
                   </div>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-br from-white via-white/90 to-white/70 bg-clip-text text-transparent shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                  Formations en <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent">Intelligence Artificielle</span>
+                
+                <Badge className="mb-4 border-indigo-500/30 text-indigo-400 bg-indigo-950/30">Expert Formateur IA</Badge>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                  Formations IA <br/> Sur Mesure
                 </h1>
-                <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                  Développez votre expertise en IA auprès d'un consultant international reconnu. 
-                  Des formations sur mesure pour tous les niveaux, du débutant à l'expert.
+                <p className="text-xl text-gray-300 mb-8">
+                  Des programmes de formation en intelligence artificielle conçus par un expert qui se forme quotidiennement aux dernières avancées technologiques pour transmettre les compétences les plus pertinentes.
                 </p>
                 
-                <div className="flex flex-wrap justify-center gap-4">
-                  <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-500 hover:opacity-90 shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-105" asChild>
-                    <Link to="/contact" className="flex items-center gap-2">
-                      <span>Demander un devis</span>
-                      <ArrowRight className="h-4 w-4 animate-pulse" />
-                    </Link>
-                  </Button>
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="border-white/20 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-105"
+                    className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white"
+                    size="lg"
                     asChild
                   >
-                    <a href="#formations" className="flex items-center gap-2">
-                      <span>Découvrir les formations</span>
-                      <ArrowRight className="h-4 w-4" />
-                    </a>
+                    <Link to="/contact" className="flex items-center gap-2">
+                      <span>Demander un programme personnalisé</span>
+                      <ArrowRight className="h-5 w-5" />
+                    </Link>
+                  </Button>
+                  
+                  <Button 
+                    variant="outline"
+                    size="lg"
+                    className="border-white/10 text-white hover:bg-white/5"
+                    asChild
+                  >
+                    <Link to="/start-project">Planifier un appel gratuit</Link>
                   </Button>
                 </div>
               </motion.div>
+              
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }} 
+                animate={{ opacity: 1, scale: 1 }} 
+                transition={{ delay: 0.4, duration: 0.8 }}
+                className="md:w-1/2 flex justify-center"
+              >
+                <div className="relative w-full h-[400px] md:h-[500px]">
+                  <div className="absolute inset-0 bg-indigo-600 rounded-full filter blur-[100px] opacity-30"></div>
+                  
+                  <div className="relative h-full w-full flex items-center justify-center">
+                    <div className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] relative">
+                      <div className="absolute inset-0 rounded-full border-4 border-dashed border-indigo-500/30 animate-[spin_40s_linear_infinite]"></div>
+                      
+                      {/* Training Stats Orbs */}
+                      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <div className="bg-black/40 backdrop-blur-lg border border-indigo-500/30 p-3 rounded-xl shadow-lg shadow-indigo-500/20">
+                          <div className="flex items-center gap-2">
+                            <Star className="h-5 w-5 text-yellow-400" />
+                            <div>
+                              <div className="text-xs text-gray-400">Satisfaction</div>
+                              <div className="text-white font-bold">{trainingStats.satisfaction}%</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
+                        <div className="bg-black/40 backdrop-blur-lg border border-indigo-500/30 p-3 rounded-xl shadow-lg shadow-indigo-500/20">
+                          <div className="flex items-center gap-2">
+                            <Award className="h-5 w-5 text-indigo-400" />
+                            <div>
+                              <div className="text-xs text-gray-400">Complétion</div>
+                              <div className="text-white font-bold">{trainingStats.completion}%</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <div className="bg-black/40 backdrop-blur-lg border border-indigo-500/30 p-3 rounded-xl shadow-lg shadow-indigo-500/20">
+                          <div className="flex items-center gap-2">
+                            <Code className="h-5 w-5 text-green-400" />
+                            <div>
+                              <div className="text-xs text-gray-400">Pratique</div>
+                              <div className="text-white font-bold">{trainingStats.practical}%</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2">
+                        <div className="bg-black/40 backdrop-blur-lg border border-indigo-500/30 p-3 rounded-xl shadow-lg shadow-indigo-500/20">
+                          <div className="flex items-center gap-2">
+                            <BrainCircuit className="h-5 w-5 text-blue-400" />
+                            <div>
+                              <div className="text-xs text-gray-400">Savoirs</div>
+                              <div className="text-white font-bold">{trainingStats.knowledge}%</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Central Graduation Icon */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="relative w-32 h-32">
+                          <div className="absolute inset-0 bg-indigo-600/20 rounded-full animate-ping"></div>
+                          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full opacity-40"></div>
+                          <div className="relative flex items-center justify-center w-full h-full bg-indigo-900/70 backdrop-blur-sm rounded-full border border-indigo-500">
+                            <GraduationCap className="h-16 w-16 text-indigo-300" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </PageContainer>
         </section>
         
-        {/* Expert Section - NEW */}
+        {/* Expert Profile Section */}
         <section className="py-16 relative">
-          <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
-          <div className="absolute left-0 right-0 bottom-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
-          
+          <div className="absolute left-0 top-0 w-1/3 h-1 bg-gradient-to-r from-indigo-500/0 via-indigo-500 to-indigo-500/0"></div>
           <PageContainer>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="max-w-6xl mx-auto">
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className="order-2 md:order-1"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-black/40 backdrop-blur-md border border-purple-500/20 rounded-2xl p-6 md:p-10"
               >
-                <div className="bg-black/30 backdrop-blur-md rounded-2xl p-8 border border-white/10">
-                  <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent">
-                    Une Expertise IA Constamment Mise à Jour
-                  </h2>
-                  <div className="space-y-4 text-gray-300">
-                    <p>
-                      En tant qu'expert de pointe en intelligence artificielle, <strong className="text-white">Dominiqk Mendy</strong> reste 
-                      quotidiennement à la fine pointe de l'innovation en IA. Sa passion pour les avancées technologiques 
-                      se traduit par une veille technologique permanente et une formation continue.
+                <div className="flex flex-col md:flex-row gap-10">
+                  <div className="md:w-1/2">
+                    <Badge className="mb-4 border-purple-500/30 text-purple-400 bg-purple-950/30">Expert IA</Badge>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                      Expertise et apprentissage continu
+                    </h2>
+                    <p className="text-gray-300 mb-8">
+                      En tant qu'expert en Intelligence Artificielle, je me forme quotidiennement aux dernières avancées technologiques. Ma veille constante, ma formation continue et mes expérimentations régulières me permettent de maîtriser les outils et techniques les plus récents pour développer des programmes de formation à la pointe de l'innovation.
                     </p>
-                    <p>
-                      <strong className="text-white">Chaque jour</strong>, il consacre du temps à :
-                    </p>
-                    <ul className="space-y-2">
-                      <li className="flex gap-3">
-                        <Sparkles className="h-6 w-6 text-primary shrink-0 mt-0.5" />
-                        <span>Analyser les publications scientifiques des laboratoires de recherche leaders (DeepMind, OpenAI, Stanford AI Lab)</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <Sparkles className="h-6 w-6 text-primary shrink-0 mt-0.5" />
-                        <span>Expérimenter les derniers modèles et architectures d'IA</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <Sparkles className="h-6 w-6 text-primary shrink-0 mt-0.5" />
-                        <span>Participer à des communautés d'experts internationaux en IA et échanges avec des chercheurs</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <Sparkles className="h-6 w-6 text-primary shrink-0 mt-0.5" />
-                        <span>Développer des projets concrets utilisant les technologies émergentes</span>
-                      </li>
-                    </ul>
-                    <p className="italic text-gray-400 mt-4">
-                      "L'IA évolue à un rythme sans précédent. Ma mission est de maîtriser ces avancées 
-                      pour les rendre accessibles et applicables aux défis concrets de mes clients."
-                    </p>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {expertCredentials.map((credential, idx) => (
+                        <div key={idx} className="flex gap-4">
+                          <div className="flex-shrink-0 mt-1">
+                            <div className="w-10 h-10 rounded-lg bg-black/50 border border-purple-500/30 flex items-center justify-center">
+                              {credential.icon}
+                            </div>
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold text-white mb-2">{credential.title}</h3>
+                            <p className="text-sm text-gray-300">{credential.description}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.3 }}
-                className="order-1 md:order-2"
-              >
-                <div className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 p-1 rounded-2xl backdrop-blur-sm">
-                  <div className="bg-black/50 backdrop-blur-md p-8 rounded-xl border border-white/10 h-full">
-                    <h3 className="text-2xl font-bold mb-6 text-white">Pourquoi Apprendre l'IA avec Dominiqk?</h3>
+                  
+                  <div className="md:w-1/2">
+                    <h3 className="text-xl font-bold mb-6 text-white">Approche pédagogique unique</h3>
                     
                     <div className="space-y-6">
-                      <div className="flex gap-4">
-                        <div className="shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-primary/20 border border-primary/30">
-                          <BrainCircuit className="h-6 w-6 text-primary" />
+                      <div className="bg-black/30 border border-indigo-500/20 rounded-lg p-5">
+                        <div className="flex items-center mb-3">
+                          <div className="w-10 h-10 rounded-full bg-indigo-900/40 border border-indigo-500/30 flex items-center justify-center mr-4">
+                            <Layers className="h-5 w-5 text-indigo-400" />
+                          </div>
+                          <h3 className="font-semibold text-white">Expertise théorique et pratique</h3>
                         </div>
-                        <div>
-                          <h4 className="text-lg font-medium text-white mb-1">Expertise Scientifique & Pratique</h4>
-                          <p className="text-gray-300">Alliance unique de connaissances théoriques avancées et d'expérience pratique sur des projets internationaux</p>
-                        </div>
+                        <p className="text-gray-300 text-sm">
+                          Mes formations combinent fondements théoriques solides et applications pratiques concrètes, permettant une compréhension profonde et applicable immédiatement.
+                        </p>
                       </div>
                       
-                      <div className="flex gap-4">
-                        <div className="shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-primary/20 border border-primary/30">
-                          <BookOpen className="h-6 w-6 text-primary" />
+                      <div className="bg-black/30 border border-indigo-500/20 rounded-lg p-5">
+                        <div className="flex items-center mb-3">
+                          <div className="w-10 h-10 rounded-full bg-indigo-900/40 border border-indigo-500/30 flex items-center justify-center mr-4">
+                            <Users className="h-5 w-5 text-purple-400" />
+                          </div>
+                          <h3 className="font-semibold text-white">Personnalisation complète</h3>
                         </div>
-                        <div>
-                          <h4 className="text-lg font-medium text-white mb-1">Pédagogie Adaptée</h4>
-                          <p className="text-gray-300">Capacité à rendre accessibles les concepts les plus complexes à tous les publics, du débutant à l'expert</p>
-                        </div>
+                        <p className="text-gray-300 text-sm">
+                          Chaque programme de formation est adapté aux besoins spécifiques, au niveau technique et aux objectifs business de votre équipe ou organisation.
+                        </p>
                       </div>
                       
-                      <div className="flex gap-4">
-                        <div className="shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-primary/20 border border-primary/30">
-                          <Globe className="h-6 w-6 text-primary" />
+                      <div className="bg-black/30 border border-indigo-500/20 rounded-lg p-5">
+                        <div className="flex items-center mb-3">
+                          <div className="w-10 h-10 rounded-full bg-indigo-900/40 border border-indigo-500/30 flex items-center justify-center mr-4">
+                            <ArrowRight className="h-5 w-5 text-blue-400" />
+                          </div>
+                          <h3 className="font-semibold text-white">Accompagnement post-formation</h3>
                         </div>
-                        <div>
-                          <h4 className="text-lg font-medium text-white mb-1">Perspective Internationale</h4>
-                          <p className="text-gray-300">Vision globale des enjeux de l'IA avec adaptation spécifique au contexte et besoins locaux</p>
-                        </div>
+                        <p className="text-gray-300 text-sm">
+                          Un suivi personnalisé après la formation garantit que les connaissances sont correctement appliquées et que votre équipe continue à progresser.
+                        </p>
                       </div>
+                    </div>
+                    
+                    <div className="mt-8">
+                      <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:opacity-90" asChild>
+                        <Link to="/start-project">
+                          Discuter de vos besoins en formation <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -601,516 +711,213 @@ const AITrainingPage = () => {
           </PageContainer>
         </section>
         
-        {/* Statistics Section with enhanced card styling */}
-        <section className="py-16 bg-black/30 backdrop-blur-md border-t border-b border-white/10">
+        {/* Training Programs Grid */}
+        <section className="py-16 md:py-24 relative">
+          <div className="absolute top-0 left-0 w-1 h-40 bg-gradient-to-b from-indigo-500/0 via-indigo-500/30 to-indigo-500/0"></div>
+          <div className="absolute bottom-0 right-0 w-1 h-40 bg-gradient-to-b from-indigo-500/0 via-indigo-500/30 to-indigo-500/0"></div>
+          
           <PageContainer>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                { value: "1200+", label: "Professionnels formés", delay: 0.1, icon: <Users size={24} /> },
-                { value: "15+", label: "Pays touchés", delay: 0.2, icon: <Globe size={24} /> },
-                { value: "98%", label: "Taux de satisfaction", delay: 0.3, icon: <Star size={24} /> },
-                { value: "45+", label: "Entreprises partenaires", delay: 0.4, icon: <Briefcase size={24} /> }
-              ].map((stat, idx) => (
-                <motion.div 
-                  key={idx}
-                  className="text-center p-6 rounded-xl bg-gradient-to-br from-purple-500/10 to-blue-500/10 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-[0_0_15px_rgba(155,135,245,0.3)]"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: stat.delay }}
-                  whileHover={{ scale: 1.03 }}
-                >
-                  <div className="flex justify-center mb-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                      {stat.icon}
-                    </div>
-                  </div>
-                  <div className="text-primary font-bold text-4xl mb-2 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent">{stat.value}</div>
-                  <div className="text-gray-300">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
-          </PageContainer>
-        </section>
-        
-        {/* Why Choose Us Section with enhanced cards */}
-        <section id="pourquoi" className="py-20">
-          <PageContainer>
-            <div className="max-w-2xl mx-auto text-center mb-16">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent">Pourquoi Choisir Nos Formations ?</h2>
-                <div className="h-1 w-24 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 mx-auto mb-6 rounded-full"></div>
-                <p className="text-gray-300">Des formations d'excellence en IA conçues par un expert international reconnu, adaptées au contexte africain et aux enjeux globaux.</p>
-              </motion.div>
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <Badge className="mb-4 border-indigo-500/30 text-indigo-400 bg-indigo-950/30">Programmes de Formation</Badge>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                Formations IA Adaptées à Vos Besoins
+              </h2>
+              <p className="text-gray-300 text-lg">
+                Découvrez notre gamme complète de formations en intelligence artificielle conçues pour développer les compétences nécessaires à l'exploitation réussie des technologies IA.
+              </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: <Award size={32} />,
-                  title: "Expertise Internationale",
-                  description: "Bénéficiez de l'expertise d'un consultant qui a formé et conseillé des organisations en France, au Royaume-Uni, aux États-Unis et dans toute l'Afrique.",
-                  delay: 0.1
-                },
-                {
-                  icon: <BookOpen size={32} />,
-                  title: "Pédagogie Pratique",
-                  description: "Nos formations privilégient la pratique avec 70% du temps consacré à des projets concrets, des études de cas réels et des workshops interactifs.",
-                  delay: 0.2
-                },
-                {
-                  icon: <Users size={32} />,
-                  title: "Formations Sur Mesure",
-                  description: "Chaque formation peut être adaptée aux besoins spécifiques de votre équipe ou organisation, avec des cas d'usage pertinents pour votre secteur.",
-                  delay: 0.3
-                },
-                {
-                  icon: <Globe size={32} />,
-                  title: "Contexte Africain",
-                  description: "Nos formations intègrent des exemples et cas d'usage adaptés aux réalités africaines, avec une attention particulière aux défis et opportunités du continent.",
-                  delay: 0.4
-                },
-                {
-                  icon: <Video size={32} />,
-                  title: "Formats Flexibles",
-                  description: "Choisissez entre formations présentielles, distancielles ou hybrides selon vos contraintes géographiques et organisationnelles.",
-                  delay: 0.5
-                },
-                {
-                  icon: <MessageSquare size={32} />,
-                  title: "Suivi Post-Formation",
-                  description: "Accès à une communauté d'apprenants, sessions de questions-réponses et accompagnement personnalisé après la formation.",
-                  delay: 0.6
-                }
-              ].map((feature, idx) => (
-                <motion.div 
-                  key={idx}
-                  className="bg-black/20 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-primary/30 transition-all duration-500 group hover:shadow-[0_0_20px_rgba(155,135,245,0.2)]"
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              {trainingPrograms.map((program, index) => (
+                <motion.div
+                  key={index}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: feature.delay }}
-                  whileHover={{ y: -5 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="bg-black/40 backdrop-blur-md border border-indigo-500/20 rounded-xl overflow-hidden group hover:border-indigo-500/40 transition-colors"
                 >
-                  <div className="text-primary mb-4 p-3 bg-white/5 rounded-lg inline-block group-hover:bg-primary/10 transition-colors duration-300">
-                    {feature.icon}
+                  <div className="p-6">
+                    <div className="relative mb-6">
+                      <div className="w-16 h-16 rounded-lg bg-indigo-900/40 border border-indigo-500/30 flex items-center justify-center group-hover:border-indigo-500 transition-colors">
+                        {program.icon}
+                      </div>
+                      {program.badge && (
+                        <div className="absolute -top-2 -right-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs px-2 py-0.5 rounded">
+                          {program.badge}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <h3 className="text-xl font-bold mb-3 text-white">{program.title}</h3>
+                    <p className="text-gray-300 mb-6 h-[80px]">{program.description}</p>
+                    
+                    <ul className="space-y-3 mb-6">
+                      {program.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start">
+                          <div className="flex-shrink-0 mr-2 mt-1">
+                            <CheckCircle className="h-4 w-4 text-indigo-400" />
+                          </div>
+                          <span className="text-gray-300 text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <div>
+                      <Button 
+                        className={`w-full bg-gradient-to-r ${program.color} text-white hover:opacity-90`}
+                        asChild
+                      >
+                        <Link to="/start-project" className="flex items-center justify-center gap-2">
+                          <span>Demander plus d'infos</span>
+                          <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </Button>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300">{feature.title}</h3>
-                  <p className="text-gray-400">{feature.description}</p>
                 </motion.div>
               ))}
             </div>
           </PageContainer>
         </section>
         
-        {/* Courses Section with enhanced card design */}
-        <section id="formations" className="py-20 relative">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
-          <div className="absolute -top-10 -right-10 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-10 -left-10 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+        {/* Training Formats Section */}
+        <section className="py-16 md:py-20 relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-indigo-950/10 to-black/0"></div>
           
-          <PageContainer className="relative z-10">
-            <div className="max-w-2xl mx-auto text-center mb-16">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent">Nos Formations IA</h2>
-                <div className="h-1 w-24 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 mx-auto mb-6 rounded-full"></div>
-                <p className="text-gray-300">Du niveau débutant à expert, découvrez nos formations spécialisées en intelligence artificielle</p>
-              </motion.div>
+          <PageContainer>
+            <div className="max-w-5xl mx-auto relative">
+              <div className="mb-12 text-center">
+                <Badge className="mb-4 border-indigo-500/30 text-indigo-400 bg-indigo-950/30">Formats Adaptés</Badge>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                  Des formats de formation flexibles
+                </h2>
+                <p className="text-gray-300 text-lg max-w-3xl mx-auto">
+                  Choisissez le format qui correspond le mieux à vos contraintes organisationnelles et aux objectifs d'apprentissage de votre équipe.
+                </p>
+              </div>
               
-              {/* Filter tabs with enhanced styling */}
-              <div className="mt-8">
-                <Tabs defaultValue="tout" className="w-full">
-                  <TabsList className="grid grid-cols-4 w-full max-w-lg mx-auto bg-black/30 backdrop-blur-md p-1 rounded-lg border border-white/10">
-                    <TabsTrigger 
-                      value="tout"
-                      className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary hover:text-primary/80 transition-all duration-300"
-                    >
-                      Toutes
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="debutant"
-                      className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary hover:text-primary/80 transition-all duration-300"
-                    >
-                      Débutant
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="intermediaire"
-                      className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary hover:text-primary/80 transition-all duration-300"
-                    >
-                      Intermédiaire
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="avance"
-                      className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary hover:text-primary/80 transition-all duration-300"
-                    >
-                      Avancé/Expert
-                    </TabsTrigger>
-                  </TabsList>
-                  
-                  {/* Course cards with course object mapping */}
-                  <TabsContent value="tout" className="mt-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      {courses.map((course, index) => (
-                        <motion.div
-                          key={course.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                          whileHover={{ y: -5 }}
-                        >
-                          <Card className="bg-gradient-to-br from-black/50 to-black/30 backdrop-blur-md border border-white/10 h-full flex flex-col overflow-hidden hover:shadow-[0_0_25px_rgba(155,135,245,0.15)] hover:border-primary/30 transition-all duration-300 group">
-                            <CardHeader>
-                              <div className="text-primary mb-3 p-3 bg-white/5 rounded-lg w-fit group-hover:bg-primary/10 transition-all duration-300">{course.icon}</div>
-                              <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">{course.title}</CardTitle>
-                              <div className="flex items-center gap-2 mt-2 text-sm">
-                                <UIBadge variant="outline" className="font-normal border-primary/30 text-primary">
-                                  {course.level}
-                                </UIBadge>
-                                <div className="flex items-center gap-1 text-gray-400">
-                                  <Clock size={14} />
-                                  <span>{course.duration}</span>
-                                </div>
-                              </div>
-                            </CardHeader>
-                            <CardContent className="flex-grow">
-                              <p className="text-sm text-gray-400 mb-4">{course.description}</p>
-                              <div className="mt-4">
-                                <p className="font-medium">Modules inclus:</p>
-                                <ul className="mt-2 space-y-2">
-                                  {course.modules.slice(0, 3).map((module, idx) => (
-                                    <li key={idx} className="text-sm flex items-start gap-2">
-                                      <Check size={16} className="text-primary shrink-0 mt-1" />
-                                      <span className="text-gray-300">{module.title}</span>
-                                    </li>
-                                  ))}
-                                  {course.modules.length > 3 && (
-                                    <li className="text-sm text-gray-500 italic">
-                                      + {course.modules.length - 3} autres modules
-                                    </li>
-                                  )}
-                                </ul>
-                              </div>
-                            </CardContent>
-                            <CardFooter className="flex flex-col items-start border-t border-white/10 pt-4 bg-black/20">
-                              <div className="text-lg font-semibold text-primary mb-3">{course.price}</div>
-                              <Button 
-                                variant="default" 
-                                className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/10" 
-                                asChild
-                              >
-                                <Link to={`/contact?formation=${course.id}`} className="flex justify-between items-center">
-                                  <span>Plus d'informations</span>
-                                  <ArrowRight size={16} />
-                                </Link>
-                              </Button>
-                            </CardFooter>
-                          </Card>
-                        </motion.div>
-                      ))}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {trainingFormats.map((format, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    className="bg-black/40 backdrop-blur-md border border-indigo-500/20 rounded-xl p-6 hover:border-indigo-500/40 transition-colors"
+                  >
+                    <div className="w-14 h-14 mb-6 rounded-lg bg-indigo-900/40 border border-indigo-500/30 flex items-center justify-center">
+                      {format.icon}
                     </div>
-                  </TabsContent>
-                  
-                  {/* Similar pattern for other tabs but with filtered courses */}
-                  <TabsContent value="debutant" className="mt-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      {courses.filter(c => c.level === "Débutant").map((course, index) => (
-                        <motion.div
-                          key={course.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                          whileHover={{ y: -5 }}
-                        >
-                          <Card className="bg-gradient-to-br from-black/50 to-black/30 backdrop-blur-md border border-white/10 h-full flex flex-col overflow-hidden hover:shadow-[0_0_25px_rgba(155,135,245,0.15)] hover:border-primary/30 transition-all duration-300 group">
-                            <CardHeader>
-                              <div className="text-primary mb-3 p-3 bg-white/5 rounded-lg w-fit group-hover:bg-primary/10 transition-all duration-300">{course.icon}</div>
-                              <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">{course.title}</CardTitle>
-                              <div className="flex items-center gap-2 mt-2 text-sm">
-                                <UIBadge variant="outline" className="font-normal border-primary/30 text-primary">
-                                  {course.level}
-                                </UIBadge>
-                                <div className="flex items-center gap-1 text-gray-400">
-                                  <Clock size={14} />
-                                  <span>{course.duration}</span>
-                                </div>
-                              </div>
-                            </CardHeader>
-                            <CardContent className="flex-grow">
-                              <p className="text-sm text-gray-400 mb-4">{course.description}</p>
-                              <div className="mt-4">
-                                <p className="font-medium">Modules inclus:</p>
-                                <ul className="mt-2 space-y-2">
-                                  {course.modules.slice(0, 3).map((module, idx) => (
-                                    <li key={idx} className="text-sm flex items-start gap-2">
-                                      <Check size={16} className="text-primary shrink-0 mt-1" />
-                                      <span className="text-gray-300">{module.title}</span>
-                                    </li>
-                                  ))}
-                                  {course.modules.length > 3 && (
-                                    <li className="text-sm text-gray-500 italic">
-                                      + {course.modules.length - 3} autres modules
-                                    </li>
-                                  )}
-                                </ul>
-                              </div>
-                            </CardContent>
-                            <CardFooter className="flex flex-col items-start border-t border-white/10 pt-4 bg-black/20">
-                              <div className="text-lg font-semibold text-primary mb-3">{course.price}</div>
-                              <Button 
-                                variant="default" 
-                                className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/10" 
-                                asChild
-                              >
-                                <Link to={`/contact?formation=${course.id}`} className="flex justify-between items-center">
-                                  <span>Plus d'informations</span>
-                                  <ArrowRight size={16} />
-                                </Link>
-                              </Button>
-                            </CardFooter>
-                          </Card>
-                        </motion.div>
-                      ))}
+                    <h3 className="text-xl font-bold mb-2 text-white">{format.title}</h3>
+                    <p className="text-gray-300 mb-4">{format.description}</p>
+                    <div className="flex items-center text-indigo-400">
+                      <Clock className="h-4 w-4 mr-2" />
+                      <span className="text-sm">{format.details}</span>
                     </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="intermediaire" className="mt-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      {courses.filter(c => c.level === "Intermédiaire").map((course, index) => (
-                        <motion.div
-                          key={course.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                          whileHover={{ y: -5 }}
-                        >
-                          <Card className="bg-gradient-to-br from-black/50 to-black/30 backdrop-blur-md border border-white/10 h-full flex flex-col overflow-hidden hover:shadow-[0_0_25px_rgba(155,135,245,0.15)] hover:border-primary/30 transition-all duration-300 group">
-                            <CardHeader>
-                              <div className="text-primary mb-3 p-3 bg-white/5 rounded-lg w-fit group-hover:bg-primary/10 transition-all duration-300">{course.icon}</div>
-                              <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">{course.title}</CardTitle>
-                              <div className="flex items-center gap-2 mt-2 text-sm">
-                                <UIBadge variant="outline" className="font-normal border-primary/30 text-primary">
-                                  {course.level}
-                                </UIBadge>
-                                <div className="flex items-center gap-1 text-gray-400">
-                                  <Clock size={14} />
-                                  <span>{course.duration}</span>
-                                </div>
-                              </div>
-                            </CardHeader>
-                            <CardContent className="flex-grow">
-                              <p className="text-sm text-gray-400 mb-4">{course.description}</p>
-                              <div className="mt-4">
-                                <p className="font-medium">Modules inclus:</p>
-                                <ul className="mt-2 space-y-2">
-                                  {course.modules.slice(0, 3).map((module, idx) => (
-                                    <li key={idx} className="text-sm flex items-start gap-2">
-                                      <Check size={16} className="text-primary shrink-0 mt-1" />
-                                      <span className="text-gray-300">{module.title}</span>
-                                    </li>
-                                  ))}
-                                  {course.modules.length > 3 && (
-                                    <li className="text-sm text-gray-500 italic">
-                                      + {course.modules.length - 3} autres modules
-                                    </li>
-                                  )}
-                                </ul>
-                              </div>
-                            </CardContent>
-                            <CardFooter className="flex flex-col items-start border-t border-white/10 pt-4 bg-black/20">
-                              <div className="text-lg font-semibold text-primary mb-3">{course.price}</div>
-                              <Button 
-                                variant="default" 
-                                className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/10" 
-                                asChild
-                              >
-                                <Link to={`/contact?formation=${course.id}`} className="flex justify-between items-center">
-                                  <span>Plus d'informations</span>
-                                  <ArrowRight size={16} />
-                                </Link>
-                              </Button>
-                            </CardFooter>
-                          </Card>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="avance" className="mt-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      {courses.filter(c => c.level === "Avancé" || c.level === "Expert").map((course, index) => (
-                        <motion.div
-                          key={course.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                          whileHover={{ y: -5 }}
-                        >
-                          <Card className="bg-gradient-to-br from-black/50 to-black/30 backdrop-blur-md border border-white/10 h-full flex flex-col overflow-hidden hover:shadow-[0_0_25px_rgba(155,135,245,0.15)] hover:border-primary/30 transition-all duration-300 group">
-                            <CardHeader>
-                              <div className="text-primary mb-3 p-3 bg-white/5 rounded-lg w-fit group-hover:bg-primary/10 transition-all duration-300">{course.icon}</div>
-                              <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">{course.title}</CardTitle>
-                              <div className="flex items-center gap-2 mt-2 text-sm">
-                                <UIBadge variant="outline" className="font-normal border-primary/30 text-primary">
-                                  {course.level}
-                                </UIBadge>
-                                <div className="flex items-center gap-1 text-gray-400">
-                                  <Clock size={14} />
-                                  <span>{course.duration}</span>
-                                </div>
-                              </div>
-                            </CardHeader>
-                            <CardContent className="flex-grow">
-                              <p className="text-sm text-gray-400 mb-4">{course.description}</p>
-                              <div className="mt-4">
-                                <p className="font-medium">Modules inclus:</p>
-                                <ul className="mt-2 space-y-2">
-                                  {course.modules.slice(0, 3).map((module, idx) => (
-                                    <li key={idx} className="text-sm flex items-start gap-2">
-                                      <Check size={16} className="text-primary shrink-0 mt-1" />
-                                      <span className="text-gray-300">{module.title}</span>
-                                    </li>
-                                  ))}
-                                  {course.modules.length > 3 && (
-                                    <li className="text-sm text-gray-500 italic">
-                                      + {course.modules.length - 3} autres modules
-                                    </li>
-                                  )}
-                                </ul>
-                              </div>
-                            </CardContent>
-                            <CardFooter className="flex flex-col items-start border-t border-white/10 pt-4 bg-black/20">
-                              <div className="text-lg font-semibold text-primary mb-3">{course.price}</div>
-                              <Button 
-                                variant="default" 
-                                className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/10" 
-                                asChild
-                              >
-                                <Link to={`/contact?formation=${course.id}`} className="flex justify-between items-center">
-                                  <span>Plus d'informations</span>
-                                  <ArrowRight size={16} />
-                                </Link>
-                              </Button>
-                            </CardFooter>
-                          </Card>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </TabsContent>
-                </Tabs>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </PageContainer>
         </section>
         
-        {/* Research & Innovation Section - NEW */}
-        <section className="py-20 relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
-          <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-          
-          <PageContainer className="relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        {/* Testimonials and Upcoming Trainings Section */}
+        <section className="py-16 relative">
+          <PageContainer>
+            <div className="flex flex-col lg:flex-row gap-10">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="lg:w-1/2"
               >
-                <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent">Recherche & Innovation en IA</h2>
+                <div className="mb-8">
+                  <Badge className="mb-4 border-indigo-500/30 text-indigo-400 bg-indigo-950/30">Témoignages</Badge>
+                  <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                    Ce que disent nos participants
+                  </h2>
+                </div>
                 
-                <div className="space-y-6 text-gray-300">
-                  <p>
-                    En tant que chercheur passionné et praticien de l'IA, <strong className="text-white">Dominiqk Mendy</strong> ne se 
-                    contente pas de suivre les tendances - il contribue activement à l'écosystème de l'IA par :
-                  </p>
-                  
-                  <div className="space-y-4">
-                    <div className="flex gap-4">
-                      <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                        <FileText size={20} className="text-primary" />
+                <div className="space-y-6">
+                  {testimonials.map((testimonial, idx) => (
+                    <div key={idx} className="bg-black/40 backdrop-blur-md border border-indigo-500/20 rounded-xl p-6">
+                      <div className="mb-4">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star key={i} className="inline-block h-4 w-4 text-yellow-400 mr-1" />
+                        ))}
                       </div>
-                      <div>
-                        <h4 className="font-semibold mb-1">Publications & Articles</h4>
-                        <p className="text-gray-400">Contributions régulières à des revues technologiques et plateformes spécialisées sur les avancées en IA</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex gap-4">
-                      <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                        <Target size={20} className="text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-1">Projets de Recherche</h4>
-                        <p className="text-gray-400">Collaboration avec des laboratoires et universités sur des applications innovantes de l'IA dans divers secteurs</p>
+                      <p className="text-gray-300 italic mb-6">"{testimonial.quote}"</p>
+                      <div className="flex items-center">
+                        <div className="w-10 h-10 rounded-full bg-indigo-900/40 border border-indigo-500/30 flex items-center justify-center mr-3">
+                          {testimonial.avatar}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-white">{testimonial.author}</p>
+                          <p className="text-sm text-gray-400">{testimonial.position}</p>
+                        </div>
                       </div>
                     </div>
-                    
-                    <div className="flex gap-4">
-                      <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                        <Award size={20} className="text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-1">Développement de Solutions</h4>
-                        <p className="text-gray-400">Conception d'architectures IA avancées pour résoudre des problèmes complexes dans les secteurs public et privé</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-6 p-4 rounded-lg bg-white/5 border border-white/10">
-                    <p className="italic">
-                      "Mon engagement dans la recherche me permet d'intégrer les avancées les plus récentes 
-                      de l'IA dans mes formations, offrant ainsi aux participants une longueur d'avance 
-                      dans ce domaine en constante évolution."
-                    </p>
-                  </div>
+                  ))}
                 </div>
               </motion.div>
               
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="lg:w-1/2"
               >
-                <div className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 p-0.5 rounded-2xl backdrop-blur-sm">
-                  <div className="bg-black/50 backdrop-blur-md p-6 rounded-2xl h-full border border-white/10">
-                    <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent">Domaines d'Expertise & Recherche</h3>
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {[
-                        { name: "Deep Learning", level: 95 },
-                        { name: "Traitement du Langage Naturel", level: 90 },
-                        { name: "Vision par Ordinateur", level: 85 },
-                        { name: "IA Générative", level: 92 },
-                        { name: "Transformation Digitale", level: 96 },
-                        { name: "Machine Learning", level: 94 },
-                        { name: "Edge AI & IoT", level: 82 },
-                        { name: "Éthique de l'IA", level: 88 }
-                      ].map((skill, idx) => (
-                        <motion.div 
-                          key={idx}
-                          className="p-4 rounded-lg bg-black/30 border border-white/5 hover:border-primary/20 transition-all duration-300"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.4, delay: 0.5 + idx * 0.1 }}
-                          whileHover={{ y: -3 }}
-                        >
-                          <div className="flex justify-between mb-1">
-                            <span className="text-sm font-medium">{skill.name}</span>
-                            <span className="text-xs text-primary">{skill.level}%</span>
-                          </div>
-                          <div className="w-full bg-white/10 rounded-full h-1.5">
-                            <div 
-                              className="bg-gradient-to-r from-blue-400 to-purple-400 h-1.5 rounded-full" 
-                              style={{ width: `${skill.level}%` }}
-                            ></div>
-                          </div>
-                        </motion.div>
-                      ))}
+                <div className="mb-8">
+                  <Badge className="mb-4 border-purple-500/30 text-purple-400 bg-purple-950/30">Calendrier</Badge>
+                  <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                    Prochaines formations programmées
+                  </h2>
+                </div>
+                
+                <div className="space-y-4">
+                  {upcomingTrainings.map((training, idx) => (
+                    <div key={idx} className="bg-black/40 backdrop-blur-md border border-indigo-500/20 rounded-lg p-5 hover:border-indigo-500/40 transition-colors">
+                      <h3 className="text-white font-bold text-lg mb-2">{training.title}</h3>
+                      
+                      <div className="grid grid-cols-2 gap-4 mb-4">
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 text-indigo-400 mr-2" />
+                          <span className="text-gray-300 text-sm">{training.date}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Building className="h-4 w-4 text-indigo-400 mr-2" />
+                          <span className="text-gray-300 text-sm">{training.location}</span>
+                        </div>
+                      </div>
+                      
+                      <div className="flex justify-between items-center">
+                        <span className="text-indigo-400 text-sm">{training.spots}</span>
+                        <Button size="sm" variant="outline" className="border-indigo-500/30 text-indigo-400 hover:bg-indigo-950/30" asChild>
+                          <Link to="/start-project">S'inscrire</Link>
+                        </Button>
+                      </div>
                     </div>
+                  ))}
+                </div>
+                
+                <div className="mt-8">
+                  <div className="bg-black/40 backdrop-blur-md border border-purple-500/20 rounded-lg p-6">
+                    <div className="flex items-center mb-4">
+                      <ScrollText className="h-6 w-6 text-purple-400 mr-3" />
+                      <h3 className="text-white font-bold">Formation sur mesure</h3>
+                    </div>
+                    <p className="text-gray-300 mb-6">
+                      Vous ne trouvez pas la formation qui répond parfaitement à vos besoins ? Je propose des programmes entièrement personnalisés, adaptés à votre secteur d'activité et à vos objectifs spécifiques.
+                    </p>
+                    <Button className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:opacity-90" asChild>
+                      <Link to="/contact">
+                        Demander un programme sur mesure <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
                   </div>
                 </div>
               </motion.div>
@@ -1118,98 +925,83 @@ const AITrainingPage = () => {
           </PageContainer>
         </section>
         
-        {/* Testimonials Section with improved styling */}
-        <section className="py-20 bg-black/30 backdrop-blur-md border-t border-b border-white/10">
+        {/* Learning Outcomes Section */}
+        <section className="py-16 relative">
+          <div className="absolute bottom-0 right-0 w-1/3 h-1 bg-gradient-to-r from-indigo-500/0 via-indigo-500 to-indigo-500/0"></div>
           <PageContainer>
-            <div className="max-w-2xl mx-auto text-center mb-16">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent">Ce Qu'ils En Disent</h2>
-                <div className="h-1 w-24 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 mx-auto mb-6 rounded-full"></div>
-                <p className="text-gray-300">Témoignages de participants à nos formations IA</p>
-              </motion.div>
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <Badge className="mb-4 border-indigo-500/30 text-indigo-400 bg-indigo-950/30">Résultats</Badge>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
+                Ce que vous apprendrez
+              </h2>
+              <p className="text-gray-300 text-lg">
+                Développez des compétences concrètes et applicables immédiatement dans votre contexte professionnel.
+              </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, idx) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {learningOutcomes.map((outcome, idx) => (
                 <motion.div
                   key={idx}
-                  className="bg-gradient-to-br from-black/50 to-black/30 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-primary/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.2)]"
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 + 0.3 }}
-                  whileHover={{ y: -5 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="bg-black/40 backdrop-blur-md border border-indigo-500/20 rounded-xl p-6 hover:border-indigo-500/40 transition-colors"
                 >
-                  <div className="flex flex-col h-full">
-                    <div className="flex items-center mb-6">
-                      <div className="w-14 h-14 rounded-full overflow-hidden mr-4 bg-primary/20 flex items-center justify-center">
-                        <Star className="text-primary" size={24} />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-lg text-white">{testimonial.name}</h4>
-                        <p className="text-sm text-gray-400">{testimonial.role}</p>
-                      </div>
-                    </div>
-                    <p className="text-gray-300 italic flex-grow">{testimonial.text}</p>
-                    <div className="flex mt-4">
-                      {Array(5).fill(0).map((_, i) => (
-                        <Star key={i} size={16} className="text-yellow-500 mr-1" fill="#EAB308" />
-                      ))}
-                    </div>
+                  <div className="w-12 h-12 rounded-lg bg-indigo-900/40 border border-indigo-500/30 flex items-center justify-center mb-6">
+                    {outcome.icon}
                   </div>
+                  <h3 className="text-white font-bold text-lg mb-3">{outcome.title}</h3>
+                  <p className="text-gray-400">
+                    {outcome.description}
+                  </p>
                 </motion.div>
               ))}
             </div>
           </PageContainer>
         </section>
         
-        {/* CTA Section with enhanced design */}
-        <section className="py-20 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-purple-600/5 to-blue-600/5 opacity-50"></div>
-          <div className="absolute -bottom-10 -right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+        {/* CTA Section */}
+        <section className="py-16 md:py-24 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/20 to-black"></div>
           
           <PageContainer className="relative z-10">
-            <div className="max-w-3xl mx-auto">
-              <motion.div
-                className="bg-gradient-to-br from-black/40 to-black/20 backdrop-blur-lg p-8 md:p-12 rounded-2xl border border-white/10 shadow-[0_0_25px_rgba(155,135,245,0.15)]"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="text-center">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent">
-                    Prêt à Développer Votre Expertise en IA?
-                  </h2>
-                  <div className="h-1 w-24 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 mx-auto mb-6 rounded-full"></div>
-                  <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                    Contactez-nous pour une formation sur mesure adaptée à vos besoins, 
-                    ou pour recevoir notre catalogue détaillé de formations.
-                  </p>
-                  
-                  <div className="flex flex-wrap justify-center gap-4">
-                    <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-500 hover:opacity-90 shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-105" asChild>
-                      <Link to="/contact" className="flex items-center gap-2">
-                        <span>Demander un devis</span>
-                        <Send className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                    <Button 
-                      size="lg" 
-                      variant="outline" 
-                      className="border-white/20 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-105"
-                      asChild
-                    >
-                      <Link to="/contact" className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4" />
-                        <span>Planifier un appel</span>
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              </motion.div>
+            <div className="max-w-4xl mx-auto bg-black/60 backdrop-blur-xl border border-indigo-500/20 rounded-xl p-8 md:p-12 shadow-xl shadow-indigo-500/10">
+              <div className="absolute -top-14 -left-14 w-40 h-40 bg-indigo-600 rounded-full opacity-20 filter blur-[80px]"></div>
+              <div className="absolute -bottom-14 -right-14 w-40 h-40 bg-purple-600 rounded-full opacity-20 filter blur-[80px]"></div>
+              
+              <div className="text-center mb-8">
+                <Badge className="mb-4 border-indigo-500/30 text-indigo-400 bg-indigo-950/30 mx-auto">Prêt à vous former ?</Badge>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                  Investissez dans les compétences IA de demain
+                </h2>
+                <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+                  Contactez-moi pour discuter de vos besoins en formation et découvrir comment mes programmes peuvent transformer les compétences de votre équipe.
+                </p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg"
+                  className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white"
+                  asChild
+                >
+                  <Link to="/start-project" className="flex items-center gap-2">
+                    <span>Planifier une formation</span>
+                    <ArrowRight className="h-5 w-5" />
+                  </Link>
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="border-white/10 text-white hover:bg-white/5"
+                  asChild
+                >
+                  <Link to="/contact">Demander une documentation</Link>
+                </Button>
+              </div>
             </div>
           </PageContainer>
         </section>
