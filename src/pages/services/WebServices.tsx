@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
@@ -8,89 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowRight, Code, FileCode, Globe, Database, Layout, Rocket, Users, Phone, ShoppingCart, BadgeCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-
-// Animated space background component
-const SpaceBackground = () => {
-  const [stars, setStars] = useState<{id: number, x: number, y: number, size: number, opacity: number, speed: number}[]>([]);
-  
-  useEffect(() => {
-    // Generate random stars
-    const generateStars = () => {
-      const newStars = Array.from({ length: 200 }, (_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 2.5 + 0.5,
-        opacity: Math.random() * 0.7 + 0.3,
-        speed: Math.random() * 0.05 + 0.01
-      }));
-      setStars(newStars);
-    };
-
-    generateStars();
-  }, []);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden bg-black pointer-events-none">
-      {/* Stars background with animation */}
-      {stars.map((star) => (
-        <motion.div
-          key={`star-${star.id}`}
-          className="absolute rounded-full bg-white"
-          style={{
-            left: `${star.x}%`,
-            top: `${star.y}%`,
-            width: `${star.size}px`,
-            height: `${star.size}px`,
-            opacity: star.opacity,
-          }}
-          animate={{
-            opacity: [star.opacity, star.opacity * 1.5, star.opacity],
-            scale: [1, 1.2, 1],
-            y: [`${star.y}%`, `${star.y + star.speed * 10}%`, `${star.y}%`]
-          }}
-          transition={{
-            repeat: Infinity,
-            duration: 3 + Math.random() * 7,
-            ease: "easeInOut"
-          }}
-        />
-      ))}
-      
-      {/* Nebula effects */}
-      <div className="absolute top-20 left-10 w-96 h-96 rounded-full bg-purple-500/10 blur-3xl"></div>
-      <div className="absolute bottom-40 right-20 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl"></div>
-      
-      {/* Shooting stars */}
-      {Array.from({ length: 3 }).map((_, index) => (
-        <motion.div
-          key={`shooting-${index}`}
-          className="absolute h-0.5 bg-white rounded-full"
-          style={{
-            top: `${20 + index * 25}%`,
-            left: "-10%",
-            width: "5%",
-          }}
-          animate={{
-            left: ["0%", "120%"],
-            top: [`${20 + index * 25}%`, `${30 + index * 20}%`],
-            opacity: [0, 0.8, 0]
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            repeatDelay: 7 + index * 3,
-            ease: "easeInOut"
-          }}
-        />
-      ))}
-      
-      {/* Distant galaxies */}
-      <div className="absolute top-1/4 right-1/4 w-20 h-20 rounded-full bg-gradient-to-br from-purple-500/20 to-transparent blur-xl"></div>
-      <div className="absolute bottom-1/4 left-1/3 w-16 h-16 rounded-full bg-gradient-to-br from-blue-500/20 to-transparent blur-xl"></div>
-    </div>
-  );
-};
+import SpaceBackground from '@/components/space/SpaceBackground';
 
 const WebServices = () => {
   const [activeTab, setActiveTab] = useState("all");
@@ -222,10 +141,10 @@ const WebServices = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col relative">
+    <div className="min-h-screen flex flex-col relative bg-black">
       <Navbar />
       
-      {/* Replace the old WebSpaceBackground with new SpaceBackground */}
+      {/* Space background */}
       <SpaceBackground />
       
       <main className="flex-grow relative z-10">
@@ -240,13 +159,13 @@ const WebServices = () => {
                 className="text-center mb-12"
               >
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-                  Solutions Web & Mobile <span className="text-gradient">Innovantes</span>
+                  Solutions Web & Mobile <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-400 bg-clip-text text-transparent">Innovantes</span>
                 </h1>
                 <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
                   Développement d'applications et sites web performants, évolutifs et à fort impact pour les entreprises innovantes à l'international
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Button size="lg" className="bg-gradient-primary hover:opacity-90" asChild>
+                  <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90" asChild>
                     <Link to="/contact">
                       Discuter de votre projet
                     </Link>
@@ -269,7 +188,7 @@ const WebServices = () => {
                 {["react", "vue", "angular", "nodejs", "wordpress", "nextjs", "flutter", "firebase", "aws"].map((tech) => (
                   <motion.div 
                     key={tech}
-                    className="w-12 h-12 flex items-center justify-center bg-white/20 backdrop-blur-md rounded-lg p-2"
+                    className="w-12 h-12 flex items-center justify-center bg-white/20 backdrop-blur-md rounded-lg p-2 shadow-space-glow"
                     whileHover={{ y: -5, scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
@@ -282,19 +201,19 @@ const WebServices = () => {
         </section>
         
         {/* Services Tabs Section */}
-        <section className="py-20 bg-gray-50 relative">
+        <section className="py-20 relative">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Nos Services Web & Mobile</h2>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
-              <p className="text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Nos Services Web & Mobile</h2>
+              <div className="h-1 w-24 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 mx-auto mb-6"></div>
+              <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
                 Des solutions numériques complètes pour accompagner votre croissance et renforcer votre présence digitale, de la conception à la maintenance
               </p>
               
               <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="w-full max-w-4xl mx-auto">
-                <TabsList className="w-full flex flex-wrap justify-center bg-gray-100 p-1 mb-10">
+                <TabsList className="w-full flex flex-wrap justify-center bg-black/50 border border-white/10 p-1 mb-10">
                   {webCategories.map(cat => (
-                    <TabsTrigger key={cat.id} value={cat.id} className="flex-grow data-[state=active]:bg-white rounded-md">
+                    <TabsTrigger key={cat.id} value={cat.id} className="flex-grow data-[state=active]:bg-white/10 data-[state=active]:text-white rounded-md text-gray-300">
                       {cat.name}
                     </TabsTrigger>
                   ))}
@@ -312,29 +231,31 @@ const WebServices = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: idx * 0.1 }}
                           >
-                            <Card className="h-full flex flex-col hover:border-primary/50 transition-colors">
+                            <Card className="h-full glass-space hover:border-white/30 transition-all duration-300 hover:shadow-space-glow cosmic-hover">
                               <CardHeader>
-                                <div className="text-primary mb-4">{service.icon}</div>
-                                <CardTitle>{service.title}</CardTitle>
+                                <div className="bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-full p-4 w-16 h-16 flex items-center justify-center text-white mb-4">
+                                  {service.icon}
+                                </div>
+                                <CardTitle className="text-white">{service.title}</CardTitle>
                               </CardHeader>
                               <CardContent className="flex-grow">
-                                <p className="text-gray-600 mb-4">{service.description}</p>
+                                <p className="text-gray-300 mb-4">{service.description}</p>
                                 <ul className="space-y-2 mb-4">
                                   {service.features.map((feature, i) => (
                                     <li key={i} className="flex items-start gap-2">
-                                      <div className="text-primary mt-1">
+                                      <div className="text-blue-400 mt-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                           <path d="M20 6L9 17l-5-5"></path>
                                         </svg>
                                       </div>
-                                      <span className="text-sm">{feature}</span>
+                                      <span className="text-sm text-gray-300">{feature}</span>
                                     </li>
                                   ))}
                                 </ul>
-                                <p className="text-sm font-medium text-primary">{service.price}</p>
+                                <p className="text-sm font-medium text-blue-400">{service.price}</p>
                               </CardContent>
                               <CardFooter>
-                                <Button variant="ghost" className="w-full justify-between hover:bg-gray-100" asChild>
+                                <Button variant="ghost" className="w-full justify-between hover:bg-white/10 text-white" asChild>
                                   <Link to="/contact">
                                     <span>En savoir plus</span>
                                     <ArrowRight size={16} />
@@ -350,15 +271,19 @@ const WebServices = () => {
               </Tabs>
             </div>
           </div>
+
+          {/* Nebula effects for visual enhancement */}
+          <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-purple-500/10 blur-3xl"></div>
+          <div className="absolute bottom-1/3 left-1/4 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl"></div>
         </section>
         
         {/* Project Showcase */}
-        <section className="py-20 bg-gradient-to-b from-gray-100 to-white">
+        <section className="py-20 relative">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Projets Réalisés</h2>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Projets Réalisés</h2>
+              <div className="h-1 w-24 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 mx-auto mb-6"></div>
+              <p className="text-lg text-gray-300 max-w-3xl mx-auto">
                 Des solutions sur mesure pour des clients du monde entier, adaptées à leurs besoins spécifiques et contextes locaux
               </p>
             </div>
@@ -367,7 +292,7 @@ const WebServices = () => {
               {projectShowcase.map((project, idx) => (
                 <motion.div
                   key={project.title}
-                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200"
+                  className="glass-space overflow-hidden"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: idx * 0.2 }}
@@ -381,12 +306,12 @@ const WebServices = () => {
                     </AspectRatio>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                    <p className="text-sm text-primary font-medium mb-3">{project.client}</p>
-                    <p className="text-gray-600 mb-4">{project.description}</p>
+                    <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
+                    <p className="text-sm text-blue-400 font-medium mb-3">{project.client}</p>
+                    <p className="text-gray-300 mb-4">{project.description}</p>
                     <div className="flex flex-wrap gap-2 mt-4">
                       {project.technologies.map(tech => (
-                        <span key={tech} className="text-xs px-2 py-1 bg-gray-100 rounded-full text-gray-700">
+                        <span key={tech} className="text-xs px-2 py-1 bg-white/10 rounded-full text-gray-300">
                           {tech}
                         </span>
                       ))}
@@ -397,30 +322,34 @@ const WebServices = () => {
             </div>
             
             <div className="text-center mt-12">
-              <Button className="bg-primary hover:bg-primary/90" asChild>
+              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90" asChild>
                 <Link to="/portfolio">
                   Voir tous nos projets
                 </Link>
               </Button>
             </div>
           </div>
+          
+          {/* Nebula effects for visual enhancement */}
+          <div className="absolute top-2/3 right-1/4 w-64 h-64 rounded-full bg-indigo-500/10 blur-3xl"></div>
+          <div className="absolute top-1/4 left-1/3 w-72 h-72 rounded-full bg-violet-500/10 blur-3xl"></div>
         </section>
         
         {/* Methodology Section */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 relative">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Notre Méthodologie</h2>
-                <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Notre Méthodologie</h2>
+                <div className="h-1 w-24 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 mx-auto mb-6"></div>
+                <p className="text-lg text-gray-300 max-w-3xl mx-auto">
                   Une approche structurée et agile pour délivrer des solutions qui répondent parfaitement à vos besoins
                 </p>
               </div>
               
               <div className="relative">
                 {/* Timeline connector */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-primary"></div>
+                <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-indigo-500"></div>
                 
                 {/* Timeline items */}
                 {[
@@ -464,12 +393,12 @@ const WebServices = () => {
                     transition={{ duration: 0.8, delay: idx * 0.1 }}
                   >
                     <div className={`w-1/2 ${idx % 2 === 0 ? 'pr-12 text-right' : 'pl-12'}`}>
-                      <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                      <p className="text-gray-600">{step.description}</p>
+                      <h3 className="text-xl font-bold mb-2 text-white">{step.title}</h3>
+                      <p className="text-gray-300">{step.description}</p>
                     </div>
                     
-                    <div className="relative z-10 flex items-center justify-center w-16 h-16 bg-white rounded-full shadow border-4 border-primary">
-                      <div className="text-primary">
+                    <div className="relative z-10 flex items-center justify-center w-16 h-16 bg-black/50 backdrop-blur-md rounded-full shadow-space-glow border border-white/20">
+                      <div className="text-blue-400">
                         {step.icon}
                       </div>
                     </div>
@@ -480,15 +409,18 @@ const WebServices = () => {
               </div>
             </div>
           </div>
+          
+          {/* Nebula effects for visual enhancement */}
+          <div className="absolute bottom-1/4 right-1/3 w-64 h-64 rounded-full bg-blue-500/10 blur-3xl"></div>
         </section>
         
         {/* FAQ Section with updated international references */}
-        <section className="py-20 bg-white">
+        <section className="py-20 relative">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Questions Fréquentes</h2>
-                <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Questions Fréquentes</h2>
+                <div className="h-1 w-24 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 mx-auto mb-6"></div>
               </div>
               
               <div className="space-y-6">
@@ -521,12 +453,12 @@ const WebServices = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                   >
-                    <Card>
+                    <Card className="glass-space hover:border-white/30 transition-all duration-300">
                       <CardHeader>
-                        <CardTitle className="text-xl">{item.question}</CardTitle>
+                        <CardTitle className="text-xl text-white">{item.question}</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-gray-600">{item.answer}</p>
+                        <p className="text-gray-300">{item.answer}</p>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -534,7 +466,7 @@ const WebServices = () => {
               </div>
               
               <div className="mt-12 text-center">
-                <Button className="bg-gradient-primary hover:opacity-90" size="lg" asChild>
+                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90" size="lg" asChild>
                   <Link to="/contact">
                     Discuter de votre projet web ou mobile
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -543,14 +475,17 @@ const WebServices = () => {
               </div>
             </div>
           </div>
+          
+          {/* Nebula effects for visual enhancement */}
+          <div className="absolute top-1/3 right-1/3 w-72 h-72 rounded-full bg-purple-500/10 blur-3xl"></div>
         </section>
         
         {/* Testimonial Section with international references */}
-        <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+        <section className="py-20 relative">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Ce que nos clients disent</h2>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Ce que nos clients disent</h2>
+              <div className="h-1 w-24 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 mx-auto mb-6"></div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -576,27 +511,30 @@ const WebServices = () => {
               ].map((testimonial, idx) => (
                 <motion.div
                   key={idx}
-                  className="bg-white p-8 rounded-xl shadow-md border border-gray-100"
+                  className="glass-space p-8"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: idx * 0.2 }}
                 >
-                  <div className="text-4xl text-primary/20 mb-4">"</div>
-                  <p className="text-gray-700 mb-6">{testimonial.quote}</p>
+                  <div className="text-4xl text-blue-500/50 mb-4">"</div>
+                  <p className="text-gray-300 mb-6">{testimonial.quote}</p>
                   <div>
-                    <p className="font-bold">{testimonial.author}</p>
-                    <p className="text-sm text-gray-500">{testimonial.position}</p>
-                    <p className="text-xs text-primary">{testimonial.location}</p>
+                    <p className="font-bold text-white">{testimonial.author}</p>
+                    <p className="text-sm text-gray-400">{testimonial.position}</p>
+                    <p className="text-xs text-blue-400">{testimonial.location}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
           </div>
+          
+          {/* Nebula effects for visual enhancement */}
+          <div className="absolute top-2/3 left-1/4 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl"></div>
         </section>
         
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-gray-900 to-black text-white">
+        <section className="py-20 relative">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-2xl overflow-hidden border border-white/10">
               <div className="p-12 md:p-16 relative">
@@ -605,7 +543,7 @@ const WebServices = () => {
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
                 
                 <div className="relative z-10 text-center">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
                     Prêt à lancer votre projet digital ?
                   </h2>
                   <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
@@ -613,12 +551,12 @@ const WebServices = () => {
                   </p>
                   
                   <div className="flex flex-wrap justify-center gap-4">
-                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 transition-opacity" asChild>
+                    <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity" asChild>
                       <Link to="/contact">
                         Discuter avec un expert
                       </Link>
                     </Button>
-                    <Button size="lg" variant="outline" className="border-white/50 hover:bg-white/10" asChild>
+                    <Button size="lg" variant="outline" className="border-white/50 hover:bg-white/10 text-white" asChild>
                       <Link to="/services">
                         Explorer d'autres services
                       </Link>

@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,7 +21,7 @@ import StartProject from "./pages/StartProject";
 import AITrainingPage from "./pages/services/AITrainingPage";
 import EGovernance from "./pages/services/EGovernance";
 import SenServices from "./pages/projects/SenServices";
-import ChatBot from "./components/chat/ChatBot";
+import SpaceThemedChatBot from './components/chat/SpaceThemedChatBot';
 import AboutPage from "./pages/About";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -30,39 +29,41 @@ import LegalNotices from "./pages/LegalNotices";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/services/ai-solutions" element={<AIServices />} />
-        <Route path="/services/web-development" element={<WebServices />} />
-        <Route path="/services/digital-marketing" element={<MarketingServices />} />
-        <Route path="/services/consulting" element={<ConsultingServices />} />
-        <Route path="/services/ai-training" element={<AITrainingPage />} />
-        <Route path="/services/egouvernance" element={<EGovernance />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/academy" element={<AcademyPage />} />
-        <Route path="/tools" element={<ToolsPage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/blog/:id" element={<BlogPost />} />
-        <Route path="/expertise" element={<ExpertisePage />} />
-        <Route path="/portfolio" element={<PortfolioPage />} />
-        <Route path="/start-project" element={<StartProject />} />
-        <Route path="/projects/senservices" element={<SenServices />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-of-service" element={<TermsOfService />} />
-        <Route path="/legal-notices" element={<LegalNotices />} />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <ChatBot />
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/services/ai-solutions" element={<AIServices />} />
+          <Route path="/services/web-development" element={<WebServices />} />
+          <Route path="/services/digital-marketing" element={<MarketingServices />} />
+          <Route path="/services/consulting" element={<ConsultingServices />} />
+          <Route path="/services/ai-training" element={<AITrainingPage />} />
+          <Route path="/services/egouvernance" element={<EGovernance />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/academy" element={<AcademyPage />} />
+          <Route path="/tools" element={<ToolsPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
+          <Route path="/expertise" element={<ExpertisePage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/start-project" element={<StartProject />} />
+          <Route path="/projects/senservices" element={<SenServices />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/legal-notices" element={<LegalNotices />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <SpaceThemedChatBot />
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+}
 
 export default App;
