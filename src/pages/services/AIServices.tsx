@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/layout/Navbar';
@@ -7,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import PageContainer from '@/components/layout/PageContainer';
 import { 
   BrainCircuit, 
   Sparkles, 
@@ -194,20 +194,20 @@ const AIServices = () => {
     {
       title: "Development IA sur Mesure",
       description: "Création de solutions IA adaptées à vos défis spécifiques, de la conception à l'implémentation.",
-      icon: <BrainCircuit className="h-10 w-10 text-indigo-400" />,
+      icon: <BrainCircuit className="h-10 w-10 text-portfolio-purple" />,
       features: [
         "Analyse des besoins spécifiques",
         "Développement d'algorithmes sur mesure",
         "Intégration avec vos systèmes existants",
         "Formation de votre équipe"
       ],
-      color: "from-indigo-600 to-purple-600",
+      color: "from-portfolio-blue to-portfolio-purple",
       badge: "Populaire"
     },
     {
       title: "Chatbots & Assistants IA",
       description: "Automatisez vos interactions client avec des assistants conversationnels intelligents et adaptés au contexte africain.",
-      icon: <Bot className="h-10 w-10 text-indigo-400" />,
+      icon: <Bot className="h-10 w-10 text-portfolio-purple" />,
       features: [
         "Support multilingue (français, wolof, etc.)",
         "Intégration site web et réseaux sociaux",
@@ -219,7 +219,7 @@ const AIServices = () => {
     {
       title: "Machine Learning & Prédiction",
       description: "Exploitez vos données pour anticiper les tendances et optimiser vos décisions business.",
-      icon: <Database className="h-10 w-10 text-indigo-400" />,
+      icon: <Database className="h-10 w-10 text-portfolio-blue" />,
       features: [
         "Modèles prédictifs personnalisés",
         "Analyse de données structurées/non-structurées",
@@ -232,7 +232,7 @@ const AIServices = () => {
     {
       title: "Vision par Ordinateur",
       description: "Donnez à vos systèmes la capacité de voir et d'interpréter les images et vidéos.",
-      icon: <Eye className="h-10 w-10 text-indigo-400" />,
+      icon: <Eye className="h-10 w-10 text-portfolio-blue" />,
       features: [
         "Reconnaissance d'objets et de personnes",
         "Classification d'images",
@@ -244,7 +244,7 @@ const AIServices = () => {
     {
       title: "Intelligence Artificielle Générative",
       description: "Créez automatiquement du contenu de qualité avec les dernières avancées en IA générative.",
-      icon: <Sparkles className="h-10 w-10 text-indigo-400" />,
+      icon: <Sparkles className="h-10 w-10 text-portfolio-blue" />,
       features: [
         "Génération de texte contextuel",
         "Création d'images sur mesure",
@@ -256,7 +256,7 @@ const AIServices = () => {
     {
       title: "Automatisation IA des Processus",
       description: "Optimisez vos opérations grâce à l'automatisation intelligente pilotée par l'IA.",
-      icon: <Zap className="h-10 w-10 text-indigo-400" />,
+      icon: <Zap className="h-10 w-10 text-portfolio-blue" />,
       features: [
         "Workflow intelligent",
         "Traitement automatisé des documents",
@@ -268,7 +268,7 @@ const AIServices = () => {
     {
       title: "Traitement du Langage Naturel",
       description: "Analysez et comprenez le langage humain pour extraire des insights pertinents.",
-      icon: <MessageSquare className="h-10 w-10 text-indigo-400" />,
+      icon: <MessageSquare className="h-10 w-10 text-portfolio-blue" />,
       features: [
         "Analyse de sentiment multilingue",
         "Classification de texte automatique",
@@ -281,7 +281,7 @@ const AIServices = () => {
     {
       title: "IA pour Analyse Prédictive",
       description: "Anticipez les tendances futures et prenez des décisions data-driven pour votre business.",
-      icon: <LineChart className="h-10 w-10 text-indigo-400" />,
+      icon: <LineChart className="h-10 w-10 text-portfolio-blue" />,
       features: [
         "Prévision des ventes et de la demande",
         "Segmentation client avancée",
@@ -335,15 +335,15 @@ const AIServices = () => {
       
       <Navbar />
       
-      <main className="flex-grow pt-20 relative">
+      <main className="flex-grow pt-20 relative w-full">
         {/* Hero Section */}
-        <section className="py-16 md:py-24 relative overflow-hidden">
+        <section className="py-16 md:py-24 relative overflow-hidden w-full">
           <div className="absolute inset-0 z-0">
             <NeuralNetwork />
           </div>
           
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="flex flex-col md:flex-row items-center max-w-6xl mx-auto">
+          <PageContainer fullWidth className="relative z-10">
+            <div className="flex flex-col md:flex-row items-center mx-auto">
               <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -351,9 +351,9 @@ const AIServices = () => {
                   transition={{ duration: 0.8 }}
                   className="relative w-16 h-16 mb-6"
                 >
-                  <div className="absolute inset-0 bg-indigo-600/20 rounded-full animate-ping"></div>
-                  <div className="relative flex items-center justify-center w-full h-full bg-indigo-600/30 backdrop-blur-sm rounded-full border border-indigo-500/50">
-                    <BrainCircuit className="h-8 w-8 text-indigo-400" />
+                  <div className="absolute inset-0 bg-portfolio-purple/20 rounded-full animate-ping"></div>
+                  <div className="relative flex items-center justify-center w-full h-full bg-portfolio-purple/30 backdrop-blur-sm rounded-full border border-portfolio-purple/50">
+                    <BrainCircuit className="h-8 w-8 text-portfolio-purple" />
                   </div>
                 </motion.div>
                 
@@ -363,9 +363,9 @@ const AIServices = () => {
                   transition={{ delay: 0.2, duration: 0.8 }}
                   className="mb-6"
                 >
-                  <Badge className="mb-4 border-indigo-500/30 text-indigo-400 bg-indigo-950/30">Intelligence Artificielle</Badge>
+                  <Badge className="mb-4 border-portfolio-purple/30 text-portfolio-purple bg-indigo-950/30">Intelligence Artificielle</Badge>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                    <span className="text-gradient-cosmic">Solutions IA</span> pour l'Afrique de demain
+                    <span className="bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-blue bg-clip-text text-transparent">Solutions IA</span> pour l'Afrique de demain
                   </h1>
                 </motion.div>
                 
@@ -385,7 +385,7 @@ const AIServices = () => {
                   className="flex flex-col sm:flex-row gap-4"
                 >
                   <Button 
-                    className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white"
+                    className="bg-gradient-to-r from-portfolio-blue to-portfolio-purple hover:opacity-90 text-white"
                     size="lg"
                     asChild
                   >
@@ -413,17 +413,17 @@ const AIServices = () => {
                 className="md:w-1/2 flex justify-center"
               >
                 <div className="relative w-full h-[400px] md:h-[500px]">
-                  <div className="absolute inset-0 bg-indigo-600 rounded-full filter blur-[100px] opacity-30"></div>
+                  <div className="absolute inset-0 bg-portfolio-purple rounded-full filter blur-[100px] opacity-30"></div>
                   
                   <div className="relative h-full w-full flex items-center justify-center">
                     <div className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] relative">
-                      <div className="absolute inset-0 rounded-full border-4 border-dashed border-indigo-500/30 animate-[spin_40s_linear_infinite]"></div>
+                      <div className="absolute inset-0 rounded-full border-4 border-dashed border-portfolio-purple/30 animate-[spin_40s_linear_infinite]"></div>
                       
                       {/* AI Stats Orbs */}
                       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                         <div className="cosmic-card p-3 rounded-xl">
                           <div className="flex items-center gap-2">
-                            <CircleDashed className="h-5 w-5 text-indigo-400 animate-pulse" />
+                            <CircleDashed className="h-5 w-5 text-portfolio-purple animate-pulse" />
                             <div>
                               <div className="text-xs text-gray-400">Précision IA</div>
                               <div className="text-white font-bold">{aiStats.accuracy}%</div>
@@ -459,7 +459,7 @@ const AIServices = () => {
                       <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2">
                         <div className="cosmic-card p-3 rounded-xl">
                           <div className="flex items-center gap-2">
-                            <Database className="h-5 w-5 text-blue-400" />
+                            <Database className="h-5 w-5 text-portfolio-blue" />
                             <div>
                               <div className="text-xs text-gray-400">Disponibilité</div>
                               <div className="text-white font-bold">{aiStats.uptime}%</div>
@@ -471,10 +471,10 @@ const AIServices = () => {
                       {/* Central Brain Icon */}
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="relative w-32 h-32">
-                          <div className="absolute inset-0 bg-indigo-600/20 rounded-full animate-ping"></div>
-                          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full opacity-40"></div>
-                          <div className="relative flex items-center justify-center w-full h-full bg-indigo-900/70 backdrop-blur-sm rounded-full border border-indigo-500">
-                            <BrainCircuit className="h-16 w-16 text-indigo-300" />
+                          <div className="absolute inset-0 bg-portfolio-purple/20 rounded-full animate-ping"></div>
+                          <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue to-portfolio-purple rounded-full opacity-40"></div>
+                          <div className="relative flex items-center justify-center w-full h-full bg-indigo-900/70 backdrop-blur-sm rounded-full border border-portfolio-purple">
+                            <BrainCircuit className="h-16 w-16 text-portfolio-purple" />
                           </div>
                         </div>
                       </div>
@@ -483,26 +483,26 @@ const AIServices = () => {
                 </div>
               </motion.div>
             </div>
-          </div>
+          </PageContainer>
         </section>
         
         {/* AI Services Grid */}
-        <section className="py-16 md:py-24 relative">
-          <div className="absolute top-0 left-0 w-1 h-40 bg-gradient-to-b from-indigo-500/0 via-indigo-500/30 to-indigo-500/0"></div>
-          <div className="absolute bottom-0 right-0 w-1 h-40 bg-gradient-to-b from-indigo-500/0 via-indigo-500/30 to-indigo-500/0"></div>
+        <section className="py-16 md:py-24 relative w-full">
+          <div className="absolute top-0 left-0 w-1 h-40 bg-gradient-to-b from-portfolio-purple/0 via-portfolio-purple/30 to-portfolio-purple/0"></div>
+          <div className="absolute bottom-0 right-0 w-1 h-40 bg-gradient-to-b from-portfolio-purple/0 via-portfolio-purple/30 to-portfolio-purple/0"></div>
           
-          <div className="container mx-auto px-4">
+          <PageContainer fullWidth className="relative">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <Badge className="mb-4 border-indigo-500/30 text-indigo-400 bg-indigo-950/30">Nos services</Badge>
+              <Badge className="mb-4 border-portfolio-purple/30 text-portfolio-purple bg-indigo-950/30">Nos services</Badge>
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-                Des solutions IA <span className="text-gradient-cosmic">adaptées à vos besoins</span>
+                Des solutions IA <span className="bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-blue bg-clip-text text-transparent">adaptées à vos besoins</span>
               </h2>
               <p className="text-gray-300 text-lg">
                 Découvrez notre gamme complète de services d'intelligence artificielle conçus pour relever vos défis business spécifiques.
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
               {aiServices.map((service, index) => (
                 <motion.div
                   key={index}
@@ -555,14 +555,14 @@ const AIServices = () => {
                 </motion.div>
               ))}
             </div>
-          </div>
+          </PageContainer>
         </section>
         
         {/* Case Studies Section */}
-        <section className="py-16 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-indigo-950/20 to-black/0"></div>
+        <section className="py-16 relative overflow-hidden w-full">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-portfolio-purple/10 to-black/0"></div>
           
-          <div className="container mx-auto px-4 max-w-6xl relative">
+          <PageContainer fullWidth className="relative">
             <div className="flex flex-col lg:flex-row gap-12">
               <motion.div 
                 initial={{ opacity: 0, x: -30 }}
@@ -571,9 +571,9 @@ const AIServices = () => {
                 transition={{ duration: 0.6 }}
                 className="lg:w-1/2"
               >
-                <Badge className="mb-4 border-indigo-500/30 text-indigo-400 bg-indigo-950/30">Études de cas</Badge>
+                <Badge className="mb-4 border-portfolio-purple/30 text-portfolio-purple bg-indigo-950/30">Études de cas</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-                  <span className="text-gradient-cosmic">Résultats</span> concrets et impacts mesurables
+                  <span className="bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-blue bg-clip-text text-transparent">Résultats</span> concrets et impacts mesurables
                 </h2>
                 <p className="text-gray-300 text-lg mb-8">
                   Découvrez comment nos solutions d'IA ont transformé les opérations de nos clients et créé une valeur mesurable pour leur activité.
@@ -651,19 +651,19 @@ const AIServices = () => {
                 </div>
               </motion.div>
             </div>
-          </div>
+          </PageContainer>
         </section>
         
         {/* FAQ Section */}
-        <section className="py-16 md:py-20 relative">
-          <div className="container mx-auto px-4 max-w-3xl">
+        <section className="py-16 md:py-20 relative w-full">
+          <PageContainer fullWidth className="relative">
             <div className="text-center mb-12">
-              <Badge className="mb-4 border-indigo-500/30 text-indigo-400 bg-indigo-950/30">FAQ</Badge>
+              <Badge className="mb-4 border-portfolio-purple/30 text-portfolio-purple bg-indigo-950/30">FAQ</Badge>
               <h2 className="text-3xl font-bold text-white mb-6">Questions fréquentes sur nos services IA</h2>
-              <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto"></div>
+              <div className="h-1 w-16 bg-gradient-to-r from-portfolio-blue to-portfolio-purple mx-auto"></div>
             </div>
             
-            <div className="space-y-6">
+            <div className="space-y-6 max-w-4xl mx-auto">
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -703,20 +703,20 @@ const AIServices = () => {
                 </p>
               </motion.div>
             </div>
-          </div>
+          </PageContainer>
         </section>
         
         {/* CTA Section */}
-        <section className="py-16 md:py-24 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/20 to-black"></div>
+        <section className="py-16 md:py-24 relative overflow-hidden w-full">
+          <div className="absolute inset-0 bg-gradient-to-b from-portfolio-purple/10 to-black"></div>
           
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl mx-auto cosmic-card rounded-xl p-8 md:p-12">
-              <div className="absolute -top-14 -left-14 w-40 h-40 bg-indigo-600 rounded-full opacity-20 filter blur-[80px]"></div>
-              <div className="absolute -bottom-14 -right-14 w-40 h-40 bg-purple-600 rounded-full opacity-20 filter blur-[80px]"></div>
+          <PageContainer fullWidth className="relative z-10">
+            <div className="max-w-6xl mx-auto cosmic-card rounded-xl p-8 md:p-12">
+              <div className="absolute -top-14 -left-14 w-40 h-40 bg-portfolio-blue rounded-full opacity-20 filter blur-[80px]"></div>
+              <div className="absolute -bottom-14 -right-14 w-40 h-40 bg-portfolio-purple rounded-full opacity-20 filter blur-[80px]"></div>
               
               <div className="text-center mb-8">
-                <Badge className="mb-4 border-indigo-500/30 text-indigo-400 bg-indigo-950/30 mx-auto">Prêt à démarrer ?</Badge>
+                <Badge className="mb-4 border-portfolio-purple/30 text-portfolio-purple bg-indigo-950/30 mx-auto">Prêt à démarrer ?</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
                   Propulsez votre organisation avec l'IA
                 </h2>
@@ -728,7 +728,7 @@ const AIServices = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg"
-                  className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white"
+                  className="bg-gradient-to-r from-portfolio-blue to-portfolio-purple hover:opacity-90 text-white"
                   asChild
                 >
                   <Link to="/start-project" className="flex items-center gap-2">
@@ -747,7 +747,7 @@ const AIServices = () => {
                 </Button>
               </div>
             </div>
-          </div>
+          </PageContainer>
         </section>
       </main>
       
@@ -757,4 +757,3 @@ const AIServices = () => {
 };
 
 export default AIServices;
-

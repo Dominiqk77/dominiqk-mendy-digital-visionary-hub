@@ -13,6 +13,7 @@ import Testimonials from '../components/home/Testimonials';
 import CTASection from '../components/home/CTASection';
 import Certifications from '../components/home/Certifications';
 import EnhancedSpaceBackground from '../components/space/EnhancedSpaceBackground';
+import PageContainer from '../components/layout/PageContainer';
 
 const Index = () => {
   const location = useLocation();
@@ -72,16 +73,18 @@ const Index = () => {
       
       <Navbar />
       
-      <main className="flex-grow overflow-hidden relative z-10">
-        <Hero />
-        <About />
-        <Services />
-        <Skills />
-        <Stats />
-        <Experience />
-        <Certifications />
-        <Testimonials />
-        <CTASection />
+      <main className="flex-grow overflow-hidden relative z-10 w-full">
+        <PageContainer fullWidth>
+          <Hero />
+          <About />
+          <Services />
+          <Skills />
+          <Stats />
+          <Experience />
+          <Certifications />
+          <Testimonials />
+          <CTASection />
+        </PageContainer>
       </main>
       
       <Footer />

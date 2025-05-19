@@ -1,15 +1,15 @@
-
 import React from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";  // Fixed Badge import
+import { Badge } from "@/components/ui/badge";
 import Services from '../components/home/Services';
 import { ArrowRight, Code, LineChart, PenTool, Database, Layout, Rocket, BadgeCheck, Lightbulb } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SpaceBackground from '@/components/space/SpaceBackground';
+import PageContainer from '../components/layout/PageContainer';
 
 const ServicesPage = () => {
   return (
@@ -19,10 +19,10 @@ const ServicesPage = () => {
       {/* Space background */}
       <SpaceBackground />
       
-      <main className="flex-grow z-10 relative">
+      <main className="flex-grow z-10 relative w-full">
         {/* Hero Section */}
-        <section className="py-20 md:py-28 relative overflow-hidden">
-          <div className="container mx-auto px-4 relative">
+        <section className="py-20 md:py-28 relative overflow-hidden w-full">
+          <PageContainer fullWidth className="relative">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -30,14 +30,14 @@ const ServicesPage = () => {
               className="text-center mb-12"
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-                Services <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-400 bg-clip-text text-transparent">Numériques</span>
+                Services <span className="bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-blue bg-clip-text text-transparent">Numériques</span>
               </h1>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+              <div className="h-1 w-24 bg-gradient-to-r from-portfolio-blue to-portfolio-purple mx-auto mb-6"></div>
               <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
                 Des solutions numériques innovantes et personnalisées pour propulser votre entreprise vers de nouveaux horizons.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 text-white" asChild>
+                <Button size="lg" className="bg-gradient-to-r from-portfolio-blue to-portfolio-purple hover:opacity-90 text-white" asChild>
                   <Link to="/start-project">
                     <Rocket className="mr-2 h-5 w-5" /> Lancer votre projet
                   </Link>
@@ -49,27 +49,27 @@ const ServicesPage = () => {
                 </Button>
               </div>
             </motion.div>
-          </div>
+          </PageContainer>
         </section>
 
         {/* Services Categories Section */}
-        <section className="py-16 relative z-10">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <section className="py-16 relative z-10 w-full">
+          <PageContainer fullWidth className="relative">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto">
               {[
                 {
                   icon: <Code className="h-10 w-10" />,
                   title: "Développement Web & Mobile",
                   description: "Sites web, applications mobiles et plateformes e-commerce sur mesure",
                   link: "/services/web-development",
-                  color: "from-blue-500 to-cyan-400"
+                  color: "from-portfolio-blue to-cyan-400"
                 },
                 {
                   icon: <LineChart className="h-10 w-10" />,
                   title: "Intelligence Artificielle",
                   description: "Solutions IA, machine learning et analyse de données avancée",
                   link: "/services/ai-solutions",
-                  color: "from-purple-500 to-pink-400"
+                  color: "from-portfolio-purple to-pink-400"
                 },
                 {
                   icon: <PenTool className="h-10 w-10" />,
@@ -95,7 +95,7 @@ const ServicesPage = () => {
                   className="group"
                 >
                   <Link to={category.link} className="block">
-                    <Card className="h-full bg-black/50 backdrop-blur-md border border-white/10 hover:border-white/30 transition-all overflow-hidden">
+                    <Card className="h-full bg-black/50 backdrop-blur-md border border-white/10 hover:border-portfolio-purple/50 transition-all overflow-hidden">
                       <CardHeader>
                         <div className={`rounded-full p-3 w-16 h-16 flex items-center justify-center bg-gradient-to-br ${category.color} mb-4`}>
                           {category.icon}
@@ -106,7 +106,7 @@ const ServicesPage = () => {
                         <p className="text-gray-300">{category.description}</p>
                       </CardContent>
                       <CardFooter>
-                        <Button variant="ghost" className="p-0 text-white hover:text-blue-400 hover:bg-transparent group">
+                        <Button variant="ghost" className="p-0 text-white hover:text-portfolio-blue hover:bg-transparent group">
                           <span>Explorer</span>
                           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </Button>
@@ -116,15 +116,15 @@ const ServicesPage = () => {
                 </motion.div>
               ))}
             </div>
-          </div>
+          </PageContainer>
         </section>
 
         {/* Main Services Component */}
         <Services />
 
         {/* Additional Features Section */}
-        <section className="py-20 relative z-10">
-          <div className="container mx-auto px-4">
+        <section className="py-20 relative z-10 w-full">
+          <PageContainer fullWidth className="relative">
             <div className="text-center mb-12">
               <motion.h2 
                 initial={{ opacity: 0 }}
@@ -134,10 +134,10 @@ const ServicesPage = () => {
               >
                 Pourquoi Nous Choisir
               </motion.h2>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+              <div className="h-1 w-24 bg-gradient-to-r from-portfolio-blue to-portfolio-purple mx-auto mb-6"></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto">
               {[
                 {
                   icon: <Lightbulb />,
@@ -177,9 +177,9 @@ const ServicesPage = () => {
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   whileHover={{ y: -5 }}
                 >
-                  <Card className="h-full bg-black/30 backdrop-blur-md border border-white/10 hover:border-white/30 transition-all">
+                  <Card className="h-full bg-black/30 backdrop-blur-md border border-white/10 hover:border-portfolio-purple/30 transition-all">
                     <CardHeader>
-                      <div className="text-blue-400 mb-4">
+                      <div className="text-portfolio-blue mb-4">
                         {feature.icon}
                       </div>
                       <CardTitle className="text-white">{feature.title}</CardTitle>
@@ -193,17 +193,17 @@ const ServicesPage = () => {
                 </motion.div>
               ))}
             </div>
-          </div>
+          </PageContainer>
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 relative z-10">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-2xl overflow-hidden border border-white/10">
+        <section className="py-20 relative z-10 w-full">
+          <PageContainer fullWidth className="relative">
+            <div className="max-w-6xl mx-auto bg-gradient-to-r from-portfolio-blue/20 to-portfolio-purple/20 rounded-2xl overflow-hidden border border-white/10">
               <div className="p-12 md:p-16 relative">
                 {/* Background effects */}
-                <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
+                <div className="absolute top-0 right-0 w-48 h-48 bg-portfolio-blue opacity-20 blur-3xl rounded-full"></div>
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-portfolio-purple opacity-20 blur-3xl rounded-full"></div>
                 
                 <div className="relative z-10 text-center">
                   <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
@@ -214,7 +214,7 @@ const ServicesPage = () => {
                   </p>
                   
                   <div className="flex flex-wrap justify-center gap-4">
-                    <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity text-white" asChild>
+                    <Button size="lg" className="bg-gradient-to-r from-portfolio-blue to-portfolio-purple hover:opacity-90 transition-opacity text-white" asChild>
                       <Link to="/contact">
                         Discuter avec un expert
                       </Link>
@@ -228,7 +228,7 @@ const ServicesPage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </PageContainer>
         </section>
       </main>
       
