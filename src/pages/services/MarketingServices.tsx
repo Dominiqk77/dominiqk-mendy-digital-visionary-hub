@@ -219,14 +219,15 @@ const MarketingServices = () => {
     { id: "analytics", name: "Analytics & Data" }
   ];
 
-  // Comprehensive marketing services
+  // Comprehensive marketing services with updated value propositions instead of prices
   const marketingServices = [
     {
       icon: <LineChart size={40} />,
       title: "SEO/SEA/SMO Avancé",
       description: "Optimisation multi-canaux pour améliorer votre visibilité sur les moteurs de recherche et réseaux sociaux, avec une stratégie adaptée au contexte africain et international.",
       features: ["Audit SEO complet et technique", "Optimisation on-page et off-page", "Stratégie de contenu SEO", "Campagnes Google Ads optimisées"],
-      price: "À partir de 800K FCFA/mois",
+      valueProposition: "ROI mesurable et croissance organique durable",
+      color: "from-indigo-600/80 to-blue-500/80",
       category: "acquisition"
     },
     {
@@ -234,7 +235,8 @@ const MarketingServices = () => {
       title: "Growth Hacking & Acquisition",
       description: "Stratégies innovantes pour accélérer votre croissance avec un budget optimisé et des résultats rapides. Techniques d'acquisition disruptives adaptées à votre marché.",
       features: ["Tests A/B multicanaux", "Optimisation des conversions", "Automatisation marketing", "Stratégies de viralité"],
-      price: "À partir de 1.2M FCFA/mois",
+      valueProposition: "Croissance accélérée et optimisation des coûts d'acquisition",
+      color: "from-purple-600/80 to-pink-500/80",
       category: "acquisition"
     },
     {
@@ -242,7 +244,8 @@ const MarketingServices = () => {
       title: "Social Media Marketing",
       description: "Gestion professionnelle de vos réseaux sociaux et campagnes publicitaires pour maximiser votre engagement et toucher vos audiences cibles, en français et en anglais.",
       features: ["Création de contenus engageants", "Community management multilingue", "Campagnes Facebook & Instagram Ads", "Stratégie organique et payante"],
-      price: "À partir de 600K FCFA/mois",
+      valueProposition: "Communauté engagée et image de marque renforcée",
+      color: "from-blue-500/80 to-cyan-400/80",
       category: "social"
     },
     {
@@ -250,7 +253,8 @@ const MarketingServices = () => {
       title: "Tunnels de Vente Optimisés",
       description: "Création de parcours d'achat stratégiques pour convertir vos visiteurs en clients fidèles. Optimisation continue basée sur les données pour améliorer vos taux de conversion.",
       features: ["Architecture de conversion", "Pages de vente optimisées", "Emailings de nurturing", "Systèmes de relance automatisés"],
-      price: "À partir de 1M FCFA",
+      valueProposition: "Taux de conversion doublés et revenus multipliés",
+      color: "from-green-500/80 to-emerald-400/80",
       category: "acquisition"
     },
     {
@@ -258,7 +262,8 @@ const MarketingServices = () => {
       title: "Content Marketing & Storytelling",
       description: "Production de contenu stratégique et narratif pour engager votre audience et renforcer votre autorité dans votre secteur, en français, anglais et langues locales.",
       features: ["Stratégie éditoriale multicanale", "Création de contenus premium", "Calendrier éditorial", "Distribution et promotion"],
-      price: "À partir de 700K FCFA/mois",
+      valueProposition: "Visibilité accrue et autorité thématique établie",
+      color: "from-amber-500/80 to-yellow-400/80",
       category: "content"
     },
     {
@@ -266,7 +271,8 @@ const MarketingServices = () => {
       title: "Formation & Coaching Marketing",
       description: "Programmes de formation personnalisés pour renforcer les compétences digitales de votre équipe et vous rendre autonome dans votre stratégie marketing.",
       features: ["Ateliers pratiques", "Coaching personnalisé", "Supports sur mesure", "Suivi post-formation"],
-      price: "À partir de 500K FCFA/session",
+      valueProposition: "Équipe autonome et compétences internes développées",
+      color: "from-teal-500/80 to-cyan-400/80",
       category: "content"
     },
     {
@@ -274,7 +280,8 @@ const MarketingServices = () => {
       title: "Personal Branding Executive",
       description: "Développement de votre image de marque personnelle pour vous positionner comme leader d'opinion dans votre secteur et attirer naturellement les opportunités.",
       features: ["Audit d'image", "Stratégie de positionnement", "Création de contenu de leadership", "Placement média"],
-      price: "À partir de 1.5M FCFA",
+      valueProposition: "Notoriété établie et opportunités business amplifiées",
+      color: "from-fuchsia-600/80 to-purple-500/80",
       category: "content"
     },
     {
@@ -282,7 +289,8 @@ const MarketingServices = () => {
       title: "Marketing Vidéo & Motion Design",
       description: "Création de contenus vidéo engageants pour renforcer votre présence digitale et augmenter vos conversions. Formats adaptés à chaque plateforme.",
       features: ["Vidéos promotionnelles", "Motion design", "Animation 2D/3D", "Editing professionnel"],
-      price: "À partir de 800K FCFA/projet",
+      valueProposition: "Engagement x3 et mémorisation de marque renforcée",
+      color: "from-red-500/80 to-rose-400/80",
       category: "content"
     },
     {
@@ -290,7 +298,8 @@ const MarketingServices = () => {
       title: "Publicité Digitale (Google, Meta, TikTok)",
       description: "Gestion optimisée de vos campagnes publicitaires sur toutes les plateformes majeures avec un ROAS maximisé et des audiences parfaitement ciblées.",
       features: ["Stratégie multi-plateforme", "Ciblage précis des audiences", "Optimisation continue", "Rapports de performance détaillés"],
-      price: "À partir de 15% du budget média",
+      valueProposition: "ROAS optimisé et budget publicitaire maximisé",
+      color: "from-blue-600/80 to-indigo-500/80",
       category: "acquisition"
     },
     {
@@ -298,7 +307,8 @@ const MarketingServices = () => {
       title: "Analytics & Attribution Marketing",
       description: "Mise en place de systèmes de mesure avancés pour optimiser votre ROI marketing en temps réel et prendre des décisions basées sur les données.",
       features: ["Implementation Google Analytics 4", "Dashboards personnalisés", "Attribution multi-touch", "DataStudio / Looker"],
-      price: "À partir de 900K FCFA",
+      valueProposition: "Décisions data-driven et optimisation continue du ROI",
+      color: "from-violet-600/80 to-purple-500/80",
       category: "analytics"
     },
     {
@@ -306,7 +316,8 @@ const MarketingServices = () => {
       title: "E-mail Marketing Automation",
       description: "Création de séquences d'emails personnalisées et automatisées pour nurturing et conversion de vos prospects, avec segmentation avancée.",
       features: ["Architecture de séquences", "Copywriting persuasif", "A/B testing", "Analyse de performance"],
-      price: "À partir de 600K FCFA",
+      valueProposition: "Revenus récurrents et relation client renforcée",
+      color: "from-orange-500/80 to-amber-400/80",
       category: "acquisition"
     },
     {
@@ -314,7 +325,8 @@ const MarketingServices = () => {
       title: "Influence & Relations Publiques Digitales",
       description: "Stratégies de collaboration avec des influenceurs et médias pour amplifier votre visibilité et bâtir votre crédibilité en Afrique et à l'international.",
       features: ["Identification des influenceurs", "Conception de campagnes", "Relations presse digitale", "Mesure d'impact"],
-      price: "À partir de 1M FCFA/campagne",
+      valueProposition: "Portée démultipliée et crédibilité instantanée",
+      color: "from-pink-500/80 to-rose-400/80",
       category: "social"
     }
   ];
@@ -414,6 +426,68 @@ const MarketingServices = () => {
           </div>
         </section>
         
+        {/* Consulting Offer - NEW HIGHLIGHTED SECTION */}
+        <section className="py-16 relative z-10">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <motion.div 
+                className="relative overflow-hidden rounded-2xl border border-portfolio-purple/30"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+              >
+                {/* Background effects */}
+                <div className="absolute inset-0 bg-gradient-to-br from-portfolio-purple/30 via-black/80 to-portfolio-blue/30 backdrop-blur-xl"></div>
+                <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-portfolio-purple/20 blur-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-portfolio-blue/20 blur-3xl"></div>
+                
+                {/* Content */}
+                <div className="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                  <div className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-portfolio-purple to-portfolio-blue flex items-center justify-center shadow-[0_0_25px_rgba(155,135,245,0.5)]">
+                    <div className="text-white text-center">
+                      <div className="text-5xl md:text-6xl font-bold">30</div>
+                      <div className="text-sm md:text-base font-medium">minutes</div>
+                      <div className="text-xs md:text-sm mt-1">gratuites</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex-grow">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-white glow-text">
+                      Consultation Stratégique <span className="text-portfolio-purple">Personnalisée</span>
+                    </h2>
+                    <p className="text-gray-300 mb-6 md:text-lg">
+                      Bénéficiez d'une consultation stratégique de <span className="font-bold text-white">30 minutes gratuites</span> avec un expert marketing international. Analysez vos défis actuels, identifiez des opportunités cachées, et repartez avec des recommandations actionnables pour transformer votre présence digitale.
+                    </p>
+                    <div className="flex flex-wrap gap-4 mt-2 mb-6">
+                      <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                        <div className="h-2 w-2 rounded-full bg-portfolio-purple"></div>
+                        <span className="text-sm text-white">Analyse de votre situation actuelle</span>
+                      </div>
+                      <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                        <div className="h-2 w-2 rounded-full bg-portfolio-blue"></div>
+                        <span className="text-sm text-white">Recommandations stratégiques</span>
+                      </div>
+                      <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                        <div className="h-2 w-2 rounded-full bg-portfolio-cyan"></div>
+                        <span className="text-sm text-white">Solutions adaptées à votre budget</span>
+                      </div>
+                    </div>
+                    <p className="text-xs md:text-sm text-gray-400 italic mb-6">
+                      Au-delà des 30 minutes gratuites, nos consultations sont facturées 150€/heure. Nos plans d'accompagnement personnalisés sont établis sur mesure selon vos objectifs et votre budget.
+                    </p>
+                    <Button size="lg" className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 shadow-[0_0_25px_rgba(155,135,245,0.3)] text-white" asChild>
+                      <Link to="/contact">
+                        Réserver ma consultation gratuite <ArrowRight className="ml-2 h-5 w-5" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+        
         {/* Services Tabs Section */}
         <section className="py-20 relative z-10">
           <div className="container mx-auto px-4">
@@ -445,14 +519,18 @@ const MarketingServices = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: idx * 0.1 }}
                           >
-                            <Card className="h-full space-card flex flex-col hover:border-portfolio-purple/50 transition-all duration-300">
-                              <CardHeader>
-                                <div className="text-portfolio-purple mb-4 opacity-90">{service.icon}</div>
+                            <Card className="h-full space-card flex flex-col hover:border-portfolio-purple/50 transition-all duration-300 overflow-hidden">
+                              {/* Colorful top gradient */}
+                              <div className={`h-2 w-full bg-gradient-to-r ${service.color}`}></div>
+                              
+                              <CardHeader className="relative">
+                                <div className="text-white mb-4 opacity-90">{service.icon}</div>
                                 <CardTitle className="text-white">{service.title}</CardTitle>
                               </CardHeader>
+                              
                               <CardContent className="flex-grow">
                                 <p className="text-gray-300 mb-4">{service.description}</p>
-                                <ul className="space-y-2 mb-4">
+                                <ul className="space-y-2 mb-6">
                                   {service.features.map((feature, i) => (
                                     <li key={i} className="flex items-start gap-2">
                                       <div className="text-portfolio-blue mt-1">
@@ -464,8 +542,14 @@ const MarketingServices = () => {
                                     </li>
                                   ))}
                                 </ul>
-                                <p className="text-sm font-medium text-portfolio-blue">{service.price}</p>
+                                
+                                {/* Value proposition badge */}
+                                <div className={`bg-gradient-to-r ${service.color} text-white px-4 py-2 rounded-md text-sm font-medium inline-block mb-4`}>
+                                  <BadgeCheck className="inline-block mr-1 h-4 w-4" /> 
+                                  {service.valueProposition}
+                                </div>
                               </CardContent>
+                              
                               <CardFooter>
                                 <Button variant="ghost" className="w-full justify-between hover:bg-white/10 text-white" asChild>
                                   <Link to="/contact">
@@ -774,7 +858,7 @@ const MarketingServices = () => {
                   <div className="flex items-center">
                     <div className="w-12 h-12 rounded-full bg-gradient-to-r from-portfolio-purple to-portfolio-blue mr-4"></div>
                     <div>
-                      <p className="font-bold text-white">Dominique Mendy</p>
+                      <p className="font-bold text-white">Dominiqk Mendy</p>
                       <p className="text-sm text-gray-300">Expert Marketing Digital</p>
                     </div>
                   </div>
