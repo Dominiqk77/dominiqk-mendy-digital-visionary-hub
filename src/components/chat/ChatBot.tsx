@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect, useRef } from 'react';
-import { Bot, Send, MessageSquare, X, CalendarClock, FileUp, Key } from 'lucide-react';
+import { Bot, Send, MessageSquare, X, CalendarClock, FileUp, Key, ArrowUp } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
@@ -23,6 +22,7 @@ import { fr } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import SpaceBackground from "../space/SpaceBackground";
+import { useIsMobile } from '@/hooks/use-mobile';
 
 type Message = {
   id: string;
@@ -71,11 +71,32 @@ const ChatBot = () => {
   const [openAIKey, setOpenAIKey] = useState<string>('');
   const [isAPIKeyDialogOpen, setIsAPIKeyDialogOpen] = useState(false);
   const [useOpenAI, setUseOpenAI] = useState<boolean>(false);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+  const isMobile = useIsMobile();
+  
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  // Show/hide scroll to top button based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollToTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   // Check for saved API key on mount
   useEffect(() => {
@@ -481,397 +502,549 @@ const ChatBot = () => {
 
   return (
     <>
+      {/* Back to top button */}
+      {showScrollToTop && (
+        <Button 
+          onClick={scrollToTop}
+          className="fixed bottom-24 right-6 rounded-full w-12 h-12 shadow-lg z-40 bg-gradient-to-br from-portfolio-blue to-portfolio-purple hover:from-portfolio-purple hover:to-portfolio-blue text-white p-0 animate-fade-in"
+          aria-label="Retour en haut"
+        >
+          <ArrowUp size={20} />
+        </Button>
+      )}
+
       {/* Floating chat button */}
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
           className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-lg z-50 bg-gradient-to-br from-portfolio-purple to-portfolio-blue hover:from-portfolio-purple hover:to-portfolio-blue text-white p-0 animate-pulse-glow"
+          aria-label="Ouvrir le chat"
         >
           <MessageSquare size={24} />
         </Button>
       )}
 
-      {/* Chat window */}
-      {isOpen && (
-        <Card className="fixed bottom-6 right-6 w-80 sm:w-96 h-[500px] max-h-[80vh] flex flex-col rounded-xl shadow-2xl z-50 overflow-hidden neo-blur border border-white/20">
-          {/* Chat header */}
-          <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
-            <div className="flex items-center">
-              <Bot className="text-white mr-2 animate-pulse-slow" size={20} />
-              <h3 className="text-white font-medium">Assistant de Dominiqk</h3>
-            </div>
-            <div className="flex">
-              <Button 
-                variant="ghost" 
-                size="icon"
-                className="text-white hover:bg-white/20 mr-1"
-                onClick={() => setIsAPIKeyDialogOpen(true)}
-                title="Paramètres API"
-              >
-                <Key size={16} />
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="icon"
-                className="text-white hover:bg-white/20 mr-1"
-                onClick={() => setIsConversationHistoryOpen(true)}
-                title="Historique des conversations"
-              >
-                <MessageSquare size={16} />
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="icon"
-                className="text-white hover:bg-white/20"
-                onClick={() => setIsOpen(false)}
-              >
-                <X size={18} />
-              </Button>
-            </div>
-          </div>
-
-          {/* API status indicator */}
-          {useOpenAI ? (
-            <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
-              <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-              <span className="text-green-400 font-medium">Mode OpenAI activé</span>
-            </div>
-          ) : (
-            <div className="bg-amber-500/20 border-b border-amber-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
-              <div className="w-2 h-2 rounded-full bg-amber-500 mr-2"></div>
-              <span className="text-amber-400 font-medium">Mode local (limité)</span>
-            </div>
-          )}
-
-          {/* Messages area */}
-          <div className="relative flex-1 p-3 overflow-y-auto">
-            <SpaceBackground />
-            <div className="relative z-10">
-              {messages.map((message) => (
-                <div 
-                  key={message.id}
-                  className={`mb-3 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div 
-                    className={`max-w-[80%] p-3 rounded-xl ${
-                      message.sender === 'user' 
-                        ? 'bg-gradient-to-br from-portfolio-purple to-portfolio-blue text-white backdrop-blur-lg border border-white/10 shadow-glow-purple' 
-                        : 'bg-white/15 backdrop-blur-lg border border-white/20 text-white shadow-md'
-                    }`}
-                  >
-                    {message.type === 'appointment' && message.metadata?.appointmentDate ? (
-                      <div>
-                        <div className="font-medium text-white">Demande de rendez-vous</div>
-                        <div className="text-sm text-white/90">
-                          Date: {format(new Date(message.metadata.appointmentDate), 'dd/MM/yyyy', { locale: fr })}
-                        </div>
-                        <div className="text-sm text-white/90">
-                          Heure: {message.metadata.appointmentTime}
-                        </div>
-                      </div>
-                    ) : message.type === 'document' ? (
-                      <div>
-                        <div className="font-medium text-white">Document envoyé</div>
-                        <div className="text-sm text-white/90">
-                          Nom: {message.metadata?.documentName}
-                        </div>
-                        <div className="text-sm text-white/90">
-                          Taille: {message.metadata?.documentSize}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="text-white/95 leading-relaxed">{message.content}</div>
-                    )}
-                  </div>
+      {/* Chat window - using Dialog on mobile or Card on desktop */}
+      {isMobile ? (
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogContent className="max-h-[90vh] p-0 bg-transparent border-0 overflow-hidden">
+            <div className="flex flex-col h-[80vh] max-h-[80vh] w-full bg-background rounded-lg shadow-xl overflow-hidden">
+              {/* Chat header */}
+              <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
+                <div className="flex items-center">
+                  <Bot className="text-white mr-2 animate-pulse-slow" size={20} />
+                  <h3 className="text-white font-medium">Assistant de Dominiqk</h3>
                 </div>
-              ))}
-
-              {isTyping && (
-                <div className="flex mb-3">
-                  <div className="bg-white/15 backdrop-blur-lg border border-white/20 p-3 rounded-xl max-w-[80%] shadow-md">
-                    <div className="flex space-x-2">
-                      <div className="w-2 h-2 rounded-full bg-portfolio-blue animate-pulse"></div>
-                      <div className="w-2 h-2 rounded-full bg-portfolio-purple animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                      <div className="w-2 h-2 rounded-full bg-portfolio-nebula animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                    </div>
-                  </div>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="text-white hover:bg-white/20"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <X size={18} />
+                </Button>
+              </div>
+              
+              {/* API status indicator */}
+              {useOpenAI ? (
+                <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
+                  <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
+                  <span className="text-green-400 font-medium">Mode OpenAI activé</span>
+                </div>
+              ) : (
+                <div className="bg-amber-500/20 border-b border-amber-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
+                  <div className="w-2 h-2 rounded-full bg-amber-500 mr-2"></div>
+                  <span className="text-amber-400 font-medium">Mode local (limité)</span>
                 </div>
               )}
-              <div ref={messagesEndRef} />
-            </div>
-          </div>
-
-          {/* Action buttons area */}
-          <div className="px-3 py-2 flex justify-center space-x-3 border-t border-white/15 bg-black/40 backdrop-blur-md">
-            <Button
-              variant="outline"
-              size="sm"
-              className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
-              onClick={() => setIsAppointmentDialogOpen(true)}
-            >
-              <CalendarClock className="h-4 w-4 mr-1 text-portfolio-blue" />
-              Rendez-vous
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
-              onClick={() => setIsDocumentDialogOpen(true)}
-            >
-              <FileUp className="h-4 w-4 mr-1 text-portfolio-blue" />
-              Envoyer fichier
-            </Button>
-          </div>
-
-          {/* Input area */}
-          <div className="p-3 border-t border-white/15 bg-black/60 backdrop-blur-md">
-            <div className="flex">
-              <Textarea
-                ref={inputRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyPress}
-                placeholder="Posez votre question..."
-                className="resize-none bg-white/15 border-white/30 focus:border-portfolio-purple text-white placeholder:text-white/60 shadow-inner"
-                rows={1}
-              />
-              <Button 
-                onClick={handleSendMessage}
-                disabled={isTyping || !input.trim()}
-                className="ml-2 bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white shadow-md"
-                size="icon"
-              >
-                <Send size={18} />
-              </Button>
-            </div>
-          </div>
-
-          {/* API Key Dialog */}
-          <Dialog open={isAPIKeyDialogOpen} onOpenChange={setIsAPIKeyDialogOpen}>
-            <DialogContent className="sm:max-w-[425px] bg-black/90 backdrop-blur-xl border border-white/30 text-white shadow-glow-purple">
-              <DialogHeader>
-                <DialogTitle>Paramètres OpenAI API</DialogTitle>
-                <DialogDescription className="text-gray-300">
-                  Connectez une clé API OpenAI pour rendre le chatbot plus intelligent.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                {useOpenAI && (
-                  <Alert className="bg-green-500/15 border-green-500/30">
-                    <AlertDescription className="text-green-400">
-                      Mode OpenAI activé. Le chatbot utilisera l'API pour générer des réponses.
-                    </AlertDescription>
-                  </Alert>
-                )}
-                <div className="grid gap-2">
-                  <Label htmlFor="apikey" className="text-white">Clé API OpenAI</Label>
-                  <Input
-                    id="apikey"
-                    type="password"
-                    placeholder="sk-..."
-                    value={openAIKey}
-                    onChange={(e) => setOpenAIKey(e.target.value)}
-                    className="bg-white/15 border-white/30 text-white"
-                  />
-                  <p className="text-xs text-gray-300 mt-1">
-                    Votre clé API est stockée localement et n'est jamais partagée.
-                  </p>
-                </div>
-              </div>
-              <DialogFooter className="flex flex-col sm:flex-row gap-2">
-                {useOpenAI && (
-                  <Button 
-                    variant="outline" 
-                    className="w-full sm:w-auto border-red-500/50 text-red-400 hover:bg-red-500/10"
-                    onClick={handleClearAPIKey}
-                  >
-                    Supprimer la clé
-                  </Button>
-                )}
-                <Button 
-                  variant="outline" 
-                  className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10"
-                  onClick={() => setIsAPIKeyDialogOpen(false)}
-                >
-                  Annuler
-                </Button>
-                <Button 
-                  className="w-full sm:w-auto bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white"
-                  onClick={handleSaveAPIKey}
-                >
-                  Enregistrer
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-
-          {/* Appointment Dialog */}
-          <Dialog open={isAppointmentDialogOpen} onOpenChange={setIsAppointmentDialogOpen}>
-            <DialogContent className="sm:max-w-[425px] bg-black/90 backdrop-blur-xl border border-white/30 text-white shadow-glow-purple">
-              <DialogHeader>
-                <DialogTitle>Prendre un rendez-vous</DialogTitle>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="date" className="text-white">Date du rendez-vous</Label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className={`w-full justify-start text-left font-normal bg-white/15 border-white/30 text-white ${
-                          appointmentDate ? "" : "text-white/60"
+              
+              {/* Messages area */}
+              <div className="relative flex-1 p-3 overflow-y-auto">
+                <SpaceBackground />
+                <div className="relative z-10">
+                  {messages.map((message) => (
+                    <div 
+                      key={message.id}
+                      className={`mb-3 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div 
+                        className={`max-w-[80%] p-3 rounded-xl ${
+                          message.sender === 'user' 
+                            ? 'bg-gradient-to-br from-portfolio-purple to-portfolio-blue text-white backdrop-blur-lg border border-white/10 shadow-glow-purple' 
+                            : 'bg-white/15 backdrop-blur-lg border border-white/20 text-white shadow-md'
                         }`}
                       >
-                        {appointmentDate ? (
-                          format(appointmentDate, "dd MMMM yyyy", { locale: fr })
-                        ) : (
-                          "Choisir une date"
-                        )}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 bg-black/95 border border-white/30 shadow-lg" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={appointmentDate}
-                        onSelect={setAppointmentDate}
-                        initialFocus
-                        disabled={(date) => date < new Date()}
-                        className="bg-transparent text-white"
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="time" className="text-white">Heure du rendez-vous</Label>
-                  <select
-                    id="time"
-                    value={appointmentTime}
-                    onChange={(e) => setAppointmentTime(e.target.value)}
-                    className="flex h-10 w-full rounded-md border bg-white/15 border-white/30 px-3 py-2 text-sm text-white"
-                  >
-                    <option value="">Sélectionner une heure</option>
-                    <option value="09:00">09:00</option>
-                    <option value="10:00">10:00</option>
-                    <option value="11:00">11:00</option>
-                    <option value="14:00">14:00</option>
-                    <option value="15:00">15:00</option>
-                    <option value="16:00">16:00</option>
-                    <option value="17:00">17:00</option>
-                  </select>
-                </div>
-              </div>
-              <DialogFooter>
-                <Button 
-                  variant="outline" 
-                  onClick={() => setIsAppointmentDialogOpen(false)}
-                  className="border-white/30 text-white hover:bg-white/10"
-                >
-                  Annuler
-                </Button>
-                <Button 
-                  onClick={handleScheduleAppointment}
-                  className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white"
-                >
-                  Confirmer
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-
-          {/* Document Upload Dialog */}
-          <Dialog open={isDocumentDialogOpen} onOpenChange={setIsDocumentDialogOpen}>
-            <DialogContent className="sm:max-w-[425px] bg-black/90 backdrop-blur-xl border border-white/30 text-white shadow-glow-purple">
-              <DialogHeader>
-                <DialogTitle>Envoyer un document</DialogTitle>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <Label htmlFor="file" className="text-white">Sélectionner un fichier</Label>
-                <Input
-                  ref={fileInputRef}
-                  id="file"
-                  type="file"
-                  onChange={handleFileSelect}
-                  className="cursor-pointer bg-white/15 border-white/30 text-white"
-                />
-                {selectedFile && (
-                  <div className="text-sm bg-white/10 p-3 rounded-lg border border-white/20">
-                    <p><span className="font-medium text-portfolio-blue">Nom:</span> {selectedFile.name}</p>
-                    <p><span className="font-medium text-portfolio-blue">Taille:</span> {formatFileSize(selectedFile.size)}</p>
-                  </div>
-                )}
-              </div>
-              <DialogFooter>
-                <Button 
-                  variant="outline" 
-                  onClick={() => {
-                    setIsDocumentDialogOpen(false);
-                    setSelectedFile(null);
-                  }}
-                  className="border-white/30 text-white hover:bg-white/10"
-                >
-                  Annuler
-                </Button>
-                <Button 
-                  onClick={handleDocumentUpload} 
-                  disabled={!selectedFile}
-                  className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white"
-                >
-                  Envoyer
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-
-          {/* Conversation History Dialog */}
-          <Dialog open={isConversationHistoryOpen} onOpenChange={setIsConversationHistoryOpen}>
-            <DialogContent className="sm:max-w-[425px] bg-black/90 backdrop-blur-xl border border-white/30 text-white shadow-glow-purple">
-              <DialogHeader>
-                <DialogTitle>Historique des conversations</DialogTitle>
-              </DialogHeader>
-              <div className="py-4 max-h-[300px] overflow-y-auto">
-                {conversations.length > 0 ? (
-                  <div className="space-y-2">
-                    {conversations
-                      .sort((a, b) => new Date(b.lastMessageAt).getTime() - new Date(a.lastMessageAt).getTime())
-                      .map(conversation => (
-                        <Button
-                          key={conversation.id}
-                          variant={conversation.id === currentConversationId ? "secondary" : "outline"}
-                          className={`w-full justify-start text-left ${
-                            conversation.id === currentConversationId 
-                              ? "bg-portfolio-purple/30 border border-portfolio-purple/40" 
-                              : "bg-white/10 border-white/30 text-white hover:bg-white/15"
-                          }`}
-                          onClick={() => switchConversation(conversation.id)}
-                        >
-                          <div className="truncate w-full">
-                            <div className="font-medium">
-                              Conversation du {formatConversationDate(conversation.startedAt)}
+                        {message.type === 'appointment' && message.metadata?.appointmentDate ? (
+                          <div>
+                            <div className="font-medium text-white">Demande de rendez-vous</div>
+                            <div className="text-sm text-white/90">
+                              Date: {format(new Date(message.metadata.appointmentDate), 'dd/MM/yyyy', { locale: fr })}
                             </div>
-                            <div className="text-xs text-white/70 truncate">
-                              {conversation.messages.length} messages
+                            <div className="text-sm text-white/90">
+                              Heure: {message.metadata.appointmentTime}
                             </div>
                           </div>
-                        </Button>
-                      ))
-                    }
-                  </div>
-                ) : (
-                  <p className="text-center text-white/70">Aucune conversation trouvée</p>
-                )}
+                        ) : message.type === 'document' ? (
+                          <div>
+                            <div className="font-medium text-white">Document envoyé</div>
+                            <div className="text-sm text-white/90">
+                              Nom: {message.metadata?.documentName}
+                            </div>
+                            <div className="text-sm text-white/90">
+                              Taille: {message.metadata?.documentSize}
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="text-white/95 leading-relaxed">{message.content}</div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+
+                  {isTyping && (
+                    <div className="flex mb-3">
+                      <div className="bg-white/15 backdrop-blur-lg border border-white/20 p-3 rounded-xl max-w-[80%] shadow-md">
+                        <div className="flex space-x-2">
+                          <div className="w-2 h-2 rounded-full bg-portfolio-blue animate-pulse"></div>
+                          <div className="w-2 h-2 rounded-full bg-portfolio-purple animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                          <div className="w-2 h-2 rounded-full bg-portfolio-nebula animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <div ref={messagesEndRef} />
+                </div>
               </div>
-              <DialogFooter>
-                <Button 
-                  onClick={startNewConversation}
-                  className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white"
+
+              {/* Action buttons area */}
+              <div className="px-3 py-2 flex justify-center space-x-3 border-t border-white/15 bg-black/40 backdrop-blur-md">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
+                  onClick={() => setIsAppointmentDialogOpen(true)}
                 >
-                  Nouvelle conversation
+                  <CalendarClock className="h-4 w-4 mr-1 text-portfolio-blue" />
+                  Rendez-vous
                 </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </Card>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
+                  onClick={() => setIsDocumentDialogOpen(true)}
+                >
+                  <FileUp className="h-4 w-4 mr-1 text-portfolio-blue" />
+                  Envoyer fichier
+                </Button>
+              </div>
+
+              {/* Input area */}
+              <div className="p-3 border-t border-white/15 bg-black/60 backdrop-blur-md">
+                <div className="flex">
+                  <Textarea
+                    ref={inputRef}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                    placeholder="Posez votre question..."
+                    className="resize-none bg-white/15 border-white/30 focus:border-portfolio-purple text-white placeholder:text-white/60 shadow-inner"
+                    rows={2}
+                  />
+                  <Button 
+                    onClick={handleSendMessage}
+                    disabled={isTyping || !input.trim()}
+                    className="ml-2 bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white shadow-md"
+                    size="icon"
+                  >
+                    <Send size={18} />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      ) : (
+        isOpen && (
+          <Card className="fixed bottom-6 right-6 w-80 sm:w-96 h-[500px] max-h-[80vh] flex flex-col rounded-xl shadow-2xl z-50 overflow-hidden neo-blur border border-white/20">
+            {/* Chat header */}
+            <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
+              <div className="flex items-center">
+                <Bot className="text-white mr-2 animate-pulse-slow" size={20} />
+                <h3 className="text-white font-medium">Assistant de Dominiqk</h3>
+              </div>
+              <div className="flex">
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="text-white hover:bg-white/20 mr-1"
+                  onClick={() => setIsAPIKeyDialogOpen(true)}
+                  title="Paramètres API"
+                >
+                  <Key size={16} />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="text-white hover:bg-white/20 mr-1"
+                  onClick={() => setIsConversationHistoryOpen(true)}
+                  title="Historique des conversations"
+                >
+                  <MessageSquare size={16} />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="text-white hover:bg-white/20"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <X size={18} />
+                </Button>
+              </div>
+            </div>
+
+            {/* API status indicator */}
+            {useOpenAI ? (
+              <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
+                <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
+                <span className="text-green-400 font-medium">Mode OpenAI activé</span>
+              </div>
+            ) : (
+              <div className="bg-amber-500/20 border-b border-amber-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
+                <div className="w-2 h-2 rounded-full bg-amber-500 mr-2"></div>
+                <span className="text-amber-400 font-medium">Mode local (limité)</span>
+              </div>
+            )}
+
+            {/* Messages area */}
+            <div className="relative flex-1 p-3 overflow-y-auto">
+              <SpaceBackground />
+              <div className="relative z-10">
+                {messages.map((message) => (
+                  <div 
+                    key={message.id}
+                    className={`mb-3 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div 
+                      className={`max-w-[80%] p-3 rounded-xl ${
+                        message.sender === 'user' 
+                          ? 'bg-gradient-to-br from-portfolio-purple to-portfolio-blue text-white backdrop-blur-lg border border-white/10 shadow-glow-purple' 
+                          : 'bg-white/15 backdrop-blur-lg border border-white/20 text-white shadow-md'
+                      }`}
+                    >
+                      {message.type === 'appointment' && message.metadata?.appointmentDate ? (
+                        <div>
+                          <div className="font-medium text-white">Demande de rendez-vous</div>
+                          <div className="text-sm text-white/90">
+                            Date: {format(new Date(message.metadata.appointmentDate), 'dd/MM/yyyy', { locale: fr })}
+                          </div>
+                          <div className="text-sm text-white/90">
+                            Heure: {message.metadata.appointmentTime}
+                          </div>
+                        </div>
+                      ) : message.type === 'document' ? (
+                        <div>
+                          <div className="font-medium text-white">Document envoyé</div>
+                          <div className="text-sm text-white/90">
+                            Nom: {message.metadata?.documentName}
+                          </div>
+                          <div className="text-sm text-white/90">
+                            Taille: {message.metadata?.documentSize}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="text-white/95 leading-relaxed">{message.content}</div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+
+                {isTyping && (
+                  <div className="flex mb-3">
+                    <div className="bg-white/15 backdrop-blur-lg border border-white/20 p-3 rounded-xl max-w-[80%] shadow-md">
+                      <div className="flex space-x-2">
+                        <div className="w-2 h-2 rounded-full bg-portfolio-blue animate-pulse"></div>
+                        <div className="w-2 h-2 rounded-full bg-portfolio-purple animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-2 h-2 rounded-full bg-portfolio-nebula animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+            </div>
+
+            {/* Action buttons area */}
+            <div className="px-3 py-2 flex justify-center space-x-3 border-t border-white/15 bg-black/40 backdrop-blur-md">
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
+                onClick={() => setIsAppointmentDialogOpen(true)}
+              >
+                <CalendarClock className="h-4 w-4 mr-1 text-portfolio-blue" />
+                Rendez-vous
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
+                onClick={() => setIsDocumentDialogOpen(true)}
+              >
+                <FileUp className="h-4 w-4 mr-1 text-portfolio-blue" />
+                Envoyer fichier
+              </Button>
+            </div>
+
+            {/* Input area */}
+            <div className="p-3 border-t border-white/15 bg-black/60 backdrop-blur-md">
+              <div className="flex">
+                <Textarea
+                  ref={inputRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyPress}
+                  placeholder="Posez votre question..."
+                  className="resize-none bg-white/15 border-white/30 focus:border-portfolio-purple text-white placeholder:text-white/60 shadow-inner"
+                  rows={1}
+                />
+                <Button 
+                  onClick={handleSendMessage}
+                  disabled={isTyping || !input.trim()}
+                  className="ml-2 bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white shadow-md"
+                  size="icon"
+                >
+                  <Send size={18} />
+                </Button>
+              </div>
+            </div>
+          </Card>
+        )
       )}
+
+      {/* API Key Dialog */}
+      <Dialog open={isAPIKeyDialogOpen} onOpenChange={setIsAPIKeyDialogOpen}>
+        <DialogContent className="sm:max-w-[425px] bg-black/90 backdrop-blur-xl border border-white/30 text-white shadow-glow-purple">
+          <DialogHeader>
+            <DialogTitle>Paramètres OpenAI API</DialogTitle>
+            <DialogDescription className="text-gray-300">
+              Connectez une clé API OpenAI pour rendre le chatbot plus intelligent.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            {useOpenAI && (
+              <Alert className="bg-green-500/15 border-green-500/30">
+                <AlertDescription className="text-green-400">
+                  Mode OpenAI activé. Le chatbot utilisera l'API pour générer des réponses.
+                </AlertDescription>
+              </Alert>
+            )}
+            <div className="grid gap-2">
+              <Label htmlFor="apikey" className="text-white">Clé API OpenAI</Label>
+              <Input
+                id="apikey"
+                type="password"
+                placeholder="sk-..."
+                value={openAIKey}
+                onChange={(e) => setOpenAIKey(e.target.value)}
+                className="bg-white/15 border-white/30 text-white"
+              />
+              <p className="text-xs text-gray-300 mt-1">
+                Votre clé API est stockée localement et n'est jamais partagée.
+              </p>
+            </div>
+          </div>
+          <DialogFooter className="flex flex-col sm:flex-row gap-2">
+            {useOpenAI && (
+              <Button 
+                variant="outline" 
+                className="w-full sm:w-auto border-red-500/50 text-red-400 hover:bg-red-500/10"
+                onClick={handleClearAPIKey}
+              >
+                Supprimer la clé
+              </Button>
+            )}
+            <Button 
+              variant="outline" 
+              className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10"
+              onClick={() => setIsAPIKeyDialogOpen(false)}
+            >
+              Annuler
+            </Button>
+            <Button 
+              className="w-full sm:w-auto bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white"
+              onClick={handleSaveAPIKey}
+            >
+              Enregistrer
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Appointment Dialog */}
+      <Dialog open={isAppointmentDialogOpen} onOpenChange={setIsAppointmentDialogOpen}>
+        <DialogContent className="sm:max-w-[425px] bg-black/90 backdrop-blur-xl border border-white/30 text-white shadow-glow-purple">
+          <DialogHeader>
+            <DialogTitle>Prendre un rendez-vous</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="date" className="text-white">Date du rendez-vous</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={`w-full justify-start text-left font-normal bg-white/15 border-white/30 text-white ${
+                      appointmentDate ? "" : "text-white/60"
+                    }`}
+                  >
+                    {appointmentDate ? (
+                      format(appointmentDate, "dd MMMM yyyy", { locale: fr })
+                    ) : (
+                      "Choisir une date"
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0 bg-black/95 border border-white/30 shadow-lg" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={appointmentDate}
+                    onSelect={setAppointmentDate}
+                    initialFocus
+                    disabled={(date) => date < new Date()}
+                    className="bg-transparent text-white"
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="time" className="text-white">Heure du rendez-vous</Label>
+              <select
+                id="time"
+                value={appointmentTime}
+                onChange={(e) => setAppointmentTime(e.target.value)}
+                className="flex h-10 w-full rounded-md border bg-white/15 border-white/30 px-3 py-2 text-sm text-white"
+              >
+                <option value="">Sélectionner une heure</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+              </select>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button 
+              variant="outline" 
+              onClick={() => setIsAppointmentDialogOpen(false)}
+              className="border-white/30 text-white hover:bg-white/10"
+            >
+              Annuler
+            </Button>
+            <Button 
+              onClick={handleScheduleAppointment}
+              className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white"
+            >
+              Confirmer
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Document Upload Dialog */}
+      <Dialog open={isDocumentDialogOpen} onOpenChange={setIsDocumentDialogOpen}>
+        <DialogContent className="sm:max-w-[425px] bg-black/90 backdrop-blur-xl border border-white/30 text-white shadow-glow-purple">
+          <DialogHeader>
+            <DialogTitle>Envoyer un document</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <Label htmlFor="file" className="text-white">Sélectionner un fichier</Label>
+            <Input
+              ref={fileInputRef}
+              id="file"
+              type="file"
+              onChange={handleFileSelect}
+              className="cursor-pointer bg-white/15 border-white/30 text-white"
+            />
+            {selectedFile && (
+              <div className="text-sm bg-white/10 p-3 rounded-lg border border-white/20">
+                <p><span className="font-medium text-portfolio-blue">Nom:</span> {selectedFile.name}</p>
+                <p><span className="font-medium text-portfolio-blue">Taille:</span> {formatFileSize(selectedFile.size)}</p>
+              </div>
+            )}
+          </div>
+          <DialogFooter>
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                setIsDocumentDialogOpen(false);
+                setSelectedFile(null);
+              }}
+              className="border-white/30 text-white hover:bg-white/10"
+            >
+              Annuler
+            </Button>
+            <Button 
+              onClick={handleDocumentUpload} 
+              disabled={!selectedFile}
+              className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white"
+            >
+              Envoyer
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Conversation History Dialog */}
+      <Dialog open={isConversationHistoryOpen} onOpenChange={setIsConversationHistoryOpen}>
+        <DialogContent className="sm:max-w-[425px] bg-black/90 backdrop-blur-xl border border-white/30 text-white shadow-glow-purple">
+          <DialogHeader>
+            <DialogTitle>Historique des conversations</DialogTitle>
+          </DialogHeader>
+          <div className="py-4 max-h-[300px] overflow-y-auto">
+            {conversations.length > 0 ? (
+              <div className="space-y-2">
+                {conversations
+                  .sort((a, b) => new Date(b.lastMessageAt).getTime() - new Date(a.lastMessageAt).getTime())
+                  .map(conversation => (
+                    <Button
+                      key={conversation.id}
+                      variant={conversation.id === currentConversationId ? "secondary" : "outline"}
+                      className={`w-full justify-start text-left ${
+                        conversation.id === currentConversationId 
+                          ? "bg-portfolio-purple/30 border border-portfolio-purple/40" 
+                          : "bg-white/10 border-white/30 text-white hover:bg-white/15"
+                      }`}
+                      onClick={() => switchConversation(conversation.id)}
+                    >
+                      <div className="truncate w-full">
+                        <div className="font-medium">
+                          Conversation du {formatConversationDate(conversation.startedAt)}
+                        </div>
+                        <div className="text-xs text-white/70 truncate">
+                          {conversation.messages.length} messages
+                        </div>
+                      </div>
+                    </Button>
+                  ))
+                }
+              </div>
+            ) : (
+              <p className="text-center text-white/70">Aucune conversation trouvée</p>
+            )}
+          </div>
+          <DialogFooter>
+            <Button 
+              onClick={startNewConversation}
+              className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white"
+            >
+              Nouvelle conversation
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

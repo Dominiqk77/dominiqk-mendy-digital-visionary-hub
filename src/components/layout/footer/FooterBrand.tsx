@@ -1,12 +1,16 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Github, Linkedin, Twitter } from 'lucide-react';
+import { Github, Linkedin, Twitter, CodeSquare } from 'lucide-react';
 
 const FooterBrand = () => {
   return (
     <div className="md:col-span-1 space-y-4">
-      <Link to="/" className="inline-block">
+      <Link to="/" className="inline-flex items-center gap-2">
+        <div className="relative w-8 h-8 bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan rounded-md flex items-center justify-center overflow-hidden border border-white/20 shadow-glow">
+          <CodeSquare size={18} className="text-white z-10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-cyan bg-[length:200%_auto] animate-gradient-slow"></div>
+        </div>
         <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300 bg-clip-text text-transparent shadow-glow">
           Dominiqk Mendy
         </span>
