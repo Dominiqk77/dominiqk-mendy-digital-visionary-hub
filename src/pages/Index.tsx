@@ -84,6 +84,7 @@ const Index = () => {
         <CTASection />
       </main>
       
+      {/* Ensure the footer is consistent across all pages */}
       <Footer />
     </div>
   );
