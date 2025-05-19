@@ -4,7 +4,7 @@ import FooterBrand from './footer/FooterBrand';
 import FooterNavSection from './footer/FooterNavSection';
 import FooterContact from './footer/FooterContact';
 import FooterBottom from './footer/FooterBottom';
-import { navigationSection, servicesSection, legalSection } from './footer/FooterData';
+import { navigationSection, servicesSection, legalSection, contactInfo } from './footer/FooterData';
 
 const Footer = () => {
   return (
@@ -21,7 +21,10 @@ const Footer = () => {
           <FooterNavSection section={servicesSection} />
 
           {/* Legal and Contact */}
-          <FooterContact legalSection={legalSection} />
+          <FooterContact 
+            legalSection={legalSection} 
+            contactInfo={contactInfo}
+          />
         </div>
 
         {/* Copyright and bottom links */}

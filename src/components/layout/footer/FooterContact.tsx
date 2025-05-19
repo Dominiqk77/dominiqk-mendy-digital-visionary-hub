@@ -1,15 +1,18 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FooterNavSection as FooterNavSectionType } from './types';
+import { FooterNavSection as FooterNavSectionType, ContactInfo } from './types';
+import { Mail, MapPin } from 'lucide-react';
 
 interface FooterContactProps {
   legalSection: FooterNavSectionType;
+  contactInfo: ContactInfo;
+  className?: string;
 }
 
-const FooterContact = ({ legalSection }: FooterContactProps) => {
+const FooterContact = ({ legalSection, contactInfo, className }: FooterContactProps) => {
   return (
-    <div>
+    <div className={className}>
       <h3 className="text-white font-semibold mb-4">{legalSection.title}</h3>
       <ul className="space-y-3">
         {legalSection.items.map((item, index) => (
@@ -22,9 +25,15 @@ const FooterContact = ({ legalSection }: FooterContactProps) => {
       </ul>
       
       <h3 className="text-white font-semibold mt-8 mb-4">Contact</h3>
-      <address className="not-italic text-gray-400">
-        <p>contact@dominiqkmendy.com</p>
-        <p>London, UK / Dakar, Sénégal</p>
+      <address className="not-italic text-gray-400 space-y-2">
+        <p className="flex items-center gap-2">
+          <Mail className="h-4 w-4" />
+          {contactInfo.email}
+        </p>
+        <p className="flex items-center gap-2">
+          <MapPin className="h-4 w-4" />
+          {contactInfo.location}
+        </p>
       </address>
     </div>
   );

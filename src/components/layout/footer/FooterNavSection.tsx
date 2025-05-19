@@ -5,13 +5,14 @@ import { FooterNavSection as FooterNavSectionType } from './types';
 
 interface FooterNavSectionProps {
   section: FooterNavSectionType;
+  className?: string;
 }
 
-const FooterNavSection = ({ section }: FooterNavSectionProps) => {
+const FooterNavSection = ({ section, className }: FooterNavSectionProps) => {
   const { title, items } = section;
 
   return (
-    <div>
+    <div className={className}>
       <h3 className="text-white font-semibold mb-4">{title}</h3>
       <ul className="space-y-3">
         {items.map((item, index) => (
