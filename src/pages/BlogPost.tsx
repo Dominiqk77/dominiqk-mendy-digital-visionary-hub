@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -544,10 +543,12 @@ const BlogPost = () => {
                                   selected={date}
                                   onSelect={setDate}
                                   locale={fr}
-                                  className="bg-gray-800 border border-white/20 rounded-md text-white"
+                                  className="bg-gray-800 border border-white/20 rounded-md text-white pointer-events-auto"
                                   classNames={{
-                                    day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-                                    day_today: "bg-accent text-accent-foreground"
+                                    day: {
+                                      selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                                      today: "bg-accent text-accent-foreground"
+                                    }
                                   }}
                                   disabled={(date) => 
                                     date < new Date() || 
@@ -670,10 +671,12 @@ const BlogPost = () => {
                               selected={date}
                               onSelect={setDate}
                               locale={fr}
-                              className="bg-gray-800 border border-white/20 rounded-md text-white"
+                              className="bg-gray-800 border border-white/20 rounded-md text-white pointer-events-auto"
                               classNames={{
-                                day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-                                day_today: "bg-accent text-accent-foreground"
+                                day: {
+                                  selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                                  today: "bg-accent text-accent-foreground"
+                                }
                               }}
                               disabled={(date) => 
                                 date < new Date() || 
