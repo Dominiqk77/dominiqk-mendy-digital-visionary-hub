@@ -78,13 +78,26 @@ export default {
           indigo: '#6366F1',
           neon: '#22D3EE',
           cosmic: '#845ADF',
-          space: '#0F172A'
+          space: '#0F172A',
+          nebula: '#C084FC',
+          starblue: '#38BDF8',
+          deepspace: '#030712',
+          galactic: '#7E22CE'
         }
       },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
+      },
+      boxShadow: {
+        'cosmic': '0 0 20px rgba(155, 135, 245, 0.4)',
+        'cosmic-lg': '0 0 40px rgba(155, 135, 245, 0.6)',
+        'neon': '0 0 12px rgba(14, 165, 233, 0.6)',
+        'space': '0 4px 20px rgba(0, 0, 0, 0.4), 0 8px 16px rgba(0, 0, 0, 0.3)',
+        'space-glow': '0 0 15px rgba(155, 135, 245, 0.3), 0 0 30px rgba(155, 135, 245, 0.2)',
+        'glow-purple': '0 0 15px rgba(139, 92, 246, 0.5)',
+        'glow-blue': '0 0 15px rgba(14, 165, 233, 0.5)'
       },
       keyframes: {
         'accordion-down': {
@@ -210,6 +223,24 @@ export default {
           '50%': {
             opacity: '0'
           }
+        },
+        'cosmic-pulse': {
+          '0%, 100%': {
+            boxShadow: '0 0 10px rgba(155, 135, 245, 0.4)',
+            borderColor: 'rgba(155, 135, 245, 0.4)'
+          },
+          '50%': {
+            boxShadow: '0 0 20px rgba(155, 135, 245, 0.7)',
+            borderColor: 'rgba(155, 135, 245, 0.7)'
+          }
+        },
+        'space-glow': {
+          '0%, 100%': {
+            boxShadow: '0 0 15px rgba(155, 135, 245, 0.3)',
+          },
+          '50%': {
+            boxShadow: '0 0 30px rgba(155, 135, 245, 0.6)',
+          }
         }
       },
       animation: {
@@ -226,7 +257,9 @@ export default {
         'twinkle': 'twinkle 3s ease-in-out infinite',
         'data-flow': 'data-flow 5s linear infinite',
         'shimmer': 'shimmer 2s infinite linear',
-        'caret-blink': 'caret-blink 1s ease-in-out infinite'
+        'caret-blink': 'caret-blink 1s ease-in-out infinite',
+        'cosmic-pulse': 'cosmic-pulse 3s ease-in-out infinite',
+        'space-glow': 'space-glow 4s ease-in-out infinite'
       },
       backgroundImage: {
         'hero-pattern': "url('/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png')",
@@ -234,6 +267,12 @@ export default {
         'grid-pattern': "linear-gradient(to right, rgba(99, 102, 241, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(99, 102, 241, 0.1) 1px, transparent 1px)",
         'cosmic-gradient': "linear-gradient(to bottom right, #0f172a, #1e293b, #334155)",
         'tech-glow': "radial-gradient(circle at center, rgba(99, 102, 241, 0.2) 0%, transparent 70%)",
+        'space-grid': "linear-gradient(to right, rgba(99, 102, 241, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(99, 102, 241, 0.05) 1px, transparent 1px)",
+        'space-dot': "radial-gradient(circle, rgba(155, 135, 245, 0.15) 1px, transparent 1px)",
+        'nebula-purple': "radial-gradient(circle, rgba(155, 135, 245, 0.3) 0%, transparent 70%)",
+        'nebula-blue': "radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, transparent 70%)",
+        'cosmic-rays': "linear-gradient(45deg, rgba(155, 135, 245, 0.1) 0%, transparent 40%)",
+        'deep-space': "linear-gradient(to bottom, #030712, #0F172A, #1E293B)"
       }
     }
   },

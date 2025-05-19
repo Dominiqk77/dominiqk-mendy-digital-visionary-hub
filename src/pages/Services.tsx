@@ -5,11 +5,11 @@ import Footer from '../components/layout/Footer';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";  // Fixed Badge import
+import { Badge } from "@/components/ui/badge";
 import Services from '../components/home/Services';
 import { ArrowRight, Code, LineChart, PenTool, Database, Layout, Rocket, BadgeCheck, Lightbulb } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import SpaceBackground from '@/components/space/SpaceBackground';
+import EnhancedSpaceBackground from '@/components/space/EnhancedSpaceBackground';
 
 const ServicesPage = () => {
   return (
@@ -17,7 +17,7 @@ const ServicesPage = () => {
       <Navbar />
       
       {/* Space background */}
-      <SpaceBackground />
+      <EnhancedSpaceBackground />
       
       <main className="flex-grow z-10 relative">
         {/* Hero Section */}
@@ -42,7 +42,7 @@ const ServicesPage = () => {
                     <Rocket className="mr-2 h-5 w-5" /> Lancer votre projet
                   </Link>
                 </Button>
-                <Button size="lg" variant="transparent" className="text-white border-white border hover:bg-white/10" asChild>
+                <Button size="lg" variant="outline" className="text-white border-white border hover:bg-white/10" asChild>
                   <Link to="/portfolio">
                     Voir nos réalisations
                   </Link>
@@ -95,9 +95,9 @@ const ServicesPage = () => {
                   className="group"
                 >
                   <Link to={category.link} className="block">
-                    <Card className="h-full bg-black/50 backdrop-blur-md border border-white/10 hover:border-white/30 transition-all overflow-hidden">
+                    <Card className="h-full bg-black/50 backdrop-blur-md border border-white/10 hover:border-white/30 transition-all overflow-hidden cosmic-hover">
                       <CardHeader>
-                        <div className={`rounded-full p-3 w-16 h-16 flex items-center justify-center bg-gradient-to-br ${category.color} mb-4`}>
+                        <div className={`rounded-full p-3 w-16 h-16 flex items-center justify-center bg-gradient-to-br ${category.color} mb-4 animate-pulse-slow`}>
                           {category.icon}
                         </div>
                         <CardTitle className="text-xl text-white">{category.title}</CardTitle>
@@ -177,7 +177,7 @@ const ServicesPage = () => {
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   whileHover={{ y: -5 }}
                 >
-                  <Card className="h-full bg-black/30 backdrop-blur-md border border-white/10 hover:border-white/30 transition-all">
+                  <Card className="h-full glass-space hover:bg-black/40 hover:border-white/20 transition-all">
                     <CardHeader>
                       <div className="text-blue-400 mb-4">
                         {feature.icon}
@@ -219,7 +219,7 @@ const ServicesPage = () => {
                         Discuter avec un expert
                       </Link>
                     </Button>
-                    <Button size="lg" variant="transparent" className="text-white border-white/50 hover:bg-white/10" asChild>
+                    <Button size="lg" variant="outline" className="text-white border-white/50 hover:bg-white/10" asChild>
                       <Link to="/start-project">
                         Démarrer un projet
                       </Link>
