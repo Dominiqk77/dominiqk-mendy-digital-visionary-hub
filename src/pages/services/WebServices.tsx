@@ -12,15 +12,16 @@ import { Link } from 'react-router-dom';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import PageContainer from '@/components/layout/PageContainer';
 
-// Animated space background component
-const WebSpaceBackground = () => {
+// Web Development animated background component
+const WebDevBackground = () => {
   const [stars, setStars] = useState<{id: number, x: number, y: number, size: number, opacity: number, speed: number}[]>([]);
   const [codeLines, setCodeLines] = useState<{id: number, x: number, startY: number, length: number, opacity: number, speed: number, color: string}[]>([]);
+  const [htmlElements, setHtmlElements] = useState<{id: number, element: string, x: number, y: number, rotation: number, scale: number, opacity: number}[]>([]);
   
   useEffect(() => {
     // Generate random stars
     const generateStars = () => {
-      const newStars = Array.from({ length: 150 }, (_, i) => ({
+      const newStars = Array.from({ length: 180 }, (_, i) => ({
         id: i,
         x: Math.random() * 100,
         y: Math.random() * 100,
@@ -33,25 +34,41 @@ const WebSpaceBackground = () => {
 
     // Generate animated code lines
     const generateCodeLines = () => {
-      const colors = ['#61dafb', '#3b82f6', '#4f46e5', '#a855f7', '#ec4899'];
-      const newCodeLines = Array.from({ length: 25 }, (_, i) => ({
+      const colors = ['#61dafb', '#3b82f6', '#4f46e5', '#a855f7', '#ec4899', '#10b981', '#f59e0b'];
+      const newCodeLines = Array.from({ length: 35 }, (_, i) => ({
         id: i,
         x: Math.random() * 100,
         startY: -20 - Math.random() * 100,
-        length: 5 + Math.random() * 15,
-        opacity: 0.1 + Math.random() * 0.4,
+        length: 5 + Math.random() * 20,
+        opacity: 0.1 + Math.random() * 0.3,
         speed: 0.2 + Math.random() * 0.8,
         color: colors[Math.floor(Math.random() * colors.length)]
       }));
       setCodeLines(newCodeLines);
     };
 
+    // Generate HTML elements
+    const generateHtmlElements = () => {
+      const elements = ['<div>', '</div>', '<span>', '</span>', '<h1>', '</h1>', '<p>', '</p>', '{', '}', '()', '[]', '<!-- -->', '</>'];
+      const newElements = Array.from({ length: 15 }, (_, i) => ({
+        id: i,
+        element: elements[Math.floor(Math.random() * elements.length)],
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        rotation: Math.random() * 40 - 20,
+        scale: 0.7 + Math.random() * 1.3,
+        opacity: 0.1 + Math.random() * 0.3
+      }));
+      setHtmlElements(newElements);
+    };
+
     generateStars();
     generateCodeLines();
+    generateHtmlElements();
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-gradient-to-b from-gray-900 via-[#0a1930] to-black pointer-events-none">
+    <div className="absolute inset-0 overflow-hidden bg-gradient-to-b from-gray-900 via-[#0a1723] to-black pointer-events-none">
       {/* Stars background with animation */}
       {stars.map((star) => (
         <motion.div
@@ -81,7 +98,7 @@ const WebSpaceBackground = () => {
       {codeLines.map((line) => (
         <motion.div
           key={`line-${line.id}`}
-          className="absolute bg-opacity-30"
+          className="absolute"
           style={{
             left: `${line.x}%`,
             top: `${line.startY}%`,
@@ -101,6 +118,33 @@ const WebSpaceBackground = () => {
           }}
         />
       ))}
+
+      {/* HTML/CSS/JS elements floating */}
+      {htmlElements.map((el) => (
+        <motion.div
+          key={`element-${el.id}`}
+          className="absolute text-xs sm:text-sm md:text-base font-mono"
+          style={{
+            left: `${el.x}%`,
+            top: `${el.y}%`,
+            opacity: el.opacity,
+            color: ['#61dafb', '#3b82f6', '#10b981', '#a855f7'][Math.floor(Math.random() * 4)],
+            transform: `rotate(${el.rotation}deg) scale(${el.scale})`
+          }}
+          animate={{
+            y: [`${el.y}%`, `${el.y - 10}%`, `${el.y}%`],
+            x: [`${el.x}%`, `${el.x + (Math.random() * 6 - 3)}%`, `${el.x}%`],
+            opacity: [el.opacity, el.opacity * 1.5, el.opacity],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 10 + Math.random() * 20,
+            ease: "easeInOut"
+          }}
+        >
+          {el.element}
+        </motion.div>
+      ))}
       
       {/* Tech grid patterns */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSg2MywgNjMsIDI1NSwgMC4xKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')] opacity-20"></div>
@@ -113,11 +157,32 @@ const WebSpaceBackground = () => {
         <div className="absolute inset-0.5 bg-gradient-to-br from-purple-500/10 to-pink-500/5 rounded-lg"></div>
       </div>
       
-      {/* Code brackets */}
-      <div className="absolute top-1/2 left-10 text-blue-500/20 text-7xl font-mono animate-float-slow">{"{"}</div>
-      <div className="absolute bottom-1/4 right-20 text-purple-500/20 text-7xl font-mono animate-float">{"}"}</div>
-      <div className="absolute top-1/4 right-32 text-cyan-500/20 text-5xl font-mono animate-float-slow">{"<>"}</div>
-      <div className="absolute bottom-1/2 left-32 text-indigo-500/20 text-5xl font-mono animate-float">{"</>"}</div>
+      {/* Browser window mockup */}
+      <div className="absolute top-[15%] right-[10%] w-64 h-36 bg-gray-900/20 backdrop-blur-sm rounded-lg border border-blue-500/20 overflow-hidden opacity-30">
+        <div className="h-5 bg-gray-800/50 flex items-center px-2">
+          <div className="w-2 h-2 rounded-full bg-red-500/50 mr-1"></div>
+          <div className="w-2 h-2 rounded-full bg-yellow-500/50 mr-1"></div>
+          <div className="w-2 h-2 rounded-full bg-green-500/50"></div>
+        </div>
+        <div className="p-2">
+          <div className="h-2 w-full bg-blue-500/20 rounded mb-1"></div>
+          <div className="h-2 w-3/4 bg-blue-500/20 rounded mb-1"></div>
+          <div className="h-2 w-5/6 bg-blue-500/20 rounded mb-1"></div>
+          <div className="h-2 w-2/3 bg-blue-500/20 rounded mb-1"></div>
+        </div>
+      </div>
+      
+      {/* Mobile device mockup */}
+      <div className="absolute bottom-[20%] left-[5%] w-20 h-36 bg-gray-900/20 backdrop-blur-sm rounded-xl border border-purple-500/20 overflow-hidden opacity-30">
+        <div className="h-2 w-8 bg-gray-800/50 rounded-b mx-auto"></div>
+        <div className="mt-3 px-2">
+          <div className="h-2 w-full bg-purple-500/20 rounded mb-1"></div>
+          <div className="h-2 w-4/5 bg-purple-500/20 rounded mb-1"></div>
+          <div className="h-8 w-full bg-purple-500/10 rounded mb-2"></div>
+          <div className="h-2 w-full bg-purple-500/20 rounded mb-1"></div>
+          <div className="h-2 w-3/4 bg-purple-500/20 rounded"></div>
+        </div>
+      </div>
       
       {/* Digital glow effects */}
       <div className="absolute top-1/3 left-1/2 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
@@ -132,7 +197,7 @@ const WebServices = () => {
   
   useEffect(() => {
     // Set page title for SEO
-    document.title = 'Services Web & Mobile Premium | Dominique Mendy | Développeur Full Stack International';
+    document.title = 'Développement Web & Mobile Premium | Dominique Mendy | Développeur Full Stack International';
     
     // Set meta description for SEO
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -323,23 +388,37 @@ const WebServices = () => {
     }
   ];
 
-  // Tech stack with modern web technologies
-  const techStack = [
-    { name: "React/Next.js", category: "Frontend", icon: "/icons/react.svg", description: "Pour des interfaces modernes et performantes" },
-    { name: "Vue.js", category: "Frontend", icon: "/icons/vue.svg", description: "Framework progressif pour des UIs réactives" },
-    { name: "Angular", category: "Frontend", icon: "/icons/angular.svg", description: "Framework complet pour applications enterprise" },
-    { name: "Node.js", category: "Backend", icon: "/icons/nodejs.svg", description: "Runtime JavaScript côté serveur performant" },
-    { name: "TypeScript", category: "Language", icon: "/icons/typescript.svg", description: "Typage statique pour un code plus robuste" },
-    { name: "MongoDB", category: "Database", icon: "/icons/mongodb.svg", description: "Base NoSQL flexible et évolutive" },
-    { name: "PostgreSQL", category: "Database", icon: "/icons/postgresql.svg", description: "Base relationnelle robuste et performante" },
-    { name: "GraphQL", category: "API", icon: "/icons/graphql.svg", description: "Requêtes flexibles et performances optimisées" },
-    { name: "AWS", category: "Cloud", icon: "/icons/aws.svg", description: "Infrastructure cloud scalable et sécurisée" },
-    { name: "Docker", category: "DevOps", icon: "/icons/docker.svg", description: "Conteneurisation pour déploiement cohérent" },
-    { name: "React Native", category: "Mobile", icon: "/icons/react.svg", description: "Apps mobiles cross-platform natives" },
-    { name: "Flutter", category: "Mobile", icon: "/icons/flutter.svg", description: "SDK Google pour apps mobiles performantes" }
+  // Front-end technologies with descriptions
+  const frontendTech = [
+    { name: "React", desc: "Bibliothèque JavaScript pour des interfaces utilisateurs modernes et réactives" },
+    { name: "Vue.js", desc: "Framework progressif pour construire des interfaces utilisateurs interactives" },
+    { name: "Next.js", desc: "Framework React avec rendu côté serveur et génération statique" },
+    { name: "TypeScript", desc: "Superset typé de JavaScript pour un code plus robuste et maintenable" },
+    { name: "Tailwind CSS", desc: "Framework CSS utilitaire pour un développement rapide et personnalisé" },
+    { name: "GSAP", desc: "Bibliothèque d'animations avancées pour des interfaces dynamiques" }
   ];
 
-  // Why choose us features - technical excellence showcase
+  // Back-end technologies with descriptions
+  const backendTech = [
+    { name: "Node.js", desc: "Environnement d'exécution JavaScript côté serveur pour des applications scalables" },
+    { name: "Express", desc: "Framework minimaliste pour applications Node.js et APIs REST" },
+    { name: "NestJS", desc: "Framework Node.js progressif pour applications serveur scalables" },
+    { name: "GraphQL", desc: "Langage de requête pour APIs offrant plus de précision et de flexibilité" },
+    { name: "PostgreSQL", desc: "Base de données relationnelle robuste, performante et extensible" },
+    { name: "MongoDB", desc: "Base de données NoSQL orientée documents pour une flexibilité maximale" }
+  ];
+
+  // Mobile technologies with descriptions
+  const mobileTech = [
+    { name: "React Native", desc: "Framework pour applications mobiles multiplateformes avec une base de code commune" },
+    { name: "Flutter", desc: "SDK Google pour créer des applications mobiles natives avec une UI fluide" },
+    { name: "Swift", desc: "Langage moderne pour applications iOS offrant performance et sécurité" },
+    { name: "Kotlin", desc: "Langage moderne pour applications Android, concis et expressif" },
+    { name: "Firebase", desc: "Plateforme de développement d'applications mobiles avec BaaS intégré" },
+    { name: "Expo", desc: "Plateforme pour React Native simplifiant le développement et le déploiement" }
+  ];
+
+  // Technical excellence features
   const technicalExcellence = [
     {
       title: "Architecture Évolutive",
@@ -378,86 +457,189 @@ const WebServices = () => {
       <Navbar />
       
       {/* Custom web space background */}
-      <WebSpaceBackground />
+      <WebDevBackground />
       
       <main className="flex-grow relative z-10">
         {/* Hero Section - innovative digital code theme */}
-        <section className="py-20 md:py-28 relative overflow-hidden">
+        <section className="py-20 md:py-32 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/30 via-transparent to-transparent"></div>
+          
           <PageContainer>
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto relative">
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7 }}
-                className="text-center mb-12"
+                className="text-center mb-12 relative"
               >
-                <Badge variant="outline" className="bg-blue-500/10 text-blue-400 border-blue-500/30 mb-4 text-sm py-1 px-3">
-                  FULL-STACK WEB & MOBILE
+                <Badge 
+                  variant="outline" 
+                  className="bg-blue-500/10 text-blue-400 border-blue-500/30 mb-4 text-sm py-1.5 px-5 tracking-wider"
+                >
+                  DÉVELOPPEMENT WEB & MOBILE
                 </Badge>
                 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
-                  Solutions Web & Mobile <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">Innovantes</span>
+                  L'Art du <span className="relative inline-block">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400">Code</span>
+                    <span className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400 opacity-60 rounded-full"></span>
+                  </span> au Service de Votre Vision
                 </h1>
                 
-                <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
-                  Transformez vos idées en applications performantes, intuitives et évolutives grâce à notre expertise technique de pointe et notre approche centrée utilisateur.
+                <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed">
+                  Transformez vos idées en applications performantes, intuitives et évolutives grâce à 
+                  mon expertise technique et mon approche centrée sur vos objectifs business.
                 </p>
                 
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white" asChild>
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white border border-white/10 shadow-lg shadow-blue-500/20"
+                    asChild
+                  >
                     <Link to="/contact">
                       <Rocket className="mr-2 h-5 w-5" /> Lancer votre projet
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-white/30 hover:bg-white/10 text-white" asChild>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="border-white/30 hover:bg-white/10 text-white backdrop-blur-sm"
+                    asChild
+                  >
                     <Link to="/portfolio">
-                      Voir nos réalisations
+                      Voir mes réalisations
                     </Link>
                   </Button>
                 </div>
+
+                {/* Animated code snippet */}
+                <motion.div 
+                  className="absolute -bottom-12 -right-24 hidden lg:block"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 0.7, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                >
+                  <div className="bg-gray-950/60 backdrop-blur-md rounded-lg border border-blue-500/20 p-4 w-56 font-mono text-xs text-left overflow-hidden">
+                    <div className="text-gray-400">// Your vision in code</div>
+                    <div className="text-pink-400">function <span className="text-cyan-400">createAmazingWebsite</span>() {'{'}</div>
+                    <div className="pl-4 text-indigo-300">const <span className="text-orange-300">design</span> = <span className="text-green-300">'stunning'</span>;</div>
+                    <div className="pl-4 text-indigo-300">const <span className="text-orange-300">performance</span> = <span className="text-green-300">'lightning-fast'</span>;</div>
+                    <div className="pl-4 text-purple-300">return <span className="text-blue-300">createMagic</span>(design, performance);</div>
+                    <div className="text-pink-400">{'}'}</div>
+                  </div>
+                </motion.div>
+
+                {/* Animated browser mockup */}
+                <motion.div 
+                  className="absolute -bottom-12 -left-16 hidden lg:block"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 0.7, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.7 }}
+                >
+                  <div className="bg-gray-950/60 backdrop-blur-md rounded-lg border border-indigo-500/20 w-44 overflow-hidden">
+                    <div className="h-5 bg-gray-800/60 flex items-center px-2 gap-1">
+                      <div className="w-2 h-2 rounded-full bg-red-500/60"></div>
+                      <div className="w-2 h-2 rounded-full bg-yellow-500/60"></div>
+                      <div className="w-2 h-2 rounded-full bg-green-500/60"></div>
+                      <div className="ml-2 h-2 w-full bg-gray-700/50 rounded-full"></div>
+                    </div>
+                    <div className="p-3">
+                      <div className="h-3 w-full rounded bg-blue-500/20 mb-2"></div>
+                      <div className="h-10 w-full rounded bg-indigo-500/10 mb-2"></div>
+                      <div className="flex gap-1 mb-2">
+                        <div className="h-4 w-4 rounded bg-cyan-500/20"></div>
+                        <div className="h-4 flex-grow rounded bg-gray-500/20"></div>
+                      </div>
+                      <div className="h-2 w-3/4 rounded bg-gray-500/20 mb-1"></div>
+                      <div className="h-2 w-5/6 rounded bg-gray-500/20"></div>
+                    </div>
+                  </div>
+                </motion.div>
               </motion.div>
               
               {/* Tech Stack Icons - dynamic tech showcase */}
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 1 }}
-                className="mt-16"
+                transition={{ delay: 0.6, duration: 1 }}
+                className="mt-24 sm:mt-28 relative z-10"
               >
-                <p className="text-center text-gray-300 mb-6 text-sm uppercase tracking-wider">TECHNOLOGIES DE POINTE</p>
-                <div className="flex flex-wrap justify-center gap-6">
-                  {["react", "nextjs", "vue", "angular", "nodejs", "typescript", "mongodb", "postgresql", "graphql", "aws", "docker", "flutter"].map((tech) => (
-                    <motion.div 
-                      key={tech}
-                      className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-lg p-3 flex items-center justify-center border border-white/10 hover:border-blue-500/50 transition-all"
-                      whileHover={{ y: -5, scale: 1.1, borderColor: 'rgba(59, 130, 246, 0.5)' }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    >
-                      <img src={`/icons/${tech}.svg`} alt={tech} className="w-8 h-8 object-contain" />
-                    </motion.div>
-                  ))}
+                <div className="bg-black/30 backdrop-blur-md border border-white/10 rounded-xl py-8 px-4">
+                  <p className="text-center text-gray-300 mb-8 text-sm uppercase tracking-wider font-medium">MAÎTRISE TECHNIQUE DES TECHNOLOGIES MODERNES</p>
+                  
+                  <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+                    {["react", "nextjs", "vue", "nodejs", "typescript", "mongodb", "postgresql", "graphql", "docker", "aws"].map((tech, idx) => (
+                      <motion.div 
+                        key={tech}
+                        className="w-14 h-14 bg-gray-900/80 backdrop-blur-sm rounded-lg p-3 flex items-center justify-center border border-white/10 hover:border-blue-500/50 transition-all relative group"
+                        whileHover={{ y: -5, scale: 1.1 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ 
+                          type: "spring", 
+                          stiffness: 400, 
+                          damping: 10,
+                          delay: 0.7 + (idx * 0.05)
+                        }}
+                      >
+                        <img src={`/icons/${tech}.svg`} alt={tech} className="w-8 h-8 object-contain" />
+                        <span className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 text-xs text-blue-300 uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium">
+                          {tech}
+                        </span>
+                        <span className="absolute inset-0 rounded-lg bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             </div>
           </PageContainer>
         </section>
         
-        {/* Our Web Expertise Section - visual cards */}
+        {/* Our Web Expertise Section - visual cards with enhanced design */}
         <section className="py-20 relative z-10">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/40 -z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/40 pointer-events-none -z-10"></div>
+          
           <PageContainer>
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Notre Expertise Web & Mobile</h2>
-              <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto mb-6"></div>
-              <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                De la conception à la maintenance, notre équipe vous accompagne à chaque étape du cycle de développement pour créer des solutions digitales performantes et adaptées à vos besoins spécifiques.
-              </p>
+              <motion.h2 
+                className="text-3xl md:text-4xl font-bold mb-4 text-white inline-flex flex-col items-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="text-blue-400 uppercase text-sm font-semibold tracking-wider mb-3">Expertise complète</span>
+                Notre Éventail de Services Web & Mobile
+                <span className="block h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mt-6"></span>
+              </motion.h2>
+              
+              <motion.p 
+                className="text-lg text-gray-300 max-w-3xl mx-auto mt-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                De la conception à la maintenance, je vous accompagne à chaque étape du cycle de développement 
+                pour créer des solutions digitales performantes et parfaitement adaptées à vos besoins spécifiques.
+              </motion.p>
             </div>
             
-            <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="w-full max-w-6xl mx-auto">
-              <TabsList className="w-full flex flex-wrap justify-center bg-gray-900/50 border border-white/10 p-1 mb-10 rounded-lg">
-                {webCategories.map(cat => (
-                  <TabsTrigger key={cat.id} value={cat.id} className="flex-grow data-[state=active]:bg-white/10 data-[state=active]:text-white text-gray-300 rounded-md transition-all">
+            <Tabs 
+              defaultValue="all" 
+              value={activeTab} 
+              onValueChange={setActiveTab} 
+              className="w-full max-w-7xl mx-auto"
+            >
+              <TabsList className="w-full flex flex-wrap justify-center bg-gray-900/50 border border-white/10 p-1.5 mb-10 rounded-xl backdrop-blur-sm">
+                {webCategories.map((cat, idx) => (
+                  <TabsTrigger 
+                    key={cat.id} 
+                    value={cat.id} 
+                    className="flex-grow data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-800/50 data-[state=active]:to-indigo-800/50 data-[state=active]:text-white data-[state=active]:border-white/20 text-gray-300 rounded-lg transition-all py-2.5"
+                  >
                     {cat.name}
                   </TabsTrigger>
                 ))}
@@ -465,30 +647,33 @@ const WebServices = () => {
               
               {webCategories.map(category => (
                 <TabsContent key={category.id} value={category.id} className="mt-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {webServices
                       .filter(service => category.id === 'all' || service.category === category.id)
                       .map((service, idx) => (
                         <motion.div
                           key={service.title}
                           initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
                           transition={{ duration: 0.5, delay: idx * 0.1 }}
+                          whileHover={{ y: -5 }}
                         >
-                          <Card className="h-full flex flex-col bg-gray-900/70 backdrop-blur-sm border border-white/10 hover:border-blue-500/30 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all overflow-hidden group">
-                            <CardHeader className="pb-4">
-                              <div className="text-primary mb-4 bg-gradient-to-br from-gray-800 to-gray-900 p-3 rounded-lg inline-flex border border-white/10">
+                          <Card className="h-full flex flex-col bg-gray-900/70 backdrop-blur-md border border-white/10 hover:border-blue-500/30 hover:shadow-[0_5px_30px_rgba(59,130,246,0.2)] transition-all duration-300 overflow-hidden group">
+                            <CardHeader className="pb-4 relative">
+                              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-bl-full"></div>
+                              <div className="text-primary mb-4 bg-gradient-to-br from-gray-800/80 to-gray-900/80 p-3 rounded-lg inline-flex border border-white/10 group-hover:border-blue-500/30 transition-colors relative z-10">
                                 {service.icon}
                               </div>
-                              <CardTitle className="text-white text-xl">{service.title}</CardTitle>
+                              <CardTitle className="text-white text-xl relative z-10">{service.title}</CardTitle>
                             </CardHeader>
                             <CardContent className="flex-grow pb-5">
-                              <p className="text-gray-300 mb-4">{service.description}</p>
-                              <ul className="space-y-2 mb-6">
+                              <p className="text-gray-300 mb-5">{service.description}</p>
+                              <ul className="space-y-2.5 mb-5">
                                 {service.features.map((feature, i) => (
-                                  <li key={i} className="flex items-start gap-2">
-                                    <div className="text-blue-500 mt-1">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <li key={i} className="flex items-start gap-3">
+                                    <div className="text-blue-400 shrink-0 mt-1">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M20 6L9 17l-5-5"></path>
                                       </svg>
                                     </div>
@@ -498,7 +683,7 @@ const WebServices = () => {
                               </ul>
                               <div className="flex flex-wrap gap-2 mb-4">
                                 {service.technologies.map((tech, index) => (
-                                  <span key={index} className="text-xs px-2 py-1 bg-blue-900/30 border border-blue-500/20 rounded-full text-blue-300">
+                                  <span key={index} className="text-xs px-2.5 py-1 bg-blue-900/20 border border-blue-500/20 rounded-full text-blue-300">
                                     {tech}
                                   </span>
                                 ))}
@@ -506,7 +691,11 @@ const WebServices = () => {
                               <p className="text-sm font-medium text-blue-400">{service.price}</p>
                             </CardContent>
                             <CardFooter className="pt-0">
-                              <Button variant="ghost" className="w-full justify-between hover:bg-white/5 text-gray-300 group-hover:text-blue-400 transition-colors" asChild>
+                              <Button 
+                                variant="ghost" 
+                                className="w-full justify-between hover:bg-white/5 text-gray-300 group-hover:text-blue-400 transition-colors"
+                                asChild
+                              >
                                 <Link to="/contact">
                                   <span>En savoir plus</span>
                                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -523,41 +712,292 @@ const WebServices = () => {
           </PageContainer>
         </section>
         
-        {/* Technical Excellence Section */}
-        <section className="py-20 relative bg-black/30 backdrop-blur-sm">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSg2MywgNjMsIDI1NSwgMC4xKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')] opacity-10 -z-10"></div>
+        {/* Development Technology Stacks */}
+        <section className="py-20 relative">
+          <div className="absolute inset-0 bg-black/30 backdrop-blur-sm -z-10"></div>
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSg2MywgNjMsIDI1NSwgMC4xKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')] opacity-15 -z-10"></div>
+          
           <PageContainer>
             <div className="text-center mb-16">
-              <motion.div
+              <motion.h2 
+                className="text-3xl md:text-4xl font-bold mb-4 text-white inline-block"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Excellence Technique</h2>
-                <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto mb-6"></div>
-                <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                  Notre expertise technique garantit des solutions performantes, sécurisées et parfaitement adaptées à vos enjeux business.
-                </p>
+                <span className="text-blue-400 uppercase text-sm font-semibold tracking-wider block mb-3">Technologies maîtrisées</span>
+                Stack Technologique Complète
+                <span className="block h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto mt-6"></span>
+              </motion.h2>
+              
+              <motion.p 
+                className="text-lg text-gray-300 max-w-3xl mx-auto mt-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                Je maîtrise les technologies les plus modernes et performantes du marché, me permettant d'implémenter
+                la solution optimale pour chaque projet, de l'interface utilisateur aux systèmes backend.
+              </motion.p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Frontend Stack */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <Card className="h-full bg-gradient-to-br from-blue-900/20 to-blue-900/10 backdrop-blur-md border border-blue-500/20">
+                  <CardHeader className="pb-4">
+                    <Badge variant="outline" className="w-fit bg-blue-900/30 text-blue-300 border-blue-400/30 uppercase">
+                      Frontend
+                    </Badge>
+                    <CardTitle className="text-white mt-2 flex items-center gap-3">
+                      <Monitor size={22} className="text-blue-400" />
+                      Développement Frontend
+                    </CardTitle>
+                    <CardDescription className="text-gray-300">
+                      Interfaces utilisateurs modernes et réactives avec animations fluides
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {frontendTech.map((tech, idx) => (
+                      <div key={idx} className="flex items-center gap-3 group">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full group-hover:scale-150 transition-transform"></div>
+                        <div>
+                          <h4 className="text-white font-medium">{tech.name}</h4>
+                          <p className="text-sm text-gray-400">{tech.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
               </motion.div>
+              
+              {/* Backend Stack */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <Card className="h-full bg-gradient-to-br from-purple-900/20 to-purple-900/10 backdrop-blur-md border border-purple-500/20">
+                  <CardHeader className="pb-4">
+                    <Badge variant="outline" className="w-fit bg-purple-900/30 text-purple-300 border-purple-400/30 uppercase">
+                      Backend
+                    </Badge>
+                    <CardTitle className="text-white mt-2 flex items-center gap-3">
+                      <Server size={22} className="text-purple-400" />
+                      Développement Backend
+                    </CardTitle>
+                    <CardDescription className="text-gray-300">
+                      APIs robustes et bases de données optimisées pour des performances maximales
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {backendTech.map((tech, idx) => (
+                      <div key={idx} className="flex items-center gap-3 group">
+                        <div className="w-2 h-2 bg-purple-400 rounded-full group-hover:scale-150 transition-transform"></div>
+                        <div>
+                          <h4 className="text-white font-medium">{tech.name}</h4>
+                          <p className="text-sm text-gray-400">{tech.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+              </motion.div>
+              
+              {/* Mobile Stack */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <Card className="h-full bg-gradient-to-br from-cyan-900/20 to-cyan-900/10 backdrop-blur-md border border-cyan-500/20">
+                  <CardHeader className="pb-4">
+                    <Badge variant="outline" className="w-fit bg-cyan-900/30 text-cyan-300 border-cyan-400/30 uppercase">
+                      Mobile
+                    </Badge>
+                    <CardTitle className="text-white mt-2 flex items-center gap-3">
+                      <Phone size={22} className="text-cyan-400" />
+                      Développement Mobile
+                    </CardTitle>
+                    <CardDescription className="text-gray-300">
+                      Applications mobiles natives et hybrides pour iOS et Android
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {mobileTech.map((tech, idx) => (
+                      <div key={idx} className="flex items-center gap-3 group">
+                        <div className="w-2 h-2 bg-cyan-400 rounded-full group-hover:scale-150 transition-transform"></div>
+                        <div>
+                          <h4 className="text-white font-medium">{tech.name}</h4>
+                          <p className="text-sm text-gray-400">{tech.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </div>
+          </PageContainer>
+        </section>
+        
+        {/* Project Showcase with enhanced cards and animations */}
+        <section className="py-20 relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/40 -z-10"></div>
+          <PageContainer>
+            <div className="text-center mb-16">
+              <motion.h2 
+                className="text-3xl md:text-4xl font-bold mb-4 text-white inline-flex flex-col items-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="text-blue-400 uppercase text-sm font-semibold tracking-wider mb-3">Portfolio sélectionné</span>
+                Projets Web & Mobile À Succès
+                <span className="block h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mt-6"></span>
+              </motion.h2>
+              
+              <motion.p 
+                className="text-lg text-gray-300 max-w-3xl mx-auto mt-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                Des solutions sur mesure pour des clients internationaux, parfaitement adaptées 
+                à leurs contextes spécifiques et générant des résultats mesurables.
+              </motion.p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+              {projectShowcase.map((project, idx) => (
+                <motion.div
+                  key={project.title}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: idx * 0.2 }}
+                  whileHover={{ y: -7, transition: { duration: 0.3 } }}
+                  className="group"
+                >
+                  <Card className="h-full overflow-hidden bg-gradient-to-br from-gray-900/80 to-gray-900/60 backdrop-blur-sm border border-white/10 hover:border-blue-500/40 hover:shadow-[0_5px_30px_rgba(59,130,246,0.25)] transition-all duration-300">
+                    <div className="relative">
+                      <AspectRatio ratio={16/9} className="overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-10"></div>
+                        <img 
+                          src={project.image} 
+                          alt={project.title} 
+                          className="object-cover w-full h-full brightness-90 group-hover:brightness-100 group-hover:scale-105 transition-all duration-700"
+                        />
+                      </AspectRatio>
+                      <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+                        <p className="inline-block px-2.5 py-1 bg-blue-900/50 backdrop-blur-sm border border-blue-500/30 rounded-md text-sm text-blue-300 font-medium mb-3">
+                          {project.client}
+                        </p>
+                        <h3 className="text-xl font-bold text-white mb-1">{project.title}</h3>
+                      </div>
+                    </div>
+                    <CardContent className="pt-5">
+                      <p className="text-gray-300 mb-5">{project.description}</p>
+                      
+                      {/* Key metrics section with improved design */}
+                      <div className="grid grid-cols-3 gap-4 mb-5">
+                        {Object.entries(project.metrics).map(([key, value], i) => (
+                          <div 
+                            key={key} 
+                            className="text-center p-3 rounded-lg relative overflow-hidden group"
+                          >
+                            <div className="absolute inset-0 bg-blue-900/20 border border-blue-500/20 rounded-lg group-hover:bg-blue-900/30 transition-colors"></div>
+                            <div className="relative z-10">
+                              <p className="text-xl font-bold text-blue-300">{value}</p>
+                              <p className="text-xs text-gray-300 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map(tech => (
+                          <span key={tech} className="text-xs px-3 py-1.5 bg-gray-800 border border-gray-700 rounded-full text-gray-300">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className="text-center mt-14">
+              <Button 
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white border border-white/10 shadow-lg shadow-blue-500/10 px-8" 
+                size="lg"
+                asChild
+              >
+                <Link to="/portfolio">
+                  Découvrir tous mes projets <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </PageContainer>
+        </section>
+        
+        {/* Technical Excellence Section with interactive cards */}
+        <section className="py-20 relative bg-black/20 backdrop-blur-sm">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSg2MywgNjMsIDI1NSwgMC4xKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')] opacity-10 -z-10"></div>
+          <PageContainer>
+            <div className="text-center mb-16">
+              <motion.h2 
+                className="text-3xl md:text-4xl font-bold mb-4 text-white inline-flex flex-col items-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="text-blue-400 uppercase text-sm font-semibold tracking-wider mb-3">Pourquoi me choisir</span>
+                Excellence Technique & Méthodologique
+                <span className="block h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mt-6"></span>
+              </motion.h2>
+              
+              <motion.p 
+                className="text-lg text-gray-300 max-w-3xl mx-auto mt-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                Mon expertise technique garantit des solutions performantes, sécurisées et parfaitement 
+                adaptées à vos enjeux business.
+              </motion.p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {technicalExcellence.map((feature, idx) => (
                 <motion.div
                   key={feature.title}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 25 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  whileHover={{ y: -7 }}
                   className="group"
                 >
-                  <Card className="h-full bg-gray-900/70 backdrop-blur-sm border border-white/10 hover:border-blue-500/30 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all overflow-hidden">
+                  <Card className="h-full bg-gradient-to-br from-gray-900/70 to-black/70 backdrop-blur-sm border border-white/10 hover:border-blue-500/30 hover:shadow-[0_5px_30px_rgba(59,130,246,0.2)] transition-all overflow-hidden">
                     <CardHeader>
-                      <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-4 rounded-lg inline-flex border border-white/10 group-hover:border-blue-500/30 transition-colors">
+                      <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-4 rounded-lg inline-flex border border-white/10 group-hover:border-blue-500/30 transition-colors mb-3 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:-translate-y-1 transition-all">
                         {feature.icon}
                       </div>
-                      <CardTitle className="text-white">{feature.title}</CardTitle>
+                      <CardTitle className="text-white text-xl">{feature.title}</CardTitle>
                     </CardHeader>
                     <CardContent className="text-gray-300">
                       {feature.description}
@@ -569,120 +1009,73 @@ const WebServices = () => {
           </PageContainer>
         </section>
         
-        {/* Project Showcase with Key Metrics */}
+        {/* Development Methodology Section with visual timeline */}
         <section className="py-20 relative">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent -z-10"></div>
-          <PageContainer>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Réalisations Marquantes</h2>
-              <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto mb-6"></div>
-              <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                Des solutions sur mesure pour des clients internationaux, parfaitement adaptées à leurs contextes spécifiques et générant des résultats mesurables.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-              {projectShowcase.map((project, idx) => (
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: idx * 0.2 }}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                  className="group"
-                >
-                  <Card className="h-full overflow-hidden bg-gray-900/70 backdrop-blur-sm border border-white/10 hover:border-blue-500/30 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all">
-                    <div className="relative">
-                      <AspectRatio ratio={16/9}>
-                        <img 
-                          src={project.image} 
-                          alt={project.title} 
-                          className="object-cover w-full h-full brightness-75 group-hover:brightness-90 transition-all"
-                        />
-                      </AspectRatio>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
-                      <div className="absolute bottom-0 left-0 right-0 p-4">
-                        <p className="text-sm text-blue-300 font-medium mb-2">{project.client}</p>
-                        <h3 className="text-xl font-bold text-white mb-1">{project.title}</h3>
-                      </div>
-                    </div>
-                    <CardContent>
-                      <p className="text-gray-300 mb-4">{project.description}</p>
-                      
-                      {/* Key metrics section */}
-                      <div className="grid grid-cols-3 gap-4 mb-4">
-                        {Object.entries(project.metrics).map(([key, value], i) => (
-                          <div key={key} className="text-center p-2 bg-blue-900/20 border border-blue-500/20 rounded-lg">
-                            <p className="text-xl font-bold text-blue-400">{value}</p>
-                            <p className="text-xs text-gray-300 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
-                          </div>
-                        ))}
-                      </div>
-                      
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map(tech => (
-                          <span key={tech} className="text-xs px-2 py-1 bg-blue-900/30 border border-blue-500/20 rounded-full text-blue-300">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-            
-            <div className="text-center mt-12">
-              <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white" asChild>
-                <Link to="/portfolio">
-                  Voir tous nos projets <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-          </PageContainer>
-        </section>
-        
-        {/* Development Methodology Section */}
-        <section className="py-20 relative bg-black/30 backdrop-blur-sm">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSg2MywgNjMsIDI1NSwgMC4xKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')] opacity-10 -z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent -z-10"></div>
           <PageContainer>
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Notre Méthodologie</h2>
-                <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto mb-6"></div>
-                <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                  Une approche structurée et agile pour délivrer des solutions qui répondent parfaitement à vos besoins, dans les délais et le budget impartis.
-                </p>
+                <motion.h2 
+                  className="text-3xl md:text-4xl font-bold mb-4 text-white inline-flex flex-col items-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <span className="text-blue-400 uppercase text-sm font-semibold tracking-wider mb-3">Processus éprouvé</span>
+                  Notre Méthodologie de Développement
+                  <span className="block h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mt-6"></span>
+                </motion.h2>
+                
+                <motion.p 
+                  className="text-lg text-gray-300 max-w-3xl mx-auto mt-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  Une approche structurée et agile pour délivrer des solutions qui répondent parfaitement 
+                  à vos besoins, dans les délais et le budget impartis.
+                </motion.p>
               </div>
               
               <div className="relative">
-                {/* Timeline connector */}
+                {/* Timeline connector with gradient */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-500 via-indigo-500 to-purple-500"></div>
                 
-                {/* Timeline items */}
+                {/* Timeline items with enhanced design */}
                 {methodologySteps.map((step, idx) => (
                   <motion.div
                     key={step.title}
-                    className={`flex items-center mb-16 ${idx % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
-                    initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    className={`flex items-stretch mb-20 lg:mb-24 ${idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} flex-col`}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: idx * 0.15 }}
                   >
-                    <div className={`w-1/2 ${idx % 2 === 0 ? 'pr-12 text-right' : 'pl-12'}`}>
-                      <h3 className="text-xl font-bold mb-2 text-white">{step.title}</h3>
-                      <p className="text-gray-300 mb-3">{step.description}</p>
+                    <div className={`w-full lg:w-1/2 ${idx % 2 === 0 ? 'lg:pr-12 lg:text-right' : 'lg:pl-12'} mb-6 lg:mb-0`}>
+                      <div className="mb-2 inline-flex items-center">
+                        <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium bg-blue-900/30 text-blue-300 border border-blue-500/30 ${idx % 2 === 0 ? 'lg:ml-auto' : ''}`}>
+                          Étape {idx + 1}
+                        </span>
+                      </div>
+                      <h3 className="text-2xl font-bold mb-3 text-white">{step.title}</h3>
+                      <p className="text-gray-300 mb-3 text-lg">{step.description}</p>
                       <p className="text-sm text-gray-400">{step.details}</p>
                     </div>
                     
-                    <div className="relative z-10 flex items-center justify-center w-16 h-16 bg-gray-900 rounded-full shadow-lg border-4 border-blue-500">
-                      <div className="text-blue-500">
-                        {step.icon}
+                    <div className="relative z-10 flex items-center justify-center mx-auto lg:mx-0">
+                      <div className="w-16 h-16 bg-gradient-to-br from-gray-900 to-black rounded-full shadow-lg border-4 border-blue-500 flex items-center justify-center transform transition-transform hover:scale-110">
+                        <div className="text-blue-400">
+                          {step.icon}
+                        </div>
                       </div>
+                      
+                      {/* Decorative elements */}
+                      <div className="absolute -z-10 w-24 h-24 bg-blue-500/5 rounded-full blur-md animate-pulse"></div>
                     </div>
                     
-                    <div className="w-1/2"></div>
+                    <div className="w-full lg:w-1/2"></div>
                   </motion.div>
                 ))}
               </div>
@@ -690,87 +1083,46 @@ const WebServices = () => {
           </PageContainer>
         </section>
         
-        {/* Tech Stack Section */}
-        <section className="py-20 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent -z-10"></div>
+        {/* FAQ Section with enhanced accordions */}
+        <section className="py-20 relative bg-black/20 backdrop-blur-sm">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSg2MywgNjMsIDI1NSwgMC4xKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')] opacity-10 -z-10"></div>
           <PageContainer>
-            <div className="text-center mb-16">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Notre Stack Technologique</h2>
-                <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto mb-6"></div>
-                <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                  Nous utilisons les technologies les plus modernes et performantes pour créer des solutions robustes, évolutives et pérennes.
-                </p>
-              </motion.div>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-              {techStack.map((tech, idx) => (
-                <motion.div
-                  key={tech.name}
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-12">
+                <motion.h2 
+                  className="text-3xl md:text-4xl font-bold mb-4 text-white inline-flex flex-col items-center"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.05 }}
-                  whileHover={{ y: -5, scale: 1.02 }}
-                  className="group"
+                  transition={{ duration: 0.5 }}
                 >
-                  <Card className="h-full bg-gray-900/70 backdrop-blur-sm border border-white/10 hover:border-blue-500/30 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all overflow-hidden">
-                    <CardHeader className="pb-3">
-                      <div className="w-14 h-14 mb-3 bg-gray-800 rounded-lg p-3 flex items-center justify-center border border-white/10 group-hover:border-blue-500/30 transition-all">
-                        <img src={tech.icon} alt={tech.name} className="w-8 h-8 object-contain" />
-                      </div>
-                      <CardTitle className="text-white text-lg">{tech.name}</CardTitle>
-                      <Badge variant="outline" className="mt-1 bg-blue-900/20 text-blue-300 border-blue-500/30">
-                        {tech.category}
-                      </Badge>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-400">{tech.description}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </PageContainer>
-        </section>
-        
-        {/* FAQ Section with updated international references */}
-        <section className="py-20 relative bg-black/30 backdrop-blur-sm">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSg2MywgNjMsIDI1NSwgMC4xKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')] opacity-10 -z-10"></div>
-          <PageContainer>
-            <div className="max-w-3xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Questions Fréquentes</h2>
-                <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto mb-6"></div>
+                  <span className="text-blue-400 uppercase text-sm font-semibold tracking-wider mb-3">Pour en savoir plus</span>
+                  Questions Fréquentes
+                  <span className="block h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mt-6"></span>
+                </motion.h2>
               </div>
               
-              <div className="space-y-6">
+              <div className="space-y-5">
                 {[
                   {
                     question: "Quels types de technologies utilisez-vous pour le développement web ?",
-                    answer: "Nous utilisons les technologies les plus modernes et performantes selon les besoins spécifiques de chaque projet. Pour le front-end : React.js, Vue.js, Angular, Next.js. Pour le back-end : Node.js, Django, Laravel, .NET Core. Pour les bases de données : PostgreSQL, MongoDB, MySQL. Nous adaptons notre stack technologique aux exigences de performance, d'évolutivité et de maintenance de votre projet."
+                    answer: "J'utilise les technologies les plus modernes et performantes selon les besoins spécifiques de chaque projet. Pour le front-end : React.js, Vue.js, Angular, Next.js. Pour le back-end : Node.js, Django, Laravel, .NET Core. Pour les bases de données : PostgreSQL, MongoDB, MySQL. J'adapte ma stack technologique aux exigences de performance, d'évolutivité et de maintenance de votre projet."
                   },
                   {
                     question: "Comment assurez-vous la compatibilité de mes applications avec les marchés internationaux ?",
-                    answer: "Nous prenons en compte les spécificités des marchés internationaux : optimisation pour différentes qualités de connexion internet, intégration des moyens de paiement locaux et internationaux, adaptation au multilinguisme, compatibilité avec une large gamme d'appareils, et optimisation des performances. Notre expérience dans de nombreux pays nous permet de créer des solutions parfaitement adaptées aux réalités de chaque marché."
+                    answer: "Je prends en compte les spécificités des marchés internationaux : optimisation pour différentes qualités de connexion internet, intégration des moyens de paiement locaux et internationaux, adaptation au multilinguisme, compatibilité avec une large gamme d'appareils, et optimisation des performances. Mon expérience dans de nombreux pays me permet de créer des solutions parfaitement adaptées aux réalités de chaque marché."
                   },
                   {
                     question: "Quels sont les délais typiques pour le développement d'un site ou d'une application ?",
-                    answer: "Les délais varient selon la complexité du projet : un site vitrine professionnel peut être livré en 2-4 semaines, un e-commerce personnalisé en 1-3 mois, et une application mobile ou web complexe en 3-6 mois. Nous établissons un planning précis avec des jalons clairs dès le début du projet et travaillons en méthode agile pour vous livrer des versions fonctionnelles régulièrement."
+                    answer: "Les délais varient selon la complexité du projet : un site vitrine professionnel peut être livré en 2-4 semaines, un e-commerce personnalisé en 1-3 mois, et une application mobile ou web complexe en 3-6 mois. J'établis un planning précis avec des jalons clairs dès le début du projet et travaille en méthode agile pour vous livrer des versions fonctionnelles régulièrement."
                   },
                   {
                     question: "Proposez-vous des services de maintenance après le lancement ?",
-                    answer: "Oui, nous offrons plusieurs formules de maintenance : technique (mises à jour de sécurité, corrections de bugs), évolutive (ajout de fonctionnalités), et support utilisateur. Nos contrats de maintenance garantissent la pérennité de votre solution et son adaptation continue aux évolutions technologiques et à vos besoins business."
+                    answer: "Oui, j'offre plusieurs formules de maintenance : technique (mises à jour de sécurité, corrections de bugs), évolutive (ajout de fonctionnalités), et support utilisateur. Mes contrats de maintenance garantissent la pérennité de votre solution et son adaptation continue aux évolutions technologiques et à vos besoins business."
                   },
                   {
                     question: "Comment gérez-vous les projets avec des clients internationaux ?",
-                    answer: "Nous avons une forte expérience de collaboration avec des clients en Europe (France, UK), aux USA et dans de nombreux pays à travers le monde. Nous utilisons des outils collaboratifs efficaces (Slack, Jira, GitHub) et organisons des réunions régulières par visioconférence. Notre équipe est habituée aux projets internationaux et peut s'adapter à différents fuseaux horaires pour assurer une communication fluide."
+                    answer: "J'ai une forte expérience de collaboration avec des clients en Europe (France, UK), aux USA et dans de nombreux pays à travers le monde. J'utilise des outils collaboratifs efficaces (Slack, Jira, GitHub) et organise des réunions régulières par visioconférence. Je suis habitué aux projets internationaux et peux m'adapter à différents fuseaux horaires pour assurer une communication fluide."
                   }
                 ].map((item, idx) => (
                   <motion.div
@@ -780,12 +1132,18 @@ const WebServices = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                   >
-                    <Card className="bg-gray-900/70 backdrop-blur-sm border border-white/10 hover:border-blue-500/30 transition-all">
+                    <Card className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-md border border-white/10 hover:border-blue-500/20 transition-all duration-300">
                       <CardHeader>
-                        <CardTitle className="text-xl text-white">{item.question}</CardTitle>
+                        <CardTitle className="text-xl text-white flex items-start">
+                          <span className="inline-block text-blue-400 mr-3">Q:</span>
+                          {item.question}
+                        </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-gray-300">{item.answer}</p>
+                        <div className="flex">
+                          <span className="inline-block text-blue-400 mr-3">R:</span>
+                          <p className="text-gray-300">{item.answer}</p>
+                        </div>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -793,7 +1151,11 @@ const WebServices = () => {
               </div>
               
               <div className="mt-12 text-center">
-                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white" size="lg" asChild>
+                <Button 
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white border border-white/10 shadow-lg shadow-blue-500/10" 
+                  size="lg" 
+                  asChild
+                >
                   <Link to="/contact">
                     Discuter de votre projet web ou mobile
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -804,91 +1166,92 @@ const WebServices = () => {
           </PageContainer>
         </section>
         
-        {/* Testimonial Section with international references */}
-        <section className="py-20 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent -z-10"></div>
+        {/* CTA Section with enhanced visual impact */}
+        <section className="py-24 relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/10 to-indigo-900/10 -z-10"></div>
           <PageContainer>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Ce que nos clients disent</h2>
-              <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto mb-6"></div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {[
-                {
-                  quote: "Dominique a transformé notre vision en une plateforme e-commerce moderne qui répond parfaitement aux besoins de nos clients au Sénégal et à l'international. La solution intègre parfaitement les moyens de paiement locaux et internationaux.",
-                  author: "Amadou N.",
-                  position: "Directeur Commercial, Retail Company",
-                  location: "Dakar, Sénégal"
-                },
-                {
-                  quote: "Notre application mobile développée par l'équipe de Dominique a multiplié par 3 notre engagement client. Le travail a été livré dans les délais avec une qualité exceptionnelle et un support continu après le lancement.",
-                  author: "Claire T.",
-                  position: "CEO, Startup Fintech",
-                  location: "Paris, France"
-                },
-                {
-                  quote: "La refonte de notre plateforme SaaS par Dominique a permis d'améliorer significativement nos performances et de réduire nos coûts d'infrastructure. Sa compréhension des spécificités des marchés internationaux a été déterminante.",
-                  author: "Michael O.",
-                  position: "CTO, Tech Company",
-                  location: "Londres, UK"
-                }
-              ].map((testimonial, idx) => (
-                <motion.div
-                  key={idx}
-                  className="bg-gray-900/70 backdrop-blur-sm p-8 rounded-xl shadow-md border border-white/10 hover:border-blue-500/30 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: idx * 0.2 }}
-                >
-                  <div className="text-4xl text-blue-500/20 mb-4">"</div>
-                  <p className="text-gray-300 mb-6">{testimonial.quote}</p>
-                  <div>
-                    <p className="font-bold text-white">{testimonial.author}</p>
-                    <p className="text-sm text-gray-400">{testimonial.position}</p>
-                    <p className="text-xs text-blue-400">{testimonial.location}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </PageContainer>
-        </section>
-        
-        {/* CTA Section */}
-        <section className="py-20 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-indigo-900/20 -z-10"></div>
-          <PageContainer>
-            <div className="max-w-5xl mx-auto bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10">
+            <div className="max-w-5xl mx-auto bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10">
               <div className="p-12 md:p-16 relative">
                 {/* Background effects */}
-                <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500 opacity-10 blur-3xl rounded-full"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500 opacity-10 blur-3xl rounded-full"></div>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 opacity-70 blur-3xl rounded-full"></div>
+                <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/5 opacity-70 blur-3xl rounded-full"></div>
                 
                 {/* Code brackets decoration */}
-                <div className="absolute top-8 left-12 text-blue-500/20 text-5xl font-mono">{"{}"}</div>
-                <div className="absolute bottom-8 right-12 text-indigo-500/20 text-5xl font-mono">{"</>"}</div>
+                <div className="absolute top-8 left-8 text-blue-500/10 text-7xl font-mono transform -rotate-12">{"{}"}</div>
+                <div className="absolute bottom-8 right-8 text-indigo-500/10 text-7xl font-mono transform rotate-12">{"</>"}</div>
+                
+                {/* Browser window mockup */}
+                <div className="absolute right-12 top-12 w-32 h-20 bg-gray-900/30 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden opacity-40 rotate-6 hidden lg:block">
+                  <div className="h-4 bg-gray-800/70 flex items-center px-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-500/70 mr-1"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/70 mr-1"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-green-500/70"></div>
+                  </div>
+                  <div className="p-2">
+                    <div className="h-1 w-full bg-blue-500/20 rounded mb-1"></div>
+                    <div className="h-1 w-2/3 bg-blue-500/20 rounded mb-1"></div>
+                    <div className="h-3 w-full bg-blue-500/10 rounded mb-1"></div>
+                  </div>
+                </div>
+                
+                {/* Mobile mockup */}
+                <div className="absolute left-14 bottom-10 w-16 h-28 bg-gray-900/30 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden opacity-40 -rotate-6 hidden lg:block">
+                  <div className="h-1.5 w-4 bg-gray-800/70 rounded-b mx-auto"></div>
+                  <div className="mt-1.5 px-1.5">
+                    <div className="h-1 w-full bg-indigo-500/20 rounded mb-1"></div>
+                    <div className="h-4 w-full bg-indigo-500/10 rounded mb-1"></div>
+                    <div className="h-1 w-2/3 bg-indigo-500/20 rounded"></div>
+                  </div>
+                </div>
                 
                 <div className="relative z-10 text-center">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+                  <motion.h2 
+                    className="text-3xl md:text-4xl font-bold mb-6 text-white"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                  >
                     Prêt à lancer votre projet digital ?
-                  </h2>
-                  <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
-                    Contactez-moi pour discuter de vos besoins et obtenir une proposition adaptée à votre contexte et à vos objectifs.
-                  </p>
+                  </motion.h2>
+                  <motion.p 
+                    className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                  >
+                    Contactez-moi pour discuter de vos besoins et obtenir une proposition 
+                    adaptée à votre contexte et à vos objectifs.
+                  </motion.p>
                   
-                  <div className="flex flex-wrap justify-center gap-4">
-                    <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white" asChild>
+                  <motion.div 
+                    className="flex flex-wrap justify-center gap-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    <Button 
+                      size="lg" 
+                      className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white border border-white/10 shadow-lg shadow-blue-500/20" 
+                      asChild
+                    >
                       <Link to="/contact">
                         <Rocket className="mr-2 h-5 w-5" /> Lancer votre projet
                       </Link>
                     </Button>
-                    <Button size="lg" variant="outline" className="border-white/50 hover:bg-white/10 text-white" asChild>
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="border-white/30 hover:bg-white/10 text-white backdrop-blur-sm" 
+                      asChild
+                    >
                       <Link to="/services">
                         Explorer d'autres services
                       </Link>
                     </Button>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
@@ -902,4 +1265,3 @@ const WebServices = () => {
 };
 
 export default WebServices;
-
