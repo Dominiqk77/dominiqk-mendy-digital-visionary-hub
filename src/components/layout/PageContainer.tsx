@@ -27,7 +27,7 @@ const PageContainer = ({
 
   return (
     <div className={cn(
-      "w-full px-4 md:px-6 mx-auto overflow-x-hidden", 
+      "w-full px-4 md:px-6 mx-auto overflow-x-hidden relative z-10", 
       !noMaxWidth && (fullWidth ? "max-w-[1600px]" : "max-w-[1400px]"),
       className
     )}>

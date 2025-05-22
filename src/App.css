@@ -67,6 +67,18 @@ div, section, article, aside, main, header, footer, nav {
   overflow-x: hidden;
 }
 
+/* Enhanced footer styling to ensure consistency */
+footer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
 /* Better style for text selection */
 ::selection {
   background-color: rgba(155, 135, 245, 0.3);
@@ -159,4 +171,35 @@ img.fade-in.loaded {
 img {
   max-width: 100%;
   height: auto;
+}
+
+/* Nebula effects for consistent space theme */
+.nebula-glow-purple {
+  position: absolute;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0) 70%);
+  border-radius: 50%;
+  z-index: -1;
+  filter: blur(30px);
+  animation: pulse-slow 8s infinite alternate ease-in-out;
+}
+
+.nebula-glow-blue {
+  position: absolute;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%);
+  border-radius: 50%;
+  z-index: -1;
+  filter: blur(30px);
+  animation: pulse-slow 8s infinite alternate ease-in-out;
+  animation-delay: 2s;
+}
+
+@keyframes pulse-slow {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
 }
