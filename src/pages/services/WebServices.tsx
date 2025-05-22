@@ -810,7 +810,7 @@ const WebServices = () => {
                       <Server size={22} className="text-purple-400" />
                       Développement Backend
                     </CardTitle>
-                    <CardDescription className="text-gray-300">
+                    <CardDescription className="text-zinc-950">
                       APIs robustes et bases de données optimisées pour des performances maximales
                     </CardDescription>
                   </CardHeader>
