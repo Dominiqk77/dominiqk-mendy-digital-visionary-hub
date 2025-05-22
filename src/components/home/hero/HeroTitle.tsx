@@ -25,14 +25,14 @@ const HeroTitle = () => {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="mt-24 md:mt-16 relative z-10" // Added relative z-10 to ensure content appears above background
+      className="mt-24 md:mt-16" // Increased top margin to create more space from the header
     >
       <motion.div 
         className="inline-block px-4 py-1.5 bg-portfolio-purple/10 backdrop-blur-sm rounded-full text-portfolio-purple border border-portfolio-purple/20 text-sm font-medium mb-4 float-right md:float-none mr-2" // Added more bottom margin (mb-4) and right margin (mr-2)
         variants={itemVariants}
       >
         <div className="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-portfolio-purple animate-pulse drop-shadow-md">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-portfolio-purple animate-pulse">
             <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 1 7.92 12.446a1 1 0 0 1 -.813.493h-1.5a1 1 0 0 1 -1 -1v-4.5a1 1 0 0 1 1 -1h1.5a1 1 0 0 1 .83 .445a5.5 5.5 0 0 0 -7.424 -3.997a.9 .9 0 0 0 -.576 .919v3.138a1 1 0 0 1 -1.316 .948l-2.825 -1.13a1 1 0 0 1 -.66 -1a8.5 8.5 0 0 1 5.333 -7.263a8.25 8.25 0 0 1 2.138 -.299"></path>
             <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
             <path d="M12 12m-3.5 0a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0"></path>
@@ -87,3 +87,4 @@ const HeroTitle = () => {
 };
 
 export default HeroTitle;
+
