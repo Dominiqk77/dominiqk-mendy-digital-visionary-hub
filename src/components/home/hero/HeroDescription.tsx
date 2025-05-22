@@ -44,7 +44,7 @@ const HeroDescription = () => {
         </span>, 
         l'<span className="text-portfolio-purple font-semibold shimmer-text mx-1">
           intelligence artificielle
-        </span>, et le 
+        </span> depuis 2022, et le 
         <span className="text-portfolio-cyan font-semibold mx-1 pulse-glow">
           marketing digital
         </span> pour les entreprises innovantes à travers l'Afrique et l'Europe.
