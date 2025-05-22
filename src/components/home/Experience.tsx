@@ -44,6 +44,71 @@ const Experience = () => {
       ]
     },
     {
+      company: "AGRO FOOD INDUSTRIE",
+      position: "Responsable Commercial & Digital",
+      period: "2018 - 2020",
+      description: "Direction commerciale et transformation digitale pour une entreprise agroalimentaire à Marrakech, incluant la stratégie de marque et le développement commercial.",
+      locations: ["Marrakech, Maroc"],
+      achievements: [
+        "Mise en place d'un réseau commercial robuste et développement de partenariats stratégiques",
+        "Création complète de l'identité visuelle: branding, supports marketing, site web et présence digitale",
+        "Déploiement d'une stratégie marketing multicanal propulsant la notoriété de la nouvelle gamme de produits",
+        "Augmentation des ventes de 60% en 18 mois grâce aux initiatives marketing et commerciales"
+      ]
+    },
+    {
+      company: "COME AND GO LTD",
+      position: "Responsable Web & Stratégie Digitale",
+      period: "2016 - 2017",
+      description: "Pilotage de la stratégie digitale pour une entreprise britannique spécialisée dans le secteur touristique, avec focus sur l'acquisition de clientèle anglaise.",
+      locations: ["Royaume-Uni"],
+      achievements: [
+        "Conception et développement intégral du site web corporate et de l'identité visuelle de la marque",
+        "Élaboration et déploiement d'une stratégie marketing digitale ciblant spécifiquement le marché touristique britannique",
+        "Création de contenus multilingues optimisés générant une augmentation de trafic de 120%",
+        "Mise en place d'une stratégie SEO/SEM aboutissant à un positionnement dans le top 5 des résultats de recherche"
+      ]
+    },
+    {
+      company: "PUBLI TICKET FRANCE",
+      position: "Représentant Officiel au Maroc",
+      period: "2018 - 2019",
+      description: "Introduction et développement du concept novateur de 'ticket de caisse sponsorisé' sur le marché marocain, pilotant l'expansion internationale de l'entreprise française.",
+      locations: ["Marrakech, Maroc"],
+      achievements: [
+        "Introduction pionnière du concept publicitaire 'ticket de caisse sponsorisé' sur le marché marocain",
+        "Développement et gestion de partenariats stratégiques avec des enseignes commerciales majeures",
+        "Coordination des opérations commerciales et adaptation du modèle business au marché local",
+        "Acquisition de 15+ partenaires commerciaux majeurs dans les 6 premiers mois d'activité"
+      ]
+    },
+    {
+      company: "FREELANCE",
+      position: "Web & Digital Consultant",
+      period: "2010 - 2023",
+      description: "Conseil stratégique et services digitaux haut de gamme pour une clientèle internationale prestigieuse incluant des personnalités (acteur hollywoodien, politiciens) et des entreprises de premier plan.",
+      locations: ["International"],
+      achievements: [
+        "Collaboration avec des personnalités de renom incluant un acteur hollywoodien et des figures politiques",
+        "Fourniture de services complets: webdesign, stratégie publicitaire, branding et gestion d'e-réputation",
+        "Développement de solutions digitales sur mesure pour des clients premium: Agence Travel-Evasion, Mp-Partenariat, Riads de luxe",
+        "Conception et implémentation de stratégies de communication générant une moyenne de 80% d'augmentation de visibilité"
+      ]
+    },
+    {
+      company: "CENTRES D'APPEL",
+      position: "Formateur en Communication & Marketing",
+      period: "2012 - 2016",
+      description: "Formation spécialisée en techniques de communication commerciale, téléprospection et marketing pour des centres d'appel à Dakar et Marrakech.",
+      locations: ["Dakar, Sénégal", "Marrakech, Maroc"],
+      achievements: [
+        "Formation de plus de 100 commerciaux et agents aux techniques avancées de communication et persuasion",
+        "Développement de programmes de formation personnalisés sur la téléprospection et la relation client",
+        "Conception de modules spécifiques sur le marketing produit et les techniques de vente cross-canal",
+        "Amélioration moyenne de 45% des taux de conversion des équipes formées"
+      ]
+    },
+    {
       company: "MEDINA LOFT & SPA",
       position: "Chef de Projet Digital & Senior Developer",
       period: "2016 - 2018",
@@ -60,7 +125,7 @@ const Experience = () => {
       company: "RIAD MABROUK & LUXURY HOSPITALITY",
       position: "Directeur des Opérations & Innovation Digitale",
       period: "2015 - 2018",
-      description: "Direction des opérations et transformation digitale pour un portefeuille d'établissements hôteliers de luxe �� Marrakech, incluant le prestigieux Riad Mabrouk et plusieurs propriétés partenaires.",
+      description: "Direction des opérations et transformation digitale pour un portefeuille d'établissements hôteliers de luxe à Marrakech, incluant le prestigieux Riad Mabrouk et plusieurs propriétés partenaires.",
       locations: ["Marrakech, Maroc"],
       achievements: [
         "Augmentation de 60% du taux d'occupation grâce à l'implémentation de stratégies digitales innovantes",
