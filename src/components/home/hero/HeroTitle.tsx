@@ -1,24 +1,8 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 
 const HeroTitle = () => {
-  const [isTyping, setIsTyping] = useState(true);
-  const [isErasing, setIsErasing] = useState(false);
-  const name = "Dominiqk Mendy";
-  const [displayText, setDisplayText] = useState("");
-  const [cursorVisible, setCursorVisible] = useState(true);
-  const [colorIndex, setColorIndex] = useState(0);
-
-  // Color schemes for animation
-  const colorSchemes = [
-    "from-[#00FFFF] via-[#7B68EE] to-[#FF1493]",
-    "from-[#FF5F1F] via-[#FFFF00] to-[#7FFF00]",
-    "from-[#4B0082] via-[#9370DB] to-[#00BFFF]",
-    "from-[#FF1493] via-[#FF69B4] to-[#FFA07A]",
-    "from-[#32CD32] via-[#00FA9A] to-[#00FFFF]"
-  ];
-
   // Animation variants for staggered children
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -35,89 +19,6 @@ const HeroTitle = () => {
     hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0 }
   };
-
-  // Advanced typing animation with erase and rewrite cycle - fixed to properly start with "D"
-  useEffect(() => {
-    let typingTimer: ReturnType<typeof setTimeout>;
-    let erasingTimer: ReturnType<typeof setTimeout>;
-    
-    // Initialize with empty text
-    setDisplayText("");
-    
-    // Function to type the name character by character
-    const typeText = () => {
-      setIsTyping(true);
-      setIsErasing(false);
-      let i = 0;
-      
-      const typingInterval = setInterval(() => {
-        if (i < name.length) {
-          setDisplayText(prev => prev + name.charAt(i));
-          i++;
-        } else {
-          clearInterval(typingInterval);
-          setIsTyping(false);
-          
-          // After fully typing, wait before starting to erase
-          erasingTimer = setTimeout(() => {
-            startErasing();
-          }, 1500);
-        }
-      }, 100);
-      
-      return () => {
-        clearInterval(typingInterval);
-        clearTimeout(erasingTimer);
-      };
-    };
-    
-    // Function to erase the name character by character
-    const startErasing = () => {
-      setIsErasing(true);
-      
-      const erasingInterval = setInterval(() => {
-        setDisplayText(prev => {
-          if (prev.length > 0) {
-            return prev.substring(0, prev.length - 1);
-          } else {
-            clearInterval(erasingInterval);
-            setIsErasing(false);
-            
-            // After fully erasing, change color and start typing again
-            setColorIndex(prevIndex => (prevIndex + 1) % colorSchemes.length);
-            
-            // Wait before starting to type again
-            typingTimer = setTimeout(() => {
-              typeText();
-            }, 500);
-            return prev;
-          }
-        });
-      }, 80);
-      
-      return () => {
-        clearInterval(erasingInterval);
-        clearTimeout(typingTimer);
-      };
-    };
-    
-    // Start the typing animation after a short delay
-    const initialTimer = setTimeout(() => {
-      typeText();
-    }, 800);
-    
-    // Cursor blinking effect
-    const cursorInterval = setInterval(() => {
-      setCursorVisible(prev => !prev);
-    }, 500);
-    
-    return () => {
-      clearTimeout(initialTimer);
-      clearTimeout(typingTimer);
-      clearTimeout(erasingTimer);
-      clearInterval(cursorInterval);
-    };
-  }, []);
   
   return (
     <motion.div
@@ -144,28 +45,12 @@ const HeroTitle = () => {
         className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight font-montserrat tracking-tighter"
         variants={itemVariants}
       >
-        {/* Code-themed typing animation for name with Poppins font and fixed height container */}
-        <div className="flex items-center py-2">
-          <span className="text-white opacity-70 mr-2 text-sm font-light">&gt;</span>
-          <div className="relative h-12 sm:h-16 md:h-20 flex items-center">
-            {/* Animated binary background */}
-            <div className="absolute inset-0 opacity-10 overflow-hidden pointer-events-none">
-              <div className="text-[10px] text-portfolio-blue whitespace-pre">
-                01001000 10101010 01101 01001100 01010
-              </div>
-            </div>
-            
-            {/* Typed Name with changing colors - font changed to Poppins and size reduced */}
-            <code className={`relative z-10 bg-clip-text text-transparent bg-gradient-to-r ${colorSchemes[colorIndex]} font-poppins text-2xl sm:text-3xl md:text-4xl`}>
-              {displayText}
-              {(isTyping || isErasing || displayText.length === 0) && cursorVisible && 
-                <span className="animate-caret-blink ml-1 inline-block w-1 h-6 sm:h-8 bg-white"></span>
-              }
-            </code>
-          </div>
-        </div>
+        {/* Enhanced animated gradient for main name with improved timing */}
+        <span className="block animate-gradient-slow bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink bg-clip-text text-transparent bg-[length:400%_400%] transition-all duration-500 hover:scale-105 hover:shadow-glow-purple">
+          Dominiqk Mendy
+        </span>
         
-        {/* Subtitle with enhanced animation and typography */}
+        {/* Restructured subtitle with enhanced animation and typography */}
         <div className="mt-4 flex flex-col items-center md:items-start">
           <motion.span 
             className="text-white text-2xl sm:text-4xl md:text-5xl font-bold tracking-wider font-space uppercase relative shadow-glow"
@@ -202,3 +87,4 @@ const HeroTitle = () => {
 };
 
 export default HeroTitle;
+
