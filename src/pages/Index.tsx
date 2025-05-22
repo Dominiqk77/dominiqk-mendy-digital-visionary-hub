@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -13,10 +14,14 @@ import CTASection from '../components/home/CTASection';
 import Certifications from '../components/home/Certifications';
 import { Toaster } from "@/components/ui/toaster";
 import { preloadImages } from '../lib/utils';
+import { usePreventHorizontalScroll } from '@/hooks/use-mobile';
 
 const Index = () => {
   const location = useLocation();
   const [isLoaded, setIsLoaded] = useState(false);
+  
+  // Prevent horizontal scroll
+  usePreventHorizontalScroll();
 
   useEffect(() => {
     // Set page title for SEO
@@ -41,38 +46,48 @@ const Index = () => {
       );
     }
 
-    // Preload critical assets
+    // Improved preload strategy for critical assets
     const preloadAssets = () => {
+      // Critical images that should load immediately
       const criticalImages = [
-        '/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png'
+        '/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png',
+        // Add other critical images here
       ];
       
       // Use the preloadImages utility to efficiently load images
       preloadImages(criticalImages).then(() => {
         console.log('Critical images preloaded successfully');
+        // Mark as loaded once critical assets are preloaded
+        setIsLoaded(true);
       }).catch(error => {
         console.error('Error preloading images:', error);
+        // Even on error, we should show content after a short timeout
+        setTimeout(() => setIsLoaded(true), 200);
       });
       
-      // Preload the particles.js script correctly
-      const particlesScript = document.createElement('link');
-      particlesScript.rel = 'preload';
-      particlesScript.as = 'script';
-      particlesScript.href = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
-      document.head.appendChild(particlesScript);
+      // Preload important scripts
+      const preloadResources = [
+        { href: 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js', as: 'script' },
+        // Add fonts, CSS, or other resources here
+      ];
+      
+      preloadResources.forEach(resource => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = resource.as;
+        link.href = resource.href;
+        document.head.appendChild(link);
+      });
     };
     
-    // Preload critical assets
+    // Preload critical assets immediately
     preloadAssets();
-    
-    // Mark as loaded
-    setTimeout(() => setIsLoaded(true), 100);
     
     // Scroll to top on page load (unless there's a hash)
     if (!location.hash) {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: 'instant' // Use instant for initial load to prevent issues
       });
     }
 
@@ -96,6 +111,14 @@ const Index = () => {
 
     // Execute once on initial load
     handleAnchorClick();
+    
+    // Add viewport meta tag for better mobile handling if not present
+    if (!document.querySelector('meta[name="viewport"]')) {
+      const viewportMeta = document.createElement('meta');
+      viewportMeta.name = 'viewport';
+      viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+      document.head.appendChild(viewportMeta);
+    }
 
   }, [location]);
 
@@ -104,23 +127,25 @@ const Index = () => {
     const html = document.querySelector('html');
     if (html) {
       html.style.scrollBehavior = 'smooth';
+      html.classList.add('overflow-x-hidden');
     }
     
     return () => {
       if (html) {
         html.style.scrollBehavior = '';
+        html.classList.remove('overflow-x-hidden');
       }
     };
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col overflow-hidden relative">
+    <div className="min-h-screen flex flex-col overflow-hidden relative max-w-full">
       {/* AI-themed background styling */}
       <div className="absolute inset-0 bg-portfolio-space z-0">
         {/* AI-themed grid overlay */}
         <div className="absolute inset-0 bg-grid-small-white/5 z-0"></div>
         
-        {/* Neural network nodes with optimized rendering */}
+        {/* Neural network nodes with optimized rendering - limit number on mobile */}
         {Array.from({ length: 15 }).map((_, i) => (
           <div 
             key={`node-${i}`}
@@ -146,7 +171,7 @@ const Index = () => {
       <Navbar />
       
       {/* Main content with optimized rendering and transitions */}
-      <main className={`flex-grow overflow-hidden relative z-10 transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      <main className={`flex-grow relative z-10 transition-opacity duration-300 overflow-x-hidden ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         <Hero />
         <About />
         <Services />

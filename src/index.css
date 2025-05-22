@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -246,9 +245,26 @@
   * {
     @apply border-border;
   }
+  
+  /* Global scrolling behavior and layout optimization */
+  html {
+    @apply overflow-x-hidden scroll-smooth;
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    -webkit-overflow-scrolling: touch;
+  }
+  
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden relative w-full;
     font-feature-settings: "rlig" 1, "calt" 1;
+    /* Add mobile improvements */
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Remove horizontal scrolling on all elements */
+  body, div, section, article, main, header, footer, nav {
+    max-width: 100vw;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -263,6 +279,30 @@
   
   h2.section-title {
     @apply text-2xl md:text-3xl font-bold mb-4 relative;
+  }
+
+  /* Make images responsive by default */
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Optimize mobile layout */
+  @media (max-width: 767px) {
+    body {
+      font-size: 0.95rem;
+    }
+    
+    h1 {
+      @apply text-3xl;
+    }
+    
+    h2 {
+      @apply text-2xl;
+    }
+    
+    h1.page-title {
+      @apply text-3xl;
+    }
   }
 }
 
@@ -522,5 +562,42 @@
   .space-badge {
     @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-portfolio-purple to-portfolio-blue text-white shadow-sm;
   }
+  
+  /* Improved mobile layout utilities */
+  .mobile-container {
+    @apply w-full px-4 py-4 mx-auto;
+  }
+  
+  .mobile-section {
+    @apply w-full py-8 overflow-x-hidden;
+  }
+  
+  /* Force center content horizontally */
+  .center-content {
+    @apply mx-auto max-w-full;
+  }
+  
+  /* No horizontal overflow allowed */
+  .no-horizontal-overflow {
+    @apply overflow-x-hidden max-w-full;
+  }
+  
+  /* Improved image lazy loading with blur up effect */
+  .lazy-image {
+    @apply transition-opacity duration-300;
+  }
+  
+  .lazy-image.loading {
+    @apply opacity-0;
+  }
+  
+  .lazy-image.loaded {
+    @apply opacity-100;
+  }
+  
+  /* Enhanced scroll experience */
+  .smooth-scroll-container {
+    @apply scroll-smooth;
+    -webkit-overflow-scrolling: touch;
+  }
 }
-
