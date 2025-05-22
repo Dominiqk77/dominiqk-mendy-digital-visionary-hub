@@ -45,9 +45,29 @@ const HeroTitle = () => {
         className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight font-montserrat tracking-tighter"
         variants={itemVariants}
       >
-        {/* Enhanced animated gradient for main name with improved timing */}
-        <span className="block animate-gradient-slow bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink bg-clip-text text-transparent bg-[length:400%_400%] transition-all duration-500 hover:scale-105 hover:shadow-glow-purple">
-          Dominiqk Mendy
+        {/* Enhanced animated gradient name with dynamic cyber effect */}
+        <span 
+          className="block relative overflow-hidden 
+            before:absolute before:inset-0 before:bg-gradient-to-r before:from-portfolio-blue/20 before:via-portfolio-purple/20 before:to-portfolio-pink/20 before:animate-shimmer before:bg-[length:200%_100%] 
+            after:absolute after:inset-0 after:bg-gradient-to-r after:from-portfolio-blue/5 after:via-portfolio-purple/5 after:to-portfolio-pink/5 after:animate-pulse-slow
+            animate-cosmic-pulse bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-pink bg-clip-text text-transparent bg-[length:400%_400%] 
+            transition-all duration-500 
+            hover:scale-105 hover:shadow-cosmic-lg"
+        >
+          <motion.span 
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 120, 
+              delay: 0.4,
+              duration: 0.8
+            }}
+            className="inline-block relative"
+          >
+            Dominiqk Mendy
+            <div className="absolute -inset-1 rounded-lg blur-sm bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-pink opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-text"></div>
+          </motion.span>
         </span>
         
         {/* Restructured subtitle with enhanced animation and typography */}
@@ -87,4 +107,3 @@ const HeroTitle = () => {
 };
 
 export default HeroTitle;
-
