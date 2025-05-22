@@ -857,7 +857,7 @@ const WebServices = () => {
                         <div className="w-2 h-2 bg-cyan-400 rounded-full group-hover:scale-150 transition-transform"></div>
                         <div>
                           <h4 className="text-white font-medium">{tech.name}</h4>
-                          <p className="text-sm text-gray-400">{tech.desc}</p>
+                          <p className="text-sm text-zinc-950">{tech.desc}</p>
                         </div>
                       </div>)}
                   </CardContent>
