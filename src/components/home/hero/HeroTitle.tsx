@@ -1,8 +1,13 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const HeroTitle = () => {
+  const [isTyping, setIsTyping] = useState(false);
+  const name = "Dominiqk Mendy";
+  const [displayText, setDisplayText] = useState("");
+  const [cursorVisible, setCursorVisible] = useState(true);
+
   // Animation variants for staggered children
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -19,6 +24,35 @@ const HeroTitle = () => {
     hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0 }
   };
+
+  // Typing animation effect
+  useEffect(() => {
+    const typingTimeout = setTimeout(() => {
+      setIsTyping(true);
+      let i = 0;
+      const typingInterval = setInterval(() => {
+        if (i < name.length) {
+          setDisplayText(prev => prev + name.charAt(i));
+          i++;
+        } else {
+          clearInterval(typingInterval);
+          setIsTyping(false);
+        }
+      }, 100);
+      
+      return () => clearInterval(typingInterval);
+    }, 800);
+    
+    // Cursor blinking effect
+    const cursorInterval = setInterval(() => {
+      setCursorVisible(prev => !prev);
+    }, 500);
+    
+    return () => {
+      clearTimeout(typingTimeout);
+      clearInterval(cursorInterval);
+    };
+  }, []);
   
   return (
     <motion.div
@@ -45,10 +79,31 @@ const HeroTitle = () => {
         className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight font-montserrat tracking-tighter"
         variants={itemVariants}
       >
-        {/* Enhanced animated gradient for main name with improved timing */}
-        <span className="block animate-gradient-slow bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink bg-clip-text text-transparent bg-[length:400%_400%] transition-all duration-500 hover:scale-105 hover:shadow-glow-purple">
-          Dominiqk Mendy
-        </span>
+        {/* Code-themed typing animation for name */}
+        <div className="relative inline-block font-mono rounded bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-pink p-0.5 shadow-lg hover:shadow-glow-purple transition-all duration-300">
+          <div className="flex items-center bg-portfolio-space px-4 py-1 rounded">
+            <span className="text-white opacity-70 mr-2 text-sm font-light">&gt;</span>
+            <div className="relative overflow-hidden">
+              {/* Animated binary background */}
+              <div className="absolute inset-0 opacity-10 overflow-hidden pointer-events-none">
+                <div className="text-[10px] text-portfolio-blue whitespace-pre">
+                  01001000 10101010 01101 01001100 01010
+                </div>
+              </div>
+              
+              {/* Typed Name */}
+              <code className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-[#00FFFF] via-[#7B68EE] to-[#FF1493]">
+                {displayText}
+                {isTyping && cursorVisible && <span className="animate-caret-blink ml-1 inline-block w-1 h-8 bg-white"></span>}
+                {!isTyping && cursorVisible && <span className="animate-caret-blink ml-1 inline-block w-1 h-8 bg-white"></span>}
+              </code>
+            </div>
+          </div>
+          
+          {/* Decorative code syntax elements */}
+          <div className="absolute -bottom-1 -right-1 text-xs text-portfolio-blue opacity-80">{`}`}</div>
+          <div className="absolute -top-1 -left-1 text-xs text-portfolio-pink opacity-80">{`{`}</div>
+        </div>
         
         {/* Restructured subtitle with enhanced animation and typography */}
         <div className="mt-4 flex flex-col items-center md:items-start">
@@ -87,4 +142,3 @@ const HeroTitle = () => {
 };
 
 export default HeroTitle;
-
