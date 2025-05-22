@@ -42,200 +42,96 @@ const Experience = () => {
         "Pionnier dans l'intégration de l'IA et des technologies émergentes pour l'innovation business"
       ]
     },
+    // Nouvelles expériences au Maroc orientées hôtellerie, riads et développement web
     {
-      company: "AGRO FOOD INDUSTRIE",
-      position: "Responsable Commercial & Digital",
-      period: "2018 - 2020",
-      description: "Direction commerciale et transformation digitale pour une entreprise agroalimentaire à Marrakech, incluant la stratégie de marque et le développement commercial.",
-      locations: ["Marrakech, Maroc"],
-      achievements: [
-        "Mise en place d'un réseau commercial robuste et développement de partenariats stratégiques",
-        "Création complète de l'identité visuelle: branding, supports marketing, site web et présence digitale",
-        "Déploiement d'une stratégie marketing multicanal propulsant la notoriété de la nouvelle gamme de produits",
-        "Augmentation des ventes de 60% en 18 mois grâce aux initiatives marketing et commerciales"
-      ]
-    },
-    {
-      company: "COME AND GO LTD",
-      position: "Responsable Web & Stratégie Digitale",
-      period: "2016 - 2017",
-      description: "Pilotage de la stratégie digitale pour une entreprise britannique spécialisée dans le secteur touristique, avec focus sur l'acquisition de clientèle anglaise.",
-      locations: ["Royaume-Uni"],
-      achievements: [
-        "Conception et développement intégral du site web corporate et de l'identité visuelle de la marque",
-        "Élaboration et déploiement d'une stratégie marketing digitale ciblant spécifiquement le marché touristique britannique",
-        "Création de contenus multilingues optimisés générant une augmentation de trafic de 120%",
-        "Mise en place d'une stratégie SEO/SEM aboutissant à un positionnement dans le top 5 des résultats de recherche"
-      ]
-    },
-    {
-      company: "PUBLI TICKET FRANCE",
-      position: "Représentant Officiel au Maroc",
-      period: "2018 - 2019",
-      description: "Introduction et développement du concept novateur de 'ticket de caisse sponsorisé' sur le marché marocain, pilotant l'expansion internationale de l'entreprise française.",
-      locations: ["Marrakech, Maroc"],
-      achievements: [
-        "Introduction pionnière du concept publicitaire 'ticket de caisse sponsorisé' sur le marché marocain",
-        "Développement et gestion de partenariats stratégiques avec des enseignes commerciales majeures",
-        "Coordination des opérations commerciales et adaptation du modèle business au marché local",
-        "Acquisition de 15+ partenaires commerciaux majeurs dans les 6 premiers mois d'activité"
-      ]
-    },
-    {
-      company: "FREELANCE",
-      position: "Web & Digital Consultant",
-      period: "2010 - 2023",
-      description: "Conseil stratégique et services digitaux haut de gamme pour une clientèle internationale prestigieuse incluant des personnalités (acteur hollywoodien, politiciens) et des entreprises de premier plan.",
-      locations: ["International"],
-      achievements: [
-        "Collaboration avec des personnalités de renom incluant un acteur hollywoodien et des figures politiques",
-        "Fourniture de services complets: webdesign, stratégie publicitaire, branding et gestion d'e-réputation",
-        "Développement de solutions digitales sur mesure pour des clients premium: Agence Travel-Evasion, Mp-Partenariat, Riads de luxe",
-        "Conception et implémentation de stratégies de communication générant une moyenne de 80% d'augmentation de visibilité"
-      ]
-    },
-    {
-      company: "CENTRES D'APPEL",
-      position: "Formateur en Communication & Marketing",
-      period: "2012 - 2016",
-      description: "Formation spécialisée en techniques de communication commerciale, téléprospection et marketing pour des centres d'appel à Dakar et Marrakech.",
-      locations: ["Dakar, Sénégal", "Marrakech, Maroc"],
-      achievements: [
-        "Formation de plus de 100 commerciaux et agents aux techniques avancées de communication et persuasion",
-        "Développement de programmes de formation personnalisés sur la téléprospection et la relation client",
-        "Conception de modules spécifiques sur le marketing produit et les techniques de vente cross-canal",
-        "Amélioration moyenne de 45% des taux de conversion des équipes formées"
-      ]
-    },
-    {
-      company: "MEDINA LOFT & SPA",
-      position: "Chef de Projet Digital & Senior Developer",
-      period: "2016 - 2018",
-      description: "Gestion complète de la stratégie digitale et développement technique pour Medina Loft & Spa, établissement hôtelier de luxe à Marrakech. Direction des projets de transformation numérique et gestion de la présence en ligne de l'établissement.",
-      locations: ["Marrakech, Maroc"],
-      achievements: [
-        "Développement et déploiement du système de réservation en ligne augmentant les réservations directes de 85%",
-        "Gestion de la présence sur les réseaux sociaux avec une croissance de 200% de l'engagement",
-        "Implémentation d'une stratégie SEO/SEA multipliant par 3 la visibilité en ligne",
-        "Création et maintenance d'une application mobile de conciergerie personnalisée"
-      ]
-    },
-    {
-      company: "RIAD MABROUK & LUXURY HOSPITALITY",
-      position: "Directeur des Opérations & Innovation Digitale",
-      period: "2015 - 2018",
-      description: "Direction des opérations et transformation digitale pour un portefeuille d'établissements hôteliers de luxe à Marrakech, incluant le prestigieux Riad Mabrouk et plusieurs propriétés partenaires.",
-      locations: ["Marrakech, Maroc"],
-      achievements: [
-        "Augmentation de 60% du taux d'occupation grâce à l'implémentation de stratégies digitales innovantes",
-        "Mise en place d'un système de gestion hôtelière intégré optimisant l'expérience client",
-        "Développement de partenariats stratégiques avec des plateformes de réservation premium",
-        "Formation et supervision d'une équipe de 50+ collaborateurs aux standards internationaux de l'hôtellerie de luxe"
-      ]
-    },
-    // Nouvelles expériences fictives au Maroc
-    {
-      company: "ROYAL ATLAS TECHNOLOGIES",
-      position: "Directeur de la Transformation Numérique",
-      period: "2019 - 2022",
-      description: "Pilotage de la stratégie de transformation numérique pour l'un des plus grands groupes hôteliers de Marrakech, avec déploiement d'innovations technologiques à travers 15+ établissements.",
-      locations: ["Marrakech, Maroc"],
-      achievements: [
-        "Conception et implémentation d'un système de gestion hôtelière intelligent utilisé par +500 employés",
-        "Développement d'une application mobile primée augmentant le taux de fidélité client de 70%",
-        "Pilotage de l'intégration d'une solution IA pour l'optimisation du yield management générant +35% de revenus",
-        "Mise en place d'un programme innovant de formation digitale pour 200+ collaborateurs"
-      ]
-    },
-    {
-      company: "CASABLANCA SMART CITY INITIATIVE",
-      position: "Conseiller Principal en Innovation Urbaine",
-      period: "2020 - 2022",
-      description: "Consultation stratégique pour le projet pilote de ville intelligente à Casablanca, travaillant en étroite collaboration avec les autorités municipales et les investisseurs internationaux.",
-      locations: ["Casablanca, Maroc"],
-      achievements: [
-        "Conception du framework d'architecture IoT adopté comme standard pour les futures expansions urbaines",
-        "Développement de l'application citoyenne Casa-Connect téléchargée par +50 000 résidents en 6 mois",
-        "Implémentation de systèmes de gestion intelligente du trafic réduisant les congestions de 30%",
-        "Organisation du premier hackathon Smart City du Maroc avec 500+ participants internationaux"
-      ]
-    },
-    {
-      company: "TANGER MED DIGITAL LABS",
-      position: "Responsable Innovation & IA",
-      period: "2018 - 2020",
-      description: "Direction des initiatives d'innovation digitale au sein du plus grand port de Méditerranée et d'Afrique, avec focus sur l'automatisation et l'intelligence artificielle appliquée à la logistique maritime.",
-      locations: ["Tanger, Maroc"],
-      achievements: [
-        "Développement d'un algorithme prédictif optimisant les flux logistiques, réduisant les délais d'escale de 40%",
-        "Mise en place d'un système de vision par ordinateur pour l'inspection automatisée des conteneurs",
-        "Implémentation d'une plateforme Big Data analysant en temps réel +50 000 mouvements quotidiens",
-        "Création d'un centre d'excellence en IA formant +200 ingénieurs marocains aux technologies de pointe"
-      ]
-    },
-    {
-      company: "RABAT FINTECH VALLEY",
-      position: "Directeur Technique & Architecte Solutions",
+      company: "RIAD ROYAL COLLECTION",
+      position: "Consultant en Transformation Digitale",
       period: "2021 - 2023",
-      description: "Leadership technique au sein de l'initiative gouvernementale visant à positionner Rabat comme hub fintech leader en Afrique du Nord, en partenariat avec la Banque Centrale Marocaine.",
-      locations: ["Rabat, Maroc"],
-      achievements: [
-        "Architecture de la première plateforme blockchain de paiements interbancaires marocaine",
-        "Développement d'un système KYC innovant utilisant la biométrie avancée, adopté par 7 banques majeures",
-        "Implémentation d'une sandbox réglementaire permettant de tester +30 solutions fintech innovantes",
-        "Pilotage du développement du premier stablecoin marocain basé sur le Dirham"
-      ]
-    },
-    {
-      company: "MARRAKECH MEDTECH INNOVATIONS",
-      position: "CTO & Responsable R&D",
-      period: "2017 - 2019",
-      description: "Direction technique et R&D pour une startup pionnière dans le développement de solutions médicales connectées, incubée à la Faculté de Médecine de Marrakech en partenariat avec des investisseurs suisses.",
+      description: "Consultation stratégique et développement digital pour une collection de riads de luxe à Marrakech, avec mise en place d'une présence en ligne premium et optimisation des canaux de réservation.",
       locations: ["Marrakech, Maroc"],
       achievements: [
-        "Développement d'un dispositif médical connecté pour le monitoring cardiaque à distance, utilisé dans 12 cliniques",
-        "Conception d'une plateforme IoT médicale conforme aux normes HIPAA et GDPR traitant les données de 10 000+ patients",
-        "Obtention de 2 brevets internationaux pour des innovations en télémédecine",
-        "Sécurisation d'un financement Serie A de 2,5M€ basé sur les prototypes développés"
+        "Développement de 5 sites web premium générant une augmentation de 75% des réservations directes",
+        "Implémentation d'un système de réservation centralisé intégré à Booking.com et Expedia",
+        "Création d'une stratégie de contenu multilingue (français, anglais, arabe) augmentant la visibilité de 120%",
+        "Mise en place d'une stratégie SEO ciblée générant 45% du trafic organique qualifié"
       ]
     },
     {
-      company: "CASABLANCA DIGITAL MARKETING INSTITUTE",
-      position: "Directeur Académique & Formateur Principal",
-      period: "2016 - 2019",
-      description: "Fondation et direction du premier institut spécialisé en marketing digital de Casablanca, en partenariat avec des agences internationales et certifications Google.",
+      company: "HOTEL LA MAMOUNIA",
+      position: "Consultant Marketing Digital",
+      period: "2019 - 2021",
+      description: "Conseil stratégique pour l'établissement hôtelier iconique de Marrakech, avec focus sur l'expérience client digitale et le développement de la présence en ligne.",
+      locations: ["Marrakech, Maroc"],
+      achievements: [
+        "Refonte complète de l'écosystème digital incluant site web, application mobile et présence sociale",
+        "Développement d'une stratégie de contenu de luxe aboutissant à une augmentation de 60% d'engagement",
+        "Mise en place d'un programme de fidélité digital générant 35% de réservations récurrentes",
+        "Optimisation des conversions sur le site web officiel augmentant les réservations directes de 55%"
+      ]
+    },
+    {
+      company: "ATLAS HOSPITALITY CONSULTING",
+      position: "Directeur des Solutions Digitales",
+      period: "2017 - 2020",
+      description: "Direction d'une équipe spécialisée dans le développement de solutions numériques sur mesure pour l'industrie hôtelière marocaine, avec un portefeuille de plus de 25 établissements.",
+      locations: ["Marrakech, Maroc"],
+      achievements: [
+        "Développement d'une plateforme SaaS de gestion hôtelière adoptée par 30+ établissements au Maroc",
+        "Création d'une suite d'outils d'analyse de données pour l'optimisation du yield management",
+        "Implémentation de solutions de marketing automation générant une augmentation moyenne de 40% du RevPAR",
+        "Formation de plus de 200 professionnels de l'hôtellerie aux outils numériques modernes"
+      ]
+    },
+    {
+      company: "RIADS CONNECT MARRAKECH",
+      position: "Fondateur & Développeur Principal",
+      period: "2018 - 2022",
+      description: "Création d'une plateforme spécialisée connectant les riads indépendants de Marrakech aux canaux de distribution internationaux, avec services de développement web et marketing digital.",
+      locations: ["Marrakech, Maroc"],
+      achievements: [
+        "Développement d'un réseau de plus de 120 riads partenaires dans la médina de Marrakech",
+        "Création d'une solution technologique permettant l'intégration simplifiée avec les OTAs majeures",
+        "Mise en place d'un service de création de sites web générant plus de 50 projets en 2 ans",
+        "Augmentation moyenne de 65% du taux d'occupation pour les établissements partenaires"
+      ]
+    },
+    {
+      company: "CASABLANCA MARKETING DIGITAL",
+      position: "Directeur de Clientèle - Division Hôtellerie & Tourisme",
+      period: "2016 - 2018",
+      description: "Direction stratégique des comptes hôteliers et touristiques pour l'une des principales agences de marketing digital de Casablanca, avec spécialisation dans l'acquisition de clientèle internationale.",
       locations: ["Casablanca, Maroc"],
       achievements: [
-        "Développement d'un curriculum complet formant +1500 professionnels du marketing digital en 3 ans",
-        "Création de partenariats exclusifs avec Google, Facebook et HubSpot pour des certifications premium",
-        "Organisation des Digital Marketing Days, l'événement de référence attirant 2000+ participants annuellement",
-        "Lancement du premier incubateur spécialisé marketing digital avec un taux de succès de 65% pour les startups accompagnées"
+        "Gestion d'un portefeuille de 15+ hôtels et complexes touristiques premium au Maroc",
+        "Développement de campagnes digitales multilingues ciblant les marchés européen et moyen-oriental",
+        "Implémentation de stratégies SEA générant un ROI moyen de 350% pour les clients hôteliers",
+        "Création d'un département spécialisé en marketing d'influence pour le secteur du tourisme de luxe"
       ]
     },
     {
-      company: "TANGIER TECH CITY",
-      position: "Lead Developer & Responsable Innovation",
-      period: "2019 - 2021",
-      description: "Direction technique au sein du projet de ville technologique sino-marocaine, supervisant le développement des infrastructures digitales et solutions smart city de nouvelle génération.",
-      locations: ["Tanger, Maroc"],
-      achievements: [
-        "Architecture et développement du système de gestion intelligente urbaine couvrant 2000 hectares",
-        "Implémentation d'un réseau 5G privé pionnier au Maroc en collaboration avec Huawei et Maroc Telecom",
-        "Conception de jumeaux numériques pour l'optimisation énergétique réduisant la consommation de 45%",
-        "Développement d'APIs ouvertes permettant à 50+ startups locales de créer des services innovants"
-      ]
-    },
-    {
-      company: "MARRAKECH BLOCKCHAIN INITIATIVE",
-      position: "Architecte Solutions & Responsable Développement",
-      period: "2019 - 2021",
-      description: "Direction d'une initiative public-privé visant à développer l'écosystème blockchain marocain, avec un focus sur les cas d'usage dans les secteurs financier, immobilier et supply chain.",
+      company: "ROYAL MANSOUR MARRAKECH",
+      position: "Consultant en Expérience Digitale",
+      period: "2020 - 2022",
+      description: "Conseil stratégique pour l'un des palaces les plus prestigieux de Marrakech, avec focus sur l'innovation technologique et l'amélioration de l'expérience client à travers les canaux digitaux.",
       locations: ["Marrakech, Maroc"],
       achievements: [
-        "Architecture d'une plateforme blockchain nationale pour la traçabilité des produits d'exportation marocains",
-        "Développement d'un prototype de tokenisation immobilière permettant l'investissement fractionné sur des biens premium",
-        "Formation de 120+ développeurs marocains aux technologies blockchain et smart contracts",
-        "Organisation du premier Morocco Blockchain Summit attirant 1500+ participants et 30+ speakers internationaux"
+        "Développement d'une application mobile de conciergerie personnalisée avec plus de 15,000 téléchargements",
+        "Création d'une expérience web immersive récompensée aux Awwwards pour excellence en design",
+        "Implémentation d'un système de chambres connectées avec contrôle vocal et automatisation",
+        "Développement d'une stratégie de contenu vidéo premium générant plus de 2M de vues organiques"
+      ]
+    },
+    {
+      company: "TANGER HOSPITALITY SOLUTIONS",
+      position: "Architecte de Solutions Digitales",
+      period: "2017 - 2019",
+      description: "Conception et implémentation de solutions technologiques pour les acteurs de l'hôtellerie dans le nord du Maroc, avec focus sur l'intégration de technologies innovantes pour améliorer l'expérience client.",
+      locations: ["Tanger, Maroc"],
+      achievements: [
+        "Développement d'un système de check-in digital déployé dans 10+ hôtels de la région de Tanger",
+        "Création d'une plateforme de gestion de réputation en ligne augmentant les scores de satisfaction de 25%",
+        "Implémentation de solutions d'analyse de données pour l'optimisation des tarifs en temps réel",
+        "Formation des équipes opérationnelles aux nouvelles technologies avec plus de 150 personnes formées"
       ]
     },
     // Conservation des expériences internationales précédentes
