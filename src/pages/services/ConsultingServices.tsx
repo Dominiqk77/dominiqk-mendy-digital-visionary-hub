@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
@@ -32,7 +31,8 @@ import {
   MessageCircle,
   UserCheck,
   Clock,
-  Inbox
+  Inbox,
+  Star
 } from 'lucide-react';
 
 // Consulting Process Canvas Animation Component
@@ -381,13 +381,13 @@ const ConsultingServices = () => {
       quote: "L'approche méthodique et les insights stratégiques de Dominiqk ont transformé notre vision de la croissance digitale, avec des résultats qui ont dépassé nos projections les plus optimistes.",
       author: "Sarah K.",
       position: "Directrice Générale, Groupe financier",
-      avatar: <User className="h-10 w-10" />
+      avatar: <Users className="h-10 w-10" />
     },
     {
       quote: "La capacité de Dominiqk à combiner vision stratégique et exécution pragmatique a été déterminante dans la réussite de notre transformation. Un partenaire de conseil exceptionnel.",
       author: "Michel T.",
       position: "VP Transformation, Entreprise industrielle",
-      avatar: <User className="h-10 w-10" />
+      avatar: <Users className="h-10 w-10" />
     }
   ];
 
@@ -649,7 +649,7 @@ const ConsultingServices = () => {
             >
               <div className="text-center mb-16">
                 <Badge className="mb-4 border-blue-500/30 text-blue-400 bg-blue-950/30">Notre Expertise</Badge>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
                   Une expertise diversifiée et spécialisée
                 </h2>
                 <p className="text-lg text-gray-300 max-w-3xl mx-auto">
@@ -1082,4 +1082,3 @@ const ConsultingServices = () => {
 };
 
 export default ConsultingServices;
-
