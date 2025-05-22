@@ -1,8 +1,14 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Clock, DollarSign, Globe, ChartBar } from 'lucide-react';
+import {
+  Card,
+  CardContent,
+} from "@/components/ui/card";
 
 const Stats = () => {
-  // Updated stats to reflect your international career
+  // Updated stats with new ROI, marketing, consulting hours, and landing pages statistics
   const stats = [
     {
       title: "Années d'expérience",
@@ -54,6 +60,34 @@ const Stats = () => {
           <path d="M20 18h-5a2 2 0 0 1-2-2v-5"></path>
         </svg>
       )
+    },
+    {
+      title: "ROI Moyen",
+      value: "250%",
+      description: "Retour sur investissement pour nos clients en transformation digitale",
+      color: "from-green-500 to-teal-500",
+      icon: <DollarSign className="h-6 w-6 mb-2 mx-auto" />
+    },
+    {
+      title: "Heures de Consulting",
+      value: "10K+",
+      description: "Heures de conseil stratégique délivrées depuis 2018",
+      color: "from-amber-500 to-orange-500",
+      icon: <Clock className="h-6 w-6 mb-2 mx-auto" />
+    },
+    {
+      title: "Landing Pages",
+      value: "2K+",
+      description: "Sites web et landing pages développés pour des campagnes marketing",
+      color: "from-sky-500 to-blue-500",
+      icon: <Globe className="h-6 w-6 mb-2 mx-auto" />
+    },
+    {
+      title: "Campagnes Marketing",
+      value: "350+",
+      description: "Campagnes marketing digital optimisées avec un taux de conversion élevé",
+      color: "from-rose-500 to-pink-500",
+      icon: <ChartBar className="h-6 w-6 mb-2 mx-auto" />
     }
   ];
 
