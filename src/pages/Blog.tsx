@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -142,6 +141,266 @@ const Blog = () => {
       likes: 118,
       comments: 27,
       featured: true
+    },
+    {
+      id: 7,
+      title: "L'IA Générative et l'Avenir du Travail en Afrique: Transformation, Opportunités et Préparation",
+      excerpt: "Analyse approfondie de la révolution imminente du marché du travail africain par l'IA et des stratégies pour préparer la main-d'œuvre.",
+      date: "2023-06-10",
+      readTime: "12 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1573164713712-03790a178651?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "ia",
+      likes: 143,
+      comments: 38,
+      featured: true
+    },
+    {
+      id: 8,
+      title: "L'impact de l'IA sur le secteur de la santé en Afrique",
+      excerpt: "Comment l'IA transforme les soins de santé en Afrique: opportunités et défis.",
+      date: "2023-07-15",
+      readTime: "10 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "ia",
+      likes: 95,
+      comments: 20,
+      featured: false
+    },
+    {
+      id: 9,
+      title: "Les défis du e-commerce en Afrique",
+      excerpt: "Analyse des obstacles à la croissance du e-commerce en Afrique et des solutions potentielles.",
+      date: "2023-08-01",
+      readTime: "8 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "web",
+      likes: 78,
+      comments: 15,
+      featured: false
+    },
+    {
+      id: 10,
+      title: "L'avenir du travail à distance en Afrique",
+      excerpt: "Comment le travail à distance redéfinit le paysage professionnel en Afrique.",
+      date: "2023-08-15",
+      readTime: "9 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "formation",
+      likes: 110,
+      comments: 25,
+      featured: true
+    },
+    {
+      id: 11,
+      title: "Les tendances du marketing digital en 2023",
+      excerpt: "Quelles sont les tendances clés du marketing digital à surveiller cette année?",
+      date: "2023-09-01",
+      readTime: "7 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "marketing",
+      likes: 85,
+      comments: 18,
+      featured: false
+    },
+    {
+      id: 12,
+      title: "Comment l'IA change le paysage éducatif en Afrique",
+      excerpt: "L'impact de l'IA sur l'éducation et les opportunités qu'elle crée.",
+      date: "2023-09-15",
+      readTime: "10 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "formation",
+      likes: 90,
+      comments: 22,
+      featured: true
+    },
+    {
+      id: 13,
+      title: "Les opportunités de la blockchain en Afrique",
+      excerpt: "Comment la blockchain peut transformer les secteurs clés en Afrique.",
+      date: "2023-10-01",
+      readTime: "11 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "technologie",
+      likes: 102,
+      comments: 30,
+      featured: false
+    },
+    {
+      id: 14,
+      title: "L'importance de la cybersécurité pour les entreprises africaines",
+      excerpt: "Pourquoi la cybersécurité est cruciale pour la croissance des entreprises en Afrique.",
+      date: "2023-10-15",
+      readTime: "8 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "ia",
+      likes: 75,
+      comments: 12,
+      featured: false
+    },
+    {
+      id: 15,
+      title: "Les défis de l'entrepreneuriat en Afrique",
+      excerpt: "Analyse des obstacles auxquels font face les entrepreneurs africains.",
+      date: "2023-11-01",
+      readTime: "9 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "entrepreneuriat",
+      likes: 88,
+      comments: 20,
+      featured: true
+    },
+    {
+      id: 16,
+      title: "L'impact des réseaux sociaux sur le marketing en Afrique",
+      excerpt: "Comment les réseaux sociaux transforment le marketing en Afrique.",
+      date: "2023-11-15",
+      readTime: "7 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "marketing",
+      likes: 95,
+      comments: 15,
+      featured: false
+    },
+    {
+      id: 17,
+      title: "Les tendances de l'IA en 2023",
+      excerpt: "Quelles sont les tendances clés de l'IA à surveiller cette année?",
+      date: "2023-12-01",
+      readTime: "10 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "ia",
+      likes: 100,
+      comments: 25,
+      featured: true
+    },
+    {
+      id: 18,
+      title: "Comment le marketing digital aide les PME en Afrique",
+      excerpt: "L'importance du marketing digital pour les petites et moyennes entreprises en Afrique.",
+      date: "2023-12-15",
+      readTime: "8 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "marketing",
+      likes: 85,
+      comments: 18,
+      featured: false
+    },
+    {
+      id: 19,
+      title: "Les opportunités d'investissement en Afrique",
+      excerpt: "Analyse des secteurs d'investissement prometteurs en Afrique.",
+      date: "2024-01-01",
+      readTime: "9 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "entrepreneuriat",
+      likes: 90,
+      comments: 20,
+      featured: true
+    },
+    {
+      id: 20,
+      title: "L'impact de la technologie sur l'éducation en Afrique",
+      excerpt: "Comment la technologie transforme l'éducation en Afrique.",
+      date: "2024-01-15",
+      readTime: "10 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "formation",
+      likes: 95,
+      comments: 22,
+      featured: false
+    },
+    {
+      id: 21,
+      title: "Les défis de la transformation numérique en Afrique",
+      excerpt: "Analyse des obstacles à la transformation numérique en Afrique.",
+      date: "2024-02-01",
+      readTime: "11 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "gouvernance",
+      likes: 80,
+      comments: 15,
+      featured: true
+    },
+    {
+      id: 22,
+      title: "L'importance de l'innovation pour les entreprises africaines",
+      excerpt: "Pourquoi l'innovation est essentielle pour la croissance des entreprises en Afrique.",
+      date: "2024-02-15",
+      readTime: "9 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "entrepreneuriat",
+      likes: 88,
+      comments: 20,
+      featured: false
+    },
+    {
+      id: 23,
+      title: "Les tendances de la fintech en Afrique",
+      excerpt: "Analyse des tendances clés de la fintech en Afrique.",
+      date: "2024-03-01",
+      readTime: "10 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "technologie",
+      likes: 95,
+      comments: 22,
+      featured: true
+    },
+    {
+      id: 24,
+      title: "Comment les entreprises africaines peuvent tirer parti de l'IA",
+      excerpt: "Stratégies pour intégrer l'IA dans les entreprises africaines.",
+      date: "2024-03-15",
+      readTime: "8 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "ia",
+      likes: 100,
+      comments: 25,
+      featured: false
+    },
+    {
+      id: 25,
+      title: "Les opportunités de l'e-learning en Afrique",
+      excerpt: "Comment l'e-learning peut transformer l'éducation en Afrique.",
+      date: "2024-04-01",
+      readTime: "9 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "formation",
+      likes: 85,
+      comments: 18,
+      featured: true
+    },
+    {
+      id: 26,
+      title: "Les défis de la cybersécurité en Afrique",
+      excerpt: "Analyse des défis de la cybersécurité pour les entreprises africaines.",
+      date: "2024-04-15",
+      readTime: "10 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1600585154320-1c1c1c1c1c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "ia",
+      likes: 90,
+      comments: 20,
+      featured: false
     }
   ];
 
@@ -241,7 +500,10 @@ const Blog = () => {
                   placeholder="Rechercher un article..." 
                   className="pl-12 py-6 text-lg bg-gray-900/50 backdrop-blur-sm border border-white/20 text-white placeholder:text-gray-300"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    setCurrentPage(1); // Reset to page 1 on search
+                  }}
                 />
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300" />
               </motion.div>
