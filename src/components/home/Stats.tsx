@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -18,9 +17,9 @@ const Stats = () => {
       )
     },
     {
-      title: "Expérience en IA",
-      value: "2+",
-      description: "Années d'expertise en intelligence artificielle depuis 2022",
+      title: "Solutions IA Développées",
+      value: "500+",
+      description: "Solutions d'intelligence artificielle créées depuis 2020",
       color: "from-purple-500 to-indigo-500",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mb-2 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
