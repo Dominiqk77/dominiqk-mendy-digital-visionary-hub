@@ -12,8 +12,8 @@ interface FooterContactProps {
 
 const FooterContact = ({ legalSection, contactInfo, className }: FooterContactProps) => {
   return (
-    <div className={className}>
-      <h3 className="text-white font-semibold mb-4">{legalSection.title}</h3>
+    <div className={`space-y-4 ${className || ''}`}>
+      <h3 className="text-white font-semibold text-lg">{legalSection.title}</h3>
       <ul className="space-y-3">
         {legalSection.items.map((item, index) => (
           <li key={index}>
@@ -24,7 +24,7 @@ const FooterContact = ({ legalSection, contactInfo, className }: FooterContactPr
         ))}
       </ul>
       
-      <h3 className="text-white font-semibold mt-8 mb-4">Contact</h3>
+      <h3 className="text-white font-semibold text-lg mt-6">Contact</h3>
       <address className="not-italic text-gray-400 space-y-2">
         <p className="flex items-center gap-2">
           <Mail className="h-4 w-4" />

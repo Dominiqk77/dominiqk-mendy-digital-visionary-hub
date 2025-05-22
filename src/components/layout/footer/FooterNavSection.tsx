@@ -12,8 +12,8 @@ const FooterNavSection = ({ section, className }: FooterNavSectionProps) => {
   const { title, items } = section;
 
   return (
-    <div className={className}>
-      <h3 className="text-white font-semibold mb-4">{title}</h3>
+    <div className={`space-y-4 ${className || ''}`}>
+      <h3 className="text-white font-semibold text-lg">{title}</h3>
       <ul className="space-y-3">
         {items.map((item, index) => (
           <li key={index}>

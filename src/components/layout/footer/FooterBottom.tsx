@@ -6,7 +6,7 @@ const FooterBottom = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <div className="mt-12 pt-6 border-t border-white/10">
+    <div className="mt-12 pt-6 border-t border-white/10 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-center">
         <p className="text-gray-400 text-sm">
           &copy; {currentYear} Dominiqk Mendy. Tous droits réservés. | Marrakech · Londres · International

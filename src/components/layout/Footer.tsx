@@ -1,13 +1,16 @@
+
 import React from 'react';
 import FooterBrand from './footer/FooterBrand';
 import FooterNavSection from './footer/FooterNavSection';
 import FooterContact from './footer/FooterContact';
 import FooterBottom from './footer/FooterBottom';
 import { navigationSection, servicesSection, legalSection, contactInfo } from './footer/FooterData';
+
 const Footer = () => {
-  return <footer className="relative z-10 border-t border-white/10 bg-portfolio-deepspace/90 backdrop-blur-md">
+  return (
+    <footer className="relative z-10 border-t border-white/10 bg-portfolio-deepspace backdrop-blur-md w-full">
       {/* Enhanced nebula effects for consistent space theme */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <div className="nebula-glow-purple w-64 h-64 bottom-10 right-10 opacity-30"></div>
         <div className="nebula-glow-blue w-80 h-80 top-0 left-20 opacity-30"></div>
         <div className="nebula-glow-purple w-48 h-48 bottom-40 left-0 opacity-20"></div>
@@ -15,8 +18,8 @@ const Footer = () => {
         <div className="absolute inset-0 bg-space-grid opacity-20 z-0"></div>
       </div>
       
-      <div className="container mx-auto px-4 md:px-6 py-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 bg-neutral-950">
+      <div className="w-full mx-auto px-4 md:px-8 py-12 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 max-w-7xl mx-auto">
           {/* Logo and social links */}
           <FooterBrand />
 
@@ -33,6 +36,8 @@ const Footer = () => {
         {/* Copyright and bottom links */}
         <FooterBottom />
       </div>
-    </footer>;
+    </footer>
+  );
 };
+
 export default Footer;
