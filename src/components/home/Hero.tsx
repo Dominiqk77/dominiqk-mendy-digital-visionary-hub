@@ -2,12 +2,13 @@
 import React, { useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
-import HeroDynamicBackground from './hero/HeroDynamicBackground';
+import EnhancedHomeBackground from './hero/EnhancedHomeBackground';
 import HeroTitle from './hero/HeroTitle';
 import HeroDescription from './hero/HeroDescription';
 import HeroButtons from './hero/HeroButtons';
 import HeroProfile from './hero/HeroProfile';
 import HeroClients from './hero/HeroClients';
+import { motion } from 'framer-motion';
 
 const Hero = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -24,12 +25,17 @@ const Hero = () => {
 
   return (
     <div className="relative h-auto min-h-[700px] sm:min-h-[700px] flex items-center overflow-hidden bg-transparent pt-16 pb-8 sm:pt-8 sm:pb-0">
-      {/* Dynamic background with particles and effects */}
-      <HeroDynamicBackground />
+      {/* Enhanced creative background with code elements */}
+      <EnhancedHomeBackground />
       
       <div className="container mx-auto px-4 sm:px-6 z-10 relative">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-          <div className="w-full md:w-1/2 space-y-5 text-center md:text-left animate-slide-in-left">
+          <motion.div 
+            className="w-full md:w-1/2 space-y-5 text-center md:text-left"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             {/* Hero title and subtitle */}
             <HeroTitle />
             
@@ -38,20 +44,62 @@ const Hero = () => {
             
             {/* CTA buttons */}
             <HeroButtons />
-          </div>
+            
+            {/* New tech stack visualization - small preview */}
+            <motion.div 
+              className="hidden md:flex flex-wrap gap-2 mt-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            >
+              {['react', 'nextjs', 'nodejs', 'tailwind', 'python', 'tensorflow'].map((tech, index) => (
+                <div 
+                  key={tech} 
+                  className="p-1.5 rounded-lg bg-black/40 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300"
+                  style={{ animationDelay: `${index * 0.15}s` }}
+                >
+                  <img 
+                    src={`/icons/${tech}.svg`} 
+                    alt={tech} 
+                    className="w-6 h-6 object-contain filter brightness-125"
+                  />
+                </div>
+              ))}
+              <div className="flex items-center text-xs text-white/70 pl-2">
+                <span>et plus...</span>
+              </div>
+            </motion.div>
+          </motion.div>
           
-          {/* Profile image section */}
-          <div className="w-full md:w-1/2 flex justify-center mt-6 md:mt-0 animate-slide-in-right">
+          {/* Profile image section with enhanced animations */}
+          <motion.div 
+            className="w-full md:w-1/2 flex justify-center mt-6 md:mt-0"
+            initial={{ opacity: 0, scale: 0.9, x: 50 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          >
             <HeroProfile isMobile={isMobile} />
-          </div>
+          </motion.div>
         </div>
         
-        {/* Client section */}
-        <HeroClients />
+        {/* Client section with improved animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.6 }}
+        >
+          <HeroClients />
+        </motion.div>
         
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer hidden md:block" onClick={scrollToAbout}>
+        <motion.div 
+          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer hidden md:block" 
+          onClick={scrollToAbout}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+        >
           <ChevronDown className="h-8 w-8 text-white" />
-        </div>
+        </motion.div>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
@@ -15,6 +16,19 @@ import Certifications from '../components/home/Certifications';
 import { Toaster } from "@/components/ui/toaster";
 import { preloadImages } from '../lib/utils';
 import { usePreventHorizontalScroll } from '@/hooks/use-mobile';
+
+// Animation variants for sections
+const sectionVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
 
 const Index = () => {
   const location = useLocation();
@@ -51,7 +65,12 @@ const Index = () => {
       // Critical images that should load immediately
       const criticalImages = [
         '/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png',
-        // Add other critical images here
+        '/icons/react.svg',
+        '/icons/nextjs.svg',
+        '/icons/nodejs.svg',
+        '/icons/tailwind.svg',
+        '/icons/python.svg',
+        '/icons/tensorflow.svg'
       ];
       
       // Use the preloadImages utility to efficiently load images
@@ -65,10 +84,9 @@ const Index = () => {
         setTimeout(() => setIsLoaded(true), 200);
       });
       
-      // Preload important scripts
+      // Preload important scripts including particles.js for the background
       const preloadResources = [
         { href: 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js', as: 'script' },
-        // Add fonts, CSS, or other resources here
       ];
       
       preloadResources.forEach(resource => {
@@ -119,6 +137,77 @@ const Index = () => {
       viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
       document.head.appendChild(viewportMeta);
     }
+    
+    // Load particles.js for dynamic background
+    const particlesScript = document.createElement('script');
+    particlesScript.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
+    particlesScript.onload = () => {
+      if (window.particlesJS) {
+        window.particlesJS('particles-js', {
+          "particles": {
+            "number": {
+              "value": 50,
+              "density": {
+                "enable": true,
+                "value_area": 800
+              }
+            },
+            "color": {
+              "value": ["#9b87f5", "#0EA5E9", "#ff49db"]
+            },
+            "shape": {
+              "type": "circle",
+            },
+            "opacity": {
+              "value": 0.5,
+              "random": true,
+            },
+            "size": {
+              "value": 3,
+              "random": true,
+            },
+            "line_linked": {
+              "enable": true,
+              "distance": 150,
+              "color": "#9b87f5",
+              "opacity": 0.4,
+              "width": 1
+            },
+            "move": {
+              "enable": true,
+              "speed": 1.5,
+              "direction": "none",
+              "random": true,
+              "straight": false,
+              "out_mode": "out",
+              "bounce": false,
+            }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "grab"
+              },
+              "onclick": {
+                "enable": true,
+                "mode": "push"
+              },
+              "resize": true
+            },
+          },
+          "retina_detect": true
+        });
+      }
+    };
+    document.body.appendChild(particlesScript);
+
+    return () => {
+      if (particlesScript.parentNode) {
+        document.body.removeChild(particlesScript);
+      }
+    };
 
   }, [location]);
 
@@ -139,9 +228,9 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col overflow-hidden relative max-w-full">
-      {/* AI-themed background styling */}
-      <div className="absolute inset-0 bg-portfolio-space z-0">
+    <div className="min-h-screen flex flex-col overflow-hidden relative max-w-full bg-portfolio-space">
+      {/* Enhanced AI-themed background styling maintained throughout the page */}
+      <div className="absolute inset-0 z-0">
         {/* AI-themed grid overlay */}
         <div className="absolute inset-0 bg-grid-small-white/5 z-0"></div>
         
@@ -173,20 +262,84 @@ const Index = () => {
       {/* Main content with optimized rendering and transitions */}
       <main className={`flex-grow relative z-10 transition-opacity duration-300 overflow-x-hidden ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         <Hero />
-        <About />
-        <Services />
-        <Skills />
-        <Stats />
-        <Experience />
-        <Certifications />
-        <Testimonials />
-        <CTASection />
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={sectionVariants}
+        >
+          <About />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={sectionVariants}
+        >
+          <Services />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={sectionVariants}
+        >
+          <Skills />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={sectionVariants}
+        >
+          <Stats />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={sectionVariants}
+        >
+          <Experience />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={sectionVariants}
+        >
+          <Certifications />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={sectionVariants}
+        >
+          <Testimonials />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={sectionVariants}
+        >
+          <CTASection />
+        </motion.div>
       </main>
       
-      {/* Ensure the footer is consistent across all pages */}
+      {/* Footer with consistent styling */}
       <Footer />
       
-      {/* Toast notifications for testimonial submission */}
+      {/* Toast notifications */}
       <Toaster />
     </div>
   );
