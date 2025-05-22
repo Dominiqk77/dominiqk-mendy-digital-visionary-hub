@@ -1,6 +1,9 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
+import HeroDynamicBackground from './hero/HeroDynamicBackground';
 
 interface ExperienceItem {
   company: string;
@@ -121,76 +124,146 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-24 sm:py-32 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center mb-16 sm:mb-20">
+    <section id="experience" className="py-24 sm:py-32 relative overflow-hidden">
+      {/* Enhanced Space-themed Dynamic Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-portfolio-space/95 via-portfolio-space to-portfolio-deepspace/95 z-0"></div>
+      
+      {/* Neural network grid overlay */}
+      <div className="absolute inset-0 bg-space-grid opacity-30 z-0"></div>
+      
+      {/* AI-themed Dynamic Particles */}
+      <div className="absolute inset-0 z-0">
+        <HeroDynamicBackground />
+      </div>
+      
+      {/* Glowing orbs - cosmic theme */}
+      <div className="absolute top-1/4 right-1/5 w-64 h-64 bg-portfolio-purple/20 rounded-full blur-[80px] animate-pulse-slow z-0"></div>
+      <div className="absolute bottom-1/4 left-1/6 w-80 h-80 bg-portfolio-blue/20 rounded-full blur-[100px] animate-pulse-slow z-0" 
+        style={{animationDelay: '2s'}}></div>
+      
+      {/* Floating symbols - tech themed */}
+      <div className="hidden md:block">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <motion.div
+            key={`code-symbol-${i}`}
+            className="absolute text-white/10 font-mono text-5xl"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: [0.1, 0.3, 0.1], 
+              y: [0, -15, 0], 
+              x: Math.random() > 0.5 ? [0, 5, 0] : [0, -5, 0]
+            }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: 5 + i * 2,
+              delay: i * 0.8
+            }}
+            style={{
+              top: `${15 + Math.random() * 70}%`,
+              left: `${5 + Math.random() * 90}%`,
+            }}
+          >
+            {['{ }', '</>', '()', '[]', '//'][i % 5]}
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto text-center mb-16 sm:mb-20"
+        >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink bg-clip-text text-transparent">
               Parcours d'Excellence
             </span>
           </h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-primary via-secondary to-accent mx-auto mb-6"></div>
-          <p className="text-lg text-muted-foreground">
+          <div className="h-1 w-24 bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-pink mx-auto mb-6"></div>
+          <p className="text-lg text-white/80">
             Un parcours international d'expert marqué par l'innovation technologique et le leadership digital
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {experiences.map((exp, index) => (
-            <Card key={index} className="transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl border-gradient border-gradient-light overflow-hidden h-full">
-              <CardHeader className="bg-gradient-to-r from-primary/5 via-secondary/5 to-transparent border-b">
-                <CardTitle>
-                  <div className="flex flex-col space-y-2">
-                    <div className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                      {exp.position}
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="text-sm font-semibold text-muted-foreground flex items-center gap-2">
-                        {exp.company}
-                        {exp.website && (
-                          <a 
-                            href={exp.website} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center text-primary hover:text-secondary transition-colors"
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </a>
-                        )}
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-100px" }}
+            >
+              <Card className="glass-space border-gradient border-gradient-purple hover:border-portfolio-purple/30 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-space-glow overflow-hidden h-full">
+                <CardHeader className="bg-gradient-to-r from-portfolio-purple/10 via-portfolio-blue/10 to-transparent border-b border-white/10">
+                  <CardTitle>
+                    <div className="flex flex-col space-y-2">
+                      <div className="text-lg md:text-xl font-bold bg-gradient-to-r from-portfolio-purple to-portfolio-blue bg-clip-text text-transparent">
+                        {exp.position}
                       </div>
-                    </div>
-                    {exp.locations && (
-                      <div className="flex flex-wrap gap-2">
-                        {exp.locations.map((location, idx) => (
-                          <span key={idx} className="text-xs font-medium px-2 py-1 bg-secondary/10 text-secondary rounded-full">
-                            {location}
-                          </span>
-                        ))}
+                      <div className="flex items-center justify-between">
+                        <div className="text-sm font-semibold text-white/70 flex items-center gap-2">
+                          {exp.company}
+                          {exp.website && (
+                            <a 
+                              href={exp.website} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center text-portfolio-purple hover:text-portfolio-blue transition-colors"
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                            </a>
+                          )}
+                        </div>
                       </div>
-                    )}
+                      {exp.locations && (
+                        <div className="flex flex-wrap gap-2">
+                          {exp.locations.map((location, idx) => (
+                            <span key={idx} className="text-xs font-medium px-2 py-1 bg-portfolio-purple/10 text-portfolio-purple rounded-full">
+                              {location}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-6 bg-black/10 bg-opacity-5 backdrop-blur-sm">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-sm font-medium px-3 py-1 bg-gradient-to-r from-portfolio-purple/10 to-portfolio-blue/10 text-white rounded-full">
+                      {exp.period}
+                    </span>
                   </div>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm font-medium px-3 py-1 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary rounded-full">
-                    {exp.period}
-                  </span>
-                </div>
-                <p className="mb-6 text-muted-foreground leading-relaxed">{exp.description}</p>
-                <ul className="space-y-3">
-                  {exp.achievements.map((achievement, idx) => (
-                    <li key={idx} className="flex items-start group">
-                      <div className="mr-2 mt-1.5 w-1.5 h-1.5 rounded-full bg-primary group-hover:bg-secondary transition-colors duration-300"></div>
-                      <span className="text-sm leading-relaxed">{achievement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+                  <p className="mb-6 text-white/70 leading-relaxed">{exp.description}</p>
+                  <ul className="space-y-3">
+                    {exp.achievements.map((achievement, idx) => (
+                      <li key={idx} className="flex items-start group">
+                        <div className="mr-2 mt-1.5 w-1.5 h-1.5 rounded-full bg-portfolio-purple group-hover:bg-portfolio-blue transition-colors duration-300"></div>
+                        <span className="text-sm leading-relaxed text-white/80">{achievement}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </div>
+      
+      {/* Decorative bottom elements - tech circuit pattern */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-portfolio-deepspace to-transparent z-0"></div>
+      <svg className="absolute bottom-0 left-0 w-full z-0 opacity-20" viewBox="0 0 1440 100">
+        <path fill="url(#gradient)" fillOpacity="1" d="M0,32L48,37.3C96,43,192,53,288,58.7C384,64,480,64,576,58.7C672,53,768,43,864,42.7C960,43,1056,53,1152,53.3C1248,53,1344,43,1392,37.3L1440,32L1440,100L1392,100C1344,100,1248,100,1152,100C1056,100,960,100,864,100C768,100,672,100,576,100C480,100,384,100,288,100C192,100,96,100,48,100L0,100Z"></path>
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#6366F1" stopOpacity="0.3" />
+            <stop offset="50%" stopColor="#8B5CF6" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#D946EF" stopOpacity="0.3" />
+          </linearGradient>
+        </defs>
+      </svg>
     </section>
   );
 };
