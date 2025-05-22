@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
@@ -29,7 +28,9 @@ import {
   BellRing,
   Code,
   Layers,
-  Eye
+  Eye,
+  Star,
+  FileText
 } from 'lucide-react';
 
 // Marketing Analytics Animation Component
@@ -149,7 +150,7 @@ const MarketingMetrics = () => {
             </div>
             <span className="text-xl font-semibold text-white">{metric.value}%</span>
           </div>
-          <Progress value={metric.value} className="h-2" indicatorClassName={`${metric.color}`} />
+          <Progress value={metric.value} className="h-2" indicatorColor={metric.color} />
         </motion.div>
       ))}
     </motion.div>
