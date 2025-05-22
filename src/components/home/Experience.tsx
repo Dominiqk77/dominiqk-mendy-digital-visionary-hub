@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ExternalLink } from 'lucide-react';
@@ -227,16 +226,16 @@ const Experience = () => {
       ]
     },
     {
-      company: "RABAT CYBERSECURITY DEFENSE CENTER",
-      position: "Expert en Sécurité & Responsable Technique",
-      period: "2018 - 2020",
-      description: "Direction technique au sein d'une initiative public-privé visant à renforcer les infrastructures critiques marocaines contre les cybermenaces, en collaboration avec le Ministère de la Défense.",
-      locations: ["Rabat, Maroc"],
+      company: "MARRAKECH BLOCKCHAIN INITIATIVE",
+      position: "Architecte Solutions & Responsable Développement",
+      period: "2019 - 2021",
+      description: "Direction d'une initiative public-privé visant à développer l'écosystème blockchain marocain, avec un focus sur les cas d'usage dans les secteurs financier, immobilier et supply chain.",
+      locations: ["Marrakech, Maroc"],
       achievements: [
-        "Conception et déploiement d'un SOC (Security Operations Center) national supervisant les infrastructures critiques",
-        "Développement d'une plateforme d'analyse de menaces basée sur l'IA détectant +5000 tentatives d'intrusion par jour",
-        "Formation de 150+ ingénieurs marocains aux techniques avancées de cyberdéfense",
-        "Organisation des premiers exercices nationaux de simulation de cyberattaques impliquant 20+ organismes gouvernementaux"
+        "Architecture d'une plateforme blockchain nationale pour la traçabilité des produits d'exportation marocains",
+        "Développement d'un prototype de tokenisation immobilière permettant l'investissement fractionné sur des biens premium",
+        "Formation de 120+ développeurs marocains aux technologies blockchain et smart contracts",
+        "Organisation du premier Morocco Blockchain Summit attirant 1500+ participants et 30+ speakers internationaux"
       ]
     },
     // Conservation des expériences internationales précédentes
