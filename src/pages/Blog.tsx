@@ -18,6 +18,15 @@ import {
   MessageCircle,
   User
 } from 'lucide-react';
+import { 
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious
+} from '@/components/ui/pagination';
 
 const Blog = () => {
   useEffect(() => {
@@ -51,8 +60,10 @@ const Blog = () => {
   
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 6;
   
-  // Updated blog posts with real content
+  // Updated blog posts with new articles
   const blogPosts = [
     {
       id: 1,
@@ -141,7 +152,8 @@ const Blog = () => {
     { id: 'marketing', name: 'Marketing Digital' },
     { id: 'gouvernance', name: 'E-Gouvernance' },
     { id: 'technologie', name: 'Technologies Émergentes' },
-    { id: 'formation', name: 'Formation & Éducation' }
+    { id: 'formation', name: 'Formation & Éducation' },
+    { id: 'entrepreneuriat', name: 'Entrepreneuriat Tech' }
   ];
 
   const filteredPosts = blogPosts
@@ -151,7 +163,22 @@ const Blog = () => {
       post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
     );
   
+  // Pagination
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+  
   const featuredPosts = blogPosts.filter(post => post.featured);
+
+  // Change page
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   return (
     <div className="min-h-screen flex flex-col relative">
@@ -231,7 +258,7 @@ const Blog = () => {
               </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {featuredPosts.map((post) => (
+                {featuredPosts.slice(0, 6).map((post) => (
                   <motion.div 
                     key={post.id}
                     initial={{ opacity: 0, y: 20 }}
@@ -304,7 +331,10 @@ const Blog = () => {
                     {categories.map(category => (
                       <li key={category.id}>
                         <button
-                          onClick={() => setSelectedCategory(category.id)}
+                          onClick={() => {
+                            setSelectedCategory(category.id);
+                            setCurrentPage(1); // Reset to page 1 on category change
+                          }}
                           className={`w-full text-left py-2 px-3 rounded-md flex items-center transition-colors ${
                             selectedCategory === category.id ? 
                               'bg-indigo-600 text-white' : 
@@ -329,7 +359,10 @@ const Blog = () => {
                       variant="outline" 
                       size="sm"
                       className="border-white/20 text-white hover:bg-gray-800"
-                      onClick={() => setSelectedCategory('all')}
+                      onClick={() => {
+                        setSelectedCategory('all');
+                        setCurrentPage(1); // Reset to page 1
+                      }}
                     >
                       Effacer les filtres
                     </Button>
@@ -337,8 +370,8 @@ const Blog = () => {
                 </div>
                 
                 <div className="space-y-8">
-                  {filteredPosts.length > 0 ? (
-                    filteredPosts.map((post) => (
+                  {currentPosts.length > 0 ? (
+                    currentPosts.map((post) => (
                       <motion.div 
                         key={post.id}
                         initial={{ opacity: 0, y: 20 }}
@@ -413,10 +446,77 @@ const Blog = () => {
                         onClick={() => {
                           setSearchTerm('');
                           setSelectedCategory('all');
+                          setCurrentPage(1);
                         }}
                       >
                         Réinitialiser les filtres
                       </Button>
+                    </div>
+                  )}
+                  
+                  {/* Pagination */}
+                  {filteredPosts.length > postsPerPage && (
+                    <div className="mt-8">
+                      <Pagination>
+                        <PaginationContent>
+                          <PaginationItem>
+                            <PaginationPrevious 
+                              onClick={() => currentPage > 1 && paginate(currentPage - 1)}
+                              className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                            />
+                          </PaginationItem>
+                          
+                          {[...Array(totalPages)].map((_, index) => {
+                            const pageNumber = index + 1;
+                            
+                            // Show only current page, first, last, and one page before and after current
+                            if (
+                              pageNumber === 1 || 
+                              pageNumber === totalPages || 
+                              (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                            ) {
+                              return (
+                                <PaginationItem key={pageNumber}>
+                                  <PaginationLink
+                                    onClick={() => paginate(pageNumber)}
+                                    isActive={pageNumber === currentPage}
+                                    className="cursor-pointer"
+                                  >
+                                    {pageNumber}
+                                  </PaginationLink>
+                                </PaginationItem>
+                              );
+                            }
+                            
+                            // Add ellipsis after first page
+                            if (pageNumber === 2 && currentPage > 3) {
+                              return (
+                                <PaginationItem key="ellipsis-start">
+                                  <PaginationEllipsis />
+                                </PaginationItem>
+                              );
+                            }
+                            
+                            // Add ellipsis before last page
+                            if (pageNumber === totalPages - 1 && currentPage < totalPages - 2) {
+                              return (
+                                <PaginationItem key="ellipsis-end">
+                                  <PaginationEllipsis />
+                                </PaginationItem>
+                              );
+                            }
+                            
+                            return null;
+                          })}
+                          
+                          <PaginationItem>
+                            <PaginationNext 
+                              onClick={() => currentPage < totalPages && paginate(currentPage + 1)}
+                              className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                            />
+                          </PaginationItem>
+                        </PaginationContent>
+                      </Pagination>
                     </div>
                   )}
                 </div>
