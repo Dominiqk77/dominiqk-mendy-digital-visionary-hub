@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Layout, ArrowRight, Lightbulb, Users, Globe, Clock, BookOpen, Zap } from 'lucide-react';
+import { Layout, ArrowRight, Lightbulb, Users, Globe, Clock, BookOpen, Zap, Lock } from 'lucide-react';
 import EnhancedSpaceBackground from '@/components/space/EnhancedSpaceBackground';
 
 const ConsultingStrategyServices = () => {
@@ -176,7 +176,7 @@ const ConsultingStrategyServices = () => {
                   highlight: "Évolution optimisée"
                 },
                 {
-                  icon: <Blocks size={40} />,
+                  icon: <Lock size={40} />,
                   title: "Consultation Expert 30min Gratuite",
                   description: "Première séance de consultation gratuite pour identifier vos défis et opportunités. Suite de l'accompagnement personnalisé selon vos besoins.",
                   link: "/contact?service=free-consultation",
