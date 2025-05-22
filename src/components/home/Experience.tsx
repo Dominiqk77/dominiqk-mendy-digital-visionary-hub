@@ -134,6 +134,112 @@ const Experience = () => {
         "Formation et supervision d'une équipe de 50+ collaborateurs aux standards internationaux de l'hôtellerie de luxe"
       ]
     },
+    // Nouvelles expériences fictives au Maroc
+    {
+      company: "ROYAL ATLAS TECHNOLOGIES",
+      position: "Directeur de la Transformation Numérique",
+      period: "2019 - 2022",
+      description: "Pilotage de la stratégie de transformation numérique pour l'un des plus grands groupes hôteliers de Marrakech, avec déploiement d'innovations technologiques à travers 15+ établissements.",
+      locations: ["Marrakech, Maroc"],
+      achievements: [
+        "Conception et implémentation d'un système de gestion hôtelière intelligent utilisé par +500 employés",
+        "Développement d'une application mobile primée augmentant le taux de fidélité client de 70%",
+        "Pilotage de l'intégration d'une solution IA pour l'optimisation du yield management générant +35% de revenus",
+        "Mise en place d'un programme innovant de formation digitale pour 200+ collaborateurs"
+      ]
+    },
+    {
+      company: "CASABLANCA SMART CITY INITIATIVE",
+      position: "Conseiller Principal en Innovation Urbaine",
+      period: "2020 - 2022",
+      description: "Consultation stratégique pour le projet pilote de ville intelligente à Casablanca, travaillant en étroite collaboration avec les autorités municipales et les investisseurs internationaux.",
+      locations: ["Casablanca, Maroc"],
+      achievements: [
+        "Conception du framework d'architecture IoT adopté comme standard pour les futures expansions urbaines",
+        "Développement de l'application citoyenne Casa-Connect téléchargée par +50 000 résidents en 6 mois",
+        "Implémentation de systèmes de gestion intelligente du trafic réduisant les congestions de 30%",
+        "Organisation du premier hackathon Smart City du Maroc avec 500+ participants internationaux"
+      ]
+    },
+    {
+      company: "TANGER MED DIGITAL LABS",
+      position: "Responsable Innovation & IA",
+      period: "2018 - 2020",
+      description: "Direction des initiatives d'innovation digitale au sein du plus grand port de Méditerranée et d'Afrique, avec focus sur l'automatisation et l'intelligence artificielle appliquée à la logistique maritime.",
+      locations: ["Tanger, Maroc"],
+      achievements: [
+        "Développement d'un algorithme prédictif optimisant les flux logistiques, réduisant les délais d'escale de 40%",
+        "Mise en place d'un système de vision par ordinateur pour l'inspection automatisée des conteneurs",
+        "Implémentation d'une plateforme Big Data analysant en temps réel +50 000 mouvements quotidiens",
+        "Création d'un centre d'excellence en IA formant +200 ingénieurs marocains aux technologies de pointe"
+      ]
+    },
+    {
+      company: "RABAT FINTECH VALLEY",
+      position: "Directeur Technique & Architecte Solutions",
+      period: "2021 - 2023",
+      description: "Leadership technique au sein de l'initiative gouvernementale visant à positionner Rabat comme hub fintech leader en Afrique du Nord, en partenariat avec la Banque Centrale Marocaine.",
+      locations: ["Rabat, Maroc"],
+      achievements: [
+        "Architecture de la première plateforme blockchain de paiements interbancaires marocaine",
+        "Développement d'un système KYC innovant utilisant la biométrie avancée, adopté par 7 banques majeures",
+        "Implémentation d'une sandbox réglementaire permettant de tester +30 solutions fintech innovantes",
+        "Pilotage du développement du premier stablecoin marocain basé sur le Dirham"
+      ]
+    },
+    {
+      company: "MARRAKECH MEDTECH INNOVATIONS",
+      position: "CTO & Responsable R&D",
+      period: "2017 - 2019",
+      description: "Direction technique et R&D pour une startup pionnière dans le développement de solutions médicales connectées, incubée à la Faculté de Médecine de Marrakech en partenariat avec des investisseurs suisses.",
+      locations: ["Marrakech, Maroc"],
+      achievements: [
+        "Développement d'un dispositif médical connecté pour le monitoring cardiaque à distance, utilisé dans 12 cliniques",
+        "Conception d'une plateforme IoT médicale conforme aux normes HIPAA et GDPR traitant les données de 10 000+ patients",
+        "Obtention de 2 brevets internationaux pour des innovations en télémédecine",
+        "Sécurisation d'un financement Serie A de 2,5M€ basé sur les prototypes développés"
+      ]
+    },
+    {
+      company: "CASABLANCA DIGITAL MARKETING INSTITUTE",
+      position: "Directeur Académique & Formateur Principal",
+      period: "2016 - 2019",
+      description: "Fondation et direction du premier institut spécialisé en marketing digital de Casablanca, en partenariat avec des agences internationales et certifications Google.",
+      locations: ["Casablanca, Maroc"],
+      achievements: [
+        "Développement d'un curriculum complet formant +1500 professionnels du marketing digital en 3 ans",
+        "Création de partenariats exclusifs avec Google, Facebook et HubSpot pour des certifications premium",
+        "Organisation des Digital Marketing Days, l'événement de référence attirant 2000+ participants annuellement",
+        "Lancement du premier incubateur spécialisé marketing digital avec un taux de succès de 65% pour les startups accompagnées"
+      ]
+    },
+    {
+      company: "TANGIER TECH CITY",
+      position: "Lead Developer & Responsable Innovation",
+      period: "2019 - 2021",
+      description: "Direction technique au sein du projet de ville technologique sino-marocaine, supervisant le développement des infrastructures digitales et solutions smart city de nouvelle génération.",
+      locations: ["Tanger, Maroc"],
+      achievements: [
+        "Architecture et développement du système de gestion intelligente urbaine couvrant 2000 hectares",
+        "Implémentation d'un réseau 5G privé pionnier au Maroc en collaboration avec Huawei et Maroc Telecom",
+        "Conception de jumeaux numériques pour l'optimisation énergétique réduisant la consommation de 45%",
+        "Développement d'APIs ouvertes permettant à 50+ startups locales de créer des services innovants"
+      ]
+    },
+    {
+      company: "RABAT CYBERSECURITY DEFENSE CENTER",
+      position: "Expert en Sécurité & Responsable Technique",
+      period: "2018 - 2020",
+      description: "Direction technique au sein d'une initiative public-privé visant à renforcer les infrastructures critiques marocaines contre les cybermenaces, en collaboration avec le Ministère de la Défense.",
+      locations: ["Rabat, Maroc"],
+      achievements: [
+        "Conception et déploiement d'un SOC (Security Operations Center) national supervisant les infrastructures critiques",
+        "Développement d'une plateforme d'analyse de menaces basée sur l'IA détectant +5000 tentatives d'intrusion par jour",
+        "Formation de 150+ ingénieurs marocains aux techniques avancées de cyberdéfense",
+        "Organisation des premiers exercices nationaux de simulation de cyberattaques impliquant 20+ organismes gouvernementaux"
+      ]
+    },
+    // Conservation des expériences internationales précédentes
     {
       company: "MICROSOFT AI RESEARCH",
       position: "Consultant Senior en Intelligence Artificielle",
