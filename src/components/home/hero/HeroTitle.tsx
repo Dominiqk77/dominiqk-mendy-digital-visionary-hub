@@ -25,9 +25,10 @@ const HeroTitle = () => {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
+      className="mt-16 md:mt-8" // Added top margin to create space from the header
     >
       <motion.div 
-        className="inline-block px-4 py-1.5 bg-portfolio-purple/10 backdrop-blur-sm rounded-full text-portfolio-purple border border-portfolio-purple/20 text-sm font-medium mb-2"
+        className="inline-block px-4 py-1.5 bg-portfolio-purple/10 backdrop-blur-sm rounded-full text-portfolio-purple border border-portfolio-purple/20 text-sm font-medium mb-2 float-right md:float-none" // Added float-right to move it to the right on mobile
         variants={itemVariants}
       >
         <div className="flex items-center gap-2">
