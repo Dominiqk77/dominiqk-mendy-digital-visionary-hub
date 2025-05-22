@@ -25,8 +25,10 @@ const Hero = () => {
 
   return (
     <div className="relative h-auto min-h-[700px] sm:min-h-[700px] flex items-center overflow-hidden bg-transparent pt-16 pb-8 sm:pt-8 sm:pb-0">
-      {/* Enhanced creative background with code elements */}
-      <EnhancedHomeBackground />
+      {/* Enhanced creative background with code elements - positioned to cover entire hero */}
+      <div className="absolute inset-0 w-full h-full">
+        <EnhancedHomeBackground />
+      </div>
       
       <div className="container mx-auto px-4 sm:px-6 z-10 relative">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
@@ -87,6 +89,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.6 }}
+          className="relative z-10"
         >
           <HeroClients />
         </motion.div>
