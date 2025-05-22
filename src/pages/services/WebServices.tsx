@@ -848,7 +848,7 @@ const WebServices = () => {
                       <Phone size={22} className="text-cyan-400" />
                       Développement Mobile
                     </CardTitle>
-                    <CardDescription className="text-gray-300">
+                    <CardDescription className="text-zinc-950">
                       Applications mobiles natives et hybrides pour iOS et Android
                     </CardDescription>
                   </CardHeader>
