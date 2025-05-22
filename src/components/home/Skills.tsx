@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
@@ -413,7 +412,7 @@ const Skills = () => {
                         {skill.level}%
                       </Badge>
                     </div>
-                    <Progress value={skill.level} className="h-2 bg-white/10" indicatorClassName="bg-gradient-to-r from-portfolio-purple to-portfolio-blue" />
+                    <Progress value={skill.level} className="h-2 bg-white/10" indicatorColor="linear-gradient(to right, var(--portfolio-purple), var(--portfolio-blue))" />
                   </div>
                 </motion.div>
               ))}
@@ -445,7 +444,7 @@ const Skills = () => {
                         {skill.level}%
                       </Badge>
                     </div>
-                    <Progress value={skill.level} className="h-2 bg-white/10" indicatorClassName="bg-gradient-to-r from-portfolio-blue to-portfolio-cyan" />
+                    <Progress value={skill.level} className="h-2 bg-white/10" indicatorColor="linear-gradient(to right, var(--portfolio-blue), var(--portfolio-cyan))" />
                   </div>
                 </motion.div>
               ))}
@@ -477,7 +476,7 @@ const Skills = () => {
                         {skill.level}%
                       </Badge>
                     </div>
-                    <Progress value={skill.level} className="h-2 bg-white/10" indicatorClassName="bg-gradient-to-r from-portfolio-pink to-portfolio-purple" />
+                    <Progress value={skill.level} className="h-2 bg-white/10" indicatorColor="linear-gradient(to right, var(--portfolio-pink), var(--portfolio-purple))" />
                   </div>
                 </motion.div>
               ))}
