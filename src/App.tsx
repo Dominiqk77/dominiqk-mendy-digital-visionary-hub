@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -27,6 +26,12 @@ import AboutPage from "./pages/About";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import LegalNotices from "./pages/LegalNotices";
+import AISolutions from "./pages/services/AISolutions";
+import WebDevelopment from "./pages/services/WebDevelopment";
+import DigitalMarketing from "./pages/services/DigitalMarketing";
+import EGovernanceServices from "./pages/services/EGovernanceServices";
+import DataAnalysisServices from "./pages/services/DataAnalysisServices";
+import ConsultingStrategyServices from "./pages/services/ConsultingStrategyServices";
 
 const queryClient = new QueryClient();
 
@@ -38,12 +43,24 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/services" element={<ServicesPage />} />
+        
+        {/* Original service category pages */}
         <Route path="/services/ai-solutions" element={<AIServices />} />
         <Route path="/services/web-development" element={<WebServices />} />
         <Route path="/services/digital-marketing" element={<MarketingServices />} />
         <Route path="/services/consulting" element={<ConsultingServices />} />
         <Route path="/services/ai-training" element={<AITrainingPage />} />
         <Route path="/services/egouvernance" element={<EGovernance />} />
+        
+        {/* New service detail pages for featured services */}
+        <Route path="/services/ai-solutions" element={<AISolutions />} />
+        <Route path="/services/web-development" element={<WebDevelopment />} />
+        <Route path="/services/digital-marketing" element={<DigitalMarketing />} />
+        <Route path="/services/e-governance" element={<EGovernanceServices />} />
+        <Route path="/services/data-analysis" element={<DataAnalysisServices />} />
+        <Route path="/services/consulting" element={<ConsultingStrategyServices />} />
+
+        {/* Other Pages */}
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/academy" element={<AcademyPage />} />
         <Route path="/tools" element={<ToolsPage />} />
@@ -57,6 +74,7 @@ const App = () => (
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/legal-notices" element={<LegalNotices />} />
+        
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
