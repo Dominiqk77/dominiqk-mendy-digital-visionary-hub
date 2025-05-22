@@ -772,7 +772,7 @@ const WebServices = () => {
                       <Monitor size={22} className="text-blue-400" />
                       Développement Frontend
                     </CardTitle>
-                    <CardDescription className="text-gray-300">
+                    <CardDescription className="text-gray-950">
                       Interfaces utilisateurs modernes et réactives avec animations fluides
                     </CardDescription>
                   </CardHeader>
