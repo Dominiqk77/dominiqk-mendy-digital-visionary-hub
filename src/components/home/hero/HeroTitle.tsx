@@ -36,10 +36,13 @@ const HeroTitle = () => {
     visible: { opacity: 1, y: 0 }
   };
 
-  // Advanced typing animation with erase and rewrite cycle
+  // Advanced typing animation with erase and rewrite cycle - fixed to properly start with "D"
   useEffect(() => {
     let typingTimer: ReturnType<typeof setTimeout>;
     let erasingTimer: ReturnType<typeof setTimeout>;
+    
+    // Initialize with empty text
+    setDisplayText("");
     
     // Function to type the name character by character
     const typeText = () => {
@@ -71,24 +74,25 @@ const HeroTitle = () => {
     // Function to erase the name character by character
     const startErasing = () => {
       setIsErasing(true);
-      let text = name;
       
       const erasingInterval = setInterval(() => {
-        if (text.length > 0) {
-          text = text.substring(0, text.length - 1);
-          setDisplayText(text);
-        } else {
-          clearInterval(erasingInterval);
-          setIsErasing(false);
-          
-          // After fully erasing, change color and start typing again
-          setColorIndex(prevIndex => (prevIndex + 1) % colorSchemes.length);
-          
-          // Wait before starting to type again
-          typingTimer = setTimeout(() => {
-            typeText();
-          }, 500);
-        }
+        setDisplayText(prev => {
+          if (prev.length > 0) {
+            return prev.substring(0, prev.length - 1);
+          } else {
+            clearInterval(erasingInterval);
+            setIsErasing(false);
+            
+            // After fully erasing, change color and start typing again
+            setColorIndex(prevIndex => (prevIndex + 1) % colorSchemes.length);
+            
+            // Wait before starting to type again
+            typingTimer = setTimeout(() => {
+              typeText();
+            }, 500);
+            return prev;
+          }
+        });
       }, 80);
       
       return () => {
@@ -113,7 +117,7 @@ const HeroTitle = () => {
       clearTimeout(erasingTimer);
       clearInterval(cursorInterval);
     };
-  }, [name.length]);
+  }, []);
   
   return (
     <motion.div
@@ -140,10 +144,10 @@ const HeroTitle = () => {
         className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight font-montserrat tracking-tighter"
         variants={itemVariants}
       >
-        {/* Code-themed typing animation for name without border */}
+        {/* Code-themed typing animation for name with Poppins font and fixed height container */}
         <div className="flex items-center py-2">
           <span className="text-white opacity-70 mr-2 text-sm font-light">&gt;</span>
-          <div className="relative overflow-hidden">
+          <div className="relative h-12 sm:h-16 md:h-20 flex items-center">
             {/* Animated binary background */}
             <div className="absolute inset-0 opacity-10 overflow-hidden pointer-events-none">
               <div className="text-[10px] text-portfolio-blue whitespace-pre">
@@ -151,17 +155,17 @@ const HeroTitle = () => {
               </div>
             </div>
             
-            {/* Typed Name with changing colors */}
-            <code className={`relative z-10 bg-clip-text text-transparent bg-gradient-to-r ${colorSchemes[colorIndex]}`}>
+            {/* Typed Name with changing colors - font changed to Poppins and size reduced */}
+            <code className={`relative z-10 bg-clip-text text-transparent bg-gradient-to-r ${colorSchemes[colorIndex]} font-poppins text-2xl sm:text-3xl md:text-4xl`}>
               {displayText}
               {(isTyping || isErasing || displayText.length === 0) && cursorVisible && 
-                <span className="animate-caret-blink ml-1 inline-block w-1 h-8 bg-white"></span>
+                <span className="animate-caret-blink ml-1 inline-block w-1 h-6 sm:h-8 bg-white"></span>
               }
             </code>
           </div>
         </div>
         
-        {/* Restructured subtitle with enhanced animation and typography */}
+        {/* Subtitle with enhanced animation and typography */}
         <div className="mt-4 flex flex-col items-center md:items-start">
           <motion.span 
             className="text-white text-2xl sm:text-4xl md:text-5xl font-bold tracking-wider font-space uppercase relative shadow-glow"
