@@ -3,10 +3,21 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const HeroTitle = () => {
-  const [isTyping, setIsTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(true);
+  const [isErasing, setIsErasing] = useState(false);
   const name = "Dominiqk Mendy";
   const [displayText, setDisplayText] = useState("");
   const [cursorVisible, setCursorVisible] = useState(true);
+  const [colorIndex, setColorIndex] = useState(0);
+
+  // Color schemes for animation
+  const colorSchemes = [
+    "from-[#00FFFF] via-[#7B68EE] to-[#FF1493]",
+    "from-[#FF5F1F] via-[#FFFF00] to-[#7FFF00]",
+    "from-[#4B0082] via-[#9370DB] to-[#00BFFF]",
+    "from-[#FF1493] via-[#FF69B4] to-[#FFA07A]",
+    "from-[#32CD32] via-[#00FA9A] to-[#00FFFF]"
+  ];
 
   // Animation variants for staggered children
   const containerVariants = {
@@ -25,11 +36,17 @@ const HeroTitle = () => {
     visible: { opacity: 1, y: 0 }
   };
 
-  // Typing animation effect
+  // Advanced typing animation with erase and rewrite cycle
   useEffect(() => {
-    const typingTimeout = setTimeout(() => {
+    let typingTimer: ReturnType<typeof setTimeout>;
+    let erasingTimer: ReturnType<typeof setTimeout>;
+    
+    // Function to type the name character by character
+    const typeText = () => {
       setIsTyping(true);
+      setIsErasing(false);
       let i = 0;
+      
       const typingInterval = setInterval(() => {
         if (i < name.length) {
           setDisplayText(prev => prev + name.charAt(i));
@@ -37,10 +54,52 @@ const HeroTitle = () => {
         } else {
           clearInterval(typingInterval);
           setIsTyping(false);
+          
+          // After fully typing, wait before starting to erase
+          erasingTimer = setTimeout(() => {
+            startErasing();
+          }, 1500);
         }
       }, 100);
       
-      return () => clearInterval(typingInterval);
+      return () => {
+        clearInterval(typingInterval);
+        clearTimeout(erasingTimer);
+      };
+    };
+    
+    // Function to erase the name character by character
+    const startErasing = () => {
+      setIsErasing(true);
+      let text = name;
+      
+      const erasingInterval = setInterval(() => {
+        if (text.length > 0) {
+          text = text.substring(0, text.length - 1);
+          setDisplayText(text);
+        } else {
+          clearInterval(erasingInterval);
+          setIsErasing(false);
+          
+          // After fully erasing, change color and start typing again
+          setColorIndex(prevIndex => (prevIndex + 1) % colorSchemes.length);
+          
+          // Wait before starting to type again
+          typingTimer = setTimeout(() => {
+            typeText();
+          }, 500);
+        }
+      }, 80);
+      
+      return () => {
+        clearInterval(erasingInterval);
+        clearTimeout(typingTimer);
+      };
+    };
+    
+    // Start the typing animation after a short delay
+    const initialTimer = setTimeout(() => {
+      typeText();
     }, 800);
     
     // Cursor blinking effect
@@ -49,10 +108,12 @@ const HeroTitle = () => {
     }, 500);
     
     return () => {
-      clearTimeout(typingTimeout);
+      clearTimeout(initialTimer);
+      clearTimeout(typingTimer);
+      clearTimeout(erasingTimer);
       clearInterval(cursorInterval);
     };
-  }, []);
+  }, [name.length]);
   
   return (
     <motion.div
@@ -79,30 +140,25 @@ const HeroTitle = () => {
         className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight font-montserrat tracking-tighter"
         variants={itemVariants}
       >
-        {/* Code-themed typing animation for name */}
-        <div className="relative inline-block font-mono rounded bg-gradient-to-r from-portfolio-blue via-portfolio-purple to-portfolio-pink p-0.5 shadow-lg hover:shadow-glow-purple transition-all duration-300">
-          <div className="flex items-center bg-portfolio-space px-4 py-1 rounded">
-            <span className="text-white opacity-70 mr-2 text-sm font-light">&gt;</span>
-            <div className="relative overflow-hidden">
-              {/* Animated binary background */}
-              <div className="absolute inset-0 opacity-10 overflow-hidden pointer-events-none">
-                <div className="text-[10px] text-portfolio-blue whitespace-pre">
-                  01001000 10101010 01101 01001100 01010
-                </div>
+        {/* Code-themed typing animation for name without border */}
+        <div className="flex items-center py-2">
+          <span className="text-white opacity-70 mr-2 text-sm font-light">&gt;</span>
+          <div className="relative overflow-hidden">
+            {/* Animated binary background */}
+            <div className="absolute inset-0 opacity-10 overflow-hidden pointer-events-none">
+              <div className="text-[10px] text-portfolio-blue whitespace-pre">
+                01001000 10101010 01101 01001100 01010
               </div>
-              
-              {/* Typed Name */}
-              <code className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-[#00FFFF] via-[#7B68EE] to-[#FF1493]">
-                {displayText}
-                {isTyping && cursorVisible && <span className="animate-caret-blink ml-1 inline-block w-1 h-8 bg-white"></span>}
-                {!isTyping && cursorVisible && <span className="animate-caret-blink ml-1 inline-block w-1 h-8 bg-white"></span>}
-              </code>
             </div>
+            
+            {/* Typed Name with changing colors */}
+            <code className={`relative z-10 bg-clip-text text-transparent bg-gradient-to-r ${colorSchemes[colorIndex]}`}>
+              {displayText}
+              {(isTyping || isErasing || displayText.length === 0) && cursorVisible && 
+                <span className="animate-caret-blink ml-1 inline-block w-1 h-8 bg-white"></span>
+              }
+            </code>
           </div>
-          
-          {/* Decorative code syntax elements */}
-          <div className="absolute -bottom-1 -right-1 text-xs text-portfolio-blue opacity-80">{`}`}</div>
-          <div className="absolute -top-1 -left-1 text-xs text-portfolio-pink opacity-80">{`{`}</div>
         </div>
         
         {/* Restructured subtitle with enhanced animation and typography */}
