@@ -720,7 +720,7 @@ Répondez de manière engageante, professionnelle et commerciale:`;
                 </div>
                 
                 {/* Messages area */}
-                <div className="relative flex-1 p-3 overflow-y-auto">
+                <div className="relative flex-1 p-3 overflow-y-auto bg-slate-900">
                   <SpaceBackground />
                   <div className="relative z-10">
                     {messages.map((message) => (
@@ -732,7 +732,7 @@ Répondez de manière engageante, professionnelle et commerciale:`;
                           className={`max-w-[80%] p-3 rounded-xl ${
                             message.sender === 'user' 
                               ? 'bg-gradient-to-br from-portfolio-purple to-portfolio-blue text-white backdrop-blur-lg border border-white/10 shadow-glow-purple' 
-                              : 'bg-white/15 backdrop-blur-lg border border-white/20 text-white shadow-md'
+                              : 'bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 text-white shadow-md'
                           }`}
                         >
                           {message.type === 'appointment' && message.metadata?.appointmentDate ? (
@@ -756,7 +756,7 @@ Répondez de manière engageante, professionnelle et commerciale:`;
                               </div>
                             </div>
                           ) : (
-                            <div className="text-white/95 leading-relaxed">{message.content}</div>
+                            <div className="text-white leading-relaxed">{message.content}</div>
                           )}
                           {message.metadata?.leadScore && message.metadata.leadScore > 0 && message.sender === 'user' && (
                             <div className="text-xs text-white/60 mt-1">Score: {message.metadata.leadScore}/100</div>
@@ -767,7 +767,7 @@ Répondez de manière engageante, professionnelle et commerciale:`;
 
                     {isTyping && (
                       <div className="flex mb-3">
-                        <div className="bg-white/15 backdrop-blur-lg border border-white/20 p-3 rounded-xl max-w-[80%] shadow-md">
+                        <div className="bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 p-3 rounded-xl max-w-[80%] shadow-md">
                           <div className="flex space-x-2">
                             <div className="w-2 h-2 rounded-full bg-portfolio-blue animate-pulse"></div>
                             <div className="w-2 h-2 rounded-full bg-portfolio-purple animate-pulse" style={{ animationDelay: '0.2s' }}></div>
@@ -868,7 +868,7 @@ Répondez de manière engageante, professionnelle et commerciale:`;
             </div>
 
             {/* Messages area */}
-            <div className="relative flex-1 p-3 overflow-y-auto">
+            <div className="relative flex-1 p-3 overflow-y-auto bg-slate-900">
               <SpaceBackground />
               <div className="relative z-10">
                 {messages.map((message) => (
@@ -880,7 +880,7 @@ Répondez de manière engageante, professionnelle et commerciale:`;
                       className={`max-w-[80%] p-3 rounded-xl ${
                         message.sender === 'user' 
                           ? 'bg-gradient-to-br from-portfolio-purple to-portfolio-blue text-white backdrop-blur-lg border border-white/10 shadow-glow-purple' 
-                          : 'bg-white/15 backdrop-blur-lg border border-white/20 text-white shadow-md'
+                          : 'bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 text-white shadow-md'
                       }`}
                     >
                       {message.type === 'appointment' && message.metadata?.appointmentDate ? (
@@ -904,7 +904,7 @@ Répondez de manière engageante, professionnelle et commerciale:`;
                           </div>
                         </div>
                       ) : (
-                        <div className="text-white/95 leading-relaxed">{message.content}</div>
+                        <div className="text-white leading-relaxed">{message.content}</div>
                       )}
                       {message.metadata?.leadScore && message.metadata.leadScore > 0 && message.sender === 'user' && (
                         <div className="text-xs text-white/60 mt-1">Score: {message.metadata.leadScore}/100</div>
@@ -915,7 +915,7 @@ Répondez de manière engageante, professionnelle et commerciale:`;
 
                 {isTyping && (
                   <div className="flex mb-3">
-                    <div className="bg-white/15 backdrop-blur-lg border border-white/20 p-3 rounded-xl max-w-[80%] shadow-md">
+                    <div className="bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 p-3 rounded-xl max-w-[80%] shadow-md">
                       <div className="flex space-x-2">
                         <div className="w-2 h-2 rounded-full bg-portfolio-blue animate-pulse"></div>
                         <div className="w-2 h-2 rounded-full bg-portfolio-purple animate-pulse" style={{ animationDelay: '0.2s' }}></div>
