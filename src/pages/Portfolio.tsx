@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -7,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import ProjectViewDialog from '../components/portfolio/ProjectViewDialog';
-import { ExternalLink, ArrowRight, Star, Code, Database, Globe, BarChart3, BookOpen, Rocket, Eye, TrendingUp, Shield, Zap, Users, Brain, Smartphone, Mountain, Utensils, Package, Palette, Microscope, Heart, Lightbulb, Settings, Plane, Trophy, Coffee, Home } from 'lucide-react';
+import { ExternalLink, ArrowRight, Star, Code, Database, Globe, BarChart3, BookOpen, Rocket, Eye, TrendingUp, Shield, Zap, Users, Brain, Smartphone, Mountain, Utensils, Package, Palette, Microscope, Heart, Lightbulb, Settings } from 'lucide-react';
 
 // Star background component
 const StarBackground = () => {
@@ -65,7 +64,6 @@ const Portfolio = () => {
   };
   
   const projects = [
-    // Recent projects (first 4)
     {
       id: 24,
       title: "Sen'Services - Administration Numérique Sénégalaise",
@@ -115,269 +113,280 @@ const Portfolio = () => {
       color: "from-orange-600 to-green-600"
     },
     {
-      id: 28,
-      title: "Select Voyages - Plateforme Voyage Premium Dubaï",
-      category: "travel",
-      image: "/lovable-uploads/2ee1e531-c3f9-46a1-8aa2-5eeca7dd68b7.png",
-      description: "Plateforme de voyage premium spécialisée dans les destinations exclusives avec focus sur Dubaï. Interface élégante pour découvrir la ville du futur avec offres personnalisées, réservations simplifiées et expériences VIP.",
-      tags: ["Travel Premium", "Dubai", "Luxury Travel", "Booking Platform"],
-      metrics: { destinations: "Premium", bookings: "VIP", satisfaction: "Luxury" },
-      link: "#",
-      icon: <Plane className="h-6 w-6" />,
-      color: "from-blue-600 to-gold-600"
-    },
-    {
-      id: 29,
-      title: "Select Voyages Sénégal - Tourisme Culturel",
-      category: "travel",
-      image: "/lovable-uploads/89368157-adf5-4030-bb16-bcefae31ea54.png",
-      description: "Plateforme dédiée au tourisme sénégalais mettant en valeur le pays de la Teranga. Interface authentique pour découvrir les richesses culturelles du Sénégal avec circuits personnalisés et expériences locales uniques.",
-      tags: ["Cultural Tourism", "Senegal", "Local Experiences", "Heritage"],
-      metrics: { heritage: "Authentic", tours: "Cultural", impact: "Local" },
-      link: "#",
-      icon: <Mountain className="h-6 w-6" />,
-      color: "from-green-600 to-yellow-600"
-    },
-    {
-      id: 30,
-      title: "SN Sport - Référence Sportive Sénégalaise",
-      category: "sports",
-      image: "/lovable-uploads/1fd412ae-871e-419b-ac09-863e22961bea.png",
-      description: "Plateforme média sportive de référence au Sénégal avec actualités en temps réel, analyses approfondies et couverture complète. Interface moderne dédiée aux passionnés de sport avec contenu exclusif et engagement communautaire.",
-      tags: ["Sports Media", "News Platform", "Senegal Sports", "Community"],
-      metrics: { coverage: "Complete", fans: "Passionate", content: "Exclusive" },
-      link: "#",
-      icon: <Trophy className="h-6 w-6" />,
-      color: "from-red-600 to-green-600"
-    },
-    {
-      id: 31,
-      title: "SNG Sport Clothing - Marque Sportive Premium",
-      category: "ecommerce",
-      image: "/lovable-uploads/14c08e0f-17e9-481d-8b2d-60df1627abbf.png",
-      description: "Marque de vêtements sportifs premium avec design africain authentique. Collection exclusive alliant performance et style, produits haute qualité et identité visuelle forte pour les athlètes passionnés.",
-      tags: ["Sports Clothing", "African Design", "Premium Brand", "Athletic Wear"],
-      metrics: { quality: "Premium", design: "African", performance: "Athletic" },
-      link: "#",
-      icon: <Package className="h-6 w-6" />,
-      color: "from-white to-red-600"
-    },
-    {
-      id: 32,
-      title: "SNG Sport Accessories - Accessoires Sportifs",
-      category: "ecommerce",
-      image: "/lovable-uploads/3d735bdf-bb7f-4d6b-a7ad-c4a851c60d45.png",
-      description: "Ligne d'accessoires sportifs premium avec casquettes, visières et équipements techniques. Design minimaliste et fonctionnel pour les sportifs exigeants avec qualité professionnelle et confort optimal.",
-      tags: ["Sports Accessories", "Premium Design", "Technical Gear", "Athletic"],
-      metrics: { comfort: "Optimal", quality: "Professional", design: "Minimalist" },
-      link: "#",
-      icon: <Shield className="h-6 w-6" />,
-      color: "from-gray-600 to-red-600"
-    },
-    {
-      id: 33,
-      title: "Good Night Daddy - Plateforme Lifestyle",
-      category: "lifestyle",
-      image: "/lovable-uploads/2afda928-d2f6-4e46-a76f-14493fa0e6ca.png",
-      description: "Plateforme lifestyle moderne avec design coloré et interface engageante. Solution complète pour communauté lifestyle avec contenu personnalisé, interactions sociales et expérience utilisateur premium.",
-      tags: ["Lifestyle Platform", "Community", "Social Features", "Modern Design"],
-      metrics: { engagement: "High", community: "Active", design: "Modern" },
-      link: "#",
-      icon: <Users className="h-6 w-6" />,
-      color: "from-blue-600 to-pink-600"
-    },
-    {
-      id: 34,
-      title: "Millenium Pub - Agence Publicitaire Créative",
-      category: "advertising",
-      image: "/lovable-uploads/18e04c91-48a0-4080-b820-d96578d90e09.png",
-      description: "Agence publicitaire innovante spécialisée dans les campagnes créatives multi-supports. Portfolio diversifié avec solutions graphiques impactantes, stratégies marketing digitales et créativité sans limites.",
-      tags: ["Creative Agency", "Advertising", "Multi-Media", "Design"],
-      metrics: { campaigns: "Creative", impact: "High", solutions: "Multi-media" },
-      link: "#",
-      icon: <Palette className="h-6 w-6" />,
-      color: "from-teal-600 to-blue-600"
-    },
-    {
-      id: 35,
-      title: "Ambre Décoration - E-commerce Déco Premium",
-      category: "ecommerce",
-      image: "/lovable-uploads/58065361-7f73-46ca-98d5-629cbdf091d4.png",
-      description: "Boutique en ligne premium spécialisée dans la décoration d'intérieur avec produits artisanaux uniques. Interface élégante pour transformer les espaces de vie avec catalogue exclusif et inspiration design.",
-      tags: ["Home Decor", "Premium E-commerce", "Artisanal", "Interior Design"],
-      metrics: { products: "Premium", style: "Unique", inspiration: "Design" },
-      link: "#",
-      icon: <Home className="h-6 w-6" />,
-      color: "from-pink-600 to-orange-600"
-    },
-    {
-      id: 36,
-      title: "Portfolio Voyage Élite - Showcase Tourisme",
-      category: "portfolio",
-      image: "/lovable-uploads/c1814488-6dfe-464d-b997-2d114a2d4283.png",
-      description: "Portfolio professionnel pour agence de voyage haut de gamme avec présentation immersive des destinations. Design sophistiqué mettant en valeur les services premium et expériences exclusives.",
-      tags: ["Travel Portfolio", "Luxury Tourism", "Professional Showcase", "Premium"],
-      metrics: { destinations: "Elite", presentation: "Immersive", services: "Premium" },
+      id: 1,
+      title: "KAYEXSA - Plateforme Maritime Intelligente",
+      category: "maritime",
+      image: "/lovable-uploads/64a065b7-85a3-4637-89bd-531ed0075053.png",
+      description: "Solution complète d'innovation maritime avec IA pour l'optimisation des routes offshore, procurement automatisé et services techniques ETS. Intégration de technologies prédictives pour améliorer l'efficacité opérationnelle de 40%.",
+      tags: ["Maritime Tech", "IA Prédictive", "Offshore", "Automation"],
+      metrics: { users: "50K+", efficiency: "+40%", savings: "$2.5M" },
       link: "#",
       icon: <Globe className="h-6 w-6" />,
-      color: "from-purple-600 to-blue-600"
+      color: "from-blue-600 to-cyan-600"
     },
     {
-      id: 37,
-      title: "Dania Cosmetics - Marque Beauté Moderne",
-      category: "beauty",
-      image: "/lovable-uploads/4c45267c-f798-45d6-a627-b4f238ad9ede.png",
-      description: "Marque de cosmétiques moderne avec identité visuelle éclatante et produits innovants. Plateforme beauté complète avec application mobile intégrée et stratégie marketing digital révolutionnaire.",
-      tags: ["Beauty Brand", "Cosmetics", "Mobile App", "Digital Marketing"],
-      metrics: { innovation: "Beauty", branding: "Modern", reach: "Global" },
-      link: "#",
-      icon: <Heart className="h-6 w-6" />,
-      color: "from-pink-600 to-purple-600"
-    },
-    {
-      id: 38,
-      title: "Good Night Daddy - Plateforme Web Complète",
-      category: "platform",
-      image: "/lovable-uploads/a0b9d28d-2c7b-4d6c-99b3-0dde84747a75.png",
-      description: "Plateforme web sophistiquée avec design portfolio élégant et interface utilisateur moderne. Solution complète pour présentation professionnelle avec technologies avancées et expérience utilisateur optimisée.",
-      tags: ["Web Platform", "Portfolio Design", "Modern UI", "Professional"],
-      metrics: { design: "Sophisticated", ux: "Optimized", tech: "Advanced" },
-      link: "#",
-      icon: <Code className="h-6 w-6" />,
-      color: "from-blue-600 to-teal-600"
-    },
-    // Older projects (11 new ones added at the end)
-    {
-      id: 39,
-      title: "Cabinet Dentaire - Gestion Médicale Moderne",
-      category: "healthcare",
-      image: "/lovable-uploads/00f229a9-af1c-47e4-a805-4e3b081a0bb4.png",
-      description: "Système de gestion pour cabinet dentaire avec interface moderne et fonctionnalités complètes. Solution digitale pour optimiser la gestion des patients, rendez-vous et dossiers médicaux avec sécurité renforcée.",
-      tags: ["Healthcare Management", "Medical Software", "Patient Care", "Digital Health"],
-      metrics: { management: "Complete", security: "Medical-grade", efficiency: "Optimized" },
-      link: "#",
-      icon: <Heart className="h-6 w-6" />,
-      color: "from-blue-600 to-green-600"
-    },
-    {
-      id: 40,
-      title: "LTMS - Solution Logistique Avancée",
-      category: "logistics",
-      image: "/lovable-uploads/095c1671-4572-4f06-bce8-e5159882efdc.png",
-      description: "Plateforme de gestion logistique complète avec tracking en temps réel et optimisation des flux. Interface professionnelle pour gérer efficacement les opérations de transport et livraison avec analytics avancés.",
-      tags: ["Logistics Management", "Real-time Tracking", "Supply Chain", "Analytics"],
-      metrics: { tracking: "Real-time", optimization: "Advanced", efficiency: "Maximum" },
-      link: "#",
-      icon: <TrendingUp className="h-6 w-6" />,
-      color: "from-orange-600 to-red-600"
-    },
-    {
-      id: 41,
-      title: "RestauOS - Système de Gestion Restaurant",
-      category: "restaurant",
-      image: "/lovable-uploads/0b3cfab2-48ff-4eb9-af9c-380116ba7735.png",
-      description: "Solution complète de gestion pour restaurants avec commandes, paiements et inventaire. Interface intuitive pour optimiser les opérations restauration avec système POS intégré et analytics détaillés.",
-      tags: ["Restaurant Management", "POS System", "Order Management", "Inventory"],
-      metrics: { operations: "Streamlined", pos: "Integrated", analytics: "Detailed" },
-      link: "#",
-      icon: <Utensils className="h-6 w-6" />,
-      color: "from-yellow-600 to-orange-600"
-    },
-    {
-      id: 42,
-      title: "E-Learning Platform - Éducation Numérique",
-      category: "education",
-      image: "/lovable-uploads/1d07325e-d8c2-4e54-ac4e-3caf0120f9eb.png",
-      description: "Plateforme d'apprentissage en ligne moderne avec cours interactifs et suivi personnalisé. Solution éducative complète avec outils pédagogiques avancés, évaluations automatisées et engagement étudiant optimisé.",
-      tags: ["E-Learning", "Online Education", "Interactive Courses", "Student Tracking"],
-      metrics: { courses: "Interactive", tracking: "Personalized", engagement: "High" },
-      link: "#",
-      icon: <BookOpen className="h-6 w-6" />,
-      color: "from-purple-600 to-blue-600"
-    },
-    {
-      id: 43,
-      title: "AgriTech Solutions - Agriculture Intelligente",
-      category: "agriculture",
-      image: "/lovable-uploads/1eba62b9-3add-4465-92bd-a402eb846093.png",
-      description: "Plateforme agricole moderne avec monitoring des cultures et optimisation des rendements. Solution IoT pour agriculture de précision avec capteurs intelligents, analytics prédictifs et gestion automatisée.",
-      tags: ["AgriTech", "IoT Agriculture", "Precision Farming", "Smart Monitoring"],
-      metrics: { monitoring: "Smart", yields: "Optimized", farming: "Precision" },
-      link: "#",
-      icon: <Microscope className="h-6 w-6" />,
-      color: "from-green-600 to-blue-600"
-    },
-    {
-      id: 44,
-      title: "FinTech Dashboard - Gestion Financière",
+      id: 2,
+      title: "Cracker - Fintech Révolutionnaire",
       category: "fintech",
       image: "/lovable-uploads/29518682-e2b1-4152-8f5f-5835f92623ca.png",
-      description: "Dashboard financier professionnel avec analytics avancés et gestion de portefeuille. Interface moderne pour traders et investisseurs avec données en temps réel, graphiques interactifs et alertes personnalisées.",
-      tags: ["FinTech", "Financial Dashboard", "Portfolio Management", "Real-time Data"],
-      metrics: { data: "Real-time", analytics: "Advanced", management: "Professional" },
+      description: "Plateforme fintech next-gen avec cartes virtuelles personnalisables, cashback intelligent et design unique. Interface ultra-moderne avec gestion financière simplifiée et sécurité blockchain intégrée.",
+      tags: ["Fintech", "Blockchain", "Virtual Cards", "UX Design"],
+      metrics: { transactions: "1M+", satisfaction: "4.9/5", growth: "+180%" },
       link: "#",
       icon: <BarChart3 className="h-6 w-6" />,
-      color: "from-blue-600 to-purple-600"
-    },
-    {
-      id: 45,
-      title: "Blockchain Exchange - Plateforme Crypto",
-      category: "blockchain",
-      image: "/lovable-uploads/330d9ea3-62fb-444d-b8cf-eb53399e13fb.png",
-      description: "Plateforme d'échange de cryptomonnaies sécurisée avec trading avancé. Interface professionnelle pour traders avec ordres sophistiqués, sécurité multicouches et intégration DeFi complète.",
-      tags: ["Blockchain", "Crypto Exchange", "DeFi Integration", "Secure Trading"],
-      metrics: { security: "Multi-layer", trading: "Advanced", integration: "DeFi" },
-      link: "#",
-      icon: <Code className="h-6 w-6" />,
-      color: "from-gold-600 to-orange-600"
-    },
-    {
-      id: 46,
-      title: "Smart City Dashboard - Ville Intelligente",
-      category: "smartcity",
-      image: "/lovable-uploads/3490d9cc-cadd-4942-a270-81ffbc7c7dc8.png",
-      description: "Tableau de bord pour gestion urbaine intelligente avec IoT et analytics. Solution complète pour administrations avec monitoring en temps réel, optimisation énergétique et services citoyens intégrés.",
-      tags: ["Smart City", "Urban Management", "IoT Integration", "Citizen Services"],
-      metrics: { monitoring: "Real-time", optimization: "Energy", services: "Integrated" },
-      link: "#",
-      icon: <Globe className="h-6 w-6" />,
-      color: "from-blue-600 to-green-600"
-    },
-    {
-      id: 47,
-      title: "AI Analytics Platform - Intelligence Artificielle",
-      category: "ai",
-      image: "/lovable-uploads/3579282a-3333-4ce8-abab-282c84f97950.png",
-      description: "Plateforme d'analytics powered par IA avec machine learning avancé. Solution intelligente pour analyse prédictive, traitement automatisé des données et insights business avec algorithmes sophistiqués.",
-      tags: ["Artificial Intelligence", "Machine Learning", "Predictive Analytics", "Data Science"],
-      metrics: { ai: "Advanced", predictions: "Accurate", insights: "Business" },
-      link: "#",
-      icon: <Brain className="h-6 w-6" />,
       color: "from-purple-600 to-pink-600"
     },
     {
-      id: 48,
-      title: "Mobile Banking App - Banque Mobile",
-      category: "mobile",
-      image: "/lovable-uploads/3b1bf266-238b-4dd4-8ef8-13cec30e562e.png",
-      description: "Application bancaire mobile sécurisée avec fonctionnalités complètes. Interface native pour services financiers avec paiements instantanés, gestion de comptes et sécurité biométrique avancée.",
-      tags: ["Mobile Banking", "Financial Services", "Secure Payments", "Biometric Security"],
-      metrics: { security: "Biometric", payments: "Instant", services: "Complete" },
+      id: 3,
+      title: "Flup - Système de Tracking Intelligent",
+      category: "logistics",
+      image: "/lovable-uploads/330d9ea3-62fb-444d-b8cf-eb53399e13fb.png",
+      description: "Plateforme de suivi logistique en temps réel avec IA prédictive, optimisation des routes et interface intuitive. Révolutionne la gestion de flotte avec analyse prédictive des délais et optimisation automatique.",
+      tags: ["Logistics", "Real-time Tracking", "Fleet Management", "IoT"],
+      metrics: { deliveries: "500K+", accuracy: "99.8%", time_saved: "35%" },
       link: "#",
-      icon: <Smartphone className="h-6 w-6" />,
-      color: "from-blue-600 to-teal-600"
+      icon: <TrendingUp className="h-6 w-6" />,
+      color: "from-green-600 to-emerald-600"
     },
     {
-      id: 49,
-      title: "Healthcare Platform - Télémédecine",
-      category: "healthcare",
-      image: "/lovable-uploads/3dc03f5f-4997-43fa-89f4-2f4d7c7902fa.png",
-      description: "Plateforme de télémédecine complète avec consultations virtuelles et dossiers patients. Solution médicale moderne avec rendez-vous en ligne, prescriptions électroniques et suivi médical personnalisé.",
-      tags: ["Telemedicine", "Virtual Consultations", "Medical Records", "Healthcare"],
-      metrics: { consultations: "Virtual", records: "Digital", care: "Personalized" },
+      id: 4,
+      title: "Dashboard Analytics E-commerce",
+      category: "analytics",
+      image: "/lovable-uploads/ae402755-b91a-4100-8883-17b8e2e43254.png",
+      description: "Interface de gestion e-commerce avec analytics avancés, visualisation en temps réel des performances et insights IA. Intégration complète pour optimiser les ventes et l'expérience client avec prédictions comportementales.",
+      tags: ["E-commerce", "Analytics", "Business Intelligence", "Dashboard"],
+      metrics: { revenue_boost: "+250%", conversion: "+45%", insights: "Real-time" },
       link: "#",
-      icon: <Heart className="h-6 w-6" />,
-      color: "from-red-600 to-pink-600"
+      icon: <BarChart3 className="h-6 w-6" />,
+      color: "from-orange-600 to-red-600"
+    },
+    {
+      id: 5,
+      title: "Skyline - Platform Automotive Premium",
+      category: "automotive",
+      image: "/lovable-uploads/0b3cfab2-48ff-4eb9-af9c-380116ba7735.png",
+      description: "Plateforme digitale premium pour l'industrie automobile avec design ultra-moderne, configurateur 3D et expérience immersive. Interface révolutionnaire combinant performance, sécurité et innovation technologique de pointe.",
+      tags: ["Automotive", "3D Experience", "Premium Design", "Innovation"],
+      metrics: { engagement: "+300%", leads: "390K+", satisfaction: "Ultimate" },
+      link: "#",
+      icon: <Zap className="h-6 w-6" />,
+      color: "from-red-600 to-orange-600"
+    },
+    {
+      id: 6,
+      title: "Support Chat IA Multiplateforme",
+      category: "ai",
+      image: "/lovable-uploads/495ed398-4979-4ac1-a88d-1786a29d5039.png",
+      description: "Système de support client intelligent avec IA conversationnelle, gestion des réclamations automatisée et interface mobile optimisée. Solution omnicanale avec apprentissage automatique pour améliorer continuellement l'expérience.",
+      tags: ["Customer Support", "IA Conversationnelle", "Mobile App", "Automation"],
+      metrics: { response_time: "-80%", satisfaction: "4.8/5", resolution: "95%" },
+      link: "#",
+      icon: <Brain className="h-6 w-6" />,
+      color: "from-indigo-600 to-purple-600"
+    },
+    {
+      id: 7,
+      title: "Flup Analytics - Business Intelligence",
+      category: "business",
+      image: "/lovable-uploads/1eba62b9-3add-4465-92bd-a402eb846093.png",
+      description: "Suite complète d'analytics business avec tableaux de bord interactifs, KPIs en temps réel et intelligence artificielle. Plateforme de prise de décision stratégique avec visualisations avancées et prédictions marché.",
+      tags: ["Business Intelligence", "Data Visualization", "Strategic Analytics", "Predictive AI"],
+      metrics: { decisions: "10x faster", accuracy: "98%", roi: "+400%" },
+      link: "#",
+      icon: <Users className="h-6 w-6" />,
+      color: "from-blue-600 to-indigo-600"
+    },
+    {
+      id: 8,
+      title: "Fleet Management - Tracking Avancé",
+      category: "logistics",
+      image: "/lovable-uploads/cd949f4d-b32f-4fbf-8e24-afb25fcb418a.png",
+      description: "Système de gestion de flotte avec tracking GPS en temps réel, optimisation des itinéraires par IA et monitoring complet. Solution enterprise pour optimiser les coûts logistiques et améliorer l'efficacité opérationnelle.",
+      tags: ["Fleet Management", "GPS Tracking", "Route Optimization", "Enterprise"],
+      metrics: { vehicles: "10K+", fuel_savings: "25%", efficiency: "+60%" },
+      link: "#",
+      icon: <Shield className="h-6 w-6" />,
+      color: "from-green-600 to-blue-600"
+    },
+    {
+      id: 9,
+      title: "SellBoard - E-commerce Dashboard Pro",
+      category: "ecommerce",
+      image: "/lovable-uploads/aae010a5-5f6a-4bd0-a13c-495fc113b702.png",
+      description: "Dashboard e-commerce professionnel avec analytics complets, gestion des commandes intelligente et insights comportementaux. Interface moderne pour optimiser les ventes avec IA prédictive et automatisation marketing.",
+      tags: ["E-commerce Dashboard", "Sales Analytics", "Order Management", "Marketing AI"],
+      metrics: { sales_boost: "+180%", orders: "50K+", automation: "90%" },
+      link: "#",
+      icon: <TrendingUp className="h-6 w-6" />,
+      color: "from-purple-600 to-blue-600"
+    },
+    {
+      id: 10,
+      title: "CAMPEX - Plateforme Aventure Mobile",
+      category: "mobile",
+      image: "/lovable-uploads/b2e4c07b-35d8-465d-bc89-55b26816f6c6.png",
+      description: "Application mobile immersive pour les aventuriers avec géolocalisation avancée, communauté intégrée et planification d'expéditions. Interface dark premium avec fonctionnalités offline et partage d'expériences en temps réel.",
+      tags: ["Mobile App", "Adventure Tech", "Community", "Geolocation"],
+      metrics: { users: "100K+", expeditions: "5K+", engagement: "+85%" },
+      link: "#",
+      icon: <Mountain className="h-6 w-6" />,
+      color: "from-green-600 to-teal-600"
+    },
+    {
+      id: 11,
+      title: "KAYEXSA Services - Solution Maritime B2B",
+      category: "maritime",
+      image: "/lovable-uploads/9a7d079f-f990-4e17-9513-6fed72402776.png",
+      description: "Plateforme B2B spécialisée dans les services maritimes avec gestion des techniciens offshore, planning automatisé et certification digitale. Solution complète pour l'industrie pétrolière et gazière avec conformité internationale.",
+      tags: ["Maritime B2B", "Offshore Services", "Certification", "Compliance"],
+      metrics: { technicians: "2K+", compliance: "100%", efficiency: "+50%" },
+      link: "#",
+      icon: <Shield className="h-6 w-6" />,
+      color: "from-blue-600 to-cyan-600"
+    },
+    {
+      id: 12,
+      title: "EduWorks - Plateforme E-learning Futuriste",
+      category: "education",
+      image: "/lovable-uploads/968156fa-6795-4790-9b90-3ed31a13468d.png",
+      description: "Plateforme éducative révolutionnaire avec design 3D immersif, apprentissage adaptatif par IA et collaboration en temps réel. Interface futuriste pour débloquer le potentiel éducatif avec gamification avancée.",
+      tags: ["E-learning", "3D Design", "Adaptive AI", "Gamification"],
+      metrics: { students: "50K+", completion: "+70%", satisfaction: "4.9/5" },
+      link: "#",
+      icon: <BookOpen className="h-6 w-6" />,
+      color: "from-purple-600 to-pink-600"
+    },
+    {
+      id: 13,
+      title: "Web3 Platform - Solutions Blockchain",
+      category: "blockchain",
+      image: "/lovable-uploads/3579282a-3333-4ce8-abab-282c84f97950.png",
+      description: "Plateforme Web3 complète avec smart contracts optimisés, interface utilisateur intuitive et sécurité avancée. Solution blockchain enterprise pour l'avenir digital avec intégration DeFi et gouvernance décentralisée.",
+      tags: ["Web3", "Blockchain", "Smart Contracts", "DeFi"],
+      metrics: { transactions: "1M+", security: "Military-grade", adoption: "+200%" },
+      link: "#",
+      icon: <Code className="h-6 w-6" />,
+      color: "from-indigo-600 to-purple-600"
+    },
+    {
+      id: 14,
+      title: "Mokala - Plateforme Food Delivery",
+      category: "food",
+      image: "/lovable-uploads/6b23b8da-70d6-4410-9bc2-ddbf9c2b1562.png",
+      description: "Application de livraison alimentaire avec interface moderne, géolocalisation précise et système de commande intuitif. Plateforme multi-restaurants avec algorithmes d'optimisation des livraisons et expérience utilisateur exceptionnelle.",
+      tags: ["Food Delivery", "Mobile App", "Logistics", "User Experience"],
+      metrics: { orders: "200K+", delivery_time: "-30%", restaurants: "500+" },
+      link: "#",
+      icon: <Utensils className="h-6 w-6" />,
+      color: "from-orange-600 to-red-600"
+    },
+    {
+      id: 15,
+      title: "Travel Geography - App Mobile Premium",
+      category: "travel",
+      image: "/lovable-uploads/095c1671-4572-4f06-bce8-e5159882efdc.png",
+      description: "Application mobile premium pour voyageurs avec tracking géographique, statistiques personnalisées et interface dark élégante. Solution complète pour documenter et analyser ses aventures avec fonctionnalités sociales intégrées.",
+      tags: ["Travel App", "Geography", "Statistics", "Social Features"],
+      metrics: { travelers: "75K+", countries: "190+", memories: "1M+" },
+      link: "#",
+      icon: <Globe className="h-6 w-6" />,
+      color: "from-blue-600 to-indigo-600"
+    },
+    {
+      id: 16,
+      title: "MEK Meats - Brand Identity & Packaging",
+      category: "branding",
+      image: "/lovable-uploads/95717288-57dd-409e-8c3d-37d902eb910a.png",
+      description: "Design de marque premium pour produits carnés avec packaging innovant, identité visuelle forte et positionnement haut de gamme. Solution complète de branding avec stratégie marketing et design produit exceptionnel.",
+      tags: ["Brand Design", "Packaging", "Premium Products", "Visual Identity"],
+      metrics: { brand_value: "+300%", recognition: "95%", sales: "+150%" },
+      link: "#",
+      icon: <Package className="h-6 w-6" />,
+      color: "from-red-600 to-orange-600"
+    },
+    {
+      id: 17,
+      title: "Transport Dashboard - Logistique Avancée",
+      category: "logistics",
+      image: "/lovable-uploads/493845e4-3560-4bf5-894b-4e72c6e84493.png",
+      description: "Dashboard logistique professionnel avec tracking multi-modal, analytics prédictifs et gestion client intégrée. Interface claire pour optimiser les opérations de transport avec KPIs en temps réel et automatisation intelligente.",
+      tags: ["Transport Management", "Logistics Dashboard", "Predictive Analytics", "Client Management"],
+      metrics: { shipments: "100K+", efficiency: "+45%", costs: "-25%" },
+      link: "#",
+      icon: <TrendingUp className="h-6 w-6" />,
+      color: "from-green-600 to-blue-600"
+    },
+    {
+      id: 18,
+      title: "Visionaries - Agence Créative Premium",
+      category: "creative",
+      image: "/lovable-uploads/4adf4e96-6afe-4e4c-85c8-135485ae11d5.png",
+      description: "Site web premium pour agence créative avec design innovant, portfolio immersif et expérience utilisateur exceptionnelle. Plateforme digitale révolutionnaire mettant en valeur les services créatifs avec animations fluides.",
+      tags: ["Creative Agency", "Premium Web", "Portfolio", "Immersive Design"],
+      metrics: { projects: "640+", rating: "5.0/5", clients: "Top-tier" },
+      link: "#",
+      icon: <Palette className="h-6 w-6" />,
+      color: "from-blue-600 to-purple-600"
+    },
+    {
+      id: 19,
+      title: "Digital Transformation - FAQ Platform",
+      category: "platform",
+      image: "/lovable-uploads/6a72c200-8a33-4855-a021-3e45542a662e.png",
+      description: "Plateforme de transformation digitale avec FAQ intelligente, onboarding guidé et interface moderne. Solution complète pour accompagner les entreprises dans leur digitalisation avec support IA et documentation interactive.",
+      tags: ["Digital Transformation", "FAQ Platform", "AI Support", "Enterprise"],
+      metrics: { companies: "1K+", satisfaction: "98%", automation: "85%" },
+      link: "#",
+      icon: <Rocket className="h-6 w-6" />,
+      color: "from-indigo-600 to-blue-600"
+    },
+    {
+      id: 20,
+      title: "Brand Guidelines - Système de Design",
+      category: "design",
+      image: "/lovable-uploads/817831b0-e154-4b05-b402-526b9831b448.png",
+      description: "Système de design complet avec guidelines de marque, palette de couleurs professionnelle et typographie moderne. Solution complète pour maintenir la cohérence visuelle avec documentation détaillée et assets organisés.",
+      tags: ["Design System", "Brand Guidelines", "Typography", "Color Palette"],
+      metrics: { consistency: "100%", adoption: "95%", efficiency: "+60%" },
+      link: "#",
+      icon: <Palette className="h-6 w-6" />,
+      color: "from-gray-600 to-red-600"
+    },
+    {
+      id: 21,
+      title: "Xefag Health - App Wellness Premium",
+      category: "health",
+      image: "/lovable-uploads/e3332c99-48c7-48d6-8810-086a6aaaeaf5.png",
+      description: "Application santé premium avec design coloré, tracking personnalisé et e-commerce intégré. Interface moderne pour produits wellness avec expérience d'achat fluide et suivi de consommation intelligent.",
+      tags: ["Health App", "Wellness", "E-commerce", "Tracking"],
+      metrics: { users: "200K+", sales: "+180%", retention: "85%" },
+      link: "#",
+      icon: <Brain className="h-6 w-6" />,
+      color: "from-pink-600 to-purple-600"
+    },
+    {
+      id: 22,
+      title: "NexusSci - Plateforme Recherche IA",
+      category: "research",
+      image: "/lovable-uploads/c6409c45-9923-466e-ba45-a592b037df63.png",
+      description: "Plateforme de recherche scientifique avancée avec IA partenaire, découvertes automatisées et collaboration internationale. Interface moderne pour accélérer la recherche avec 1500+ projets et outils d'analyse révolutionnaires.",
+      tags: ["Scientific Research", "AI Partner", "Collaboration", "Discovery"],
+      metrics: { researchers: "1.5K+", discoveries: "500+", impact: "Global" },
+      link: "#",
+      icon: <Microscope className="h-6 w-6" />,
+      color: "from-blue-600 to-green-600"
+    },
+    {
+      id: 23,
+      title: "Campex Desktop - Plateforme Voyage",
+      category: "travel",
+      image: "/lovable-uploads/3490d9cc-cadd-4942-a270-81ffbc7c7dc8.png",
+      description: "Plateforme de voyage complète avec interface desktop immersive, planification d'aventures et tracking de véhicules. Solution ultimate pour compagnons de voyage avec fonctionnalités avancées de géolocalisation et partage d'expériences.",
+      tags: ["Travel Platform", "Adventure Planning", "Vehicle Tracking", "Desktop App"],
+      metrics: { adventures: "10K+", travelers: "50K+", satisfaction: "Premium" },
+      link: "#",
+      icon: <Mountain className="h-6 w-6" />,
+      color: "from-orange-600 to-yellow-600"
     }
   ];
 
