@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Bot, Send, MessageSquare, X, CalendarClock, FileUp, Key, ArrowUp } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -723,7 +724,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                 <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
                   <div className="flex items-center">
                     <Avatar className="mr-3 border-2 border-white/30">
-                      <AvatarImage src="/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png" alt="Dominiqk Mendy" />
+                      <AvatarImage src="/lovable-uploads/af2ea5cf-52b7-4713-9cb5-5f39c703e5a5.png" alt="Dominiqk Mendy" />
                       <AvatarFallback className="bg-white/20 text-white font-bold">DM</AvatarFallback>
                     </Avatar>
                     <div>
@@ -761,7 +762,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                         <div className={`flex items-start max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                           {message.sender === 'bot' && (
                             <Avatar className="mr-2 mt-1 border border-white/20">
-                              <AvatarImage src="/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png" alt="Dominiqk Mendy" />
+                              <AvatarImage src="/lovable-uploads/af2ea5cf-52b7-4713-9cb5-5f39c703e5a5.png" alt="Dominiqk Mendy" />
                               <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
                             </Avatar>
                           )}
@@ -844,25 +845,28 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                   </Button>
                 </div>
 
-                {/* Input area */}
-                <div className="p-3 border-t border-white/15 bg-black/60 backdrop-blur-md">
-                  <div className="flex">
-                    <Textarea
-                      ref={inputRef}
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      onKeyDown={handleKeyPress}
-                      placeholder="Votre question ou projet..."
-                      className="resize-none bg-white/15 border-white/30 focus:border-portfolio-purple text-white placeholder:text-white/60 shadow-inner"
-                      rows={2}
-                    />
+                {/* Input area - IMPROVED DESIGN */}
+                <div className="p-3 border-t border-white/15 bg-gradient-to-r from-slate-900 to-slate-800 backdrop-blur-md">
+                  <div className="flex gap-2">
+                    <div className="flex-1 relative">
+                      <Textarea
+                        ref={inputRef}
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyDown={handleKeyPress}
+                        placeholder="Votre question ou projet..."
+                        className="resize-none bg-white/95 border-2 border-portfolio-blue/30 focus:border-portfolio-blue focus:ring-2 focus:ring-portfolio-blue/20 text-slate-900 placeholder:text-slate-500 shadow-lg rounded-xl min-h-[50px] transition-all duration-200"
+                        rows={2}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/5 to-portfolio-purple/5 rounded-xl pointer-events-none"></div>
+                    </div>
                     <Button 
                       onClick={handleSendMessage}
                       disabled={isTyping || !input.trim()}
-                      className="ml-2 bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white shadow-md"
+                      className="bg-gradient-to-r from-portfolio-blue to-portfolio-purple hover:from-portfolio-blue/90 hover:to-portfolio-purple/90 text-white shadow-xl border-2 border-white/20 rounded-xl min-h-[50px] px-4 transition-all duration-200 hover:scale-105"
                       size="icon"
                     >
-                      <Send size={18} />
+                      <Send size={20} />
                     </Button>
                   </div>
                 </div>
@@ -875,7 +879,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
             <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
               <div className="flex items-center">
                 <Avatar className="mr-3 border-2 border-white/30">
-                  <AvatarImage src="/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png" alt="Dominiqk Mendy" />
+                  <AvatarImage src="/lovable-uploads/af2ea5cf-52b7-4713-9cb5-5f39c703e5a5.png" alt="Dominiqk Mendy" />
                   <AvatarFallback className="bg-white/20 text-white font-bold">DM</AvatarFallback>
                 </Avatar>
                 <div>
@@ -924,7 +928,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                     <div className={`flex items-start max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                       {message.sender === 'bot' && (
                         <Avatar className="mr-2 mt-1 border border-white/20">
-                          <AvatarImage src="/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png" alt="Dominiqk Mendy" />
+                          <AvatarImage src="/lovable-uploads/af2ea5cf-52b7-4713-9cb5-5f39c703e5a5.png" alt="Dominiqk Mendy" />
                           <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
                         </Avatar>
                       )}
@@ -1007,22 +1011,25 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
               </Button>
             </div>
 
-            {/* Input area */}
-            <div className="p-3 border-t border-white/15 bg-black/60 backdrop-blur-md">
-              <div className="flex">
-                <Textarea
-                  ref={inputRef}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={handleKeyPress}
-                  placeholder="Votre question ou projet..."
-                  className="resize-none bg-white/15 border-white/30 focus:border-portfolio-purple text-white placeholder:text-white/60 shadow-inner"
-                  rows={1}
-                />
+            {/* Input area - IMPROVED DESIGN */}
+            <div className="p-3 border-t border-white/15 bg-gradient-to-r from-slate-900 to-slate-800 backdrop-blur-md">
+              <div className="flex gap-2">
+                <div className="flex-1 relative">
+                  <Textarea
+                    ref={inputRef}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                    placeholder="Votre question ou projet..."
+                    className="resize-none bg-white/95 border-2 border-portfolio-blue/30 focus:border-portfolio-blue focus:ring-2 focus:ring-portfolio-blue/20 text-slate-900 placeholder:text-slate-500 shadow-lg rounded-xl transition-all duration-200"
+                    rows={1}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/5 to-portfolio-purple/5 rounded-xl pointer-events-none"></div>
+                </div>
                 <Button 
                   onClick={handleSendMessage}
                   disabled={isTyping || !input.trim()}
-                  className="ml-2 bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white shadow-md"
+                  className="bg-gradient-to-r from-portfolio-blue to-portfolio-purple hover:from-portfolio-blue/90 hover:to-portfolio-purple/90 text-white shadow-xl border-2 border-white/20 rounded-xl px-3 transition-all duration-200 hover:scale-105"
                   size="icon"
                 >
                   <Send size={18} />
