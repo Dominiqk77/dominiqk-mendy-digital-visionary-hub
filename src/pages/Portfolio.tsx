@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import ProjectViewDialog from '../components/portfolio/ProjectViewDialog';
-import { ExternalLink, ArrowRight, Star, Code, Database, Globe, BarChart3, BookOpen, Rocket, Eye, TrendingUp, Shield, Zap, Users, Brain, Smartphone, Mountain, Utensils, Package, Palette, Microscope } from 'lucide-react';
+import { ExternalLink, ArrowRight, Star, Code, Database, Globe, BarChart3, BookOpen, Rocket, Eye, TrendingUp, Shield, Zap, Users, Brain, Smartphone, Mountain, Utensils, Package, Palette, Microscope, Heart, Lightbulb, Settings } from 'lucide-react';
 
 // Star background component
 const StarBackground = () => {
@@ -64,6 +64,54 @@ const Portfolio = () => {
   };
   
   const projects = [
+    {
+      id: 24,
+      title: "Sen'Services - Administration Numérique Sénégalaise",
+      category: "platform",
+      image: "/lovable-uploads/5b00c06a-f156-4ccd-9a85-3139d5c0bcb1.png",
+      description: "Plateforme digitale révolutionnaire pour simplifier les services administratifs sénégalais. Solution complète avec plus de 500 services accessibles en ligne, sécurisation des données et interface intuitive pour tous les citoyens.",
+      tags: ["E-Government", "Digital Services", "Public Administration", "Citizen Platform"],
+      metrics: { services: "500+", users: "Citizens", security: "Garantie" },
+      link: "#",
+      icon: <Settings className="h-6 w-6" />,
+      color: "from-green-600 to-yellow-600"
+    },
+    {
+      id: 25,
+      title: "AVC Prévention - Détection Intelligente des Risques",
+      category: "health",
+      image: "/lovable-uploads/f634965a-a21c-495b-b715-8319ed907034.png",
+      description: "Plateforme intelligente de détection précoce des risques d'AVC grâce à l'analyse ECG. Solution médicale innovante avec dépistage en 60 secondes, interface moderne et technologie de pointe pour sauver des vies.",
+      tags: ["HealthTech", "Medical AI", "ECG Analysis", "Prevention"],
+      metrics: { detection: "60s", accuracy: "Medical-grade", lives: "Saved" },
+      link: "#",
+      icon: <Heart className="h-6 w-6" />,
+      color: "from-red-600 to-pink-600"
+    },
+    {
+      id: 26,
+      title: "M2N Energie Solutions - Transition Énergétique",
+      category: "energy",
+      image: "/lovable-uploads/b732f5ba-1fb0-4ba9-92a8-48f5180dbfab.png",
+      description: "Solutions énergétiques innovantes pour économiser énergie et eau sans investissement initial. Plateforme complète de transition énergétique avec audit gratuit, technologies durables et accompagnement expert personnalisé.",
+      tags: ["Energy Solutions", "Sustainability", "Green Tech", "Cost Reduction"],
+      metrics: { savings: "No upfront", audit: "Free", transition: "Complete" },
+      link: "#",
+      icon: <Lightbulb className="h-6 w-6" />,
+      color: "from-blue-600 to-green-600"
+    },
+    {
+      id: 27,
+      title: "Sen'Services Portal - Révolution Administrative",
+      category: "platform",
+      image: "/lovable-uploads/f6876651-4092-479b-8d72-e137f55f059b.png",
+      description: "La révolution de l'administration sénégalaise développée par des experts locaux. Plateforme pour simplifier, accélérer et sécuriser l'accès aux services publics avec solution 100% développée au Sénégal.",
+      tags: ["Government Portal", "Local Development", "Public Services", "Digital Transformation"],
+      metrics: { development: "100% Local", access: "Simplified", security: "Advanced" },
+      link: "#",
+      icon: <Globe className="h-6 w-6" />,
+      color: "from-orange-600 to-green-600"
+    },
     {
       id: 1,
       title: "KAYEXSA - Plateforme Maritime Intelligente",
