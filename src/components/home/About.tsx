@@ -142,10 +142,11 @@ const About = () => {
             
             <div className="relative w-full bg-gradient-to-r from-gray-900 to-black p-1 rounded-xl animate-fade-in" style={{ animationDelay: '0.8s' }}>
               <div className="relative bg-background rounded-lg overflow-hidden">
-                <div className="aspect-video w-full">
+                <div className="w-full max-w-[2400px] mx-auto" style={{ height: '450px' }}>
                   <iframe
                     src="https://drive.google.com/file/d/1JvlOAQYDd9U6hnUadGNue76CzTRqgWri/preview"
                     className="w-full h-full rounded-lg"
+                    style={{ width: '2400px', height: '450px', maxWidth: '100%' }}
                     allow="autoplay; encrypted-media"
                     allowFullScreen
                     title="Présentation Dominiqk Mendy"
