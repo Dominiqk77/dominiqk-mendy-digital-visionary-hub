@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Bot, Send, MessageSquare, X, CalendarClock, FileUp, Key, ArrowUp } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 
 // Configuration API Gemini - VOTRE CLÉ API ICI
 const GEMINI_API_KEY = "AIzaSyAGwf_-hKnJNGzm9LInDjsowfBdNFb2L0A";
+const PLACEHOLDER_KEY = "VOTRE_CLE_API_GEMINI_ICI";
 
 type Message = {
   id: string;
@@ -113,7 +115,7 @@ const ChatBot = () => {
 
   // Initialize Gemini API automatically if key is configured
   useEffect(() => {
-    if (GEMINI_API_KEY && GEMINI_API_KEY !== "VOTRE_CLE_API_GEMINI_ICI") {
+    if (GEMINI_API_KEY && GEMINI_API_KEY !== PLACEHOLDER_KEY) {
       setGeminiApiKey(GEMINI_API_KEY);
       setUseGemini(true);
       localStorage.setItem('gemini_api_key', GEMINI_API_KEY);
