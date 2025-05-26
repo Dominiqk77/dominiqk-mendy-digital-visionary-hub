@@ -128,6 +128,33 @@ const About = () => {
             </div>
           </div>
         </div>
+
+        {/* Vidéo de présentation */}
+        <div className="mt-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4">Découvrez Mon Univers</h3>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-4"></div>
+              <p className="text-lg text-muted-foreground">
+                Une présentation vidéo de mon parcours et de ma vision
+              </p>
+            </div>
+            
+            <div className="relative w-full bg-gradient-to-r from-gray-900 to-black p-1 rounded-xl animate-fade-in" style={{ animationDelay: '0.8s' }}>
+              <div className="relative bg-background rounded-lg overflow-hidden">
+                <div className="aspect-video w-full">
+                  <iframe
+                    src="https://drive.google.com/file/d/1JvlOAQYDd9U6hnUadGNue76CzTRqgWri/preview"
+                    className="w-full h-full rounded-lg"
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                    title="Présentation Dominiqk Mendy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
