@@ -335,6 +335,174 @@ const Portfolio = () => {
       link: "#",
       icon: <Mountain className="h-6 w-6" />,
       color: "from-orange-600 to-yellow-600"
+    },
+    {
+      id: 24,
+      title: "TechFlow - Plateforme SaaS Enterprise",
+      category: "saas",
+      image: "/lovable-uploads/1d07325e-d8c2-4e54-ac4e-3caf0120f9eb.png",
+      description: "Solution SaaS enterprise avec dashboard moderne, analytics avancés et gestion des flux de travail automatisée. Plateforme complète pour optimiser la productivité avec intelligence artificielle intégrée et collaboration temps réel.",
+      tags: ["SaaS Platform", "Enterprise", "Workflow Automation", "AI Analytics"],
+      metrics: { companies: "500+", productivity: "+65%", satisfaction: "4.8/5" },
+      link: "#",
+      icon: <Rocket className="h-6 w-6" />,
+      color: "from-blue-600 to-purple-600"
+    },
+    {
+      id: 25,
+      title: "DataViz Pro - Analytics Dashboard",
+      category: "analytics",
+      image: "/lovable-uploads/3b1bf266-238b-4dd4-8ef8-13cec30e562e.png",
+      description: "Dashboard analytics professionnel avec visualisations interactives, rapports automatisés et insights prédictifs. Interface moderne pour transformer les données en décisions stratégiques avec machine learning intégré.",
+      tags: ["Data Visualization", "Business Analytics", "Predictive Insights", "Reporting"],
+      metrics: { data_points: "100M+", accuracy: "99.2%", time_saved: "80%" },
+      link: "#",
+      icon: <BarChart3 className="h-6 w-6" />,
+      color: "from-green-600 to-blue-600"
+    },
+    {
+      id: 26,
+      title: "SecureFlow - Cybersécurité Platform",
+      category: "security",
+      image: "/lovable-uploads/3dc03f5f-4997-43fa-89f4-2f4d7c7902fa.png",
+      description: "Plateforme de cybersécurité avancée avec monitoring temps réel, détection d'intrusions IA et response automatisée. Solution enterprise pour protéger les infrastructures critiques avec conformité internationale.",
+      tags: ["Cybersecurity", "AI Detection", "Enterprise Security", "Compliance"],
+      metrics: { threats_blocked: "1M+", response_time: "<1s", uptime: "99.99%" },
+      link: "#",
+      icon: <Shield className="h-6 w-6" />,
+      color: "from-red-600 to-orange-600"
+    },
+    {
+      id: 27,
+      title: "CloudSync - Infrastructure Manager",
+      category: "cloud",
+      image: "/lovable-uploads/60c23356-ad17-4782-854f-87572465f4f9.png",
+      description: "Gestionnaire d'infrastructure cloud avec orchestration automatisée, monitoring intelligent et optimisation des coûts. Plateforme multi-cloud pour simplifier la gestion avec IA prédictive et scaling automatique.",
+      tags: ["Cloud Management", "Infrastructure", "Cost Optimization", "Multi-Cloud"],
+      metrics: { servers: "10K+", cost_savings: "40%", availability: "99.9%" },
+      link: "#",
+      icon: <Database className="h-6 w-6" />,
+      color: "from-cyan-600 to-blue-600"
+    },
+    {
+      id: 28,
+      title: "MediaFlow - Content Management",
+      category: "media",
+      image: "/lovable-uploads/61406fcd-d8bd-4eba-8cb6-42c42e5e67c0.png",
+      description: "Plateforme de gestion de contenu média avec streaming optimisé, édition collaborative et distribution intelligente. Solution complète pour créateurs avec IA pour la classification automatique et recommendations personnalisées.",
+      tags: ["Media Management", "Content Creation", "Streaming", "AI Classification"],
+      metrics: { creators: "25K+", content: "5M+ files", engagement: "+120%" },
+      link: "#",
+      icon: <Palette className="h-6 w-6" />,
+      color: "from-purple-600 to-pink-600"
+    },
+    {
+      id: 29,
+      title: "FinanceAI - Gestion Financière IA",
+      category: "fintech",
+      image: "/lovable-uploads/62e7c5f4-476c-4ca6-80b8-75e9973ecfa4.png",
+      description: "Solution de gestion financière avec intelligence artificielle pour prédictions budgétaires, analyse des risques et optimisation des investissements. Dashboard intuitif avec recommendations personnalisées et automatisation comptable.",
+      tags: ["Financial AI", "Budget Prediction", "Risk Analysis", "Investment"],
+      metrics: { accuracy: "95%", roi: "+300%", users: "15K+" },
+      link: "#",
+      icon: <TrendingUp className="h-6 w-6" />,
+      color: "from-green-600 to-emerald-600"
+    },
+    {
+      id: 30,
+      title: "EcoTech - Sustainability Platform",
+      category: "sustainability",
+      image: "/lovable-uploads/6d3ddf24-7310-4f5f-863f-f368868df100.png",
+      description: "Plateforme de durabilité environnementale avec tracking carbone, analytics écologiques et optimisation énergétique. Solution enterprise pour atteindre les objectifs climatiques avec IA pour recommandations durables.",
+      tags: ["Sustainability", "Carbon Tracking", "Energy Optimization", "Environmental AI"],
+      metrics: { co2_reduced: "50K tons", companies: "200+", savings: "$5M+" },
+      link: "#",
+      icon: <Globe className="h-6 w-6" />,
+      color: "from-green-600 to-teal-600"
+    },
+    {
+      id: 31,
+      title: "SmartCity - Urban Management",
+      category: "smart_city",
+      image: "/lovable-uploads/9df9c1b5-fb10-4bd5-878e-7bc1e16fcde2.png",
+      description: "Plateforme de gestion urbaine intelligente avec IoT intégré, analytics traffic et services citoyens digitalisés. Solution smart city pour optimiser les infrastructures avec IA prédictive et engagement citoyen.",
+      tags: ["Smart City", "IoT Integration", "Urban Analytics", "Citizen Services"],
+      metrics: { citizens: "500K+", efficiency: "+35%", satisfaction: "92%" },
+      link: "#",
+      icon: <Users className="h-6 w-6" />,
+      color: "from-blue-600 to-indigo-600"
+    },
+    {
+      id: 32,
+      title: "AgriTech - Agriculture Intelligente",
+      category: "agriculture",
+      image: "/lovable-uploads/b1a39273-856c-4a25-a8b9-d16c984d5719.png",
+      description: "Solution agricole avec monitoring IoT, prédictions météo IA et optimisation des cultures. Plateforme complète pour agriculture de précision avec drones intégrés et analytics de rendement en temps réel.",
+      tags: ["AgriTech", "IoT Monitoring", "Precision Agriculture", "Yield Analytics"],
+      metrics: { farms: "1K+", yield_increase: "+25%", water_saved: "30%" },
+      link: "#",
+      icon: <Mountain className="h-6 w-6" />,
+      color: "from-green-600 to-yellow-600"
+    },
+    {
+      id: 33,
+      title: "MedFlow - Healthcare Management",
+      category: "healthcare",
+      image: "/lovable-uploads/b6997f4d-7723-4b3c-8704-1e5e64cb7ff5.png",
+      description: "Système de gestion hospitalière avec dossiers électroniques, planification intelligente et télémédecine intégrée. Plateforme médicale complète avec IA diagnostique et coordination des soins optimisée.",
+      tags: ["Healthcare", "Electronic Records", "Telemedicine", "AI Diagnosis"],
+      metrics: { patients: "100K+", efficiency: "+50%", satisfaction: "96%" },
+      link: "#",
+      icon: <Brain className="h-6 w-6" />,
+      color: "from-blue-600 to-cyan-600"
+    },
+    {
+      id: 34,
+      title: "EduFlow - Learning Management",
+      category: "education",
+      image: "/lovable-uploads/c050d09c-75cd-43e4-b6d2-3bf340fa9bb8.png",
+      description: "Plateforme d'apprentissage adaptatif avec IA personnalisée, analytics de progression et collaboration virtuelle. Solution éducative moderne pour institutions avec gamification avancée et évaluation automatisée.",
+      tags: ["Adaptive Learning", "Educational AI", "Progress Analytics", "Virtual Collaboration"],
+      metrics: { students: "200K+", completion: "+85%", engagement: "+90%" },
+      link: "#",
+      icon: <BookOpen className="h-6 w-6" />,
+      color: "from-purple-600 to-blue-600"
+    },
+    {
+      id: 35,
+      title: "RetailAI - Commerce Intelligent",
+      category: "retail",
+      image: "/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png",
+      description: "Solution retail avec IA prédictive pour inventory, analytics comportementaux et expérience client personnalisée. Plateforme omnicanale pour optimiser les ventes avec recommendations intelligentes et pricing dynamique.",
+      tags: ["Retail AI", "Inventory Prediction", "Customer Analytics", "Omnichannel"],
+      metrics: { sales_boost: "+200%", inventory_efficiency: "+40%", satisfaction: "94%" },
+      link: "#",
+      icon: <Package className="h-6 w-6" />,
+      color: "from-orange-600 to-red-600"
+    },
+    {
+      id: 36,
+      title: "GameFlow - Gaming Platform",
+      category: "gaming",
+      image: "/lovable-uploads/c71c1a88-d2bb-4502-8763-f5fb7209e5fd.png",
+      description: "Plateforme gaming avec tournois automatisés, analytics de performance et communauté intégrée. Solution complète pour esports avec streaming intégré, matchmaking IA et économie virtuelle avancée.",
+      tags: ["Gaming Platform", "Esports", "Community", "Virtual Economy"],
+      metrics: { gamers: "500K+", tournaments: "1K+", engagement: "Daily 4h+" },
+      link: "#",
+      icon: <Zap className="h-6 w-6" />,
+      color: "from-purple-600 to-pink-600"
+    },
+    {
+      id: 37,
+      title: "VoiceAI - Assistant Vocal Entreprise",
+      category: "ai",
+      image: "/lovable-uploads/d874ab0c-01af-446f-bd89-04d7678d6703.png",
+      description: "Assistant vocal intelligent pour entreprises avec traitement naturel du langage, intégration systèmes et automatisation des tâches. Solution IA conversationnelle avec apprentissage continu et sécurité enterprise.",
+      tags: ["Voice AI", "Natural Language", "Enterprise Integration", "Task Automation"],
+      metrics: { commands: "10M+", accuracy: "98%", time_saved: "60%" },
+      link: "#",
+      icon: <Brain className="h-6 w-6" />,
+      color: "from-indigo-600 to-purple-600"
     }
   ];
 
@@ -404,7 +572,7 @@ const Portfolio = () => {
                 className="mb-8"
               >
                 <span className="inline-block px-6 py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-md border border-blue-500/30 rounded-full text-blue-300 font-medium mb-6">
-                  🚀 Portfolio Innovation • 23+ Projets Réalisés
+                  🚀 Portfolio Innovation • 37+ Projets Réalisés
                 </span>
                 
                 <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
@@ -422,15 +590,15 @@ const Portfolio = () => {
 
                 <div className="flex flex-wrap justify-center gap-6 mb-12">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-white">23+</div>
+                    <div className="text-3xl font-bold text-white">37+</div>
                     <div className="text-blue-400">Projets Livrés</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-white">$75M+</div>
+                    <div className="text-3xl font-bold text-white">$95M+</div>
                     <div className="text-purple-400">Valeur Générée</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-white">20+</div>
+                    <div className="text-3xl font-bold text-white">25+</div>
                     <div className="text-pink-400">Pays Impactés</div>
                   </div>
                 </div>
