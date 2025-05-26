@@ -144,10 +144,10 @@ const About = () => {
               <div className="relative overflow-hidden rounded-lg">
                 <div className="w-full max-w-[2400px] mx-auto" style={{ height: '450px' }}>
                   <iframe
-                    src="https://drive.google.com/file/d/1JvlOAQYDd9U6hnUadGNue76CzTRqgWri/preview?autoplay=1&loop=1"
+                    src="https://drive.google.com/file/d/1JvlOAQYDd9U6hnUadGNue76CzTRqgWri/preview?autoplay=1&mute=1&loop=1&controls=1&showinfo=0&modestbranding=1"
                     className="w-full h-full rounded-lg border-0"
                     style={{ width: '2400px', height: '450px', maxWidth: '100%', border: 'none' }}
-                    allow="autoplay; encrypted-media"
+                    allow="autoplay; encrypted-media; fullscreen"
                     allowFullScreen
                     title="Présentation Dominiqk Mendy"
                   />
