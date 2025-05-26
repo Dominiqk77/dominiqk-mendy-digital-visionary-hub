@@ -307,7 +307,7 @@ const Portfolio = () => {
                   onMouseEnter={() => setHoveredProject(project.id)}
                   onMouseLeave={() => setHoveredProject(null)}
                 >
-                  <Card className="relative overflow-hidden bg-gradient-to-br from-gray-900/50 to-black/50 border border-white/10 backdrop-blur-md hover:border-white/20 transition-all duration-500 h-full">
+                  <Card className="relative overflow-hidden bg-black/80 backdrop-blur-md border border-white/20 hover:border-white/40 transition-all duration-500 h-full shadow-2xl">
                     <div className="relative h-64 overflow-hidden">
                       <img 
                         src={project.image} 
@@ -322,7 +322,7 @@ const Portfolio = () => {
                       }`}>
                         <Button 
                           size="lg"
-                          className="bg-white/10 border border-white/20 backdrop-blur-md hover:bg-white/20 text-white"
+                          className="bg-white/20 border border-white/40 backdrop-blur-md hover:bg-white/30 text-white shadow-lg"
                         >
                           <Eye className="mr-2 h-5 w-5" />
                           Voir le Projet
@@ -330,28 +330,28 @@ const Portfolio = () => {
                       </div>
 
                       {/* Project Icon */}
-                      <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white border border-white/20">
+                      <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-black/70 backdrop-blur-md flex items-center justify-center text-white border border-white/30">
                         {project.icon}
                       </div>
                     </div>
 
-                    <CardContent className="p-6 relative">
+                    <CardContent className="p-6 relative bg-black/90 backdrop-blur-md">
                       <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${project.color}`}></div>
                       
                       <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">
                         {project.title}
                       </h3>
                       
-                      <p className="text-gray-400 mb-4 text-sm leading-relaxed">
+                      <p className="text-gray-300 mb-4 text-sm leading-relaxed">
                         {project.description}
                       </p>
 
                       {/* Metrics */}
                       <div className="grid grid-cols-3 gap-2 mb-4">
                         {Object.entries(project.metrics).map(([key, value]) => (
-                          <div key={key} className="text-center p-2 bg-white/5 rounded-lg border border-white/10">
+                          <div key={key} className="text-center p-2 bg-white/10 rounded-lg border border-white/20 backdrop-blur-sm">
                             <div className="text-sm font-bold text-white">{value}</div>
-                            <div className="text-xs text-gray-400 capitalize">{key.replace('_', ' ')}</div>
+                            <div className="text-xs text-gray-300 capitalize">{key.replace('_', ' ')}</div>
                           </div>
                         ))}
                       </div>
@@ -361,7 +361,7 @@ const Portfolio = () => {
                         {project.tags.slice(0, 3).map((tag, index) => (
                           <span 
                             key={index}
-                            className="text-xs bg-white/10 border border-white/20 px-2 py-1 rounded-full text-blue-300"
+                            className="text-xs bg-white/20 border border-white/30 px-2 py-1 rounded-full text-blue-200 backdrop-blur-sm"
                           >
                             {tag}
                           </span>
@@ -372,12 +372,12 @@ const Portfolio = () => {
                         <Button 
                           variant="ghost" 
                           size="sm"
-                          className="text-blue-400 hover:text-blue-300 p-0"
+                          className="text-blue-300 hover:text-blue-200 p-0 hover:bg-transparent"
                         >
                           Découvrir
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
-                        <ExternalLink className="h-4 w-4 text-gray-500 hover:text-white transition-colors cursor-pointer" />
+                        <ExternalLink className="h-4 w-4 text-gray-400 hover:text-white transition-colors cursor-pointer" />
                       </div>
                     </CardContent>
                   </Card>
@@ -413,7 +413,7 @@ const Portfolio = () => {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button 
                     size="lg" 
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 px-8 py-4 text-lg"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 px-8 py-4 text-lg shadow-lg shadow-blue-500/25"
                     asChild
                   >
                     <Link to="/contact" className="flex items-center gap-2">
@@ -425,7 +425,7 @@ const Portfolio = () => {
                   <Button 
                     size="lg" 
                     variant="outline"
-                    className="border-white/20 text-white hover:bg-white/10 px-8 py-4 text-lg backdrop-blur-md"
+                    className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg backdrop-blur-md hover:border-white/50"
                     asChild
                   >
                     <Link to="/services" className="flex items-center gap-2">
