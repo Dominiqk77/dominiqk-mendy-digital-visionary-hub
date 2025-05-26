@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -21,6 +22,7 @@ const HeroDescription = () => {
 
   // Tech badges with their colors
   const techBadges = [
+    { name: "Expert Certifié", color: "emerald" },
     { name: "Intelligence Artificielle", color: "blue" },
     { name: "Web Development", color: "purple" },
     { name: "Marketing Digital", color: "green" },
