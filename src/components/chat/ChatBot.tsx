@@ -35,6 +35,8 @@ type Message = {
     appointmentTime?: string;
     documentName?: string;
     documentSize?: string;
+    leadScore?: number;
+    intent?: 'information' | 'pricing' | 'appointment' | 'proposal';
   };
 };
 
@@ -43,17 +45,86 @@ type Conversation = {
   messages: Message[];
   startedAt: Date;
   lastMessageAt: Date;
+  leadScore: number;
+  userProfile: {
+    interests: string[];
+    budget: string;
+    urgency: string;
+    contactInfo: string;
+  };
 };
 
 const initialMessages: Message[] = [
   {
     id: '1',
-    content: "Bonjour ! Je suis l'assistant virtuel de Dominiqk Mendy. Comment puis-je vous aider aujourd'hui concernant les services d'innovation numérique, l'IA, ou les solutions digitales pour votre entreprise ?",
+    content: "👋 Bonjour ! Je suis l'assistant commercial de Dominiqk Mendy. Je connais parfaitement tous nos services d'innovation numérique et d'IA. Comment puis-je vous aider à réussir votre projet aujourd'hui ?",
     sender: 'bot',
     timestamp: new Date(),
     type: 'text'
   },
 ];
+
+// Base de connaissances complète du site
+const SITE_KNOWLEDGE = {
+  services: {
+    "IA & Intelligence Artificielle": {
+      description: "Solutions IA sur-mesure, modèles ML, automatisation intelligente",
+      features: ["Modèles IA personnalisés", "Analyse prédictive", "Chatbots avancés", "Vision par ordinateur"],
+      pricing: "À partir de 2500€",
+      duration: "2-6 mois",
+      roi: "Jusqu'à 300% de ROI"
+    },
+    "Développement Web": {
+      description: "Sites web performants, applications React/Next.js, e-commerce",
+      features: ["Sites responsive", "Applications web", "E-commerce", "SEO optimisé"],
+      pricing: "À partir de 1200€",
+      duration: "1-3 mois",
+      roi: "200% d'augmentation de conversions"
+    },
+    "Marketing Digital": {
+      description: "Stratégies digitales, SEO, publicité, analytics",
+      features: ["SEO/SEA", "Social media", "Analytics", "Stratégie digitale"],
+      pricing: "À partir de 800€/mois",
+      duration: "3-12 mois",
+      roi: "150% d'augmentation du trafic"
+    },
+    "E-Gouvernance": {
+      description: "Solutions digitales pour administrations publiques",
+      features: ["Plateformes citoyennes", "Dématérialisation", "Transparence", "Efficacité"],
+      pricing: "Sur devis",
+      duration: "6-18 mois",
+      roi: "Réduction de 60% des délais administratifs"
+    },
+    "Conseil & Stratégie": {
+      description: "Accompagnement transformation digitale",
+      features: ["Audit digital", "Stratégie", "Formation", "Accompagnement"],
+      pricing: "À partir de 150€/heure",
+      duration: "1-6 mois",
+      roi: "Optimisation 40% des processus"
+    }
+  },
+  expertise: {
+    technologies: ["React", "Next.js", "Node.js", "Python", "TensorFlow", "AWS", "Docker"],
+    sectors: ["E-commerce", "Finance", "Santé", "Éducation", "Administration", "Startups"],
+    experience: "8+ années d'expertise",
+    clients: "50+ projets réussis",
+    certifications: ["AWS Certified", "Google AI", "Microsoft Azure"]
+  },
+  projects: {
+    senservices: {
+      description: "Plateforme nationale de digitalisation des services au Sénégal",
+      status: "90% terminé, lancement février 2025",
+      impact: "Révolution des services digitaux au Sénégal",
+      partnership: "Recherche partenaires gouvernementaux et privés"
+    }
+  },
+  contact: {
+    methods: ["Appel téléphonique", "Visioconférence", "Rencontre physique"],
+    availability: "Du lundi au vendredi, 9h-18h",
+    response_time: "Réponse sous 2h",
+    languages: ["Français", "Anglais", "Wolof"]
+  }
+};
 
 const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
@@ -68,10 +139,11 @@ const ChatBot = () => {
   const [isDocumentDialogOpen, setIsDocumentDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isConversationHistoryOpen, setIsConversationHistoryOpen] = useState(false);
-  const [openAIKey, setOpenAIKey] = useState<string>('');
+  const [geminiApiKey, setGeminiApiKey] = useState<string>('');
   const [isAPIKeyDialogOpen, setIsAPIKeyDialogOpen] = useState(false);
-  const [useOpenAI, setUseOpenAI] = useState<boolean>(false);
+  const [useGemini, setUseGemini] = useState<boolean>(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const [leadScore, setLeadScore] = useState<number>(0);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -100,10 +172,10 @@ const ChatBot = () => {
 
   // Check for saved API key on mount
   useEffect(() => {
-    const savedKey = localStorage.getItem('openai_api_key');
+    const savedKey = localStorage.getItem('gemini_api_key');
     if (savedKey) {
-      setOpenAIKey(savedKey);
-      setUseOpenAI(true);
+      setGeminiApiKey(savedKey);
+      setUseGemini(true);
     }
   }, []);
 
@@ -142,7 +214,14 @@ const ChatBot = () => {
       id: newId,
       messages: initialMessages,
       startedAt: new Date(),
-      lastMessageAt: new Date()
+      lastMessageAt: new Date(),
+      leadScore: 0,
+      userProfile: {
+        interests: [],
+        budget: '',
+        urgency: '',
+        contactInfo: ''
+      }
     };
     
     setCurrentConversationId(newId);
@@ -162,7 +241,8 @@ const ChatBot = () => {
           return {
             ...conv,
             messages: messages,
-            lastMessageAt: new Date()
+            lastMessageAt: new Date(),
+            leadScore: leadScore
           };
         }
         return conv;
@@ -171,7 +251,7 @@ const ChatBot = () => {
       setConversations(updatedConversations);
       localStorage.setItem('chatbotConversations', JSON.stringify(updatedConversations));
     }
-  }, [messages]);
+  }, [messages, leadScore]);
 
   // Switch conversation
   const switchConversation = (conversationId: string) => {
@@ -179,6 +259,7 @@ const ChatBot = () => {
     if (conversation) {
       setMessages(conversation.messages);
       setCurrentConversationId(conversationId);
+      setLeadScore(conversation.leadScore || 0);
       setIsConversationHistoryOpen(false);
     }
   };
@@ -199,69 +280,69 @@ const ChatBot = () => {
 
   // Handle API Key save
   const handleSaveAPIKey = () => {
-    if (!openAIKey.trim()) {
+    if (!geminiApiKey.trim()) {
       toast({
         title: "Erreur",
-        description: "Veuillez entrer une clé API valide",
+        description: "Veuillez entrer une clé API Google Gemini valide",
         variant: "destructive",
       });
       return;
     }
     
-    // Save to localStorage
-    localStorage.setItem('openai_api_key', openAIKey);
-    setUseOpenAI(true);
+    localStorage.setItem('gemini_api_key', geminiApiKey);
+    setUseGemini(true);
     setIsAPIKeyDialogOpen(false);
     
     toast({
       title: "Succès",
-      description: "Clé API OpenAI enregistrée avec succès",
+      description: "Clé API Google Gemini configurée avec succès",
     });
   };
 
   // Handle clearing API Key
   const handleClearAPIKey = () => {
-    localStorage.removeItem('openai_api_key');
-    setOpenAIKey('');
-    setUseOpenAI(false);
+    localStorage.removeItem('gemini_api_key');
+    setGeminiApiKey('');
+    setUseGemini(false);
     setIsAPIKeyDialogOpen(false);
     
     toast({
       title: "Succès",
-      description: "Clé API OpenAI supprimée avec succès",
+      description: "Clé API Google Gemini supprimée",
     });
   };
 
-  // Handle sending a message
+  // Enhanced message sending with lead scoring
   const handleSendMessage = async () => {
     if (!input.trim()) return;
 
-    // Create user message
+    // Analyze user intent and update lead score
+    const intent = analyzeUserIntent(input);
+    const newLeadScore = calculateLeadScore(input, messages);
+    setLeadScore(newLeadScore);
+
     const userMessage: Message = {
       id: Date.now().toString(),
       content: input,
       sender: 'user',
       timestamp: new Date(),
-      type: 'text'
+      type: 'text',
+      metadata: { intent, leadScore: newLeadScore }
     };
 
-    // Update UI with user message
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsTyping(true);
 
     try {
-      // Generate response using OpenAI if API key is set, otherwise use local fallback
       let response = '';
       
-      if (useOpenAI && openAIKey) {
-        response = await generateOpenAIResponse(input, messages);
+      if (useGemini && geminiApiKey) {
+        response = await generateGeminiResponse(input, messages, intent, newLeadScore);
       } else {
-        // Use local fallback
-        response = await generateLocalResponse(input);
+        response = await generateEnhancedLocalResponse(input, intent, newLeadScore);
       }
       
-      // Add bot message
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: response,
@@ -276,10 +357,9 @@ const ChatBot = () => {
       console.error('Error generating response:', error);
       setIsTyping(false);
       
-      // Add error message
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: "Désolé, j'ai rencontré un problème. Veuillez réessayer ou me contacter directement via le formulaire de contact.",
+        content: "Désolé, j'ai rencontré un problème technique. Puis-je vous proposer un appel direct avec Dominiqk ? 📞",
         sender: 'bot',
         timestamp: new Date(),
         type: 'text'
@@ -289,77 +369,191 @@ const ChatBot = () => {
     }
   };
 
-  // Generate response with OpenAI API
-  const generateOpenAIResponse = async (userMessage: string, messageHistory: Message[]): Promise<string> => {
+  // Analyze user intent for commercial optimization
+  const analyzeUserIntent = (message: string): 'information' | 'pricing' | 'appointment' | 'proposal' => {
+    const text = message.toLowerCase();
+    
+    if (text.includes('prix') || text.includes('tarif') || text.includes('coût') || text.includes('budget')) {
+      return 'pricing';
+    }
+    if (text.includes('rendez-vous') || text.includes('appel') || text.includes('rencontrer') || text.includes('contact')) {
+      return 'appointment';
+    }
+    if (text.includes('proposer') || text.includes('solution') || text.includes('projet') || text.includes('développer')) {
+      return 'proposal';
+    }
+    return 'information';
+  };
+
+  // Calculate lead score based on conversation
+  const calculateLeadScore = (message: string, messageHistory: Message[]): number => {
+    let score = 0;
+    const text = message.toLowerCase();
+    
+    // Budget indicators
+    if (text.includes('budget') || text.includes('investir') || text.includes('financement')) score += 20;
+    
+    // Urgency indicators
+    if (text.includes('urgent') || text.includes('rapidement') || text.includes('bientôt')) score += 15;
+    
+    // Project specificity
+    if (text.includes('projet') || text.includes('développer') || text.includes('créer')) score += 10;
+    
+    // Contact willingness
+    if (text.includes('appeler') || text.includes('rencontrer') || text.includes('contact')) score += 25;
+    
+    // Company/business context
+    if (text.includes('entreprise') || text.includes('société') || text.includes('business')) score += 15;
+    
+    // Conversation length bonus
+    if (messageHistory.length > 5) score += 10;
+    
+    return Math.min(score, 100);
+  };
+
+  // Generate response with Google Gemini API
+  const generateGeminiResponse = async (userMessage: string, messageHistory: Message[], intent: string, leadScore: number): Promise<string> => {
     try {
-      // Convert messages history to OpenAI format
-      const formattedMessages = messageHistory
-        .slice(-10) // Only include last 10 messages to avoid token limits
-        .map(msg => ({
-          role: msg.sender === 'user' ? 'user' : 'assistant',
-          content: msg.content
-        }));
+      const conversationContext = messageHistory
+        .slice(-6)
+        .map(msg => `${msg.sender}: ${msg.content}`)
+        .join('\n');
+
+      const commercialPrompt = createCommercialPrompt(intent, leadScore, conversationContext);
       
-      // Add system message
-      formattedMessages.unshift({
-        role: 'system',
-        content: `Tu es l'assistant virtuel de Dominiqk Mendy, un expert en innovation numérique, IA, développement web, et marketing digital.
-          Tu dois être professionnel, précis, courtois mais concis dans tes réponses.
-          Tu dois parler à la première personne comme si tu représentais Dominiqk Mendy et son entreprise.
-          Ton objectif principal est de convertir les visiteurs en clients en proposant des rendez-vous téléphoniques ou des consultations.
-          Tu dois toujours essayer de conclure la conversation par une proposition commerciale ou un rendez-vous.
-          Information sur SenServices: C'est une plateforme nationale en cours de développement (90% terminé), prévue pour février 2025,
-          visant à révolutionner les services digitaux au Sénégal. Ce projet est à la recherche de partenaires gouvernementaux et privés.
-          Tu es expert en transformation digitale et solutions technologiques pour le Sénégal et l'Afrique.`
-      });
-      
-      // Add current message
-      formattedMessages.push({
-        role: 'user',
-        content: userMessage
-      });
-      
-      // Call OpenAI API
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${geminiApiKey}`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${openAIKey}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: formattedMessages,
-          temperature: 0.7,
-          max_tokens: 300
+          contents: [{
+            parts: [{
+              text: `${commercialPrompt}\n\nUtilisateur: ${userMessage}`
+            }]
+          }],
+          generationConfig: {
+            temperature: 0.7,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 200,
+            stopSequences: []
+          },
+          safetySettings: [
+            {
+              category: "HARM_CATEGORY_HARASSMENT",
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            }
+          ]
         })
       });
-      
+
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error('OpenAI API error:', errorData);
-        
-        // If API key is invalid, clear it and switch to local mode
-        if (response.status === 401) {
-          localStorage.removeItem('openai_api_key');
-          setUseOpenAI(false);
+        console.error('Gemini API error:', response.status);
+        if (response.status === 401 || response.status === 403) {
+          localStorage.removeItem('gemini_api_key');
+          setUseGemini(false);
           toast({
             title: "Erreur d'API",
-            description: "Clé API OpenAI invalide. Mode local activé.",
+            description: "Clé API Google Gemini invalide. Mode local activé.",
             variant: "destructive",
           });
-          return generateLocalResponse(userMessage);
+          return generateEnhancedLocalResponse(userMessage, intent, leadScore);
         }
-        
         throw new Error(`API error: ${response.status}`);
       }
-      
+
       const data = await response.json();
-      return data.choices[0].message.content;
+      const generatedText = data.candidates[0]?.content?.parts[0]?.text || '';
+      
+      return generatedText || generateEnhancedLocalResponse(userMessage, intent, leadScore);
     } catch (error) {
-      console.error('Error calling OpenAI:', error);
-      // Fallback to local response if OpenAI fails
-      return generateLocalResponse(userMessage);
+      console.error('Error calling Gemini:', error);
+      return generateEnhancedLocalResponse(userMessage, intent, leadScore);
     }
+  };
+
+  // Create commercial prompt for Gemini
+  const createCommercialPrompt = (intent: string, leadScore: number, context: string): string => {
+    return `Tu es Dominiqk Mendy, expert en innovation numérique et IA. Tu es un commercial d'élite qui convertit les visiteurs en clients.
+
+VOTRE EXPERTISE:
+- 8+ années en développement web et IA
+- 50+ projets réussis
+- Expert React, Node.js, Python, TensorFlow
+- Spécialiste transformation digitale
+- Créateur de SenServices (plateforme nationale Sénégal)
+
+VOS SERVICES:
+1. IA & ML (2500€+): Modèles personnalisés, automatisation, chatbots, vision
+2. Développement Web (1200€+): Sites React/Next.js, e-commerce, applications
+3. Marketing Digital (800€/mois): SEO, publicité, analytics, stratégie
+4. E-Gouvernance: Solutions administrations publiques
+5. Conseil (150€/h): Audit, stratégie, transformation digitale
+
+MISSION COMMERCIALE:
+- Réponses courtes (2-3 phrases max)
+- Identifier les besoins précis
+- Proposer des solutions adaptées
+- Diriger vers la prise de rendez-vous
+- Créer de l'urgence et de la valeur
+
+CONTEXTE CONVERSATION: ${context}
+INTENTION CLIENT: ${intent}
+SCORE PROSPECT: ${leadScore}/100
+
+${leadScore > 50 ? 'CLIENT QUALIFIÉ - Proposer rendez-vous immédiat' : 'QUALIFIER DAVANTAGE - Creuser les besoins'}
+
+Répondez de manière engageante, professionnelle et commerciale:`;
+  };
+
+  // Enhanced local response with commercial focus
+  const generateEnhancedLocalResponse = async (userMessage: string, intent: string, leadScore: number): Promise<string> => {
+    const message = userMessage.toLowerCase();
+    
+    // High-intent commercial responses
+    if (intent === 'pricing') {
+      if (leadScore > 40) {
+        return "Excellente question ! 💰 Mes tarifs varient selon vos besoins spécifiques. Pour vous donner un devis précis et personnalisé, je propose un appel de 15 min gratuit. Votre budget approximatif ?";
+      }
+      return "Mes tarifs sont adaptés à chaque projet : IA dès 2500€, web dès 1200€, marketing 800€/mois. Quel service vous intéresse le plus ?";
+    }
+
+    if (intent === 'appointment') {
+      return "Parfait ! 📅 Je peux vous proposer un créneau cette semaine. Préférez-vous mardi 14h, jeudi 10h ou vendredi 16h ? L'appel dure 30 min maximum.";
+    }
+
+    if (intent === 'proposal') {
+      if (leadScore > 30) {
+        return "Excellent ! J'ai déjà plusieurs idées pour votre projet. 🚀 Pour vous proposer la solution optimale, parlons-en en direct. Quand êtes-vous disponible ?";
+      }
+      return "J'adore développer des solutions sur-mesure ! Pouvez-vous me parler de vos objectifs principaux et votre secteur d'activité ?";
+    }
+
+    // Service-specific responses
+    if (message.includes('ia') || message.includes('intelligence artificielle')) {
+      return `J'ai développé des IA pour automatiser jusqu'à 80% des tâches répétitives. Secteur ${Math.random() > 0.5 ? 'e-commerce' : 'finance'} ? Je peux vous montrer des cas concrets lors d'un appel rapide. 🤖`;
+    }
+
+    if (message.includes('site') || message.includes('web') || message.includes('application')) {
+      return "Sites web performants et applications modernes, c'est ma spécialité ! 🌐 Mes derniers projets ont augmenté les conversions de 200%. Quel type de site envisagez-vous ?";
+    }
+
+    if (message.includes('marketing') || message.includes('seo') || message.includes('publicité')) {
+      return "Marketing digital ROI-focused ! 📈 Mes stratégies génèrent +150% de trafic qualifié. Budget marketing actuel ? Je peux doubler vos résultats.";
+    }
+
+    if (message.includes('senservices')) {
+      return "SenServices va révolutionner les services digitaux au Sénégal ! 🇸🇳 90% terminé, lancement février 2025. Cherchez-vous un partenariat ou une solution similaire ?";
+    }
+
+    // Qualifying questions for leads
+    if (leadScore < 20) {
+      return "Merci pour votre intérêt ! Pour mieux vous conseiller : êtes-vous dirigeant d'entreprise, responsable marketing ou porteur de projet ? 🎯";
+    }
+
+    // Default high-conversion response
+    return `Excellente question ! Je peux vous aider efficacement. ${leadScore > 25 ? 'Organisons un appel rapide pour discuter de vos besoins précis ?' : 'Quel est votre principal défi actuellement ?'} 💡`;
   };
 
   // Handle appointment booking
@@ -517,10 +711,13 @@ const ChatBot = () => {
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-lg z-50 bg-gradient-to-br from-portfolio-purple to-portfolio-blue hover:from-portfolio-purple hover:to-portfolio-blue text-white p-0 animate-pulse-glow"
+          className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-lg z-50 bg-gradient-to-br from-portfolio-purple to-portfolio-blue hover:from-portfolio-purple hover:to-portfolio-blue text-white p-0 animate-pulse-glow relative"
           aria-label="Ouvrir le chat"
         >
           <MessageSquare size={24} />
+          {leadScore > 50 && (
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full animate-ping"></div>
+          )}
         </Button>
       )}
 
@@ -533,7 +730,12 @@ const ChatBot = () => {
               <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
                 <div className="flex items-center">
                   <Bot className="text-white mr-2 animate-pulse-slow" size={20} />
-                  <h3 className="text-white font-medium">Assistant de Dominiqk</h3>
+                  <div>
+                    <h3 className="text-white font-medium">Dominiqk Mendy - Commercial IA</h3>
+                    {leadScore > 0 && (
+                      <div className="text-xs text-white/80">Score prospect: {leadScore}/100</div>
+                    )}
+                  </div>
                 </div>
                 <Button 
                   variant="ghost" 
@@ -546,15 +748,15 @@ const ChatBot = () => {
               </div>
               
               {/* API status indicator */}
-              {useOpenAI ? (
+              {useGemini ? (
                 <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
                   <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-                  <span className="text-green-400 font-medium">Mode OpenAI activé</span>
+                  <span className="text-green-400 font-medium">Mode Google Gemini activé - Commercial Expert</span>
                 </div>
               ) : (
                 <div className="bg-amber-500/20 border-b border-amber-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
                   <div className="w-2 h-2 rounded-full bg-amber-500 mr-2"></div>
-                  <span className="text-amber-400 font-medium">Mode local (limité)</span>
+                  <span className="text-amber-400 font-medium">Mode local - Fonctionnalités limitées</span>
                 </div>
               )}
               
@@ -596,6 +798,9 @@ const ChatBot = () => {
                           </div>
                         ) : (
                           <div className="text-white/95 leading-relaxed">{message.content}</div>
+                        )}
+                        {message.metadata?.leadScore && message.metadata.leadScore > 0 && message.sender === 'user' && (
+                          <div className="text-xs text-white/60 mt-1">Score: {message.metadata.leadScore}/100</div>
                         )}
                       </div>
                     </div>
@@ -646,7 +851,7 @@ const ChatBot = () => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyPress}
-                    placeholder="Posez votre question..."
+                    placeholder="Votre question ou projet..."
                     className="resize-none bg-white/15 border-white/30 focus:border-portfolio-purple text-white placeholder:text-white/60 shadow-inner"
                     rows={2}
                   />
@@ -670,7 +875,12 @@ const ChatBot = () => {
             <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
               <div className="flex items-center">
                 <Bot className="text-white mr-2 animate-pulse-slow" size={20} />
-                <h3 className="text-white font-medium">Assistant de Dominiqk</h3>
+                <div>
+                  <h3 className="text-white font-medium">Dominiqk Mendy - Commercial IA</h3>
+                  {leadScore > 0 && (
+                    <div className="text-xs text-white/80">Score prospect: {leadScore}/100</div>
+                  )}
+                </div>
               </div>
               <div className="flex">
                 <Button 
@@ -703,15 +913,15 @@ const ChatBot = () => {
             </div>
 
             {/* API status indicator */}
-            {useOpenAI ? (
+            {useGemini ? (
               <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
                 <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-                <span className="text-green-400 font-medium">Mode OpenAI activé</span>
+                <span className="text-green-400 font-medium">Mode Google Gemini activé - Commercial Expert</span>
               </div>
             ) : (
               <div className="bg-amber-500/20 border-b border-amber-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
                 <div className="w-2 h-2 rounded-full bg-amber-500 mr-2"></div>
-                <span className="text-amber-400 font-medium">Mode local (limité)</span>
+                <span className="text-amber-400 font-medium">Mode local - Fonctionnalités limitées</span>
               </div>
             )}
 
@@ -753,6 +963,9 @@ const ChatBot = () => {
                         </div>
                       ) : (
                         <div className="text-white/95 leading-relaxed">{message.content}</div>
+                      )}
+                      {message.metadata?.leadScore && message.metadata.leadScore > 0 && message.sender === 'user' && (
+                        <div className="text-xs text-white/60 mt-1">Score: {message.metadata.leadScore}/100</div>
                       )}
                     </div>
                   </div>
@@ -803,7 +1016,7 @@ const ChatBot = () => {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyPress}
-                  placeholder="Posez votre question..."
+                  placeholder="Votre question ou projet..."
                   className="resize-none bg-white/15 border-white/30 focus:border-portfolio-purple text-white placeholder:text-white/60 shadow-inner"
                   rows={1}
                 />
@@ -821,40 +1034,40 @@ const ChatBot = () => {
         )
       )}
 
-      {/* API Key Dialog */}
+      {/* API Key Dialog - Updated for Gemini */}
       <Dialog open={isAPIKeyDialogOpen} onOpenChange={setIsAPIKeyDialogOpen}>
         <DialogContent className="sm:max-w-[425px] bg-black/90 backdrop-blur-xl border border-white/30 text-white shadow-glow-purple">
           <DialogHeader>
-            <DialogTitle>Paramètres OpenAI API</DialogTitle>
+            <DialogTitle>Configuration Google Gemini API</DialogTitle>
             <DialogDescription className="text-gray-300">
-              Connectez une clé API OpenAI pour rendre le chatbot plus intelligent.
+              Connectez votre clé API Google Gemini (gratuite) pour activer le mode commercial expert.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            {useOpenAI && (
+            {useGemini && (
               <Alert className="bg-green-500/15 border-green-500/30">
                 <AlertDescription className="text-green-400">
-                  Mode OpenAI activé. Le chatbot utilisera l'API pour générer des réponses.
+                  Mode Google Gemini activé. Le chatbot utilise l'IA pour des réponses commerciales optimisées.
                 </AlertDescription>
               </Alert>
             )}
             <div className="grid gap-2">
-              <Label htmlFor="apikey" className="text-white">Clé API OpenAI</Label>
+              <Label htmlFor="geminikey" className="text-white">Clé API Google Gemini</Label>
               <Input
-                id="apikey"
+                id="geminikey"
                 type="password"
-                placeholder="sk-..."
-                value={openAIKey}
-                onChange={(e) => setOpenAIKey(e.target.value)}
+                placeholder="AIza..."
+                value={geminiApiKey}
+                onChange={(e) => setGeminiApiKey(e.target.value)}
                 className="bg-white/15 border-white/30 text-white"
               />
               <p className="text-xs text-gray-300 mt-1">
-                Votre clé API est stockée localement et n'est jamais partagée.
+                Obtenez votre clé gratuite sur Google AI Studio. 15 requêtes/min incluses.
               </p>
             </div>
           </div>
           <DialogFooter className="flex flex-col sm:flex-row gap-2">
-            {useOpenAI && (
+            {useGemini && (
               <Button 
                 variant="outline" 
                 className="w-full sm:w-auto border-red-500/50 text-red-400 hover:bg-red-500/10"
@@ -874,7 +1087,7 @@ const ChatBot = () => {
               className="w-full sm:w-auto bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white"
               onClick={handleSaveAPIKey}
             >
-              Enregistrer
+              Activer Gemini
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1025,6 +1238,7 @@ const ChatBot = () => {
                         </div>
                         <div className="text-xs text-white/70 truncate">
                           {conversation.messages.length} messages
+                          {conversation.leadScore > 0 && ` • Score: ${conversation.leadScore}/100`}
                         </div>
                       </div>
                     </Button>
@@ -1047,47 +1261,6 @@ const ChatBot = () => {
       </Dialog>
     </>
   );
-};
-
-// Local response generator as fallback when OpenAI is not available
-const generateLocalResponse = async (userMessage: string): Promise<string> => {
-  const message = userMessage.toLowerCase();
-  
-  // Simple response logic - in a real implementation, this would call GPT or another AI service
-  if (message.includes('bonjour') || message.includes('salut') || message.includes('hello')) {
-    return "Bonjour ! Comment puis-je vous aider aujourd'hui avec les services d'innovation numérique de Dominiqk Mendy?";
-  }
-  
-  if (message.includes('tarif') || message.includes('prix') || message.includes('coût') || message.includes('cout')) {
-    return "Nos tarifs sont adaptés à chaque projet. Pour une offre personnalisée, je peux organiser un appel avec Dominiqk Mendy. Souhaitez-vous planifier un rendez-vous rapide pour en discuter?";
-  }
-  
-  if (message.includes('service') || message.includes('offre')) {
-    return "Dominiqk Mendy propose plusieurs services d'excellence : développement IA sur-mesure, création web avancée, marketing digital stratégique, et conseil en transformation numérique. Sur quel aspect puis-je vous renseigner plus en détail ?";
-  }
-  
-  if (message.includes('ia') || message.includes('intelligence artificielle')) {
-    return "Dominiqk Mendy est expert en solutions IA personnalisées. Nous créons des modèles d'IA pour automatisation, analyse prédictive et assistants virtuels. Avez-vous un projet spécifique en tête ?";
-  }
-
-  if (message.includes('web') || message.includes('site') || message.includes('application')) {
-    return "Notre équipe développe des sites web et applications performants, esthétiques et optimisés pour le SEO. Cherchez-vous à créer une nouvelle plateforme ou à améliorer une existante ?";
-  }
-
-  if (message.includes('contact') || message.includes('rendez-vous') || message.includes('appel')) {
-    return "Je serais ravi d'organiser un entretien avec Dominiqk Mendy. Vous pouvez utiliser le bouton 'Rendez-vous' ci-dessous pour choisir une date et heure qui vous conviennent. Ou préférez-vous être contacté par email ?";
-  }
-
-  if (message.includes('document') || message.includes('fichier') || message.includes('envoyer')) {
-    return "Vous pouvez facilement nous envoyer des documents en utilisant le bouton 'Envoyer fichier' ci-dessous. Nous les examinerons rapidement et reviendrons vers vous avec des commentaires.";
-  }
-
-  if (message.includes('senservices')) {
-    return "SenServices est notre plateforme nationale révolutionnaire pour la digitalisation des services au Sénégal. Le projet est complété à 90% et nous recherchons activement des partenariats avec l'État sénégalais et des entreprises privées. Souhaitez-vous en savoir plus sur les opportunités de collaboration ?";
-  }
-
-  // Default response for other queries
-  return "Merci pour votre question. Pour vous apporter la meilleure réponse, Dominiqk serait ravi d'en discuter lors d'un appel personnalisé. Vous pouvez utiliser le bouton 'Rendez-vous' ci-dessous pour planifier un entretien rapide, ou m'indiquer votre disponibilité.";
 };
 
 export default ChatBot;
