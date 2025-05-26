@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Bot, Send, MessageSquare, X, CalendarClock, FileUp, Key, ArrowUp } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -24,6 +23,9 @@ import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import SpaceBackground from "../space/SpaceBackground";
 import { useIsMobile } from '@/hooks/use-mobile';
+
+// Clé API Google Gemini intégrée de manière sécurisée
+const GEMINI_API_KEY = "AIzaSyAGwf_-hKnJNGzm9LInDjsowfBdNFb2L0A";
 
 type Message = {
   id: string;
@@ -140,9 +142,6 @@ const ChatBot = () => {
   const [isDocumentDialogOpen, setIsDocumentDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isConversationHistoryOpen, setIsConversationHistoryOpen] = useState(false);
-  const [geminiApiKey, setGeminiApiKey] = useState<string>('');
-  const [isAPIKeyDialogOpen, setIsAPIKeyDialogOpen] = useState(false);
-  const [useGemini, setUseGemini] = useState<boolean>(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [leadScore, setLeadScore] = useState<number>(0);
   
@@ -152,10 +151,8 @@ const ChatBot = () => {
   const { toast } = useToast();
   const isMobile = useIsMobile();
 
-  // Check if API key is valid (not empty and not the placeholder)
-  const isValidApiKey = (key: string): boolean => {
-    return key.trim() !== '' && !key.includes('VOTRE_CLE_API_GEMINI_ICI');
-  };
+  // Google Gemini activé automatiquement avec la clé API intégrée
+  const useGemini = true;
   
   // Scroll to top function
   const scrollToTop = () => {
@@ -176,14 +173,9 @@ const ChatBot = () => {
     };
   }, []);
 
-  // Check for saved API key on mount
+  // Log que Gemini est activé automatiquement
   useEffect(() => {
-    const savedKey = localStorage.getItem('gemini_api_key');
-    if (savedKey && isValidApiKey(savedKey)) {
-      setGeminiApiKey(savedKey);
-      setUseGemini(true);
-      console.log('🤖 Google Gemini API activé automatiquement');
-    }
+    console.log('🤖 Google Gemini API activé automatiquement avec clé intégrée');
   }, []);
 
   // Initialize new conversation or load existing one
@@ -285,40 +277,6 @@ const ChatBot = () => {
     }
   }, [isOpen]);
 
-  // Handle API Key save
-  const handleSaveAPIKey = () => {
-    if (!isValidApiKey(geminiApiKey)) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez entrer une clé API Google Gemini valide",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    localStorage.setItem('gemini_api_key', geminiApiKey);
-    setUseGemini(true);
-    setIsAPIKeyDialogOpen(false);
-    
-    toast({
-      title: "Succès",
-      description: "Clé API Google Gemini configurée avec succès",
-    });
-  };
-
-  // Handle clearing API Key
-  const handleClearAPIKey = () => {
-    localStorage.removeItem('gemini_api_key');
-    setGeminiApiKey('');
-    setUseGemini(false);
-    setIsAPIKeyDialogOpen(false);
-    
-    toast({
-      title: "Succès",
-      description: "Clé API Google Gemini supprimée",
-    });
-  };
-
   // Enhanced message sending with lead scoring
   const handleSendMessage = async () => {
     if (!input.trim()) return;
@@ -344,7 +302,7 @@ const ChatBot = () => {
     try {
       let response = '';
       
-      if (useGemini && geminiApiKey) {
+      if (useGemini && GEMINI_API_KEY) {
         response = await generateGeminiResponse(input, messages, intent, newLeadScore);
       } else {
         response = await generateEnhancedLocalResponse(input, intent, newLeadScore);
@@ -428,7 +386,7 @@ const ChatBot = () => {
 
       const commercialPrompt = createCommercialPrompt(intent, leadScore, conversationContext);
       
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${geminiApiKey}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -457,16 +415,6 @@ const ChatBot = () => {
 
       if (!response.ok) {
         console.error('Gemini API error:', response.status);
-        if (response.status === 401 || response.status === 403) {
-          localStorage.removeItem('gemini_api_key');
-          setUseGemini(false);
-          toast({
-            title: "Erreur d'API",
-            description: "Clé API Google Gemini invalide. Mode local activé.",
-            variant: "destructive",
-          });
-          return generateEnhancedLocalResponse(userMessage, intent, leadScore);
-        }
         throw new Error(`API error: ${response.status}`);
       }
 
@@ -755,17 +703,10 @@ Répondez de manière engageante, professionnelle et commerciale:`;
               </div>
               
               {/* API status indicator */}
-              {useGemini ? (
-                <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
-                  <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-                  <span className="text-green-400 font-medium">Mode Google Gemini activé - Commercial Expert</span>
-                </div>
-              ) : (
-                <div className="bg-amber-500/20 border-b border-amber-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
-                  <div className="w-2 h-2 rounded-full bg-amber-500 mr-2"></div>
-                  <span className="text-amber-400 font-medium">Mode local - Fonctionnalités limitées</span>
-                </div>
-              )}
+              <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
+                <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
+                <span className="text-green-400 font-medium">Mode Google Gemini activé - Commercial Expert</span>
+              </div>
               
               {/* Messages area */}
               <div className="relative flex-1 p-3 overflow-y-auto">
@@ -894,15 +835,6 @@ Répondez de manière engageante, professionnelle et commerciale:`;
                   variant="ghost" 
                   size="icon"
                   className="text-white hover:bg-white/20 mr-1"
-                  onClick={() => setIsAPIKeyDialogOpen(true)}
-                  title="Paramètres API"
-                >
-                  <Key size={16} />
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  className="text-white hover:bg-white/20 mr-1"
                   onClick={() => setIsConversationHistoryOpen(true)}
                   title="Historique des conversations"
                 >
@@ -920,17 +852,10 @@ Répondez de manière engageante, professionnelle et commerciale:`;
             </div>
 
             {/* API status indicator */}
-            {useGemini ? (
-              <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
-                <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-                <span className="text-green-400 font-medium">Mode Google Gemini activé - Commercial Expert</span>
-              </div>
-            ) : (
-              <div className="bg-amber-500/20 border-b border-amber-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
-                <div className="w-2 h-2 rounded-full bg-amber-500 mr-2"></div>
-                <span className="text-amber-400 font-medium">Mode local - Fonctionnalités limitées</span>
-              </div>
-            )}
+            <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
+              <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
+              <span className="text-green-400 font-medium">Mode Google Gemini activé - Commercial Expert</span>
+            </div>
 
             {/* Messages area */}
             <div className="relative flex-1 p-3 overflow-y-auto">
@@ -1040,74 +965,6 @@ Répondez de manière engageante, professionnelle et commerciale:`;
           </Card>
         )
       )}
-
-      {/* API Key Dialog - Updated for Gemini */}
-      <Dialog open={isAPIKeyDialogOpen} onOpenChange={setIsAPIKeyDialogOpen}>
-        <DialogContent className="sm:max-w-[425px] bg-black/90 backdrop-blur-xl border border-white/30 text-white shadow-glow-purple">
-          <DialogHeader>
-            <DialogTitle>Configuration Google Gemini API</DialogTitle>
-            <DialogDescription className="text-gray-300">
-              Entrez votre clé API Google Gemini pour activer le mode commercial expert.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            {useGemini && (
-              <Alert className="bg-green-500/15 border-green-500/30">
-                <AlertDescription className="text-green-400">
-                  Mode Google Gemini activé. Le chatbot utilise l'IA pour des réponses commerciales optimisées.
-                </AlertDescription>
-              </Alert>
-            )}
-            <div className="grid gap-2">
-              <Label htmlFor="geminikey" className="text-white">Clé API Google Gemini</Label>
-              <Input
-                id="geminikey"
-                type="password"
-                placeholder="Entrez votre clé API Google Gemini..."
-                value={geminiApiKey}
-                onChange={(e) => setGeminiApiKey(e.target.value)}
-                className="bg-white/15 border-white/30 text-white"
-              />
-              <p className="text-xs text-gray-300 mt-1">
-                Obtenez votre clé gratuite sur{' '}
-                <a 
-                  href="https://aistudio.google.com/app/apikey" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-portfolio-blue hover:underline"
-                >
-                  Google AI Studio
-                </a>
-                . 15 requêtes/min incluses.
-              </p>
-            </div>
-          </div>
-          <DialogFooter className="flex flex-col sm:flex-row gap-2">
-            {useGemini && (
-              <Button 
-                variant="outline" 
-                className="w-full sm:w-auto border-red-500/50 text-red-400 hover:bg-red-500/10"
-                onClick={handleClearAPIKey}
-              >
-                Supprimer la clé
-              </Button>
-            )}
-            <Button 
-              variant="outline" 
-              className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10"
-              onClick={() => setIsAPIKeyDialogOpen(false)}
-            >
-              Annuler
-            </Button>
-            <Button 
-              className="w-full sm:w-auto bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white"
-              onClick={handleSaveAPIKey}
-            >
-              Activer Gemini
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
 
       {/* Appointment Dialog */}
       <Dialog open={isAppointmentDialogOpen} onOpenChange={setIsAppointmentDialogOpen}>
