@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Award } from 'lucide-react';
+import { Award, Brain, Globe, Zap } from 'lucide-react';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface HeroProfileProps {
@@ -78,20 +78,92 @@ const HeroProfile = ({ isMobile }: HeroProfileProps) => {
           </motion.div>
         </motion.div>
 
-        {/* Enhanced expertise bubbles */}
-        <div className="absolute -right-2 -top-2 w-16 h-16 bg-secondary rounded-full flex items-center justify-center z-20 animate-float shadow-lg shadow-secondary/20">
-          <span className="text-white font-bold text-xs text-center p-1">Expert IA</span>
-        </div>
-        <div className="absolute -left-2 -bottom-2 w-20 h-20 bg-accent rounded-full flex items-center justify-center z-20 animate-float shadow-lg shadow-accent/20" style={{
-          animationDelay: '1s'
-        }}>
-          <span className="text-white font-bold text-xs text-center p-1">Digital Marketing</span>
-        </div>
-        <div className="absolute right-0 -bottom-4 w-20 h-20 bg-primary rounded-full flex items-center justify-center z-20 animate-float shadow-lg shadow-primary/20" style={{
-          animationDelay: '2s'
-        }}>
-          <span className="text-white font-bold text-xs text-center p-1">Expert Web</span>
-        </div>
+        {/* Icône 3D Expert IA - Orange vibrante */}
+        <motion.div 
+          className="absolute -right-2 -top-2 group z-20"
+          initial={{ opacity: 0, scale: 0.5, rotateZ: -180 }}
+          animate={{ opacity: 1, scale: 1, rotateZ: 0 }}
+          transition={{ delay: 0.2, duration: 0.8, type: "spring" }}
+          whileHover={{ scale: 1.15, rotateZ: 10 }}
+          style={{ animationDelay: '0s' }}
+        >
+          {/* Glow effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-400/40 via-red-500/50 to-pink-500/40 rounded-full blur-xl animate-pulse"></div>
+          
+          {/* Main container */}
+          <div className="relative bg-gradient-to-br from-orange-400 via-red-500 to-pink-500 p-3 rounded-full shadow-2xl border-2 border-orange-300/50 animate-float">
+            {/* Inner glow */}
+            <div className="absolute inset-1 bg-gradient-to-br from-orange-200/40 to-transparent rounded-full"></div>
+            
+            {/* Brain icon */}
+            <Brain className="w-5 h-5 text-white relative z-10 drop-shadow-lg" strokeWidth={2.5} />
+            
+            {/* Sparkle effects */}
+            <div className="absolute -top-1 -right-1 w-2 h-2 bg-orange-300 rounded-full animate-ping"></div>
+            <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-red-400 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
+            
+            {/* 3D highlight */}
+            <div className="absolute top-1 left-1 w-3 h-3 bg-gradient-to-br from-white/70 to-transparent rounded-full blur-sm"></div>
+          </div>
+        </motion.div>
+
+        {/* Icône 3D Digital Marketing - Vert émeraude et bleu */}
+        <motion.div 
+          className="absolute -left-2 -bottom-2 group z-20"
+          initial={{ opacity: 0, scale: 0.5, rotateZ: 180 }}
+          animate={{ opacity: 1, scale: 1, rotateZ: 0 }}
+          transition={{ delay: 0.6, duration: 0.8, type: "spring" }}
+          whileHover={{ scale: 1.15, rotateZ: -10 }}
+          style={{ animationDelay: '1s' }}
+        >
+          {/* Glow effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/40 via-teal-500/50 to-cyan-500/40 rounded-full blur-xl animate-pulse"></div>
+          
+          {/* Main container */}
+          <div className="relative bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-500 p-3.5 rounded-full shadow-2xl border-2 border-emerald-300/50 animate-float">
+            {/* Inner glow */}
+            <div className="absolute inset-1 bg-gradient-to-br from-emerald-200/40 to-transparent rounded-full"></div>
+            
+            {/* Zap icon */}
+            <Zap className="w-6 h-6 text-white relative z-10 drop-shadow-lg" strokeWidth={2.5} />
+            
+            {/* Sparkle effects */}
+            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-300 rounded-full animate-ping"></div>
+            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-teal-400 rounded-full animate-ping" style={{ animationDelay: '0.7s' }}></div>
+            
+            {/* 3D highlight */}
+            <div className="absolute top-1 left-1 w-3.5 h-3.5 bg-gradient-to-br from-white/70 to-transparent rounded-full blur-sm"></div>
+          </div>
+        </motion.div>
+
+        {/* Icône 3D Expert Web - Violet royal et bleu */}
+        <motion.div 
+          className="absolute right-0 -bottom-4 group z-20"
+          initial={{ opacity: 0, scale: 0.5, rotateY: 180 }}
+          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+          transition={{ delay: 1, duration: 0.8, type: "spring" }}
+          whileHover={{ scale: 1.15, rotateY: 15 }}
+          style={{ animationDelay: '2s' }}
+        >
+          {/* Glow effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-violet-500/40 via-purple-600/50 to-indigo-600/40 rounded-full blur-xl animate-pulse"></div>
+          
+          {/* Main container */}
+          <div className="relative bg-gradient-to-br from-violet-500 via-purple-600 to-indigo-600 p-3.5 rounded-full shadow-2xl border-2 border-violet-300/50 animate-float">
+            {/* Inner glow */}
+            <div className="absolute inset-1 bg-gradient-to-br from-violet-200/40 to-transparent rounded-full"></div>
+            
+            {/* Globe icon */}
+            <Globe className="w-6 h-6 text-white relative z-10 drop-shadow-lg" strokeWidth={2.5} />
+            
+            {/* Sparkle effects */}
+            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-violet-300 rounded-full animate-ping"></div>
+            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-purple-400 rounded-full animate-ping" style={{ animationDelay: '0.9s' }}></div>
+            
+            {/* 3D highlight */}
+            <div className="absolute top-1 left-1 w-3.5 h-3.5 bg-gradient-to-br from-white/70 to-transparent rounded-full blur-sm"></div>
+          </div>
+        </motion.div>
       </div>
     );
   }
@@ -164,20 +236,92 @@ const HeroProfile = ({ isMobile }: HeroProfileProps) => {
         </motion.div>
       </motion.div>
 
-      {/* Enhanced expertise bubbles with better positioning and shadows */}
-      <div className="absolute -right-2 sm:-right-4 -top-2 sm:-top-4 w-20 h-20 sm:w-24 sm:h-24 bg-secondary rounded-full flex items-center justify-center z-20 animate-float shadow-lg shadow-secondary/20">
-        <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Expert IA</span>
-      </div>
-      <div className="absolute -left-2 sm:-left-4 -bottom-2 sm:-bottom-4 w-24 h-24 sm:w-28 sm:h-28 bg-accent rounded-full flex items-center justify-center z-20 animate-float shadow-lg shadow-accent/20" style={{
-        animationDelay: '1s'
-      }}>
-        <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Digital Marketing</span>
-      </div>
-      <div className="absolute right-8 sm:right-12 -bottom-6 sm:-bottom-8 w-28 h-28 sm:w-32 sm:h-32 bg-primary rounded-full flex items-center justify-center z-20 animate-float shadow-lg shadow-primary/20" style={{
-        animationDelay: '2s'
-      }}>
-        <span className="text-white font-bold text-xs sm:text-sm text-center p-2">Expert Web</span>
-      </div>
+      {/* Icône 3D Expert IA - Orange vibrante */}
+      <motion.div 
+        className="absolute -right-2 sm:-right-4 -top-2 sm:-top-4 group z-20"
+        initial={{ opacity: 0, scale: 0.5, rotateZ: -180 }}
+        animate={{ opacity: 1, scale: 1, rotateZ: 0 }}
+        transition={{ delay: 0.2, duration: 0.8, type: "spring" }}
+        whileHover={{ scale: 1.15, rotateZ: 10 }}
+        style={{ animationDelay: '0s' }}
+      >
+        {/* Glow effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-400/40 via-red-500/50 to-pink-500/40 rounded-full blur-xl animate-pulse"></div>
+        
+        {/* Main container */}
+        <div className="relative bg-gradient-to-br from-orange-400 via-red-500 to-pink-500 p-4 sm:p-5 rounded-full shadow-2xl border-2 border-orange-300/50 animate-float">
+          {/* Inner glow */}
+          <div className="absolute inset-1 bg-gradient-to-br from-orange-200/40 to-transparent rounded-full"></div>
+          
+          {/* Brain icon */}
+          <Brain className="w-7 h-7 sm:w-8 sm:h-8 text-white relative z-10 drop-shadow-lg" strokeWidth={2.5} />
+          
+          {/* Sparkle effects */}
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-orange-300 rounded-full animate-ping"></div>
+          <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-red-400 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
+          
+          {/* 3D highlight */}
+          <div className="absolute top-1 left-1 w-4 h-4 bg-gradient-to-br from-white/70 to-transparent rounded-full blur-sm"></div>
+        </div>
+      </motion.div>
+
+      {/* Icône 3D Digital Marketing - Vert émeraude et bleu */}
+      <motion.div 
+        className="absolute -left-2 sm:-left-4 -bottom-2 sm:-bottom-4 group z-20"
+        initial={{ opacity: 0, scale: 0.5, rotateZ: 180 }}
+        animate={{ opacity: 1, scale: 1, rotateZ: 0 }}
+        transition={{ delay: 0.6, duration: 0.8, type: "spring" }}
+        whileHover={{ scale: 1.15, rotateZ: -10 }}
+        style={{ animationDelay: '1s' }}
+      >
+        {/* Glow effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/40 via-teal-500/50 to-cyan-500/40 rounded-full blur-xl animate-pulse"></div>
+        
+        {/* Main container */}
+        <div className="relative bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-500 p-5 sm:p-6 rounded-full shadow-2xl border-2 border-emerald-300/50 animate-float">
+          {/* Inner glow */}
+          <div className="absolute inset-1 bg-gradient-to-br from-emerald-200/40 to-transparent rounded-full"></div>
+          
+          {/* Zap icon */}
+          <Zap className="w-8 h-8 sm:w-9 sm:h-9 text-white relative z-10 drop-shadow-lg" strokeWidth={2.5} />
+          
+          {/* Sparkle effects */}
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-300 rounded-full animate-ping"></div>
+          <div className="absolute -bottom-1 -left-1 w-2.5 h-2.5 bg-teal-400 rounded-full animate-ping" style={{ animationDelay: '0.7s' }}></div>
+          
+          {/* 3D highlight */}
+          <div className="absolute top-1 left-1 w-5 h-5 bg-gradient-to-br from-white/70 to-transparent rounded-full blur-sm"></div>
+        </div>
+      </motion.div>
+
+      {/* Icône 3D Expert Web - Violet royal et bleu */}
+      <motion.div 
+        className="absolute right-8 sm:right-12 -bottom-6 sm:-bottom-8 group z-20"
+        initial={{ opacity: 0, scale: 0.5, rotateY: 180 }}
+        animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+        transition={{ delay: 1, duration: 0.8, type: "spring" }}
+        whileHover={{ scale: 1.15, rotateY: 15 }}
+        style={{ animationDelay: '2s' }}
+      >
+        {/* Glow effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-violet-500/40 via-purple-600/50 to-indigo-600/40 rounded-full blur-xl animate-pulse"></div>
+        
+        {/* Main container */}
+        <div className="relative bg-gradient-to-br from-violet-500 via-purple-600 to-indigo-600 p-5 sm:p-6 rounded-full shadow-2xl border-2 border-violet-300/50 animate-float">
+          {/* Inner glow */}
+          <div className="absolute inset-1 bg-gradient-to-br from-violet-200/40 to-transparent rounded-full"></div>
+          
+          {/* Globe icon */}
+          <Globe className="w-9 h-9 sm:w-10 sm:h-10 text-white relative z-10 drop-shadow-lg" strokeWidth={2.5} />
+          
+          {/* Sparkle effects */}
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-violet-300 rounded-full animate-ping"></div>
+          <div className="absolute -bottom-1 -left-1 w-2.5 h-2.5 bg-purple-400 rounded-full animate-ping" style={{ animationDelay: '0.9s' }}></div>
+          
+          {/* 3D highlight */}
+          <div className="absolute top-1 left-1 w-5 h-5 bg-gradient-to-br from-white/70 to-transparent rounded-full blur-sm"></div>
+        </div>
+      </motion.div>
     </div>
   );
 };
