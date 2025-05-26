@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import ProjectViewDialog from '../components/portfolio/ProjectViewDialog';
-import { ExternalLink, ArrowRight, Star, Code, Database, Globe, BarChart3, BookOpen, Rocket, Eye, TrendingUp, Shield, Zap, Users, Brain, Smartphone, Mountain, Utensils, Package, Palette, Microscope, Heart, Lightbulb, Settings } from 'lucide-react';
+import { ExternalLink, ArrowRight, Star, Code, Database, Globe, BarChart3, BookOpen, Rocket, Eye, TrendingUp, Shield, Zap, Users, Brain, Smartphone, Mountain, Utensils, Package, Palette, Microscope, Heart, Lightbulb, Settings, Briefcase, Shirt } from 'lucide-react';
 
 // Star background component
 const StarBackground = () => {
@@ -387,6 +387,138 @@ const Portfolio = () => {
       link: "#",
       icon: <Mountain className="h-6 w-6" />,
       color: "from-orange-600 to-yellow-600"
+    },
+    {
+      id: 28,
+      title: "Dania Cosmetics - App & Marketing Digital",
+      category: "beauty",
+      image: "/lovable-uploads/445e686e-aae9-44a9-a285-b1bc0fe5ce56.png",
+      description: "Application cosmétique innovante avec campagne marketing digitale colorée et design moderne. Plateforme beauté avec catalogue produits, filtres AR et expérience shopping personnalisée pour révéler la beauté unique de chaque utilisatrice.",
+      tags: ["Beauty App", "Digital Marketing", "AR Filters", "E-commerce"],
+      metrics: { users: "300K+", engagement: "+250%", sales: "+180%" },
+      link: "#",
+      icon: <Palette className="h-6 w-6" />,
+      color: "from-pink-600 to-purple-600"
+    },
+    {
+      id: 29,
+      title: "Good Night Daddy - UI/UX Design",
+      category: "design",
+      image: "/lovable-uploads/92248724-2972-45a0-8572-fdd15e128645.png",
+      description: "Interface moderne pour plateforme de streaming avec design futuriste, expérience utilisateur immersive et navigation intuitive. Solution complète de divertissement familial avec contenu personnalisé et fonctionnalités interactives avancées.",
+      tags: ["UI/UX Design", "Streaming Platform", "Entertainment", "Family Content"],
+      metrics: { viewers: "500K+", engagement: "+320%", retention: "85%" },
+      link: "#",
+      icon: <Eye className="h-6 w-6" />,
+      color: "from-blue-600 to-cyan-600"
+    },
+    {
+      id: 30,
+      title: "Portfolio Web Multi-Projets",
+      category: "portfolio",
+      image: "/lovable-uploads/5ca54ca6-a304-4f04-ac1e-2f1d9617af91.png",
+      description: "Showcase créatif de projets web diversifiés avec présentation élégante, layouts responsifs et portfolio interactif. Collection de réalisations digitales mettant en valeur l'expertise en développement web et design d'interface moderne.",
+      tags: ["Web Portfolio", "Multi-Projects", "Creative Showcase", "Responsive Design"],
+      metrics: { projects: "50+", visibility: "+400%", leads: "Generated" },
+      link: "#",
+      icon: <Globe className="h-6 w-6" />,
+      color: "from-gray-600 to-blue-600"
+    },
+    {
+      id: 31,
+      title: "New Publicity - Design Publicitaire",
+      category: "advertising",
+      image: "/lovable-uploads/7e995e3d-9597-43b0-8d0f-40f226cdf292.png",
+      description: "Conception créative de supports publicitaires avec designs attractifs, identité visuelle forte et impact marketing optimisé. Solution complète de communication visuelle pour campagnes promotionnelles et stratégies publicitaires innovantes.",
+      tags: ["Advertising Design", "Visual Communication", "Marketing Campaign", "Brand Promotion"],
+      metrics: { campaigns: "200+", impact: "+300%", reach: "1M+" },
+      link: "#",
+      icon: <Briefcase className="h-6 w-6" />,
+      color: "from-green-600 to-blue-600"
+    },
+    {
+      id: 32,
+      title: "SN Sport - Plateforme Sportive Sénégalaise",
+      category: "sports",
+      image: "/lovable-uploads/eea9ac5b-eb1e-48f0-9ded-dfced525632a.png",
+      description: "Portail sportif national avec actualités en temps réel, statistiques des équipes et couverture complète du sport sénégalais. Plateforme interactive pour passionnés de sport avec contenu multimédia et analyses détaillées des performances.",
+      tags: ["Sports Portal", "News Platform", "Team Statistics", "Media Content"],
+      metrics: { readers: "750K+", articles: "5K+", engagement: "Daily" },
+      link: "#",
+      icon: <TrendingUp className="h-6 w-6" />,
+      color: "from-green-600 to-yellow-600"
+    },
+    {
+      id: 33,
+      title: "Senegal Brand - Design Vestimentaire",
+      category: "fashion",
+      image: "/lovable-uploads/0d4c80fb-4330-4bc9-9e79-a5ea09b1fe13.png",
+      description: "Création de marque vestimentaire sénégalaise avec design moderne, identité culturelle forte et positionnement mode contemporaine. Collection unique mêlant tradition et modernité avec designs authentiques et qualité premium.",
+      tags: ["Fashion Design", "Cultural Brand", "Textile Design", "Senegalese Heritage"],
+      metrics: { collections: "12+", sales: "+250%", recognition: "National" },
+      link: "#",
+      icon: <Shirt className="h-6 w-6" />,
+      color: "from-red-600 to-green-600"
+    },
+    {
+      id: 34,
+      title: "E-commerce Sportswear Platform",
+      category: "ecommerce",
+      image: "/lovable-uploads/6cf1c782-45f0-48df-b1f1-0410476b57ff.png",
+      description: "Plateforme e-commerce spécialisée vêtements de sport avec catalogue étendu, expérience d'achat optimisée et interface responsive. Solution complète pour la vente en ligne d'articles sportifs avec gestion des stocks et système de paiement sécurisé.",
+      tags: ["E-commerce", "Sportswear", "Online Store", "Inventory Management"],
+      metrics: { products: "2K+", sales: "+180%", customers: "15K+" },
+      link: "#",
+      icon: <Package className="h-6 w-6" />,
+      color: "from-blue-600 to-green-600"
+    },
+    {
+      id: 35,
+      title: "SN Sport Mobile - App Sportive",
+      category: "mobile",
+      image: "/lovable-uploads/a49b815e-dfd7-4d89-9f97-b5605b2395c4.png",
+      description: "Application mobile dédiée au sport sénégalais avec actualités live, résultats en temps réel et notifications push. Interface moderne pour suivre championnats, équipes nationales et événements sportifs avec contenu exclusif et analyses d'experts.",
+      tags: ["Sports App", "Live News", "Mobile Interface", "Push Notifications"],
+      metrics: { downloads: "250K+", active_users: "Daily", notifications: "Real-time" },
+      link: "#",
+      icon: <Smartphone className="h-6 w-6" />,
+      color: "from-orange-600 to-red-600"
+    },
+    {
+      id: 36,
+      title: "Select Voyages Sénégal - Tourisme",
+      category: "travel",
+      image: "/lovable-uploads/b9c5aa62-a570-4e4b-8ed6-4e7b4901e3cd.png",
+      description: "Plateforme touristique pour découvrir le Sénégal avec destinations authentiques, circuits personnalisés et réservations en ligne. Solution complète de voyage avec guides locaux, hébergements traditionnels et expériences culturelles immersives.",
+      tags: ["Tourism Platform", "Travel Booking", "Cultural Tourism", "Local Experiences"],
+      metrics: { destinations: "50+", bookings: "+300%", satisfaction: "4.8/5" },
+      link: "#",
+      icon: <Globe className="h-6 w-6" />,
+      color: "from-blue-600 to-teal-600"
+    },
+    {
+      id: 37,
+      title: "Select Voyages Dubai - Luxe International",
+      category: "travel",
+      image: "/lovable-uploads/f270bb57-151e-47f0-80d3-abd864fab127.png",
+      description: "Agence de voyage premium pour Dubai avec séjours de luxe, expériences exclusives et services haut de gamme. Plateforme sophistiquée pour voyages d'exception avec conciergerie personnalisée et destinations prestigieuses.",
+      tags: ["Luxury Travel", "Premium Services", "Dubai Tourism", "Exclusive Experiences"],
+      metrics: { clients: "VIP", satisfaction: "Premium", experiences: "Exclusive" },
+      link: "#",
+      icon: <Star className="h-6 w-6" />,
+      color: "from-yellow-600 to-orange-600"
+    },
+    {
+      id: 38,
+      title: "New Publicity Cards - Design Print",
+      category: "print",
+      image: "/lovable-uploads/9cbc1f57-80ca-4465-9ac9-86542d297909.png",
+      description: "Création de supports publicitaires print avec designs créatifs, mise en page professionnelle et impact visuel optimisé. Collection de cartes promotionnelles, flyers et supports marketing avec identités visuelles variées et messages percutants.",
+      tags: ["Print Design", "Marketing Materials", "Visual Impact", "Promotional Cards"],
+      metrics: { designs: "500+", clients: "100+", impact: "Measurable" },
+      link: "#",
+      icon: <Palette className="h-6 w-6" />,
+      color: "from-purple-600 to-pink-600"
     }
   ];
 
@@ -450,7 +582,7 @@ const Portfolio = () => {
                 className="mb-8"
               >
                 <span className="inline-block px-6 py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-md border border-blue-500/30 rounded-full text-blue-300 font-medium mb-6">
-                  🚀 Portfolio Innovation • 27+ Projets Présentés
+                  🚀 Portfolio Innovation • 38+ Projets Présentés
                 </span>
                 
                 <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
