@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -290,14 +289,14 @@ const Portfolio = () => {
           </div>
         </section>
 
-        {/* Projects Grid Ultra Creative */}
+        {/* Projects Grid Ultra Creative - Modified to 2 columns */}
         <section className="py-16 relative">
           <div className="container mx-auto px-4">
             <motion.div
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto"
             >
               {filteredProjects.map((project) => (
                 <motion.div
@@ -308,7 +307,7 @@ const Portfolio = () => {
                   onMouseLeave={() => setHoveredProject(null)}
                 >
                   <Card className="relative overflow-hidden bg-black/80 backdrop-blur-md border border-white/20 hover:border-white/40 transition-all duration-500 h-full shadow-2xl">
-                    <div className="relative h-64 overflow-hidden">
+                    <div className="relative h-80 overflow-hidden">
                       <img 
                         src={project.image} 
                         alt={project.title}
