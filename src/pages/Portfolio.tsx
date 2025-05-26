@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -6,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import ProjectViewDialog from '../components/portfolio/ProjectViewDialog';
 import { ExternalLink, ArrowRight, Star, Code, Database, Globe, BarChart3, BookOpen, Rocket, Eye, TrendingUp, Shield, Zap, Users, Brain, Smartphone, Mountain, Utensils, Package, Palette, Microscope } from 'lucide-react';
 
 // Star background component
@@ -44,6 +44,8 @@ const StarBackground = () => {
 };
 
 const Portfolio = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   useEffect(() => {
     document.title = 'Portfolio | Dominiqk Mendy | Projets & Réalisations Innovation';
     
@@ -56,6 +58,10 @@ const Portfolio = () => {
     
     window.scrollTo(0, 0);
   }, []);
+  
+  const handleProjectClick = () => {
+    setIsDialogOpen(true);
+  };
   
   const projects = [
     {
@@ -493,6 +499,7 @@ const Portfolio = () => {
                         <Button 
                           size="lg"
                           className="bg-white/20 border border-white/40 backdrop-blur-md hover:bg-white/30 text-white shadow-lg"
+                          onClick={handleProjectClick}
                         >
                           <Eye className="mr-2 h-5 w-5" />
                           Voir le Projet
@@ -543,11 +550,15 @@ const Portfolio = () => {
                           variant="ghost" 
                           size="sm"
                           className="text-blue-300 hover:text-blue-200 p-0 hover:bg-transparent"
+                          onClick={handleProjectClick}
                         >
                           Découvrir
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
-                        <ExternalLink className="h-4 w-4 text-gray-400 hover:text-white transition-colors cursor-pointer" />
+                        <ExternalLink 
+                          className="h-4 w-4 text-gray-400 hover:text-white transition-colors cursor-pointer" 
+                          onClick={handleProjectClick}
+                        />
                       </div>
                     </CardContent>
                   </Card>
@@ -611,6 +622,12 @@ const Portfolio = () => {
       </main>
       
       <Footer />
+      
+      {/* Project View Dialog */}
+      <ProjectViewDialog 
+        isOpen={isDialogOpen} 
+        onClose={() => setIsDialogOpen(false)} 
+      />
     </div>
   );
 };
