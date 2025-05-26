@@ -30,10 +30,8 @@ export const createCircularAnimation = (element: HTMLElement, duration: number =
   requestAnimationFrame(animateCircle);
 };
 
-// Add new utility functions for performance optimization
-
 /**
- * Preload images for faster display
+ * Optimized preload images for faster display - now with better error handling
  * @param imageSrcs Array of image sources to preload
  */
 export const preloadImages = (imageSrcs: string[]): Promise<void[]> => {
@@ -41,8 +39,20 @@ export const preloadImages = (imageSrcs: string[]): Promise<void[]> => {
     return new Promise<void>((resolve, reject) => {
       const img = new Image();
       img.src = src;
-      img.onload = () => resolve();
-      img.onerror = () => reject();
+      img.onload = () => {
+        console.log(`Image preloaded successfully: ${src}`);
+        resolve();
+      };
+      img.onerror = () => {
+        console.warn(`Failed to preload image: ${src}`);
+        // Resolve instead of reject to not break the Promise.all
+        resolve();
+      };
+      // Add timeout to prevent hanging
+      setTimeout(() => {
+        console.warn(`Timeout preloading image: ${src}`);
+        resolve();
+      }, 5000);
     });
   });
   
@@ -92,4 +102,11 @@ export const smoothScroll = (target: string | HTMLElement, duration: number = 50
  */
 export const isMobileDevice = (): boolean => {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
+/**
+ * Optimize performance by reducing motion for users who prefer it
+ */
+export const shouldReduceMotion = (): boolean => {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 };
