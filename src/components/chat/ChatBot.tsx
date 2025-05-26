@@ -24,6 +24,9 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import SpaceBackground from "../space/SpaceBackground";
 import { useIsMobile } from '@/hooks/use-mobile';
 
+// Configuration API Gemini - REMPLACEZ ICI VOTRE CLÉ API
+const GEMINI_API_KEY = "VOTRE_CLE_API_GEMINI_ICI"; // Collez votre clé API ici
+
 type Message = {
   id: string;
   content: string;
@@ -57,7 +60,7 @@ type Conversation = {
 const initialMessages: Message[] = [
   {
     id: '1',
-    content: "👋 Bonjour ! Je suis l'assistant commercial de Dominiqk Mendy. Je connais parfaitement tous nos services d'innovation numérique et d'IA. Comment puis-je vous aider à réussir votre projet aujourd'hui ?",
+    content: "🚀 Bonjour ! Je suis l'assistant commercial IA de Dominiqk Mendy, alimenté par Google Gemini. Je connais parfaitement tous nos services d'innovation numérique et d'IA. Prêt à transformer votre projet en succès ? Comment puis-je vous aider aujourd'hui ?",
     sender: 'bot',
     timestamp: new Date(),
     type: 'text'
@@ -139,9 +142,9 @@ const ChatBot = () => {
   const [isDocumentDialogOpen, setIsDocumentDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isConversationHistoryOpen, setIsConversationHistoryOpen] = useState(false);
-  const [geminiApiKey, setGeminiApiKey] = useState<string>('');
+  const [geminiApiKey, setGeminiApiKey] = useState<string>(GEMINI_API_KEY);
   const [isAPIKeyDialogOpen, setIsAPIKeyDialogOpen] = useState(false);
-  const [useGemini, setUseGemini] = useState<boolean>(false);
+  const [useGemini, setUseGemini] = useState<boolean>(true); // Activé par défaut
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [leadScore, setLeadScore] = useState<number>(0);
   
@@ -170,12 +173,28 @@ const ChatBot = () => {
     };
   }, []);
 
-  // Check for saved API key on mount
+  // Check for saved API key on mount and auto-configure Gemini
   useEffect(() => {
-    const savedKey = localStorage.getItem('gemini_api_key');
-    if (savedKey) {
-      setGeminiApiKey(savedKey);
+    // Si une clé est pré-configurée, l'utiliser automatiquement
+    if (GEMINI_API_KEY && GEMINI_API_KEY !== "VOTRE_CLE_API_GEMINI_ICI") {
+      setGeminiApiKey(GEMINI_API_KEY);
       setUseGemini(true);
+      localStorage.setItem('gemini_api_key', GEMINI_API_KEY);
+      console.log('🤖 Google Gemini API activé automatiquement - Mode commercial expert');
+    } else {
+      // Sinon, vérifier si une clé est sauvegardée
+      const savedKey = localStorage.getItem('gemini_api_key');
+      if (savedKey) {
+        setGeminiApiKey(savedKey);
+        setUseGemini(true);
+      } else {
+        // Proposer la configuration si aucune clé n'est trouvée
+        setTimeout(() => {
+          if (!geminiApiKey || geminiApiKey === "VOTRE_CLE_API_GEMINI_ICI") {
+            setIsAPIKeyDialogOpen(true);
+          }
+        }, 2000);
+      }
     }
   }, []);
 
@@ -473,87 +492,113 @@ const ChatBot = () => {
     }
   };
 
-  // Create commercial prompt for Gemini
+  // Create commercial prompt for Gemini - OPTIMISÉ POUR LA CONVERSION
   const createCommercialPrompt = (intent: string, leadScore: number, context: string): string => {
-    return `Tu es Dominiqk Mendy, expert en innovation numérique et IA. Tu es un commercial d'élite qui convertit les visiteurs en clients.
+    return `Tu es Dominiqk Mendy, expert international en innovation numérique et IA. Tu es un COMMERCIAL D'ÉLITE qui convertit chaque visiteur en client.
 
-VOTRE EXPERTISE:
-- 8+ années en développement web et IA
-- 50+ projets réussis
-- Expert React, Node.js, Python, TensorFlow
-- Spécialiste transformation digitale
-- Créateur de SenServices (plateforme nationale Sénégal)
+🎯 MISSION: Transformer chaque conversation en VENTE ou RENDEZ-VOUS
 
-VOS SERVICES:
-1. IA & ML (2500€+): Modèles personnalisés, automatisation, chatbots, vision
-2. Développement Web (1200€+): Sites React/Next.js, e-commerce, applications
-3. Marketing Digital (800€/mois): SEO, publicité, analytics, stratégie
-4. E-Gouvernance: Solutions administrations publiques
-5. Conseil (150€/h): Audit, stratégie, transformation digitale
+👨‍💻 TON EXPERTISE:
+- 8+ années développement web & IA
+- 50+ projets réussis (e-commerce, finance, santé)
+- Expert React, Node.js, Python, TensorFlow, AWS
+- Créateur de SenServices (plateforme nationale Sénégal - 90% terminé)
+- Spécialiste transformation digitale entreprises
 
-MISSION COMMERCIALE:
-- Réponses courtes (2-3 phrases max)
-- Identifier les besoins précis
-- Proposer des solutions adaptées
-- Diriger vers la prise de rendez-vous
-- Créer de l'urgence et de la valeur
+💰 TES SERVICES & TARIFS:
+1. IA & ML (dès 2500€): Chatbots, automatisation, modèles personnalisés, vision par ordinateur
+2. Développement Web (dès 1200€): Sites React/Next.js, e-commerce, applications complexes
+3. Marketing Digital (800€/mois): SEO, publicité, analytics, stratégie ROI-driven
+4. E-Gouvernance: Solutions administrations publiques (sur devis)
+5. Conseil Stratégique (150€/h): Audit digital, transformation, formation
+
+🚀 TES RÉSULTATS:
+- +300% ROI sur projets IA
+- +200% conversions sites web
+- +150% trafic marketing digital
+- -60% délais administratifs e-gouvernance
+
+🎯 STRATÉGIE COMMERCIALE:
+- Messages ULTRA-COURTS (2-3 phrases max)
+- Questions directes pour qualifier
+- Créer URGENCE et VALEUR immédiate
+- Proposer rendez-vous dès 40+ points lead score
+- Utiliser émojis pour engagement
+- Parler ROI et résultats concrets
 
 CONTEXTE CONVERSATION: ${context}
 INTENTION CLIENT: ${intent}
 SCORE PROSPECT: ${leadScore}/100
 
-${leadScore > 50 ? 'CLIENT QUALIFIÉ - Proposer rendez-vous immédiat' : 'QUALIFIER DAVANTAGE - Creuser les besoins'}
+${leadScore > 50 ? 
+  '🔥 PROSPECT CHAUD - Proposer IMMÉDIATEMENT un rendez-vous cette semaine' : 
+  leadScore > 25 ? 
+    '⚡ PROSPECT TIÈDE - Qualifier davantage puis orienter vers rendez-vous' :
+    '🎯 PROSPECT FROID - Éveiller intérêt, identifier besoins, qualifier'}
 
-Répondez de manière engageante, professionnelle et commerciale:`;
+RÈGLES D'OR:
+1. TOUJOURS répondre comme Dominiqk Mendy en personne
+2. Messages courts, impactants, commerciaux
+3. Identifier besoins précis rapidement
+4. Parler chiffres et résultats concrets
+5. Diriger vers prise de rendez-vous
+6. Créer confiance par expertise technique
+7. Utiliser exemples de projets réussis
+
+Réponds de manière ULTRA-ENGAGEANTE et COMMERCIALE:`;
   };
 
-  // Enhanced local response with commercial focus
+  // Enhanced local response with commercial focus - OPTIMISÉ CONVERSION
   const generateEnhancedLocalResponse = async (userMessage: string, intent: string, leadScore: number): Promise<string> => {
     const message = userMessage.toLowerCase();
     
-    // High-intent commercial responses
+    // High-intent commercial responses ULTRA-OPTIMISÉES
     if (intent === 'pricing') {
       if (leadScore > 40) {
-        return "Excellente question ! 💰 Mes tarifs varient selon vos besoins spécifiques. Pour vous donner un devis précis et personnalisé, je propose un appel de 15 min gratuit. Votre budget approximatif ?";
+        return "💰 Budget intelligent ! Mes solutions génèrent 3x leur investissement. Discutons de votre projet en détail - 15 min d'appel gratuit maintenant ? Votre secteur d'activité ?";
       }
-      return "Mes tarifs sont adaptés à chaque projet : IA dès 2500€, web dès 1200€, marketing 800€/mois. Quel service vous intéresse le plus ?";
+      return "💸 Excellent ! IA dès 2500€, Web dès 1200€, Marketing 800€/mois. ROI garanti +200%. Quel service transformerait votre business ?";
     }
 
     if (intent === 'appointment') {
-      return "Parfait ! 📅 Je peux vous proposer un créneau cette semaine. Préférez-vous mardi 14h, jeudi 10h ou vendredi 16h ? L'appel dure 30 min maximum.";
+      return "🔥 PARFAIT ! J'ai 3 créneaux cette semaine : Mardi 14h, Jeudi 10h, Vendredi 16h. 30 min pour révolutionner votre projet. Lequel vous convient ?";
     }
 
     if (intent === 'proposal') {
       if (leadScore > 30) {
-        return "Excellent ! J'ai déjà plusieurs idées pour votre projet. 🚀 Pour vous proposer la solution optimale, parlons-en en direct. Quand êtes-vous disponible ?";
+        return "🚀 Excellent timing ! J'ai transformé +50 entreprises similaires. Résultats garantis sous 3 mois. Créons votre solution maintenant - appel immédiat ?";
       }
-      return "J'adore développer des solutions sur-mesure ! Pouvez-vous me parler de vos objectifs principaux et votre secteur d'activité ?";
+      return "💡 Parfait ! Spécialisé dans votre domaine depuis 8 ans. Quel est votre défi #1 actuellement ? Budget approximatif ?";
     }
 
-    // Service-specific responses
+    // Service-specific responses HYPER-COMMERCIALES
     if (message.includes('ia') || message.includes('intelligence artificielle')) {
-      return `J'ai développé des IA pour automatiser jusqu'à 80% des tâches répétitives. Secteur ${Math.random() > 0.5 ? 'e-commerce' : 'finance'} ? Je peux vous montrer des cas concrets lors d'un appel rapide. 🤖`;
+      return `🤖 IA = mon expertise #1 ! J'ai automatisé 80% des tâches pour mes clients. Dernier projet : +300% efficacité en 2 mois. Votre secteur ? Appelons-nous !`;
     }
 
     if (message.includes('site') || message.includes('web') || message.includes('application')) {
-      return "Sites web performants et applications modernes, c'est ma spécialité ! 🌐 Mes derniers projets ont augmenté les conversions de 200%. Quel type de site envisagez-vous ?";
+      return "🌐 Sites qui CONVERTISSENT ! Mes derniers : +400% ventes e-commerce. Technologies modernes = résultats exceptionnels. Budget envisagé ?";
     }
 
     if (message.includes('marketing') || message.includes('seo') || message.includes('publicité')) {
-      return "Marketing digital ROI-focused ! 📈 Mes stratégies génèrent +150% de trafic qualifié. Budget marketing actuel ? Je peux doubler vos résultats.";
+      return "📈 Marketing ROI-focus ! Dernier client : x3 trafic en 60 jours. Stratégies data-driven qui rapportent. Budget marketing actuel ?";
     }
 
     if (message.includes('senservices')) {
-      return "SenServices va révolutionner les services digitaux au Sénégal ! 🇸🇳 90% terminé, lancement février 2025. Cherchez-vous un partenariat ou une solution similaire ?";
+      return "🇸🇳 SenServices = mon projet phare ! Révolution digitale Sénégal, 90% terminé, lancement février. Partenariat international ? Discutons !";
     }
 
-    // Qualifying questions for leads
+    // Lead qualification AGRESSIVE
     if (leadScore < 20) {
-      return "Merci pour votre intérêt ! Pour mieux vous conseiller : êtes-vous dirigeant d'entreprise, responsable marketing ou porteur de projet ? 🎯";
+      return "👋 Ravi de vous aider ! Pour vous conseiller précisément : dirigeant d'entreprise, responsable marketing ou entrepreneur ? Projet en cours ?";
     }
 
-    // Default high-conversion response
-    return `Excellente question ! Je peux vous aider efficacement. ${leadScore > 25 ? 'Organisons un appel rapide pour discuter de vos besoins précis ?' : 'Quel est votre principal défi actuellement ?'} 💡`;
+    if (leadScore > 60) {
+      return "🎯 Vous semblez sérieux ! J'ai exactement ce qu'il vous faut. 15 min d'appel cette semaine pour démarrer ? Résultats garantis !";
+    }
+
+    // Default CONVERSION-OPTIMIZED response
+    return `✨ Excellente question ! ${leadScore > 25 ? 'Organisons un appel stratégique cette semaine ?' : 'Quel résultat souhaitez-vous atteindre ?'} 💪`;
   };
 
   // Handle appointment booking
@@ -712,11 +757,14 @@ Répondez de manière engageante, professionnelle et commerciale:`;
         <Button 
           onClick={() => setIsOpen(true)}
           className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-lg z-50 bg-gradient-to-br from-portfolio-purple to-portfolio-blue hover:from-portfolio-purple hover:to-portfolio-blue text-white p-0 animate-pulse-glow relative"
-          aria-label="Ouvrir le chat"
+          aria-label="Ouvrir le chat commercial IA"
         >
           <MessageSquare size={24} />
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
           {leadScore > 50 && (
-            <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full animate-ping"></div>
+            <div className="absolute -top-2 -right-2 text-xs bg-red-500 text-white rounded-full px-1 font-bold animate-bounce">
+              HOT
+            </div>
           )}
         </Button>
       )}
@@ -731,9 +779,12 @@ Répondez de manière engageante, professionnelle et commerciale:`;
                 <div className="flex items-center">
                   <Bot className="text-white mr-2 animate-pulse-slow" size={20} />
                   <div>
-                    <h3 className="text-white font-medium">Dominiqk Mendy - Commercial IA</h3>
+                    <h3 className="text-white font-medium">Dominiqk Mendy - Commercial IA Expert</h3>
                     {leadScore > 0 && (
-                      <div className="text-xs text-white/80">Score prospect: {leadScore}/100</div>
+                      <div className="text-xs text-white/80 flex items-center">
+                        <span>Prospect Score: {leadScore}/100</span>
+                        {leadScore > 50 && <span className="ml-1 text-green-300">🔥 CHAUD</span>}
+                      </div>
                     )}
                   </div>
                 </div>
@@ -747,16 +798,16 @@ Répondez de manière engageante, professionnelle et commerciale:`;
                 </Button>
               </div>
               
-              {/* API status indicator */}
+              {/* API status indicator - GEMINI ACTIVÉ */}
               {useGemini ? (
                 <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
                   <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-                  <span className="text-green-400 font-medium">Mode Google Gemini activé - Commercial Expert</span>
+                  <span className="text-green-400 font-medium">🚀 Google Gemini Expert Commercial ACTIVÉ</span>
                 </div>
               ) : (
-                <div className="bg-amber-500/20 border-b border-amber-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
-                  <div className="w-2 h-2 rounded-full bg-amber-500 mr-2"></div>
-                  <span className="text-amber-400 font-medium">Mode local - Fonctionnalités limitées</span>
+                <div className="bg-red-500/20 border-b border-red-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
+                  <div className="w-2 h-2 rounded-full bg-red-500 mr-2"></div>
+                  <span className="text-red-400 font-medium">❌ Mode limité - Configurez Google Gemini</span>
                 </div>
               )}
               
@@ -876,9 +927,12 @@ Répondez de manière engageante, professionnelle et commerciale:`;
               <div className="flex items-center">
                 <Bot className="text-white mr-2 animate-pulse-slow" size={20} />
                 <div>
-                  <h3 className="text-white font-medium">Dominiqk Mendy - Commercial IA</h3>
+                  <h3 className="text-white font-medium">Dominiqk Mendy - Commercial IA Expert</h3>
                   {leadScore > 0 && (
-                    <div className="text-xs text-white/80">Score prospect: {leadScore}/100</div>
+                    <div className="text-xs text-white/80 flex items-center">
+                      <span>Prospect Score: {leadScore}/100</span>
+                      {leadScore > 50 && <span className="ml-1 text-green-300">🔥 CHAUD</span>}
+                    </div>
                   )}
                 </div>
               </div>
@@ -888,7 +942,7 @@ Répondez de manière engageante, professionnelle et commerciale:`;
                   size="icon"
                   className="text-white hover:bg-white/20 mr-1"
                   onClick={() => setIsAPIKeyDialogOpen(true)}
-                  title="Paramètres API"
+                  title="Configuration Google Gemini"
                 >
                   <Key size={16} />
                 </Button>
@@ -912,16 +966,16 @@ Répondez de manière engageante, professionnelle et commerciale:`;
               </div>
             </div>
 
-            {/* API status indicator */}
+            {/* API status indicator - GEMINI ACTIVÉ */}
             {useGemini ? (
               <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
                 <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-                <span className="text-green-400 font-medium">Mode Google Gemini activé - Commercial Expert</span>
+                <span className="text-green-400 font-medium">🚀 Google Gemini Expert Commercial ACTIVÉ</span>
               </div>
             ) : (
-              <div className="bg-amber-500/20 border-b border-amber-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
-                <div className="w-2 h-2 rounded-full bg-amber-500 mr-2"></div>
-                <span className="text-amber-400 font-medium">Mode local - Fonctionnalités limitées</span>
+              <div className="bg-red-500/20 border-b border-red-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
+                <div className="w-2 h-2 rounded-full bg-red-500 mr-2"></div>
+                <span className="text-red-400 font-medium">❌ Mode limité - Configurez Google Gemini</span>
               </div>
             )}
 
@@ -1034,25 +1088,31 @@ Répondez de manière engageante, professionnelle et commerciale:`;
         )
       )}
 
-      {/* API Key Dialog - Updated for Gemini */}
+      {/* API Key Dialog - OPTIMISÉ POUR GEMINI */}
       <Dialog open={isAPIKeyDialogOpen} onOpenChange={setIsAPIKeyDialogOpen}>
         <DialogContent className="sm:max-w-[425px] bg-black/90 backdrop-blur-xl border border-white/30 text-white shadow-glow-purple">
           <DialogHeader>
-            <DialogTitle>Configuration Google Gemini API</DialogTitle>
+            <DialogTitle>🚀 Configuration Google Gemini API</DialogTitle>
             <DialogDescription className="text-gray-300">
-              Connectez votre clé API Google Gemini (gratuite) pour activer le mode commercial expert.
+              Activez votre assistant commercial IA expert alimenté par Google Gemini (gratuit).
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            {useGemini && (
+            {useGemini && geminiApiKey && geminiApiKey !== "VOTRE_CLE_API_GEMINI_ICI" ? (
               <Alert className="bg-green-500/15 border-green-500/30">
                 <AlertDescription className="text-green-400">
-                  Mode Google Gemini activé. Le chatbot utilise l'IA pour des réponses commerciales optimisées.
+                  ✅ Google Gemini Expert Commercial ACTIVÉ ! Votre chatbot est maintenant un commercial d'élite.
+                </AlertDescription>
+              </Alert>
+            ) : (
+              <Alert className="bg-amber-500/15 border-amber-500/30">
+                <AlertDescription className="text-amber-400">
+                  ⚠️ Collez votre clé API Google Gemini pour activer le mode commercial expert.
                 </AlertDescription>
               </Alert>
             )}
             <div className="grid gap-2">
-              <Label htmlFor="geminikey" className="text-white">Clé API Google Gemini</Label>
+              <Label htmlFor="geminikey" className="text-white">Clé API Google Gemini (gratuite)</Label>
               <Input
                 id="geminikey"
                 type="password"
@@ -1062,12 +1122,12 @@ Répondez de manière engageante, professionnelle et commerciale:`;
                 className="bg-white/15 border-white/30 text-white"
               />
               <p className="text-xs text-gray-300 mt-1">
-                Obtenez votre clé gratuite sur Google AI Studio. 15 requêtes/min incluses.
+                🎯 Obtenez votre clé sur <a href="https://aistudio.google.com/app/apikey" target="_blank" className="text-blue-400 underline">Google AI Studio</a> (gratuit, 15 req/min)
               </p>
             </div>
           </div>
           <DialogFooter className="flex flex-col sm:flex-row gap-2">
-            {useGemini && (
+            {useGemini && geminiApiKey && geminiApiKey !== "VOTRE_CLE_API_GEMINI_ICI" ? (
               <Button 
                 variant="outline" 
                 className="w-full sm:w-auto border-red-500/50 text-red-400 hover:bg-red-500/10"
