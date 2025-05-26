@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -5,7 +6,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { ExternalLink, ArrowRight, Star, Code, Database, Globe, BarChart3, BookOpen, Rocket, Eye, TrendingUp, Shield, Zap, Users, Brain } from 'lucide-react';
+import { ExternalLink, ArrowRight, Star, Code, Database, Globe, BarChart3, BookOpen, Rocket, Eye, TrendingUp, Shield, Zap, Users, Brain, Smartphone, Mountain, Utensils, Package, Palette, Microscope } from 'lucide-react';
 
 // Star background component
 const StarBackground = () => {
@@ -164,6 +165,174 @@ const Portfolio = () => {
       link: "#",
       icon: <TrendingUp className="h-6 w-6" />,
       color: "from-purple-600 to-blue-600"
+    },
+    {
+      id: 10,
+      title: "CAMPEX - Plateforme Aventure Mobile",
+      category: "mobile",
+      image: "/lovable-uploads/b2e4c07b-35d8-465d-bc89-55b26816f6c6.png",
+      description: "Application mobile immersive pour les aventuriers avec géolocalisation avancée, communauté intégrée et planification d'expéditions. Interface dark premium avec fonctionnalités offline et partage d'expériences en temps réel.",
+      tags: ["Mobile App", "Adventure Tech", "Community", "Geolocation"],
+      metrics: { users: "100K+", expeditions: "5K+", engagement: "+85%" },
+      link: "#",
+      icon: <Mountain className="h-6 w-6" />,
+      color: "from-green-600 to-teal-600"
+    },
+    {
+      id: 11,
+      title: "KAYEXSA Services - Solution Maritime B2B",
+      category: "maritime",
+      image: "/lovable-uploads/9a7d079f-f990-4e17-9513-6fed72402776.png",
+      description: "Plateforme B2B spécialisée dans les services maritimes avec gestion des techniciens offshore, planning automatisé et certification digitale. Solution complète pour l'industrie pétrolière et gazière avec conformité internationale.",
+      tags: ["Maritime B2B", "Offshore Services", "Certification", "Compliance"],
+      metrics: { technicians: "2K+", compliance: "100%", efficiency: "+50%" },
+      link: "#",
+      icon: <Shield className="h-6 w-6" />,
+      color: "from-blue-600 to-cyan-600"
+    },
+    {
+      id: 12,
+      title: "EduWorks - Plateforme E-learning Futuriste",
+      category: "education",
+      image: "/lovable-uploads/968156fa-6795-4790-9b90-3ed31a13468d.png",
+      description: "Plateforme éducative révolutionnaire avec design 3D immersif, apprentissage adaptatif par IA et collaboration en temps réel. Interface futuriste pour débloquer le potentiel éducatif avec gamification avancée.",
+      tags: ["E-learning", "3D Design", "Adaptive AI", "Gamification"],
+      metrics: { students: "50K+", completion: "+70%", satisfaction: "4.9/5" },
+      link: "#",
+      icon: <BookOpen className="h-6 w-6" />,
+      color: "from-purple-600 to-pink-600"
+    },
+    {
+      id: 13,
+      title: "Web3 Platform - Solutions Blockchain",
+      category: "blockchain",
+      image: "/lovable-uploads/3579282a-3333-4ce8-abab-282c84f97950.png",
+      description: "Plateforme Web3 complète avec smart contracts optimisés, interface utilisateur intuitive et sécurité avancée. Solution blockchain enterprise pour l'avenir digital avec intégration DeFi et gouvernance décentralisée.",
+      tags: ["Web3", "Blockchain", "Smart Contracts", "DeFi"],
+      metrics: { transactions: "1M+", security: "Military-grade", adoption: "+200%" },
+      link: "#",
+      icon: <Code className="h-6 w-6" />,
+      color: "from-indigo-600 to-purple-600"
+    },
+    {
+      id: 14,
+      title: "Mokala - Plateforme Food Delivery",
+      category: "food",
+      image: "/lovable-uploads/6b23b8da-70d6-4410-9bc2-ddbf9c2b1562.png",
+      description: "Application de livraison alimentaire avec interface moderne, géolocalisation précise et système de commande intuitif. Plateforme multi-restaurants avec algorithmes d'optimisation des livraisons et expérience utilisateur exceptionnelle.",
+      tags: ["Food Delivery", "Mobile App", "Logistics", "User Experience"],
+      metrics: { orders: "200K+", delivery_time: "-30%", restaurants: "500+" },
+      link: "#",
+      icon: <Utensils className="h-6 w-6" />,
+      color: "from-orange-600 to-red-600"
+    },
+    {
+      id: 15,
+      title: "Travel Geography - App Mobile Premium",
+      category: "travel",
+      image: "/lovable-uploads/095c1671-4572-4f06-bce8-e5159882efdc.png",
+      description: "Application mobile premium pour voyageurs avec tracking géographique, statistiques personnalisées et interface dark élégante. Solution complète pour documenter et analyser ses aventures avec fonctionnalités sociales intégrées.",
+      tags: ["Travel App", "Geography", "Statistics", "Social Features"],
+      metrics: { travelers: "75K+", countries: "190+", memories: "1M+" },
+      link: "#",
+      icon: <Globe className="h-6 w-6" />,
+      color: "from-blue-600 to-indigo-600"
+    },
+    {
+      id: 16,
+      title: "MEK Meats - Brand Identity & Packaging",
+      category: "branding",
+      image: "/lovable-uploads/95717288-57dd-409e-8c3d-37d902eb910a.png",
+      description: "Design de marque premium pour produits carnés avec packaging innovant, identité visuelle forte et positionnement haut de gamme. Solution complète de branding avec stratégie marketing et design produit exceptionnel.",
+      tags: ["Brand Design", "Packaging", "Premium Products", "Visual Identity"],
+      metrics: { brand_value: "+300%", recognition: "95%", sales: "+150%" },
+      link: "#",
+      icon: <Package className="h-6 w-6" />,
+      color: "from-red-600 to-orange-600"
+    },
+    {
+      id: 17,
+      title: "Transport Dashboard - Logistique Avancée",
+      category: "logistics",
+      image: "/lovable-uploads/493845e4-3560-4bf5-894b-4e72c6e84493.png",
+      description: "Dashboard logistique professionnel avec tracking multi-modal, analytics prédictifs et gestion client intégrée. Interface claire pour optimiser les opérations de transport avec KPIs en temps réel et automatisation intelligente.",
+      tags: ["Transport Management", "Logistics Dashboard", "Predictive Analytics", "Client Management"],
+      metrics: { shipments: "100K+", efficiency: "+45%", costs: "-25%" },
+      link: "#",
+      icon: <TrendingUp className="h-6 w-6" />,
+      color: "from-green-600 to-blue-600"
+    },
+    {
+      id: 18,
+      title: "Visionaries - Agence Créative Premium",
+      category: "creative",
+      image: "/lovable-uploads/4adf4e96-6afe-4e4c-85c8-135485ae11d5.png",
+      description: "Site web premium pour agence créative avec design innovant, portfolio immersif et expérience utilisateur exceptionnelle. Plateforme digitale révolutionnaire mettant en valeur les services créatifs avec animations fluides.",
+      tags: ["Creative Agency", "Premium Web", "Portfolio", "Immersive Design"],
+      metrics: { projects: "640+", rating: "5.0/5", clients: "Top-tier" },
+      link: "#",
+      icon: <Palette className="h-6 w-6" />,
+      color: "from-blue-600 to-purple-600"
+    },
+    {
+      id: 19,
+      title: "Digital Transformation - FAQ Platform",
+      category: "platform",
+      image: "/lovable-uploads/6a72c200-8a33-4855-a021-3e45542a662e.png",
+      description: "Plateforme de transformation digitale avec FAQ intelligente, onboarding guidé et interface moderne. Solution complète pour accompagner les entreprises dans leur digitalisation avec support IA et documentation interactive.",
+      tags: ["Digital Transformation", "FAQ Platform", "AI Support", "Enterprise"],
+      metrics: { companies: "1K+", satisfaction: "98%", automation: "85%" },
+      link: "#",
+      icon: <Rocket className="h-6 w-6" />,
+      color: "from-indigo-600 to-blue-600"
+    },
+    {
+      id: 20,
+      title: "Brand Guidelines - Système de Design",
+      category: "design",
+      image: "/lovable-uploads/817831b0-e154-4b05-b402-526b9831b448.png",
+      description: "Système de design complet avec guidelines de marque, palette de couleurs professionnelle et typographie moderne. Solution complète pour maintenir la cohérence visuelle avec documentation détaillée et assets organisés.",
+      tags: ["Design System", "Brand Guidelines", "Typography", "Color Palette"],
+      metrics: { consistency: "100%", adoption: "95%", efficiency: "+60%" },
+      link: "#",
+      icon: <Palette className="h-6 w-6" />,
+      color: "from-gray-600 to-red-600"
+    },
+    {
+      id: 21,
+      title: "Xefag Health - App Wellness Premium",
+      category: "health",
+      image: "/lovable-uploads/e3332c99-48c7-48d6-8810-086a6aaaeaf5.png",
+      description: "Application santé premium avec design coloré, tracking personnalisé et e-commerce intégré. Interface moderne pour produits wellness avec expérience d'achat fluide et suivi de consommation intelligent.",
+      tags: ["Health App", "Wellness", "E-commerce", "Tracking"],
+      metrics: { users: "200K+", sales: "+180%", retention: "85%" },
+      link: "#",
+      icon: <Brain className="h-6 w-6" />,
+      color: "from-pink-600 to-purple-600"
+    },
+    {
+      id: 22,
+      title: "NexusSci - Plateforme Recherche IA",
+      category: "research",
+      image: "/lovable-uploads/c6409c45-9923-466e-ba45-a592b037df63.png",
+      description: "Plateforme de recherche scientifique avancée avec IA partenaire, découvertes automatisées et collaboration internationale. Interface moderne pour accélérer la recherche avec 1500+ projets et outils d'analyse révolutionnaires.",
+      tags: ["Scientific Research", "AI Partner", "Collaboration", "Discovery"],
+      metrics: { researchers: "1.5K+", discoveries: "500+", impact: "Global" },
+      link: "#",
+      icon: <Microscope className="h-6 w-6" />,
+      color: "from-blue-600 to-green-600"
+    },
+    {
+      id: 23,
+      title: "Campex Desktop - Plateforme Voyage",
+      category: "travel",
+      image: "/lovable-uploads/3490d9cc-cadd-4942-a270-81ffbc7c7dc8.png",
+      description: "Plateforme de voyage complète avec interface desktop immersive, planification d'aventures et tracking de véhicules. Solution ultimate pour compagnons de voyage avec fonctionnalités avancées de géolocalisation et partage d'expériences.",
+      tags: ["Travel Platform", "Adventure Planning", "Vehicle Tracking", "Desktop App"],
+      metrics: { adventures: "10K+", travelers: "50K+", satisfaction: "Premium" },
+      link: "#",
+      icon: <Mountain className="h-6 w-6" />,
+      color: "from-orange-600 to-yellow-600"
     }
   ];
 
@@ -173,8 +342,10 @@ const Portfolio = () => {
     { id: "ai", name: "Intelligence Artificielle", icon: <Brain className="h-4 w-4" /> },
     { id: "logistics", name: "Logistique & Transport", icon: <TrendingUp className="h-4 w-4" /> },
     { id: "maritime", name: "Maritime & Offshore", icon: <Globe className="h-4 w-4" /> },
-    { id: "automotive", name: "Automobile", icon: <Zap className="h-4 w-4" /> },
-    { id: "analytics", name: "Analytics & BI", icon: <BarChart3 className="h-4 w-4" /> }
+    { id: "mobile", name: "Applications Mobile", icon: <Smartphone className="h-4 w-4" /> },
+    { id: "education", name: "Éducation & E-learning", icon: <BookOpen className="h-4 w-4" /> },
+    { id: "blockchain", name: "Blockchain & Web3", icon: <Code className="h-4 w-4" /> },
+    { id: "branding", name: "Branding & Design", icon: <Palette className="h-4 w-4" /> }
   ];
 
   const [activeCategory, setActiveCategory] = useState("all");
@@ -225,7 +396,7 @@ const Portfolio = () => {
                 className="mb-8"
               >
                 <span className="inline-block px-6 py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-md border border-blue-500/30 rounded-full text-blue-300 font-medium mb-6">
-                  🚀 Portfolio Innovation • 25+ Projets Réalisés
+                  🚀 Portfolio Innovation • 23+ Projets Réalisés
                 </span>
                 
                 <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
@@ -243,15 +414,15 @@ const Portfolio = () => {
 
                 <div className="flex flex-wrap justify-center gap-6 mb-12">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-white">25+</div>
+                    <div className="text-3xl font-bold text-white">23+</div>
                     <div className="text-blue-400">Projets Livrés</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-white">$50M+</div>
+                    <div className="text-3xl font-bold text-white">$75M+</div>
                     <div className="text-purple-400">Valeur Générée</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-white">15+</div>
+                    <div className="text-3xl font-bold text-white">20+</div>
                     <div className="text-pink-400">Pays Impactés</div>
                   </div>
                 </div>
