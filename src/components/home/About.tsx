@@ -140,14 +140,13 @@ const About = () => {
               </p>
             </div>
             
-            <div className="relative w-full bg-gradient-to-r from-gray-900 to-black p-1 rounded-xl animate-fade-in" style={{ animationDelay: '0.8s' }}>
+            <div className="relative w-full animate-fade-in" style={{ animationDelay: '0.8s' }}>
               <div className="relative bg-background rounded-lg overflow-hidden">
                 <div className="w-full max-w-[2400px] mx-auto" style={{ height: '450px' }}>
                   <iframe
-                    src="https://drive.google.com/file/d/1JvlOAQYDd9U6hnUadGNue76CzTRqgWri/preview"
-                    className="w-full h-full rounded-lg"
-                    style={{ width: '2400px', height: '450px', maxWidth: '100%' }}
-                    allow="autoplay; encrypted-media"
+                    src="https://www.canva.com/design/DAGok9A7790/2KjKKSPDvMl7gLYJPDQrjw/view?embed"
+                    className="w-full h-full rounded-lg border-0"
+                    style={{ width: '2400px', height: '450px', maxWidth: '100%', border: 'none' }}
                     allowFullScreen
                     title="Présentation Dominiqk Mendy"
                   />
