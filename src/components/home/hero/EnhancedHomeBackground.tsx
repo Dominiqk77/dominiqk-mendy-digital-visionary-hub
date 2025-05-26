@@ -30,11 +30,17 @@ const EnhancedHomeBackground = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
+    // Set canvas size to cover the entire hero section
     const resizeCanvas = () => {
       if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const heroSection = canvas.closest('[class*="hero"]') || canvas.parentElement;
+        if (heroSection) {
+          canvas.width = heroSection.scrollWidth || window.innerWidth;
+          canvas.height = Math.max(heroSection.scrollHeight, window.innerHeight);
+        } else {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
       }
     };
 
@@ -90,18 +96,29 @@ const EnhancedHomeBackground = () => {
     // Run the animation
     const interval = setInterval(drawMatrix, 40);
 
+    // Re-resize canvas when content changes
+    const resizeObserver = new ResizeObserver(() => {
+      resizeCanvas();
+    });
+    
+    if (canvas.parentElement) {
+      resizeObserver.observe(canvas.parentElement);
+    }
+
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       clearInterval(interval);
+      resizeObserver.disconnect();
     };
   }, []);
 
   return (
     <>
-      {/* Matrix code rain effect */}
+      {/* Matrix code rain effect - now covers full hero section */}
       <canvas 
         ref={canvasRef} 
-        className="absolute inset-0 z-0 opacity-20"
+        className="absolute inset-0 z-0 opacity-20 w-full h-full"
+        style={{ minHeight: '100%' }}
       />
       
       {/* AI-themed particle background with reduced opacity for better performance */}
