@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -64,6 +65,7 @@ const Portfolio = () => {
   };
   
   const projects = [
+    // Recent projects (first 4)
     {
       id: 24,
       title: "Sen'Services - Administration Numérique Sénégalaise",
@@ -243,6 +245,139 @@ const Portfolio = () => {
       link: "#",
       icon: <Code className="h-6 w-6" />,
       color: "from-blue-600 to-teal-600"
+    },
+    // Older projects (11 new ones added at the end)
+    {
+      id: 39,
+      title: "Cabinet Dentaire - Gestion Médicale Moderne",
+      category: "healthcare",
+      image: "/lovable-uploads/00f229a9-af1c-47e4-a805-4e3b081a0bb4.png",
+      description: "Système de gestion pour cabinet dentaire avec interface moderne et fonctionnalités complètes. Solution digitale pour optimiser la gestion des patients, rendez-vous et dossiers médicaux avec sécurité renforcée.",
+      tags: ["Healthcare Management", "Medical Software", "Patient Care", "Digital Health"],
+      metrics: { management: "Complete", security: "Medical-grade", efficiency: "Optimized" },
+      link: "#",
+      icon: <Heart className="h-6 w-6" />,
+      color: "from-blue-600 to-green-600"
+    },
+    {
+      id: 40,
+      title: "LTMS - Solution Logistique Avancée",
+      category: "logistics",
+      image: "/lovable-uploads/095c1671-4572-4f06-bce8-e5159882efdc.png",
+      description: "Plateforme de gestion logistique complète avec tracking en temps réel et optimisation des flux. Interface professionnelle pour gérer efficacement les opérations de transport et livraison avec analytics avancés.",
+      tags: ["Logistics Management", "Real-time Tracking", "Supply Chain", "Analytics"],
+      metrics: { tracking: "Real-time", optimization: "Advanced", efficiency: "Maximum" },
+      link: "#",
+      icon: <TrendingUp className="h-6 w-6" />,
+      color: "from-orange-600 to-red-600"
+    },
+    {
+      id: 41,
+      title: "RestauOS - Système de Gestion Restaurant",
+      category: "restaurant",
+      image: "/lovable-uploads/0b3cfab2-48ff-4eb9-af9c-380116ba7735.png",
+      description: "Solution complète de gestion pour restaurants avec commandes, paiements et inventaire. Interface intuitive pour optimiser les opérations restauration avec système POS intégré et analytics détaillés.",
+      tags: ["Restaurant Management", "POS System", "Order Management", "Inventory"],
+      metrics: { operations: "Streamlined", pos: "Integrated", analytics: "Detailed" },
+      link: "#",
+      icon: <Utensils className="h-6 w-6" />,
+      color: "from-yellow-600 to-orange-600"
+    },
+    {
+      id: 42,
+      title: "E-Learning Platform - Éducation Numérique",
+      category: "education",
+      image: "/lovable-uploads/1d07325e-d8c2-4e54-ac4e-3caf0120f9eb.png",
+      description: "Plateforme d'apprentissage en ligne moderne avec cours interactifs et suivi personnalisé. Solution éducative complète avec outils pédagogiques avancés, évaluations automatisées et engagement étudiant optimisé.",
+      tags: ["E-Learning", "Online Education", "Interactive Courses", "Student Tracking"],
+      metrics: { courses: "Interactive", tracking: "Personalized", engagement: "High" },
+      link: "#",
+      icon: <BookOpen className="h-6 w-6" />,
+      color: "from-purple-600 to-blue-600"
+    },
+    {
+      id: 43,
+      title: "AgriTech Solutions - Agriculture Intelligente",
+      category: "agriculture",
+      image: "/lovable-uploads/1eba62b9-3add-4465-92bd-a402eb846093.png",
+      description: "Plateforme agricole moderne avec monitoring des cultures et optimisation des rendements. Solution IoT pour agriculture de précision avec capteurs intelligents, analytics prédictifs et gestion automatisée.",
+      tags: ["AgriTech", "IoT Agriculture", "Precision Farming", "Smart Monitoring"],
+      metrics: { monitoring: "Smart", yields: "Optimized", farming: "Precision" },
+      link: "#",
+      icon: <Microscope className="h-6 w-6" />,
+      color: "from-green-600 to-blue-600"
+    },
+    {
+      id: 44,
+      title: "FinTech Dashboard - Gestion Financière",
+      category: "fintech",
+      image: "/lovable-uploads/29518682-e2b1-4152-8f5f-5835f92623ca.png",
+      description: "Dashboard financier professionnel avec analytics avancés et gestion de portefeuille. Interface moderne pour traders et investisseurs avec données en temps réel, graphiques interactifs et alertes personnalisées.",
+      tags: ["FinTech", "Financial Dashboard", "Portfolio Management", "Real-time Data"],
+      metrics: { data: "Real-time", analytics: "Advanced", management: "Professional" },
+      link: "#",
+      icon: <BarChart3 className="h-6 w-6" />,
+      color: "from-blue-600 to-purple-600"
+    },
+    {
+      id: 45,
+      title: "Blockchain Exchange - Plateforme Crypto",
+      category: "blockchain",
+      image: "/lovable-uploads/330d9ea3-62fb-444d-b8cf-eb53399e13fb.png",
+      description: "Plateforme d'échange de cryptomonnaies sécurisée avec trading avancé. Interface professionnelle pour traders avec ordres sophistiqués, sécurité multicouches et intégration DeFi complète.",
+      tags: ["Blockchain", "Crypto Exchange", "DeFi Integration", "Secure Trading"],
+      metrics: { security: "Multi-layer", trading: "Advanced", integration: "DeFi" },
+      link: "#",
+      icon: <Code className="h-6 w-6" />,
+      color: "from-gold-600 to-orange-600"
+    },
+    {
+      id: 46,
+      title: "Smart City Dashboard - Ville Intelligente",
+      category: "smartcity",
+      image: "/lovable-uploads/3490d9cc-cadd-4942-a270-81ffbc7c7dc8.png",
+      description: "Tableau de bord pour gestion urbaine intelligente avec IoT et analytics. Solution complète pour administrations avec monitoring en temps réel, optimisation énergétique et services citoyens intégrés.",
+      tags: ["Smart City", "Urban Management", "IoT Integration", "Citizen Services"],
+      metrics: { monitoring: "Real-time", optimization: "Energy", services: "Integrated" },
+      link: "#",
+      icon: <Globe className="h-6 w-6" />,
+      color: "from-blue-600 to-green-600"
+    },
+    {
+      id: 47,
+      title: "AI Analytics Platform - Intelligence Artificielle",
+      category: "ai",
+      image: "/lovable-uploads/3579282a-3333-4ce8-abab-282c84f97950.png",
+      description: "Plateforme d'analytics powered par IA avec machine learning avancé. Solution intelligente pour analyse prédictive, traitement automatisé des données et insights business avec algorithmes sophistiqués.",
+      tags: ["Artificial Intelligence", "Machine Learning", "Predictive Analytics", "Data Science"],
+      metrics: { ai: "Advanced", predictions: "Accurate", insights: "Business" },
+      link: "#",
+      icon: <Brain className="h-6 w-6" />,
+      color: "from-purple-600 to-pink-600"
+    },
+    {
+      id: 48,
+      title: "Mobile Banking App - Banque Mobile",
+      category: "mobile",
+      image: "/lovable-uploads/3b1bf266-238b-4dd4-8ef8-13cec30e562e.png",
+      description: "Application bancaire mobile sécurisée avec fonctionnalités complètes. Interface native pour services financiers avec paiements instantanés, gestion de comptes et sécurité biométrique avancée.",
+      tags: ["Mobile Banking", "Financial Services", "Secure Payments", "Biometric Security"],
+      metrics: { security: "Biometric", payments: "Instant", services: "Complete" },
+      link: "#",
+      icon: <Smartphone className="h-6 w-6" />,
+      color: "from-blue-600 to-teal-600"
+    },
+    {
+      id: 49,
+      title: "Healthcare Platform - Télémédecine",
+      category: "healthcare",
+      image: "/lovable-uploads/3dc03f5f-4997-43fa-89f4-2f4d7c7902fa.png",
+      description: "Plateforme de télémédecine complète avec consultations virtuelles et dossiers patients. Solution médicale moderne avec rendez-vous en ligne, prescriptions électroniques et suivi médical personnalisé.",
+      tags: ["Telemedicine", "Virtual Consultations", "Medical Records", "Healthcare"],
+      metrics: { consultations: "Virtual", records: "Digital", care: "Personalized" },
+      link: "#",
+      icon: <Heart className="h-6 w-6" />,
+      color: "from-red-600 to-pink-600"
     }
   ];
 
