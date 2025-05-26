@@ -450,7 +450,7 @@ const Portfolio = () => {
                 className="mb-8"
               >
                 <span className="inline-block px-6 py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-md border border-blue-500/30 rounded-full text-blue-300 font-medium mb-6">
-                  🚀 Portfolio Innovation • 23+ Projets Réalisés
+                  🚀 Portfolio Innovation • 27+ Projets Présentés
                 </span>
                 
                 <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
@@ -468,12 +468,12 @@ const Portfolio = () => {
 
                 <div className="flex flex-wrap justify-center gap-6 mb-12">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-white">23+</div>
+                    <div className="text-3xl font-bold text-white">2K+</div>
                     <div className="text-blue-400">Projets Livrés</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-white">$75M+</div>
-                    <div className="text-purple-400">Valeur Générée</div>
+                    <div className="text-3xl font-bold text-white">50+</div>
+                    <div className="text-purple-400">Secteurs d'Activité</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-white">20+</div>
