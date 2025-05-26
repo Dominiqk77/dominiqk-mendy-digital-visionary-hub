@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Award } from 'lucide-react';
 
 const HeroDescription = () => {
   // Animation variants
@@ -35,63 +34,6 @@ const HeroDescription = () => {
       animate="visible"
       variants={containerVariants}
     >
-      {/* Icône 3D Expert Certifié */}
-      <motion.div 
-        className="mb-4 flex justify-center md:justify-start"
-        variants={itemVariants}
-      >
-        <motion.div
-          className="relative group"
-          initial={{ opacity: 0, scale: 0.5, rotateY: -180 }}
-          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-          transition={{
-            delay: 0.4,
-            duration: 0.8,
-            type: "spring",
-            stiffness: 100
-          }}
-          whileHover={{ 
-            scale: 1.1, 
-            rotateY: 15,
-            transition: { duration: 0.3 }
-          }}
-        >
-          {/* Gradient background glow */}
-          <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/30 via-amber-500/40 to-orange-400/30 rounded-full blur-xl animate-pulse"></div>
-          
-          {/* Main icon container */}
-          <div className="relative bg-gradient-to-br from-yellow-400 via-amber-500 to-yellow-600 p-3 rounded-full shadow-2xl border-2 border-yellow-300/50">
-            {/* Inner glow */}
-            <div className="absolute inset-1 bg-gradient-to-br from-yellow-200/30 to-transparent rounded-full"></div>
-            
-            {/* Award icon */}
-            <Award 
-              className="w-8 h-8 text-yellow-900 relative z-10 drop-shadow-lg" 
-              strokeWidth={2.5}
-            />
-            
-            {/* Sparkle effects */}
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-300 rounded-full animate-ping"></div>
-            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-amber-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
-            
-            {/* 3D highlight */}
-            <div className="absolute top-1 left-1 w-4 h-4 bg-gradient-to-br from-white/60 to-transparent rounded-full blur-sm"></div>
-          </div>
-          
-          {/* Floating text */}
-          <motion.div
-            className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-          >
-            <span className="text-xs font-semibold text-yellow-400 bg-black/40 px-2 py-1 rounded backdrop-blur-sm border border-yellow-500/30">
-              Expert Certifié
-            </span>
-          </motion.div>
-        </motion.div>
-      </motion.div>
-
       <motion.p 
         className="text-lg sm:text-xl text-gray-300 max-w-xl font-poppins"
         variants={itemVariants}
