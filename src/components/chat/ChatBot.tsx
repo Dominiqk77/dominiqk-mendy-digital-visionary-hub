@@ -724,7 +724,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                 <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
                   <div className="flex items-center">
                     <Avatar className="mr-3 border-2 border-white/30">
-                      <AvatarImage src="/lovable-uploads/af2ea5cf-52b7-4713-9cb5-5f39c703e5a5.png" alt="Dominiqk Mendy" />
+                      <AvatarImage src="/lovable-uploads/f251d258-9af2-489f-b713-fec72074803d.png" alt="Dominiqk Mendy" />
                       <AvatarFallback className="bg-white/20 text-white font-bold">DM</AvatarFallback>
                     </Avatar>
                     <div>
@@ -762,7 +762,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                         <div className={`flex items-start max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                           {message.sender === 'bot' && (
                             <Avatar className="mr-2 mt-1 border border-white/20">
-                              <AvatarImage src="/lovable-uploads/af2ea5cf-52b7-4713-9cb5-5f39c703e5a5.png" alt="Dominiqk Mendy" />
+                              <AvatarImage src="/lovable-uploads/f251d258-9af2-489f-b713-fec72074803d.png" alt="Dominiqk Mendy" />
                               <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
                             </Avatar>
                           )}
@@ -807,7 +807,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                     {isTyping && (
                       <div className="flex mb-3">
                         <Avatar className="mr-2 mt-1 border border-white/20">
-                          <AvatarImage src="/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png" alt="Dominiqk Mendy" />
+                          <AvatarImage src="/lovable-uploads/f251d258-9af2-489f-b713-fec72074803d.png" alt="Dominiqk Mendy" />
                           <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
                         </Avatar>
                         <div className="bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 p-3 rounded-xl max-w-[80%] shadow-md">
@@ -823,24 +823,24 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                   </div>
                 </div>
 
-                {/* Action buttons area */}
-                <div className="px-3 py-2 flex justify-center space-x-3 border-t border-white/15 bg-black/40 backdrop-blur-md">
+                {/* Action buttons area - Enhanced design */}
+                <div className="px-3 py-3 flex justify-center space-x-4 border-t border-white/10 bg-gradient-to-r from-slate-900/95 to-slate-800/95 backdrop-blur-md">
                   <Button
                     variant="outline"
                     size="sm"
-                    className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
+                    className="text-sm px-4 py-2 bg-gradient-to-r from-blue-600/20 to-blue-500/20 border-2 border-blue-400/40 hover:from-blue-500/30 hover:to-blue-400/30 hover:border-blue-300/60 text-white font-semibold shadow-lg transition-all duration-300 hover:scale-105 rounded-xl backdrop-blur-sm"
                     onClick={() => setIsAppointmentDialogOpen(true)}
                   >
-                    <CalendarClock className="h-4 w-4 mr-1 text-portfolio-blue" />
+                    <CalendarClock className="h-5 w-5 mr-2 text-blue-300" />
                     Rendez-vous
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
+                    className="text-sm px-4 py-2 bg-gradient-to-r from-purple-600/20 to-purple-500/20 border-2 border-purple-400/40 hover:from-purple-500/30 hover:to-purple-400/30 hover:border-purple-300/60 text-white font-semibold shadow-lg transition-all duration-300 hover:scale-105 rounded-xl backdrop-blur-sm"
                     onClick={() => setIsDocumentDialogOpen(true)}
                   >
-                    <FileUp className="h-4 w-4 mr-1 text-portfolio-blue" />
+                    <FileUp className="h-5 w-5 mr-2 text-purple-300" />
                     Envoyer fichier
                   </Button>
                 </div>
@@ -879,7 +879,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
             <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
               <div className="flex items-center">
                 <Avatar className="mr-3 border-2 border-white/30">
-                  <AvatarImage src="/lovable-uploads/af2ea5cf-52b7-4713-9cb5-5f39c703e5a5.png" alt="Dominiqk Mendy" />
+                  <AvatarImage src="/lovable-uploads/f251d258-9af2-489f-b713-fec72074803d.png" alt="Dominiqk Mendy" />
                   <AvatarFallback className="bg-white/20 text-white font-bold">DM</AvatarFallback>
                 </Avatar>
                 <div>
@@ -928,7 +928,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                     <div className={`flex items-start max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                       {message.sender === 'bot' && (
                         <Avatar className="mr-2 mt-1 border border-white/20">
-                          <AvatarImage src="/lovable-uploads/af2ea5cf-52b7-4713-9cb5-5f39c703e5a5.png" alt="Dominiqk Mendy" />
+                          <AvatarImage src="/lovable-uploads/f251d258-9af2-489f-b713-fec72074803d.png" alt="Dominiqk Mendy" />
                           <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
                         </Avatar>
                       )}
@@ -973,7 +973,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                 {isTyping && (
                   <div className="flex mb-3">
                     <Avatar className="mr-2 mt-1 border border-white/20">
-                      <AvatarImage src="/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png" alt="Dominiqk Mendy" />
+                      <AvatarImage src="/lovable-uploads/f251d258-9af2-489f-b713-fec72074803d.png" alt="Dominiqk Mendy" />
                       <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
                     </Avatar>
                     <div className="bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 p-3 rounded-xl max-w-[80%] shadow-md">
@@ -989,24 +989,24 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
               </div>
             </div>
 
-            {/* Action buttons area */}
-            <div className="px-3 py-2 flex justify-center space-x-3 border-t border-white/15 bg-black/40 backdrop-blur-md">
+            {/* Action buttons area - Enhanced design */}
+            <div className="px-3 py-3 flex justify-center space-x-4 border-t border-white/10 bg-gradient-to-r from-slate-900/95 to-slate-800/95 backdrop-blur-md">
               <Button
                 variant="outline"
                 size="sm"
-                className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
+                className="text-sm px-4 py-2 bg-gradient-to-r from-blue-600/20 to-blue-500/20 border-2 border-blue-400/40 hover:from-blue-500/30 hover:to-blue-400/30 hover:border-blue-300/60 text-white font-semibold shadow-lg transition-all duration-300 hover:scale-105 rounded-xl backdrop-blur-sm"
                 onClick={() => setIsAppointmentDialogOpen(true)}
               >
-                <CalendarClock className="h-4 w-4 mr-1 text-portfolio-blue" />
+                <CalendarClock className="h-5 w-5 mr-2 text-blue-300" />
                 Rendez-vous
               </Button>
               <Button
                 variant="outline"
                 size="sm"
-                className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
+                className="text-sm px-4 py-2 bg-gradient-to-r from-purple-600/20 to-purple-500/20 border-2 border-purple-400/40 hover:from-purple-500/30 hover:to-purple-400/30 hover:border-purple-300/60 text-white font-semibold shadow-lg transition-all duration-300 hover:scale-105 rounded-xl backdrop-blur-sm"
                 onClick={() => setIsDocumentDialogOpen(true)}
               >
-                <FileUp className="h-4 w-4 mr-1 text-portfolio-blue" />
+                <FileUp className="h-5 w-5 mr-2 text-purple-300" />
                 Envoyer fichier
               </Button>
             </div>
