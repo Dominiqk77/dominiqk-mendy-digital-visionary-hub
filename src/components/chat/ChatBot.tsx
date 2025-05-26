@@ -1135,7 +1135,7 @@ Réponds de manière ULTRA-ENGAGEANTE et COMMERCIALE:`;
               >
                 Supprimer la clé
               </Button>
-            )}
+            ) : null}
             <Button 
               variant="outline" 
               className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10"
