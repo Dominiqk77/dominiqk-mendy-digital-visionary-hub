@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
   Dialog,
   DialogContent,
@@ -721,9 +722,12 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                 {/* Chat header */}
                 <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
                   <div className="flex items-center">
-                    <Bot className="text-white mr-2 animate-pulse-slow" size={20} />
+                    <Avatar className="mr-3 border-2 border-white/30">
+                      <AvatarImage src="/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png" alt="Dominiqk Mendy" />
+                      <AvatarFallback className="bg-white/20 text-white font-bold">DM</AvatarFallback>
+                    </Avatar>
                     <div>
-                      <h3 className="text-white font-medium">Dominiqk Mendy - Commercial IA</h3>
+                      <h3 className="text-white font-medium">Dominiqk Mendy - Expert Consultant</h3>
                       {leadScore > 0 && (
                         <div className="text-xs text-white/80">Score prospect: {leadScore}/100</div>
                       )}
@@ -742,7 +746,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                 {/* API status indicator */}
                 <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
                   <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-                  <span className="text-green-400 font-medium">Mode Google Gemini activé - Commercial Expert</span>
+                  <span className="text-green-400 font-medium">Mode Google Gemini activé - Expert Personnel</span>
                 </div>
                 
                 {/* Messages area */}
@@ -754,45 +758,57 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                         key={message.id}
                         className={`mb-3 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                       >
-                        <div 
-                          className={`max-w-[80%] p-3 rounded-xl ${
-                            message.sender === 'user' 
-                              ? 'bg-gradient-to-br from-portfolio-purple to-portfolio-blue text-white backdrop-blur-lg border border-white/10 shadow-glow-purple' 
-                              : 'bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 text-white shadow-md'
-                          }`}
-                        >
-                          {message.type === 'appointment' && message.metadata?.appointmentDate ? (
-                            <div>
-                              <div className="font-medium text-white">Demande de rendez-vous</div>
-                              <div className="text-sm text-white/90">
-                                Date: {format(new Date(message.metadata.appointmentDate), 'dd/MM/yyyy', { locale: fr })}
-                              </div>
-                              <div className="text-sm text-white/90">
-                                Heure: {message.metadata.appointmentTime}
-                              </div>
-                            </div>
-                          ) : message.type === 'document' ? (
-                            <div>
-                              <div className="font-medium text-white">Document envoyé</div>
-                              <div className="text-sm text-white/90">
-                                Nom: {message.metadata?.documentName}
-                              </div>
-                              <div className="text-sm text-white/90">
-                                Taille: {message.metadata?.documentSize}
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="text-white leading-relaxed">{message.content}</div>
+                        <div className={`flex items-start max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                          {message.sender === 'bot' && (
+                            <Avatar className="mr-2 mt-1 border border-white/20">
+                              <AvatarImage src="/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png" alt="Dominiqk Mendy" />
+                              <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
+                            </Avatar>
                           )}
-                          {message.metadata?.leadScore && message.metadata.leadScore > 0 && message.sender === 'user' && (
-                            <div className="text-xs text-white/60 mt-1">Score: {message.metadata.leadScore}/100</div>
-                          )}
+                          <div 
+                            className={`p-3 rounded-xl ${
+                              message.sender === 'user' 
+                                ? 'bg-gradient-to-br from-portfolio-purple to-portfolio-blue text-white backdrop-blur-lg border border-white/10 shadow-glow-purple' 
+                                : 'bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 text-white shadow-md'
+                            }`}
+                          >
+                            {message.type === 'appointment' && message.metadata?.appointmentDate ? (
+                              <div>
+                                <div className="font-medium text-white">Demande de rendez-vous</div>
+                                <div className="text-sm text-white/90">
+                                  Date: {format(new Date(message.metadata.appointmentDate), 'dd/MM/yyyy', { locale: fr })}
+                                </div>
+                                <div className="text-sm text-white/90">
+                                  Heure: {message.metadata?.appointmentTime}
+                                </div>
+                              </div>
+                            ) : message.type === 'document' ? (
+                              <div>
+                                <div className="font-medium text-white">Document envoyé</div>
+                                <div className="text-sm text-white/90">
+                                  Nom: {message.metadata?.documentName}
+                                </div>
+                                <div className="text-sm text-white/90">
+                                  Taille: {message.metadata?.documentSize}
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="text-white leading-relaxed">{message.content}</div>
+                            )}
+                            {message.metadata?.leadScore && message.metadata.leadScore > 0 && message.sender === 'user' && (
+                              <div className="text-xs text-white/60 mt-1">Score: {message.metadata.leadScore}/100</div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     ))}
 
                     {isTyping && (
                       <div className="flex mb-3">
+                        <Avatar className="mr-2 mt-1 border border-white/20">
+                          <AvatarImage src="/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png" alt="Dominiqk Mendy" />
+                          <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
+                        </Avatar>
                         <div className="bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 p-3 rounded-xl max-w-[80%] shadow-md">
                           <div className="flex space-x-2">
                             <div className="w-2 h-2 rounded-full bg-portfolio-blue animate-pulse"></div>
@@ -858,9 +874,12 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
             {/* Chat header */}
             <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
               <div className="flex items-center">
-                <Bot className="text-white mr-2 animate-pulse-slow" size={20} />
+                <Avatar className="mr-3 border-2 border-white/30">
+                  <AvatarImage src="/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png" alt="Dominiqk Mendy" />
+                  <AvatarFallback className="bg-white/20 text-white font-bold">DM</AvatarFallback>
+                </Avatar>
                 <div>
-                  <h3 className="text-white font-medium">Dominiqk Mendy - Commercial IA</h3>
+                  <h3 className="text-white font-medium">Dominiqk Mendy - Expert Consultant</h3>
                   {leadScore > 0 && (
                     <div className="text-xs text-white/80">Score prospect: {leadScore}/100</div>
                   )}
@@ -890,7 +909,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
             {/* API status indicator */}
             <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
               <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-              <span className="text-green-400 font-medium">Mode Google Gemini activé - Commercial Expert</span>
+              <span className="text-green-400 font-medium">Mode Google Gemini activé - Expert Personnel</span>
             </div>
 
             {/* Messages area */}
@@ -902,45 +921,57 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                     key={message.id}
                     className={`mb-3 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
-                    <div 
-                      className={`max-w-[80%] p-3 rounded-xl ${
-                        message.sender === 'user' 
-                          ? 'bg-gradient-to-br from-portfolio-purple to-portfolio-blue text-white backdrop-blur-lg border border-white/10 shadow-glow-purple' 
-                          : 'bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 text-white shadow-md'
-                      }`}
-                    >
-                      {message.type === 'appointment' && message.metadata?.appointmentDate ? (
-                        <div>
-                          <div className="font-medium text-white">Demande de rendez-vous</div>
-                          <div className="text-sm text-white/90">
-                            Date: {format(new Date(message.metadata.appointmentDate), 'dd/MM/yyyy', { locale: fr })}
-                          </div>
-                          <div className="text-sm text-white/90">
-                            Heure: {message.metadata.appointmentTime}
-                          </div>
-                        </div>
-                      ) : message.type === 'document' ? (
-                        <div>
-                          <div className="font-medium text-white">Document envoyé</div>
-                          <div className="text-sm text-white/90">
-                            Nom: {message.metadata?.documentName}
-                          </div>
-                          <div className="text-sm text-white/90">
-                            Taille: {message.metadata?.documentSize}
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="text-white leading-relaxed">{message.content}</div>
+                    <div className={`flex items-start max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                      {message.sender === 'bot' && (
+                        <Avatar className="mr-2 mt-1 border border-white/20">
+                          <AvatarImage src="/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png" alt="Dominiqk Mendy" />
+                          <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
+                        </Avatar>
                       )}
-                      {message.metadata?.leadScore && message.metadata.leadScore > 0 && message.sender === 'user' && (
-                        <div className="text-xs text-white/60 mt-1">Score: {message.metadata.leadScore}/100</div>
-                      )}
+                      <div 
+                        className={`p-3 rounded-xl ${
+                          message.sender === 'user' 
+                            ? 'bg-gradient-to-br from-portfolio-purple to-portfolio-blue text-white backdrop-blur-lg border border-white/10 shadow-glow-purple' 
+                            : 'bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 text-white shadow-md'
+                        }`}
+                      >
+                        {message.type === 'appointment' && message.metadata?.appointmentDate ? (
+                          <div>
+                            <div className="font-medium text-white">Demande de rendez-vous</div>
+                            <div className="text-sm text-white/90">
+                              Date: {format(new Date(message.metadata.appointmentDate), 'dd/MM/yyyy', { locale: fr })}
+                            </div>
+                            <div className="text-sm text-white/90">
+                              Heure: {message.metadata?.appointmentTime}
+                            </div>
+                          </div>
+                        ) : message.type === 'document' ? (
+                          <div>
+                            <div className="font-medium text-white">Document envoyé</div>
+                            <div className="text-sm text-white/90">
+                              Nom: {message.metadata?.documentName}
+                            </div>
+                            <div className="text-sm text-white/90">
+                              Taille: {message.metadata?.documentSize}
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="text-white leading-relaxed">{message.content}</div>
+                        )}
+                        {message.metadata?.leadScore && message.metadata.leadScore > 0 && message.sender === 'user' && (
+                          <div className="text-xs text-white/60 mt-1">Score: {message.metadata.leadScore}/100</div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}
 
                 {isTyping && (
                   <div className="flex mb-3">
+                    <Avatar className="mr-2 mt-1 border border-white/20">
+                      <AvatarImage src="/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png" alt="Dominiqk Mendy" />
+                      <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
+                    </Avatar>
                     <div className="bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 p-3 rounded-xl max-w-[80%] shadow-md">
                       <div className="flex space-x-2">
                         <div className="w-2 h-2 rounded-full bg-portfolio-blue animate-pulse"></div>
