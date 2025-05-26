@@ -20,9 +20,8 @@ const HeroDescription = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   };
 
-  // Tech badges with their colors
+  // Tech badges with their colors (removing duplicate)
   const techBadges = [
-    { name: "Expert Certifié", color: "emerald" },
     { name: "Intelligence Artificielle", color: "blue" },
     { name: "Web Development", color: "purple" },
     { name: "Marketing Digital", color: "green" },
@@ -35,6 +34,25 @@ const HeroDescription = () => {
       animate="visible"
       variants={containerVariants}
     >
+      {/* Badge Expert Certifié en premier */}
+      <motion.div 
+        className="mb-4"
+        variants={itemVariants}
+      >
+        <motion.span
+          className="px-3 py-1.5 text-sm font-semibold bg-emerald-500/20 text-emerald-400 rounded-full backdrop-blur-sm border border-emerald-500/30 hover:bg-emerald-500/30 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            delay: 0.4,
+            duration: 0.4
+          }}
+        >
+          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+          Expert Certifié
+        </motion.span>
+      </motion.div>
+
       <motion.p 
         className="text-lg sm:text-xl text-gray-300 max-w-xl font-poppins"
         variants={itemVariants}
