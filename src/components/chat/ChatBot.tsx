@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Bot, Send, MessageSquare, X, CalendarClock, FileUp, Key, ArrowUp } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -150,6 +151,11 @@ const ChatBot = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const isMobile = useIsMobile();
+
+  // Check if API key is valid (not empty and not the placeholder)
+  const isValidApiKey = (key: string): boolean => {
+    return key.trim() !== '' && !key.includes('VOTRE_CLE_API_GEMINI_ICI');
+  };
   
   // Scroll to top function
   const scrollToTop = () => {
@@ -173,9 +179,10 @@ const ChatBot = () => {
   // Check for saved API key on mount
   useEffect(() => {
     const savedKey = localStorage.getItem('gemini_api_key');
-    if (savedKey) {
+    if (savedKey && isValidApiKey(savedKey)) {
       setGeminiApiKey(savedKey);
       setUseGemini(true);
+      console.log('🤖 Google Gemini API activé automatiquement');
     }
   }, []);
 
@@ -280,7 +287,7 @@ const ChatBot = () => {
 
   // Handle API Key save
   const handleSaveAPIKey = () => {
-    if (!geminiApiKey.trim()) {
+    if (!isValidApiKey(geminiApiKey)) {
       toast({
         title: "Erreur",
         description: "Veuillez entrer une clé API Google Gemini valide",
@@ -1040,7 +1047,7 @@ Répondez de manière engageante, professionnelle et commerciale:`;
           <DialogHeader>
             <DialogTitle>Configuration Google Gemini API</DialogTitle>
             <DialogDescription className="text-gray-300">
-              Connectez votre clé API Google Gemini (gratuite) pour activer le mode commercial expert.
+              Entrez votre clé API Google Gemini pour activer le mode commercial expert.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
@@ -1056,13 +1063,22 @@ Répondez de manière engageante, professionnelle et commerciale:`;
               <Input
                 id="geminikey"
                 type="password"
-                placeholder="AIza..."
+                placeholder="Entrez votre clé API Google Gemini..."
                 value={geminiApiKey}
                 onChange={(e) => setGeminiApiKey(e.target.value)}
                 className="bg-white/15 border-white/30 text-white"
               />
               <p className="text-xs text-gray-300 mt-1">
-                Obtenez votre clé gratuite sur Google AI Studio. 15 requêtes/min incluses.
+                Obtenez votre clé gratuite sur{' '}
+                <a 
+                  href="https://aistudio.google.com/app/apikey" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-portfolio-blue hover:underline"
+                >
+                  Google AI Studio
+                </a>
+                . 15 requêtes/min incluses.
               </p>
             </div>
           </div>
