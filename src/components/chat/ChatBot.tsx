@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Bot, Send, MessageSquare, X, CalendarClock, FileUp, Key, ArrowUp } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -724,7 +723,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                 <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
                   <div className="flex items-center">
                     <Avatar className="mr-3 border-2 border-white/30">
-                      <AvatarImage src="/lovable-uploads/f251d258-9af2-489f-b713-fec72074803d.png" alt="Dominiqk Mendy" />
+                      <AvatarImage src="/lovable-uploads/5126c605-f162-4ccd-b4a7-4857d26e2dbe.png" alt="Dominiqk Mendy" />
                       <AvatarFallback className="bg-white/20 text-white font-bold">DM</AvatarFallback>
                     </Avatar>
                     <div>
@@ -750,9 +749,28 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                   <span className="text-green-400 font-medium">Mode Google Gemini activé - Expert Personnel</span>
                 </div>
                 
-                {/* Messages area */}
-                <div className="relative flex-1 p-3 overflow-y-auto bg-slate-900">
-                  <SpaceBackground />
+                {/* Messages area with starry background */}
+                <div className="relative flex-1 p-3 overflow-y-auto bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+                  {/* Starry background */}
+                  <div 
+                    className="absolute inset-0 opacity-30"
+                    style={{
+                      background: `
+                        radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+                        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                        radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
+                        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                        radial-gradient(2px 2px at 160px 30px, #ffffff, transparent),
+                        radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.8), transparent),
+                        radial-gradient(2px 2px at 240px 90px, #ffffff, transparent),
+                        radial-gradient(1px 1px at 280px 20px, rgba(255,255,255,0.6), transparent),
+                        radial-gradient(1px 1px at 320px 50px, #ffffff, transparent),
+                        radial-gradient(2px 2px at 360px 80px, rgba(255,255,255,0.8), transparent)
+                      `,
+                      backgroundSize: '400px 100px',
+                      animation: 'twinkle 3s ease-in-out infinite alternate'
+                    }}
+                  />
                   <div className="relative z-10">
                     {messages.map((message) => (
                       <div 
@@ -762,7 +780,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                         <div className={`flex items-start max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                           {message.sender === 'bot' && (
                             <Avatar className="mr-2 mt-1 border border-white/20">
-                              <AvatarImage src="/lovable-uploads/f251d258-9af2-489f-b713-fec72074803d.png" alt="Dominiqk Mendy" />
+                              <AvatarImage src="/lovable-uploads/5126c605-f162-4ccd-b4a7-4857d26e2dbe.png" alt="Dominiqk Mendy" />
                               <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
                             </Avatar>
                           )}
@@ -807,7 +825,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                     {isTyping && (
                       <div className="flex mb-3">
                         <Avatar className="mr-2 mt-1 border border-white/20">
-                          <AvatarImage src="/lovable-uploads/f251d258-9af2-489f-b713-fec72074803d.png" alt="Dominiqk Mendy" />
+                          <AvatarImage src="/lovable-uploads/5126c605-f162-4ccd-b4a7-4857d26e2dbe.png" alt="Dominiqk Mendy" />
                           <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
                         </Avatar>
                         <div className="bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 p-3 rounded-xl max-w-[80%] shadow-md">
@@ -879,7 +897,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
             <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
               <div className="flex items-center">
                 <Avatar className="mr-3 border-2 border-white/30">
-                  <AvatarImage src="/lovable-uploads/f251d258-9af2-489f-b713-fec72074803d.png" alt="Dominiqk Mendy" />
+                  <AvatarImage src="/lovable-uploads/5126c605-f162-4ccd-b4a7-4857d26e2dbe.png" alt="Dominiqk Mendy" />
                   <AvatarFallback className="bg-white/20 text-white font-bold">DM</AvatarFallback>
                 </Avatar>
                 <div>
@@ -916,9 +934,28 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
               <span className="text-green-400 font-medium">Mode Google Gemini activé - Expert Personnel</span>
             </div>
 
-            {/* Messages area */}
-            <div className="relative flex-1 p-3 overflow-y-auto bg-slate-900">
-              <SpaceBackground />
+            {/* Messages area with starry background */}
+            <div className="relative flex-1 p-3 overflow-y-auto bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+              {/* Starry background */}
+              <div 
+                className="absolute inset-0 opacity-30"
+                style={{
+                  background: `
+                    radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+                    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                    radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
+                    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                    radial-gradient(2px 2px at 160px 30px, #ffffff, transparent),
+                    radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.8), transparent),
+                    radial-gradient(2px 2px at 240px 90px, #ffffff, transparent),
+                    radial-gradient(1px 1px at 280px 20px, rgba(255,255,255,0.6), transparent),
+                    radial-gradient(1px 1px at 320px 50px, #ffffff, transparent),
+                    radial-gradient(2px 2px at 360px 80px, rgba(255,255,255,0.8), transparent)
+                  `,
+                  backgroundSize: '400px 100px',
+                  animation: 'twinkle 3s ease-in-out infinite alternate'
+                }}
+              />
               <div className="relative z-10">
                 {messages.map((message) => (
                   <div 
@@ -928,7 +965,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                     <div className={`flex items-start max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                       {message.sender === 'bot' && (
                         <Avatar className="mr-2 mt-1 border border-white/20">
-                          <AvatarImage src="/lovable-uploads/f251d258-9af2-489f-b713-fec72074803d.png" alt="Dominiqk Mendy" />
+                          <AvatarImage src="/lovable-uploads/5126c605-f162-4ccd-b4a7-4857d26e2dbe.png" alt="Dominiqk Mendy" />
                           <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
                         </Avatar>
                       )}
@@ -973,7 +1010,7 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                 {isTyping && (
                   <div className="flex mb-3">
                     <Avatar className="mr-2 mt-1 border border-white/20">
-                      <AvatarImage src="/lovable-uploads/f251d258-9af2-489f-b713-fec72074803d.png" alt="Dominiqk Mendy" />
+                      <AvatarImage src="/lovable-uploads/5126c605-f162-4ccd-b4a7-4857d26e2dbe.png" alt="Dominiqk Mendy" />
                       <AvatarFallback className="bg-portfolio-purple text-white text-xs">DM</AvatarFallback>
                     </Avatar>
                     <div className="bg-slate-800/90 backdrop-blur-lg border border-slate-600/50 p-3 rounded-xl max-w-[80%] shadow-md">
