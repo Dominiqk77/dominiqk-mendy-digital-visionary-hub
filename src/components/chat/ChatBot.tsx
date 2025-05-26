@@ -154,6 +154,8 @@ const ChatBot = () => {
   // Google Gemini activé automatiquement avec la clé API intégrée
   const useGemini = true;
   
+  console.log('🤖 ChatBot component loaded - Button should be visible');
+  
   // Scroll to top function
   const scrollToTop = () => {
     window.scrollTo({
@@ -662,162 +664,170 @@ Répondez de manière engageante, professionnelle et commerciale:`;
         </Button>
       )}
 
-      {/* Floating chat button */}
-      {!isOpen && (
-        <Button 
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-lg z-50 bg-gradient-to-br from-portfolio-purple to-portfolio-blue hover:from-portfolio-purple hover:to-portfolio-blue text-white p-0 animate-pulse-glow relative"
-          aria-label="Ouvrir le chat"
-        >
-          <MessageSquare size={24} />
-          {leadScore > 50 && (
-            <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full animate-ping"></div>
-          )}
-        </Button>
-      )}
+      {/* Floating chat button - ALWAYS VISIBLE */}
+      <Button 
+        onClick={() => {
+          console.log('ChatBot button clicked, opening chat');
+          setIsOpen(true);
+        }}
+        className="fixed bottom-6 right-6 rounded-full w-16 h-16 shadow-2xl z-50 bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white p-0 border-2 border-white/20"
+        style={{ 
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          zIndex: 9999,
+          display: isOpen ? 'none' : 'flex'
+        }}
+        aria-label="Ouvrir le chat"
+      >
+        <MessageSquare size={28} />
+        {leadScore > 50 && (
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full animate-ping"></div>
+        )}
+      </Button>
 
-      {/* Chat window - using Dialog on mobile or Card on desktop */}
-      {isMobile ? (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent className="max-h-[90vh] p-0 bg-transparent border-0 overflow-hidden">
-            <div className="flex flex-col h-[80vh] max-h-[80vh] w-full bg-background rounded-lg shadow-xl overflow-hidden">
-              {/* Chat header */}
-              <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
-                <div className="flex items-center">
-                  <Bot className="text-white mr-2 animate-pulse-slow" size={20} />
-                  <div>
-                    <h3 className="text-white font-medium">Dominiqk Mendy - Commercial IA</h3>
-                    {leadScore > 0 && (
-                      <div className="text-xs text-white/80">Score prospect: {leadScore}/100</div>
-                    )}
+      {/* Chat window */}
+      {isOpen && (
+        isMobile ? (
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogContent className="max-h-[90vh] p-0 bg-transparent border-0 overflow-hidden">
+              <div className="flex flex-col h-[80vh] max-h-[80vh] w-full bg-background rounded-lg shadow-xl overflow-hidden">
+                {/* Chat header */}
+                <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
+                  <div className="flex items-center">
+                    <Bot className="text-white mr-2 animate-pulse-slow" size={20} />
+                    <div>
+                      <h3 className="text-white font-medium">Dominiqk Mendy - Commercial IA</h3>
+                      {leadScore > 0 && (
+                        <div className="text-xs text-white/80">Score prospect: {leadScore}/100</div>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  className="text-white hover:bg-white/20"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <X size={18} />
-                </Button>
-              </div>
-              
-              {/* API status indicator */}
-              <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
-                <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-                <span className="text-green-400 font-medium">Mode Google Gemini activé - Commercial Expert</span>
-              </div>
-              
-              {/* Messages area */}
-              <div className="relative flex-1 p-3 overflow-y-auto">
-                <SpaceBackground />
-                <div className="relative z-10">
-                  {messages.map((message) => (
-                    <div 
-                      key={message.id}
-                      className={`mb-3 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                    >
-                      <div 
-                        className={`max-w-[80%] p-3 rounded-xl ${
-                          message.sender === 'user' 
-                            ? 'bg-gradient-to-br from-portfolio-purple to-portfolio-blue text-white backdrop-blur-lg border border-white/10 shadow-glow-purple' 
-                            : 'bg-white/15 backdrop-blur-lg border border-white/20 text-white shadow-md'
-                        }`}
-                      >
-                        {message.type === 'appointment' && message.metadata?.appointmentDate ? (
-                          <div>
-                            <div className="font-medium text-white">Demande de rendez-vous</div>
-                            <div className="text-sm text-white/90">
-                              Date: {format(new Date(message.metadata.appointmentDate), 'dd/MM/yyyy', { locale: fr })}
-                            </div>
-                            <div className="text-sm text-white/90">
-                              Heure: {message.metadata.appointmentTime}
-                            </div>
-                          </div>
-                        ) : message.type === 'document' ? (
-                          <div>
-                            <div className="font-medium text-white">Document envoyé</div>
-                            <div className="text-sm text-white/90">
-                              Nom: {message.metadata?.documentName}
-                            </div>
-                            <div className="text-sm text-white/90">
-                              Taille: {message.metadata?.documentSize}
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="text-white/95 leading-relaxed">{message.content}</div>
-                        )}
-                        {message.metadata?.leadScore && message.metadata.leadScore > 0 && message.sender === 'user' && (
-                          <div className="text-xs text-white/60 mt-1">Score: {message.metadata.leadScore}/100</div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-
-                  {isTyping && (
-                    <div className="flex mb-3">
-                      <div className="bg-white/15 backdrop-blur-lg border border-white/20 p-3 rounded-xl max-w-[80%] shadow-md">
-                        <div className="flex space-x-2">
-                          <div className="w-2 h-2 rounded-full bg-portfolio-blue animate-pulse"></div>
-                          <div className="w-2 h-2 rounded-full bg-portfolio-purple animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                          <div className="w-2 h-2 rounded-full bg-portfolio-nebula animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  <div ref={messagesEndRef} />
-                </div>
-              </div>
-
-              {/* Action buttons area */}
-              <div className="px-3 py-2 flex justify-center space-x-3 border-t border-white/15 bg-black/40 backdrop-blur-md">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
-                  onClick={() => setIsAppointmentDialogOpen(true)}
-                >
-                  <CalendarClock className="h-4 w-4 mr-1 text-portfolio-blue" />
-                  Rendez-vous
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
-                  onClick={() => setIsDocumentDialogOpen(true)}
-                >
-                  <FileUp className="h-4 w-4 mr-1 text-portfolio-blue" />
-                  Envoyer fichier
-                </Button>
-              </div>
-
-              {/* Input area */}
-              <div className="p-3 border-t border-white/15 bg-black/60 backdrop-blur-md">
-                <div className="flex">
-                  <Textarea
-                    ref={inputRef}
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={handleKeyPress}
-                    placeholder="Votre question ou projet..."
-                    className="resize-none bg-white/15 border-white/30 focus:border-portfolio-purple text-white placeholder:text-white/60 shadow-inner"
-                    rows={2}
-                  />
                   <Button 
-                    onClick={handleSendMessage}
-                    disabled={isTyping || !input.trim()}
-                    className="ml-2 bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white shadow-md"
+                    variant="ghost" 
                     size="icon"
+                    className="text-white hover:bg-white/20"
+                    onClick={() => setIsOpen(false)}
                   >
-                    <Send size={18} />
+                    <X size={18} />
                   </Button>
                 </div>
+                
+                {/* API status indicator */}
+                <div className="bg-green-500/20 border-b border-green-500/30 py-1 px-3 text-xs flex items-center backdrop-blur-md">
+                  <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
+                  <span className="text-green-400 font-medium">Mode Google Gemini activé - Commercial Expert</span>
+                </div>
+                
+                {/* Messages area */}
+                <div className="relative flex-1 p-3 overflow-y-auto">
+                  <SpaceBackground />
+                  <div className="relative z-10">
+                    {messages.map((message) => (
+                      <div 
+                        key={message.id}
+                        className={`mb-3 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                      >
+                        <div 
+                          className={`max-w-[80%] p-3 rounded-xl ${
+                            message.sender === 'user' 
+                              ? 'bg-gradient-to-br from-portfolio-purple to-portfolio-blue text-white backdrop-blur-lg border border-white/10 shadow-glow-purple' 
+                              : 'bg-white/15 backdrop-blur-lg border border-white/20 text-white shadow-md'
+                          }`}
+                        >
+                          {message.type === 'appointment' && message.metadata?.appointmentDate ? (
+                            <div>
+                              <div className="font-medium text-white">Demande de rendez-vous</div>
+                              <div className="text-sm text-white/90">
+                                Date: {format(new Date(message.metadata.appointmentDate), 'dd/MM/yyyy', { locale: fr })}
+                              </div>
+                              <div className="text-sm text-white/90">
+                                Heure: {message.metadata.appointmentTime}
+                              </div>
+                            </div>
+                          ) : message.type === 'document' ? (
+                            <div>
+                              <div className="font-medium text-white">Document envoyé</div>
+                              <div className="text-sm text-white/90">
+                                Nom: {message.metadata?.documentName}
+                              </div>
+                              <div className="text-sm text-white/90">
+                                Taille: {message.metadata?.documentSize}
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="text-white/95 leading-relaxed">{message.content}</div>
+                          )}
+                          {message.metadata?.leadScore && message.metadata.leadScore > 0 && message.sender === 'user' && (
+                            <div className="text-xs text-white/60 mt-1">Score: {message.metadata.leadScore}/100</div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+
+                    {isTyping && (
+                      <div className="flex mb-3">
+                        <div className="bg-white/15 backdrop-blur-lg border border-white/20 p-3 rounded-xl max-w-[80%] shadow-md">
+                          <div className="flex space-x-2">
+                            <div className="w-2 h-2 rounded-full bg-portfolio-blue animate-pulse"></div>
+                            <div className="w-2 h-2 rounded-full bg-portfolio-purple animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                            <div className="w-2 h-2 rounded-full bg-portfolio-nebula animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    <div ref={messagesEndRef} />
+                  </div>
+                </div>
+
+                {/* Action buttons area */}
+                <div className="px-3 py-2 flex justify-center space-x-3 border-t border-white/15 bg-black/40 backdrop-blur-md">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
+                    onClick={() => setIsAppointmentDialogOpen(true)}
+                  >
+                    <CalendarClock className="h-4 w-4 mr-1 text-portfolio-blue" />
+                    Rendez-vous
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-xs border-white/30 bg-white/10 hover:bg-white/20 text-white font-medium shadow-sm"
+                    onClick={() => setIsDocumentDialogOpen(true)}
+                  >
+                    <FileUp className="h-4 w-4 mr-1 text-portfolio-blue" />
+                    Envoyer fichier
+                  </Button>
+                </div>
+
+                {/* Input area */}
+                <div className="p-3 border-t border-white/15 bg-black/60 backdrop-blur-md">
+                  <div className="flex">
+                    <Textarea
+                      ref={inputRef}
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyDown={handleKeyPress}
+                      placeholder="Votre question ou projet..."
+                      className="resize-none bg-white/15 border-white/30 focus:border-portfolio-purple text-white placeholder:text-white/60 shadow-inner"
+                      rows={2}
+                    />
+                    <Button 
+                      onClick={handleSendMessage}
+                      disabled={isTyping || !input.trim()}
+                      className="ml-2 bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white shadow-md"
+                      size="icon"
+                    >
+                      <Send size={18} />
+                    </Button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-      ) : (
-        isOpen && (
+            </DialogContent>
+          </Dialog>
+        ) : (
           <Card className="fixed bottom-6 right-6 w-80 sm:w-96 h-[500px] max-h-[80vh] flex flex-col rounded-xl shadow-2xl z-50 overflow-hidden neo-blur border border-white/20">
             {/* Chat header */}
             <div className="relative bg-gradient-to-r from-portfolio-purple to-portfolio-blue p-3 flex items-center justify-between backdrop-blur-md">
