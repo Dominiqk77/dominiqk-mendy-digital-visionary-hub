@@ -17,14 +17,14 @@ import { Toaster } from "@/components/ui/toaster";
 import { preloadImages } from '../lib/utils';
 import { usePreventHorizontalScroll } from '@/hooks/use-mobile';
 
-// Optimized animation variants
+// Optimized animation variants for better performance
 const sectionVariants = {
   hidden: { opacity: 0, y: 10 },
   visible: { 
     opacity: 1, 
     y: 0,
     transition: {
-      duration: 0.3,
+      duration: 0.4,
       ease: "easeOut"
     }
   }
@@ -41,7 +41,7 @@ const Index = () => {
     // Set page title for SEO
     document.title = 'Dominiqk Mendy | Expert N°1 en Innovation Numérique & IA | Consultant Digital International';
     
-    // Set meta description for SEO
+    // Set meta description for SEO with updated project timeline
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', 
@@ -50,7 +50,7 @@ const Index = () => {
       );
     }
     
-    // Set keywords for SEO
+    // Set keywords for SEO with international focus
     const metaKeywords = document.querySelector('meta[name="keywords"]');
     if (metaKeywords) {
       metaKeywords.setAttribute('content', 
@@ -60,24 +60,28 @@ const Index = () => {
       );
     }
 
-    // Optimized preload strategy
+    // Optimized preload strategy for critical assets
     const preloadAssets = () => {
+      // Critical images that should load immediately
       const criticalImages = [
         '/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png'
       ];
       
+      // Use the preloadImages utility to efficiently load images
       preloadImages(criticalImages).then(() => {
         console.log('Critical images preloaded successfully');
         setIsLoaded(true);
       }).catch(error => {
         console.error('Error preloading images:', error);
+        // Even on error, we should show content after a short timeout
         setTimeout(() => setIsLoaded(true), 100);
       });
     };
     
+    // Preload critical assets immediately
     preloadAssets();
     
-    // Scroll to top on page load
+    // Scroll to top on page load (unless there's a hash)
     if (!location.hash) {
       window.scrollTo({
         top: 0,
@@ -85,7 +89,7 @@ const Index = () => {
       });
     }
 
-    // Handle anchor navigation
+    // Handle anchor link navigation with smoother scrolling
     const handleAnchorClick = () => {
       const { hash } = location;
       if (hash) {
@@ -104,7 +108,7 @@ const Index = () => {
 
     handleAnchorClick();
     
-    // Optimize viewport for mobile
+    // Add viewport meta tag for better mobile handling if not present
     if (!document.querySelector('meta[name="viewport"]')) {
       const viewportMeta = document.createElement('meta');
       viewportMeta.name = 'viewport';
@@ -114,72 +118,54 @@ const Index = () => {
 
   }, [location]);
 
-  // Enhanced scroll behavior
+  // Enable smooth scrolling for the entire page
   useEffect(() => {
     const html = document.querySelector('html');
-    const body = document.querySelector('body');
-    
     if (html) {
       html.style.scrollBehavior = 'smooth';
       html.classList.add('overflow-x-hidden');
-      // Prevent overscroll bounce
-      html.style.overscrollBehavior = 'none';
-    }
-    
-    if (body) {
-      body.classList.add('overflow-x-hidden', 'mobile-optimized');
-      // Better touch performance
-      body.style.touchAction = 'pan-y';
-      body.style.overscrollBehaviorY = 'none';
     }
     
     return () => {
       if (html) {
         html.style.scrollBehavior = '';
         html.classList.remove('overflow-x-hidden');
-        html.style.overscrollBehavior = '';
-      }
-      if (body) {
-        body.classList.remove('overflow-x-hidden', 'mobile-optimized');
-        body.style.touchAction = '';
-        body.style.overscrollBehaviorY = '';
       }
     };
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col relative max-w-full bg-portfolio-space no-horizontal-overflow smooth-scroll-container mobile-optimized">
-      {/* Optimized background for better performance */}
-      <div className="absolute inset-0 z-0 gpu-accelerated">
+    <div className="min-h-screen flex flex-col overflow-hidden relative max-w-full bg-portfolio-space">
+      {/* Simplified background for better performance */}
+      <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-grid-small-white/5 z-0"></div>
         
-        {/* Reduced neural network nodes */}
-        {Array.from({ length: 6 }).map((_, i) => (
+        {/* Reduced neural network nodes for better performance */}
+        {Array.from({ length: 8 }).map((_, i) => (
           <div 
             key={`node-${i}`}
-            className="absolute rounded-full bg-portfolio-purple/20 reduce-blur-mobile backdrop-blur-sm gpu-accelerated"
+            className="absolute rounded-full bg-portfolio-purple/20 backdrop-blur-sm"
             style={{
-              width: `${Math.random() * 4 + 2}px`,
-              height: `${Math.random() * 4 + 2}px`,
+              width: `${Math.random() * 6 + 3}px`,
+              height: `${Math.random() * 6 + 3}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              boxShadow: '0 0 8px rgba(155, 135, 245, 0.4)',
-              animation: `pulse ${Math.random() * 3 + 2}s infinite alternate ease-in-out`,
-              animationDelay: `${Math.random() * 2}s`,
-              willChange: 'opacity, transform'
+              boxShadow: '0 0 10px rgba(155, 135, 245, 0.4)',
+              animation: `pulse ${Math.random() * 4 + 3}s infinite alternate ease-in-out`,
+              animationDelay: `${Math.random() * 3}s`
             }}
           />
         ))}
         
         {/* Optimized nebula effects */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-portfolio-purple/10 blur-[80px] rounded-full animate-pulse-slow gpu-accelerated"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-portfolio-blue/10 blur-[100px] rounded-full animate-pulse-slow gpu-accelerated" style={{animationDelay: '2s'}}></div>
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-portfolio-purple/15 blur-[100px] rounded-full animate-pulse-slow"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-portfolio-blue/15 blur-[120px] rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
       </div>
       
       <Navbar />
       
-      {/* Main content with optimized transitions */}
-      <main className={`flex-grow relative z-10 transition-opacity duration-300 no-horizontal-overflow ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Main content with optimized rendering and transitions */}
+      <main className={`flex-grow relative z-10 transition-opacity duration-300 overflow-x-hidden ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         <Hero />
         
         <motion.div
