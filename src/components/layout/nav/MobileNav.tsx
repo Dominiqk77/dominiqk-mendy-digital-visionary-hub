@@ -35,7 +35,7 @@ const MobileNav = ({
         <div className="p-4 relative z-10">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
-              <span className="text-lg font-bold bg-gradient-to-r from-[#E5DEFF] via-white to-[#D6BCFA] bg-[length:200%_auto] animate-gradient-slow bg-clip-text text-violet-100">Dominiqk Mendy</span>
+              <span className="text-lg font-bold bg-gradient-to-r from-[#E5DEFF] via-white to-[#D6BCFA] bg-[length:200%_auto] animate-gradient-slow bg-clip-text text-gray-50">Dominiqk Mendy</span>
             </div>
             <button onClick={handleClose} className="p-1.5 rounded-full bg-[#9b87f5]/20 text-white">
               <X className="h-4 w-4" />
