@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, Brain, Globe, Zap } from 'lucide-react';
@@ -29,9 +28,9 @@ const HeroProfile = ({ isMobile }: HeroProfileProps) => {
           </AspectRatio>
         </div>
         
-        {/* Simplified Expert Certifié icon for mobile */}
+        {/* Simplified Expert Certifié icon for mobile - moved up */}
         <motion.div
-          className="absolute -top-4 -right-8"
+          className="absolute -top-8 -right-8"
           initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={shouldReduceMotion ? { duration: 0.3 } : { delay: 0.4, duration: 0.6 }}
@@ -100,9 +99,9 @@ const HeroProfile = ({ isMobile }: HeroProfileProps) => {
         </AspectRatio>
       </div>
       
-      {/* Enhanced Expert Certifié icon */}
+      {/* Enhanced Expert Certifié icon - moved up */}
       <motion.div
-        className="absolute -top-6 -right-12 group"
+        className="absolute -top-10 -right-12 group"
         initial={{ opacity: 0, scale: 0.5, rotateY: -180 }}
         animate={{ opacity: 1, scale: 1, rotateY: 0 }}
         transition={{ delay: 0.4, duration: 0.8, type: "spring", stiffness: 100 }}
