@@ -118,7 +118,7 @@ const AboutPage = () => {
       title: "L'Ascension : Expert Reconnu",
       icon: <Code2 className="w-8 h-8" />,
       period: "2018-2022",
-      story: "Les années d'expertise se construisent : développement web avancé, maîtrise de l'IA, leadership d'équipes internationales. Mes projets touchent l'Europe, l'Afrique et le Moyen-Orient. Je devient un pont technologique entre les continents.",
+      story: "Les années d'expertise se construisent : développement web avancé, maîtrise de l'IA, leadership d'équipes internationales. Mes projets touchent l'Europe, l'Afrique et le Moyen-Orient. Je deviens un pont technologique entre les continents.",
       highlights: ["Lead Developer expérimenté", "Projets internationaux", "Équipes multiculturelles", "Expertise IA approfondie"],
       color: "from-purple-500 to-pink-500", 
       bgColor: "from-purple-500/10 to-pink-500/10"
@@ -468,7 +468,7 @@ const AboutPage = () => {
                 <div className="bg-gradient-to-r from-black/60 via-purple-900/20 to-black/60 backdrop-blur-md rounded-3xl p-12 border border-white/10">
                   <div className="flex justify-center mb-6">
                     <motion.div
-                      animate={{ rotate: [0, 360] }}
+                      animate={{ rotate: 360 }}
                       transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                       className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 p-4 shadow-lg"
                     >
@@ -796,9 +796,9 @@ const AboutPage = () => {
                     <div className="grid md:grid-cols-4 gap-6 mt-10">
                       {[
                         { label: "Années d'expérience", value: "15+", icon: <Calendar className="w-6 h-6" /> },
-                        { label: "Projets réalisés", value: "200+", icon: <Target className="w-6 h-6" /> },
-                        { label: "Pays d'intervention", value: "10+", icon: <Globe className="w-6 h-6" /> },
-                        { label: "Technologies maîtrisées", value: "25+", icon: <Zap className="w-6 h-6" /> }
+                        { label: "Projets réalisés", value: "2K+", icon: <Target className="w-6 h-6" /> },
+                        { label: "Pays d'intervention", value: "20+", icon: <Globe className="w-6 h-6" /> },
+                        { label: "Technologies maîtrisées", value: "100+", icon: <Zap className="w-6 h-6" /> }
                       ].map((metric, index) => (
                         <motion.div
                           key={index}
