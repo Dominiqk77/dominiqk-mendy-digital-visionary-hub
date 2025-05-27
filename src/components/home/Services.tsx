@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -280,7 +279,7 @@ const Services = () => {
     setSelectedCategory(value);
   };
 
-  // Check scroll position of the tabs container
+  // Optimized scroll position check
   const checkScrollPosition = () => {
     if (tabsListRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = tabsListRef.current;
@@ -289,10 +288,10 @@ const Services = () => {
     }
   };
 
-  // Scroll tabs horizontally
+  // Optimized scroll function
   const scrollTabs = (direction: 'left' | 'right') => {
     if (tabsListRef.current) {
-      const scrollAmount = 150; // Adjust as needed
+      const scrollAmount = 150;
       const currentScroll = tabsListRef.current.scrollLeft;
       
       tabsListRef.current.scrollTo({
@@ -302,51 +301,33 @@ const Services = () => {
     }
   };
 
-  // Optimize scroll tabs into view when selected on mobile
+  // Optimized tab scrolling effect
   useEffect(() => {
     if (isMobile && tabsListRef.current) {
       const selectedTab = document.querySelector(`[data-state="active"][data-value="${selectedCategory}"]`);
       if (selectedTab) {
-        // Calculate position for smooth horizontal scrolling
         const container = tabsListRef.current;
         const tabElement = selectedTab as HTMLElement;
         
-        // Calculate the center position
         const scrollLeft = tabElement.offsetLeft - (container.clientWidth / 2) + (tabElement.offsetWidth / 2);
         
-        // Smooth scroll to the element
         container.scrollTo({
-          left: scrollLeft,
+          left: Math.max(0, scrollLeft),
           behavior: 'smooth'
         });
       }
     }
     
-    // Check scroll indicators after tab change
-    checkScrollPosition();
+    // Update scroll indicators
+    setTimeout(checkScrollPosition, 100);
   }, [selectedCategory, isMobile]);
 
-  // Add scroll event listener to update indicators
+  // Simplified scroll event handling
   useEffect(() => {
     const tabsListElement = tabsListRef.current;
     if (tabsListElement) {
-      tabsListElement.addEventListener('scroll', checkScrollPosition);
-      // Initial check
+      tabsListElement.addEventListener('scroll', checkScrollPosition, { passive: true });
       checkScrollPosition();
-      
-      // Add initial scroll pulse animation for mobile
-      if (isMobile) {
-        const pulseAnimation = () => {
-          if (tabsListElement && tabsListElement.scrollWidth > tabsListElement.clientWidth) {
-            tabsListElement.classList.add('pulse-scroll-hint');
-            setTimeout(() => {
-              tabsListElement.classList.remove('pulse-scroll-hint');
-            }, 1500);
-          }
-        };
-        
-        setTimeout(pulseAnimation, 1000);
-      }
     }
     
     return () => {
@@ -354,11 +335,11 @@ const Services = () => {
         tabsListElement.removeEventListener('scroll', checkScrollPosition);
       }
     };
-  }, [isMobile]);
+  }, []);
 
   return (
-    <section className="py-20 backdrop-blur-sm bg-black/20">
-      <div className="container mx-auto px-4">
+    <section className="py-20 backdrop-blur-sm bg-black/20 prevent-scroll-conflicts">
+      <div className="container mx-auto px-4 no-horizontal-overflow">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
             Mes <span className="text-gradient-cosmic">Services</span>
@@ -370,92 +351,98 @@ const Services = () => {
         </div>
 
         <Tabs defaultValue="featured" value={selectedCategory} onValueChange={handleCategoryChange} className="w-full mb-12">
-          <div className="relative flex justify-center mb-8 overflow-hidden">
-            {/* Left scroll indicator */}
+          <div className="relative flex justify-center mb-8 no-horizontal-overflow">
+            {/* Left scroll indicator - only on mobile */}
             {isMobile && showLeftScroll && (
               <button 
                 onClick={() => scrollTabs('left')}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 bg-portfolio-purple/50 text-white rounded-r-md shadow-md flex items-center justify-center"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-portfolio-purple/70 text-white rounded-r-md shadow-lg flex items-center justify-center backdrop-blur-sm"
                 aria-label="Défiler à gauche"
               >
-                <ChevronLeft size={18} />
+                <ChevronLeft size={16} />
               </button>
             )}
             
             <TabsList 
               ref={tabsListRef}
-              className="bg-black/30 border border-white/10 backdrop-blur-md flex w-full md:w-auto overflow-x-auto p-1 rounded-lg snap-x snap-mandatory relative scroll-smooth"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              className="bg-black/30 border border-white/10 backdrop-blur-md flex w-full md:w-auto p-1 rounded-lg relative smooth-scroll-container no-horizontal-overflow"
+              style={{ 
+                scrollbarWidth: 'none', 
+                msOverflowStyle: 'none',
+                overflowX: isMobile ? 'auto' : 'visible',
+                overflowY: 'hidden',
+                WebkitOverflowScrolling: 'touch',
+                scrollBehavior: 'smooth'
+              }}
             >
+              <style jsx>{`
+                .TabsList::-webkit-scrollbar {
+                  display: none;
+                }
+              `}</style>
+              
               <TabsTrigger 
                 value="featured" 
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap snap-center"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap transition-all duration-200"
               >
                 Services Phares
               </TabsTrigger>
               <TabsTrigger 
                 value="ai" 
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap snap-center"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap transition-all duration-200"
               >
                 Intelligence Artificielle
               </TabsTrigger>
               <TabsTrigger 
                 value="web" 
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap snap-center"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap transition-all duration-200"
               >
                 Web & Mobile
               </TabsTrigger>
               <TabsTrigger 
                 value="marketing" 
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap snap-center"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap transition-all duration-200"
               >
                 Marketing Digital
               </TabsTrigger>
               <TabsTrigger 
                 value="consulting" 
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap snap-center"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap transition-all duration-200"
               >
                 Consulting
               </TabsTrigger>
             </TabsList>
             
-            {/* Right scroll indicator */}
+            {/* Right scroll indicator - only on mobile */}
             {isMobile && showRightScroll && (
               <button 
                 onClick={() => scrollTabs('right')}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 bg-portfolio-purple/50 text-white rounded-l-md shadow-md flex items-center justify-center"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-portfolio-purple/70 text-white rounded-l-md shadow-lg flex items-center justify-center backdrop-blur-sm"
                 aria-label="Défiler à droite"
               >
-                <ChevronRight size={18} />
+                <ChevronRight size={16} />
               </button>
-            )}
-            
-            {/* Mobile scroll hint text */}
-            {isMobile && (
-              <div className="absolute -bottom-6 left-0 right-0 text-xs text-center text-portfolio-purple animate-pulse pointer-events-none">
-                Faites défiler pour voir plus d'options →
-              </div>
             )}
           </div>
 
           {Object.keys(allCategoriesMap).map((category) => (
             <TabsContent key={category} value={category} className="animate-fade-in">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 no-horizontal-overflow">
                 {allCategoriesMap[category].map((service, index) => (
                   <motion.div
                     key={service.title}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
                     whileHover={{ y: -5 }}
-                    className={`group ${service.featured ? 'lg:col-span-3 md:col-span-2' : ''}`}
+                    className={`group gpu-accelerated ${service.featured ? 'lg:col-span-3 md:col-span-2' : ''}`}
                   >
-                    <Card className={`h-full border-none overflow-hidden cosmic-hover relative ${service.featured ? 'bg-black/60' : 'bg-black/40'} backdrop-blur-md`}>
+                    <Card className={`h-full border-none overflow-hidden cosmic-hover relative ${service.featured ? 'bg-black/60' : 'bg-black/40'} reduce-blur-mobile backdrop-blur-md`}>
                       {/* Gradient overlay */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient || 'from-blue-600 to-purple-600'} opacity-20 group-hover:opacity-30 transition-opacity`}></div>
+                      <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient || 'from-blue-600 to-purple-600'} opacity-20 group-hover:opacity-30 transition-opacity duration-200`}></div>
                       
                       {/* Border glow effect */}
-                      <div className="absolute inset-0 rounded-xl border border-white/20 group-hover:border-white/30 group-hover:shadow-[0_0_15px_rgba(155,135,245,0.3)] transition-all duration-300"></div>
+                      <div className="absolute inset-0 rounded-xl border border-white/20 group-hover:border-white/30 group-hover:shadow-[0_0_15px_rgba(155,135,245,0.3)] transition-all duration-200"></div>
                       
                       {service.highlight && (
                         <div className="absolute -right-8 top-6 transform rotate-45 bg-gradient-to-r from-portfolio-blue to-portfolio-purple text-white text-xs font-medium py-1 px-8 shadow-lg">
@@ -465,7 +452,7 @@ const Services = () => {
                       
                       <div className="relative z-10">
                         <CardHeader className="pb-0">
-                          <div className={`text-white bg-gradient-to-br ${service.gradient || 'from-blue-600 to-purple-600'} p-3 rounded-xl w-16 h-16 flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                          <div className={`text-white bg-gradient-to-br ${service.gradient || 'from-blue-600 to-purple-600'} p-3 rounded-xl w-16 h-16 flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-200 gpu-accelerated`}>
                             {service.icon}
                           </div>
                           <CardTitle className="mt-4 text-xl text-white">{service.title}</CardTitle>
@@ -474,10 +461,10 @@ const Services = () => {
                           <CardDescription className="text-base text-gray-300">{service.description}</CardDescription>
                         </CardContent>
                         <CardFooter>
-                          <Button variant="ghost" className="p-0 text-white hover:text-portfolio-blue hover:bg-transparent group" asChild>
+                          <Button variant="ghost" className="p-0 text-white hover:text-portfolio-blue hover:bg-transparent group transition-colors duration-200" asChild>
                             <Link to={service.link} className="flex items-center">
                               <span className="bg-clip-text text-transparent bg-gradient-to-r from-portfolio-blue to-portfolio-purple">En savoir plus</span>
-                              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 text-portfolio-purple" />
+                              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 text-portfolio-purple duration-200" />
                             </Link>
                           </Button>
                         </CardFooter>
@@ -496,7 +483,7 @@ const Services = () => {
 
         <div className="mt-16 text-center">
           <p className="text-lg mb-6 text-gray-300">Découvrez plus de 100 services personnalisables pour répondre à vos besoins spécifiques</p>
-          <Button size="lg" className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white" asChild>
+          <Button size="lg" className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white transition-opacity duration-200" asChild>
             <Link to="/services">Explorer tous les services</Link>
           </Button>
         </div>

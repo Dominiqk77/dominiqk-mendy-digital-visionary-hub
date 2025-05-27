@@ -54,19 +54,27 @@ const TestimonialCarousel = ({
   
   return (
     <div 
-      className="max-w-6xl mx-auto"
+      className="max-w-6xl mx-auto prevent-scroll-conflicts"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      style={{ 
+        /* Prevent carousel scroll from interfering with page scroll */
+        touchAction: 'pan-x',
+        overscrollBehavior: 'contain'
+      }}
     >
       <Carousel
         setApi={setApi}
-        className="w-full relative"
+        className="w-full relative no-horizontal-overflow"
         opts={{
           align: "start",
           loop: true,
+          /* Optimize for better scroll performance */
+          dragFree: false,
+          containScroll: "trimSnaps"
         }}
       >
-        <CarouselContent className="-ml-1">
+        <CarouselContent className="-ml-1 touch-pan-x">
           {testimonials.map((testimonial) => (
             <CarouselItem key={testimonial.id} className="pl-1 md:basis-1/2 lg:basis-1/3">
               <div className="p-1 h-full">
@@ -77,8 +85,8 @@ const TestimonialCarousel = ({
         </CarouselContent>
         
         <div className="hidden md:block">
-          <CarouselPrevious className="absolute -left-12 top-1/2 bg-black/40 border-portfolio-purple/30 hover:bg-black/60 text-white" />
-          <CarouselNext className="absolute -right-12 top-1/2 bg-black/40 border-portfolio-purple/30 hover:bg-black/60 text-white" />
+          <CarouselPrevious className="absolute -left-12 top-1/2 bg-black/40 border-portfolio-purple/30 hover:bg-black/60 text-white transition-colors duration-200" />
+          <CarouselNext className="absolute -right-12 top-1/2 bg-black/40 border-portfolio-purple/30 hover:bg-black/60 text-white transition-colors duration-200" />
         </div>
       </Carousel>
       
@@ -88,10 +96,10 @@ const TestimonialCarousel = ({
           <button
             key={index}
             onClick={() => api?.scrollTo(index)}
-            className={`w-2 h-2 rounded-full transition-all ${
+            className={`h-2 rounded-full transition-all duration-200 ${
               index === current 
                 ? "bg-gradient-to-r from-portfolio-purple to-portfolio-blue w-6" 
-                : "bg-gray-600"
+                : "bg-gray-600 w-2"
             }`}
             aria-label={`Go to testimonial ${index + 1}`}
           />

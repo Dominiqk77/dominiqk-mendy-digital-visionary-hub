@@ -59,7 +59,7 @@
     --ring: 195.5 96.2% 48%;
   }
 
-  /* Custom animations */
+  /* Optimized animations for better performance */
   @keyframes float {
     0%, 100% {
       transform: translateY(0);
@@ -118,7 +118,6 @@
     }
   }
   
-  /* Enhanced glow effect for titles */
   @keyframes title-glow {
     0%, 100% {
       text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
@@ -128,22 +127,6 @@
     }
   }
 
-  @keyframes scroll-hint-pulse {
-    0% {
-      transform: translateX(0);
-      opacity: 0.5;
-    }
-    50% {
-      transform: translateX(10px);
-      opacity: 1;
-    }
-    100% {
-      transform: translateX(0);
-      opacity: 0.5;
-    }
-  }
-
-  /* New cosmic dust effect */
   @keyframes cosmic-dust-float {
     0%, 100% {
       transform: translate(0, 0) rotate(0deg);
@@ -159,7 +142,6 @@
     }
   }
 
-  /* Enhanced star twinkle effect */
   @keyframes star-twinkle {
     0%, 100% {
       opacity: 0.4;
@@ -171,7 +153,6 @@
     }
   }
 
-  /* Space warp effect for transitions */
   @keyframes space-warp {
     0% {
       transform: scale(1);
@@ -187,7 +168,6 @@
     }
   }
   
-  /* Data nodes animation */
   @keyframes data-node-pulse {
     0%, 100% {
       transform: scale(1);
@@ -199,7 +179,6 @@
     }
   }
   
-  /* Connection lines animation */
   @keyframes connection-flow {
     0% {
       stroke-dashoffset: 100;
@@ -209,7 +188,6 @@
     }
   }
   
-  /* Shimmer effect */
   @keyframes shimmer {
     0% {
       background-position: -200% 0;
@@ -219,7 +197,6 @@
     }
   }
   
-  /* Hover glow effect */
   @keyframes hover-glow {
     0%, 100% {
       box-shadow: 0 0 5px rgba(99, 102, 241, 0.4);
@@ -229,7 +206,6 @@
     }
   }
   
-  /* Enhanced cosmic pulse for highlights */
   @keyframes cosmic-pulse {
     0%, 100% {
       box-shadow: 0 0 10px rgba(155, 135, 245, 0.4);
@@ -246,7 +222,7 @@
     100% { opacity: 0.8; }
   }
 
-  /* Immersive starfield animations */
+  /* Optimized starfield animations */
   @keyframes starfield-movement {
     0% {
       transform: translate3d(0, 0, 0);
@@ -352,32 +328,55 @@
     @apply border-border;
   }
   
-  /* Global scrolling behavior and layout optimization */
+  /* Optimized global scrolling behavior */
   html {
-    @apply overflow-x-hidden scroll-smooth;
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    /* Improved touch scrolling */
     -webkit-overflow-scrolling: touch;
+    /* Better momentum scrolling on iOS */
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: 100%;
   }
   
   body {
-    @apply bg-background text-foreground overflow-x-hidden relative w-full;
+    @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
-    /* Add mobile improvements */
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    /* Enhanced mobile touch handling */
     touch-action: pan-y;
     -webkit-tap-highlight-color: transparent;
+    /* Prevent text selection on mobile during scroll */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 
-  /* Remove horizontal scrolling on all elements */
+  /* Allow text selection on interactive elements */
+  input, textarea, [contenteditable] {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+
+  /* Prevent horizontal scrolling on all containers */
   body, div, section, article, main, header, footer, nav {
     max-width: 100vw;
+    box-sizing: border-box;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply tracking-tight font-bold;
   }
   
-  /* Enhanced style for page titles */
   h1.page-title {
     @apply text-4xl md:text-5xl lg:text-6xl font-bold relative z-10;
     animation: title-glow 3s ease-in-out infinite;
@@ -387,15 +386,18 @@
     @apply text-2xl md:text-3xl font-bold mb-4 relative;
   }
 
-  /* Make images responsive by default */
+  /* Responsive images */
   img {
     @apply max-w-full h-auto;
+    display: block;
   }
 
-  /* Optimize mobile layout */
+  /* Mobile optimizations */
   @media (max-width: 767px) {
     body {
       font-size: 0.95rem;
+      /* Better scroll performance on mobile */
+      will-change: scroll-position;
     }
     
     h1 {
@@ -409,6 +411,21 @@
     h1.page-title {
       @apply text-3xl;
     }
+
+    /* Reduce animations on mobile for better performance */
+    * {
+      animation-duration: 0.3s !important;
+      transition-duration: 0.3s !important;
+    }
+  }
+
+  /* Disable animations on low-performance devices */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -419,90 +436,65 @@
     background-size: 30px 30px;
   }
   
-  /* Style for gradient titles */
   .gradient-title {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 py-2 px-4 inline-block;
     background-size: 200% auto;
     animation: gradient-shift 8s ease infinite;
   }
   
-  /* Enhanced shadow glow effect for titles */
   .shadow-glow {
     text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(99, 102, 241, 0.3);
   }
   
-  /* Enhanced text glow effect */
   .text-shadow-lg {
     text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
   }
   
-  /* Styles for scroll indicators */
-  .pulse-scroll-hint {
-    position: relative;
-  }
-  
-  .pulse-scroll-hint::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 25px;
-    background: linear-gradient(to right, transparent, rgba(155, 135, 245, 0.3) 70%);
-    animation: scroll-hint-pulse 1.5s ease-in-out infinite;
-    pointer-events: none;
-    border-radius: 0 8px 8px 0;
-  }
-
-  /* Space themed card */
+  /* Optimized space card */
   .space-card {
     @apply bg-black/50 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-[0_0_20px_rgba(155,135,245,0.2)];
+    /* Better compositing */
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
   }
 
-  /* Cosmic hover effect for cards */
   .cosmic-hover {
     @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(155,135,245,0.2)];
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
   }
 
-  /* Space themed button */
   .space-button {
     @apply bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20;
   }
   
-  /* Professional card layouts for AI content */
   .ai-feature-card {
     @apply bg-black/30 backdrop-blur-md border border-portfolio-purple/20 rounded-xl p-6 transition-all duration-300 hover:border-portfolio-purple/50 hover:shadow-[0_0_15px_rgba(155,135,245,0.2)];
   }
   
-  /* Tech node */
   .tech-node {
     @apply w-3 h-3 rounded-full bg-portfolio-purple/80 absolute animate-pulse-slow;
   }
   
-  /* Connection lines */
   .connection-line {
     @apply absolute border-t border-portfolio-purple/20;
     transform-origin: left center;
   }
   
-  /* AI solutions card */
   .ai-solution-card {
     @apply bg-black/40 backdrop-blur-lg border border-indigo-500/20 rounded-xl overflow-hidden transition-all duration-300;
   }
   
-  /* Animated gradient button */
   .gradient-button {
     @apply relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity text-white rounded-md px-6 py-3 font-medium;
     background-size: 200% 100%;
     animation: gradient-shift 8s ease infinite;
   }
   
-  /* Data visualization container */
   .data-viz-container {
     @apply relative bg-black/20 backdrop-blur-md border border-indigo-500/20 rounded-xl overflow-hidden p-6;
   }
   
-  /* Shimmer text effect */
   .shimmer-text {
     @apply relative;
     background: linear-gradient(90deg, currentColor 0%, rgba(255,255,255,0.8) 50%, currentColor 100%);
@@ -513,17 +505,14 @@
     animation: shimmer 3s infinite linear;
   }
   
-  /* Glass space effect for UI elements */
   .glass-space {
     @apply backdrop-blur-md bg-black/40 border border-white/10 rounded-lg;
   }
   
-  /* Enhanced cosmic button */
   .cosmic-button {
     @apply relative overflow-hidden bg-black/50 backdrop-blur-md border border-white/20 px-6 py-2.5 rounded-lg text-white transition-all duration-300 hover:border-white/40 hover:shadow-[0_0_15px_rgba(155,135,245,0.3)];
   }
   
-  /* Glow button for call-to-actions */
   .glow-button {
     @apply relative bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2.5 rounded-lg transition-all;
     box-shadow: 0 0 15px rgba(155, 135, 245, 0.5);
@@ -532,37 +521,38 @@
     box-shadow: 0 0 30px rgba(155, 135, 245, 0.8);
   }
   
-  /* Value highlight for service cards */
   .value-tag {
     @apply absolute -right-16 top-6 transform rotate-45 bg-gradient-to-r from-blue-500 to-purple-500 py-1 px-12 text-white text-xs font-medium shadow-lg;
   }
 
-  /* Immersive starfield container */
+  /* Optimized starfield container */
   .immersive-starfield {
     @apply absolute inset-0 overflow-hidden;
     perspective: 1000px;
+    pointer-events: none;
   }
 
-  /* Star layers with different depths */
   .star-layer-1 {
     @apply absolute inset-0;
     animation: starfield-movement 120s linear infinite;
     z-index: 3;
+    will-change: transform;
   }
 
   .star-layer-2 {
     @apply absolute inset-0;
     animation: starfield-movement 200s linear infinite reverse;
     z-index: 2;
+    will-change: transform;
   }
 
   .star-layer-3 {
     @apply absolute inset-0;
     animation: deep-space-drift 300s ease-in-out infinite;
     z-index: 1;
+    will-change: transform;
   }
 
-  /* Individual star elements */
   .stellar-point {
     @apply absolute rounded-full;
     will-change: transform, opacity;
@@ -588,7 +578,6 @@
     animation-delay: 2s;
   }
 
-  /* Cosmic nebula effects */
   .cosmic-nebula {
     @apply absolute rounded-full blur-3xl;
     will-change: transform, opacity;
@@ -607,7 +596,6 @@
     background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, rgba(79,70,229,0.05) 50%, transparent 100%);
   }
 
-  /* Floating cosmic particles */
   .cosmic-particles {
     @apply absolute w-1 h-1 rounded-full;
     background: rgba(255,255,255,0.4);
@@ -615,7 +603,6 @@
     will-change: transform, opacity;
   }
 
-  /* Shooting star effect */
   .shooting-star {
     @apply absolute w-0.5 h-20;
     background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
@@ -647,17 +634,20 @@
     @apply bg-gradient-to-r from-portfolio-purple via-portfolio-blue to-portfolio-cyan;
   }
 
-  /* Enhanced animation utilities */
+  /* Optimized animation utilities */
   .animate-float {
     animation: float 6s ease-in-out infinite;
+    will-change: transform;
   }
 
   .animate-float-slow {
     animation: float-slow 10s ease-in-out infinite;
+    will-change: transform;
   }
 
   .animate-pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
+    will-change: opacity, box-shadow;
   }
 
   .animate-gradient-slow {
@@ -669,18 +659,22 @@
 
   .animate-cosmic-dust {
     animation: cosmic-dust-float 20s ease-in-out infinite;
+    will-change: transform;
   }
 
   .animate-star-twinkle {
     animation: star-twinkle 3s ease-in-out infinite;
+    will-change: opacity, box-shadow;
   }
 
   .animate-space-warp {
     animation: space-warp 8s ease-in-out infinite;
+    will-change: transform, opacity;
   }
   
   .animate-cosmic-pulse {
     animation: cosmic-pulse 3s ease-in-out infinite;
+    will-change: box-shadow, border-color;
   }
 
   .data-grid {
@@ -692,12 +686,10 @@
     text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(99, 102, 241, 0.3);
   }
 
-  /* Glass effect for space UI */
   .glass-space {
     @apply backdrop-blur-md bg-black/40 border border-white/10 rounded-lg;
   }
 
-  /* Nebula glows */
   .nebula-glow-blue {
     @apply absolute rounded-full blur-3xl opacity-30 bg-blue-600/30 animate-pulse-slow;
   }
@@ -706,12 +698,10 @@
     @apply absolute rounded-full blur-3xl opacity-30 bg-purple-600/30 animate-pulse-slow;
   }
   
-  /* Data flow effect */
   .data-flow-line {
     @apply absolute w-0.5 h-20 bg-portfolio-blue/50 animate-data-flow;
   }
   
-  /* Futuristic border effect */
   .futuristic-border {
     @apply relative border border-indigo-500/30 rounded-lg overflow-hidden;
     box-shadow: 
@@ -719,12 +709,10 @@
       0 0 15px rgba(99, 102, 241, 0.1);
   }
   
-  /* Tech grid background */
   .tech-grid-bg {
     @apply bg-neuron-pattern bg-[length:30px_30px];
   }
   
-  /* AI interface hover effect */
   .ai-hover-effect {
     @apply transition-all duration-300;
     &:hover {
@@ -733,7 +721,6 @@
     }
   }
   
-  /* Constellation background */
   .constellation-bg {
     background-image: 
       radial-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 1px),
@@ -742,7 +729,6 @@
     background-position: 0 0, 15px 15px;
   }
   
-  /* Space gradient card borders */
   .border-gradient {
     position: relative;
     background: linear-gradient(#000, #000) padding-box,
@@ -750,46 +736,55 @@
     border: 1px solid transparent;
   }
   
-  /* Space theme badge */
   .space-badge {
     @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-portfolio-purple to-portfolio-blue text-white shadow-sm;
   }
   
-  /* Improved mobile layout utilities */
-  .mobile-container {
-    @apply w-full px-4 py-4 mx-auto;
-  }
-  
-  .mobile-section {
-    @apply w-full py-8 overflow-x-hidden;
-  }
-  
-  /* Force center content horizontally */
-  .center-content {
-    @apply mx-auto max-w-full;
-  }
-  
-  /* No horizontal overflow allowed */
-  .no-horizontal-overflow {
-    @apply overflow-x-hidden max-w-full;
-  }
-  
-  /* Improved image lazy loading with blur up effect */
-  .lazy-image {
-    @apply transition-opacity duration-300;
-  }
-  
-  .lazy-image.loading {
-    @apply opacity-0;
-  }
-  
-  .lazy-image.loaded {
-    @apply opacity-100;
-  }
-  
-  /* Enhanced scroll experience */
+  /* Optimized scroll containers */
   .smooth-scroll-container {
-    @apply scroll-smooth;
+    scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    /* Prevent momentum scrolling conflicts */
+    overscroll-behavior: contain;
+  }
+
+  /* Mobile-specific optimizations */
+  .mobile-optimized {
+    /* Enhanced touch performance */
+    touch-action: manipulation;
+    /* Better text rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevent tap delays */
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* No horizontal overflow utilities */
+  .no-horizontal-overflow {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .prevent-scroll-conflicts {
+    /* Prevent scroll event bubbling issues */
+    overscroll-behavior: contain;
+    /* Ensure smooth scrolling */
+    scroll-behavior: smooth;
+  }
+
+  /* Performance optimizations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .reduce-blur-mobile {
+    @media (max-width: 768px) {
+      backdrop-filter: blur(4px) !important;
+      -webkit-backdrop-filter: blur(4px) !important;
+    }
   }
 }

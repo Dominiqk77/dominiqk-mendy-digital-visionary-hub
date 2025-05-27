@@ -2,6 +2,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { usePreventHorizontalScroll, useScrollToTop } from "@/hooks/use-mobile";
+import { useOptimizedScroll } from "@/hooks/use-optimized-scroll";
 
 interface PageContainerProps {
   children: React.ReactNode;
@@ -18,8 +19,9 @@ const PageContainer = ({
   noMaxWidth = false,
   noScrollReset = false
 }: PageContainerProps) => {
-  // Use hooks to manage scroll and prevent horizontal overflow
+  // Use optimized scroll hooks
   usePreventHorizontalScroll();
+  useOptimizedScroll();
   
   if (!noScrollReset) {
     useScrollToTop();
@@ -27,7 +29,7 @@ const PageContainer = ({
 
   return (
     <div className={cn(
-      "w-full px-4 md:px-6 mx-auto overflow-x-hidden relative z-10", 
+      "w-full px-4 md:px-6 mx-auto relative z-10 mobile-optimized prevent-scroll-conflicts no-horizontal-overflow", 
       !noMaxWidth && (fullWidth ? "max-w-[1600px]" : "max-w-[1400px]"),
       className
     )}>
