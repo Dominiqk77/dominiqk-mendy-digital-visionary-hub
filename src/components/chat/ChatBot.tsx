@@ -1,15 +1,26 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, Send, X, Calendar, Paperclip } from 'lucide-react';
+import { MessageCircle, Send, X, Calendar, Paperclip, Brain, Code, Phone } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp?: string;
+  isComplex?: boolean;
+}
 
 export const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { role: 'assistant', content: "Salut ! Je suis Dominiqk Mendy. Comment puis-je vous aider aujourd'hui ?" },
+  const [messages, setMessages] = useState<Message[]>([
+    { 
+      role: 'assistant', 
+      content: "Salut ! Je suis Dominiqk Mendy, consultant expert en IA et transformation digitale. Je peux vous aider avec vos questions techniques, débugger du code, discuter de vos projets ou simplement échanger. Comment puis-je vous assister aujourd'hui ?",
+      timestamp: new Date().toISOString()
+    },
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [apiKey, setApiKey] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -21,125 +32,63 @@ export const ChatBot = () => {
   }, [messages]);
 
   const handleSendMessage = async () => {
-    if (!inputMessage.trim()) return;
+    if (!inputMessage.trim() || isLoading) return;
 
-    const userMessage = { role: 'user', content: inputMessage };
+    const userMessage: Message = { 
+      role: 'user', 
+      content: inputMessage,
+      timestamp: new Date().toISOString()
+    };
+    
     setMessages(prevMessages => [...prevMessages, userMessage]);
     setInputMessage('');
     setIsLoading(true);
 
     try {
-      // Si pas de clé API, demander à l'utilisateur
-      let currentApiKey = apiKey;
-      if (!currentApiKey) {
-        const key = prompt("Veuillez entrer votre clé API Google Gemini pour activer les réponses intelligentes :");
-        if (key) {
-          setApiKey(key);
-          currentApiKey = key;
-        } else {
-          setMessages(prevMessages => [...prevMessages, { 
-            role: 'assistant', 
-            content: "Pour obtenir des réponses intelligentes, veuillez fournir votre clé API Google Gemini. Vous pouvez l'obtenir sur https://makersuite.google.com/app/apikey" 
-          }]);
-          setIsLoading(false);
-          return;
+      console.log("Envoi du message via Supabase Edge Function...");
+
+      const { data, error } = await supabase.functions.invoke('chat-ai', {
+        body: {
+          message: inputMessage,
+          conversationHistory: messages.slice(-10) // Keep last 10 messages for context
         }
-      }
-
-      console.log("Envoi de la requête à Gemini avec la clé API:", currentApiKey.substring(0, 10) + "...");
-
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${currentApiKey}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          contents: [{
-            parts: [{
-              text: `Tu es Dominiqk Mendy, un consultant expert en intelligence artificielle, développement web, et transformation digitale basé au Sénégal. Tu es professionnel, compétent et bienveillant. Tu as une expertise reconnue dans le domaine de l'IA et du développement digital. Réponds de manière naturelle, professionnelle et personnalisée à cette question en français : ${inputMessage}`
-            }]
-          }],
-          generationConfig: {
-            temperature: 0.8,
-            topK: 40,
-            topP: 0.95,
-            maxOutputTokens: 1000,
-          },
-          safetySettings: [
-            {
-              category: "HARM_CATEGORY_HARASSMENT",
-              threshold: "BLOCK_MEDIUM_AND_ABOVE"
-            },
-            {
-              category: "HARM_CATEGORY_HATE_SPEECH", 
-              threshold: "BLOCK_MEDIUM_AND_ABOVE"
-            },
-            {
-              category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-              threshold: "BLOCK_MEDIUM_AND_ABOVE"
-            },
-            {
-              category: "HARM_CATEGORY_DANGEROUS_CONTENT",
-              threshold: "BLOCK_MEDIUM_AND_ABOVE"
-            }
-          ]
-        }),
       });
 
-      console.log("Statut de la réponse:", response.status);
+      if (error) {
+        console.error("Erreur Supabase function:", error);
+        throw error;
+      }
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Erreur API détaillée:", errorData);
+      if (data?.response) {
+        const assistantMessage: Message = {
+          role: 'assistant',
+          content: data.response,
+          timestamp: data.timestamp,
+          isComplex: data.isComplex
+        };
         
-        if (response.status === 403) {
-          throw new Error("Clé API invalide ou non autorisée. Veuillez vérifier votre clé API Gemini.");
-        } else if (response.status === 400) {
-          throw new Error("Requête invalide. Veuillez réessayer.");
-        } else {
-          throw new Error(`Erreur API: ${response.status} - ${errorData.error?.message || 'Erreur inconnue'}`);
-        }
+        setMessages(prevMessages => [...prevMessages, assistantMessage]);
+      } else {
+        throw new Error("Aucune réponse reçue");
       }
-
-      const data = await response.json();
-      console.log("Réponse complète de Gemini:", data);
-      
-      const assistantReply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      
-      if (!assistantReply) {
-        console.error("Aucune réponse valide trouvée dans:", data);
-        throw new Error("Aucune réponse générée par l'IA");
-      }
-      
-      setMessages(prevMessages => [...prevMessages, { 
-        role: 'assistant', 
-        content: assistantReply.trim()
-      }]);
 
     } catch (error) {
       console.error("Erreur lors de l'envoi du message :", error);
       
-      let errorMessage = "Désolé, je rencontre actuellement des difficultés techniques.";
+      const errorMessage: Message = {
+        role: 'assistant',
+        content: "Je rencontre actuellement des difficultés techniques. En attendant, n'hésitez pas à me contacter directement pour toute question urgente ou consultation personnalisée.",
+        timestamp: new Date().toISOString()
+      };
       
-      if (error.message.includes("Clé API invalide")) {
-        errorMessage = "Votre clé API Gemini semble invalide. Veuillez vérifier que vous avez entré la bonne clé et qu'elle est activée pour l'API Generative Language.";
-        setApiKey(''); // Reset API key pour redemander
-      } else if (error.message.includes("403")) {
-        errorMessage = "Problème d'autorisation avec votre clé API. Assurez-vous que l'API Generative Language est activée dans votre projet Google Cloud.";
-        setApiKey(''); // Reset API key pour redemander
-      }
-      
-      setMessages(prevMessages => [...prevMessages, { 
-        role: 'assistant', 
-        content: errorMessage
-      }]);
+      setMessages(prevMessages => [...prevMessages, errorMessage]);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleReservation = () => {
-    console.log("Redirection vers la page de réservation");
+    console.log("Redirection vers la page de contact");
     window.open('/contact', '_blank');
   };
 
@@ -151,24 +100,39 @@ export const ChatBot = () => {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (file) {
         console.log("Fichier sélectionné:", file.name);
-        setMessages(prevMessages => [...prevMessages, { 
-          role: 'assistant', 
-          content: `J'ai bien reçu votre fichier "${file.name}". Pour le moment, je peux voir le nom du fichier. Dans une future mise à jour, je pourrai analyser son contenu. En attendant, n'hésitez pas à me décrire ce que vous souhaitez faire avec ce fichier.` 
-        }]);
+        const fileMessage: Message = {
+          role: 'assistant',
+          content: `J'ai bien reçu votre fichier "${file.name}". Je peux vous aider à analyser du code, diagnostiquer des erreurs, ou discuter de l'architecture. Décrivez-moi ce que vous souhaitez faire avec ce fichier ou quelle problématique vous rencontrez.`,
+          timestamp: new Date().toISOString()
+        };
+        setMessages(prevMessages => [...prevMessages, fileMessage]);
       }
     };
     input.click();
   };
 
+  const detectMessageType = (content: string) => {
+    const codeIndicators = ['```', 'function', 'const ', 'import ', 'class ', 'def ', 'error:', 'exception'];
+    const complexIndicators = ['projet', 'architecture', 'consultation', 'stratégie', 'transformation'];
+    
+    const hasCode = codeIndicators.some(indicator => content.toLowerCase().includes(indicator));
+    const isComplex = complexIndicators.some(indicator => content.toLowerCase().includes(indicator));
+    
+    return { hasCode, isComplex };
+  };
+
   return (
     <>
-      {/* Chat Button */}
+      {/* Chat Button with enhanced intelligence indicator */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-        aria-label="Ouvrir le chat"
+        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+        aria-label="Ouvrir le chat intelligent"
       >
-        <MessageCircle className="w-6 h-6" />
+        <div className="relative">
+          <MessageCircle className="w-6 h-6" />
+          <Brain className="w-3 h-3 absolute -top-1 -right-1 text-yellow-300 group-hover:animate-pulse" />
+        </div>
       </button>
 
       {/* Chat Dialog */}
@@ -251,7 +215,7 @@ export const ChatBot = () => {
               ))}
             </div>
 
-            {/* Header */}
+            {/* Enhanced Header */}
             <div className="flex items-center justify-between p-4 border-b border-white/10 relative z-[60] bg-black/20 backdrop-blur-sm">
               <div className="flex items-center space-x-3">
                 <div className="relative">
@@ -261,10 +225,14 @@ export const ChatBot = () => {
                     className="w-10 h-10 rounded-full object-cover border-2 border-blue-400/50"
                   />
                   <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-black/90"></div>
+                  <Brain className="absolute -top-1 -left-1 w-3 h-3 text-yellow-300 animate-pulse" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white">Dominiqk Mendy</h3>
-                  <p className="text-xs text-green-300 font-medium">Consultant Expert</p>
+                  <h3 className="font-semibold text-white flex items-center gap-2">
+                    Dominiqk Mendy
+                    <span className="text-xs bg-gradient-to-r from-purple-500 to-blue-500 px-2 py-1 rounded-full">AI Expert</span>
+                  </h3>
+                  <p className="text-xs text-green-300 font-medium">Consultant Ultra-Intelligent</p>
                 </div>
               </div>
               <button
@@ -275,49 +243,89 @@ export const ChatBot = () => {
               </button>
             </div>
 
-            {/* Action Buttons */}
+            {/* Enhanced Action Buttons */}
             <div className="flex gap-2 p-4 border-b border-white/10 relative z-[60] bg-black/20 backdrop-blur-sm">
               <button
                 onClick={handleReservation}
-                className="flex-1 bg-blue-600/80 hover:bg-blue-700/80 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 backdrop-blur-sm border border-blue-500/30"
+                className="flex-1 bg-blue-600/80 hover:bg-blue-700/80 text-white px-3 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 backdrop-blur-sm border border-blue-500/30 text-sm"
               >
                 <Calendar className="w-4 h-4" />
-                Réserver
+                RDV Expert
+              </button>
+              <button
+                onClick={() => window.open('tel:+212000000000', '_self')}
+                className="flex-1 bg-green-600/80 hover:bg-green-700/80 text-white px-3 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 backdrop-blur-sm border border-green-500/30 text-sm"
+              >
+                <Phone className="w-4 h-4" />
+                Appel
               </button>
               <button
                 onClick={handleFileUpload}
-                className="flex-1 bg-purple-600/80 hover:bg-purple-700/80 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 backdrop-blur-sm border border-purple-500/30"
+                className="flex-1 bg-purple-600/80 hover:bg-purple-700/80 text-white px-3 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 backdrop-blur-sm border border-purple-500/30 text-sm"
               >
-                <Paperclip className="w-4 h-4" />
-                Envoyer un fichier
+                <Code className="w-4 h-4" />
+                Code
               </button>
             </div>
 
-            {/* Messages Area */}
+            {/* Enhanced Messages Area */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 relative z-[55]">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
+              {messages.map((message, index) => {
+                const messageType = detectMessageType(message.content);
+                
+                return (
                   <div
-                    className={`max-w-[80%] p-3 rounded-lg backdrop-blur-sm relative z-[60] ${
-                      message.role === 'user'
-                        ? 'bg-blue-600/80 text-white ml-4 border border-blue-500/30'
-                        : 'bg-white/10 text-white mr-4 border border-white/20'
-                    }`}
+                    key={index}
+                    className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
-                    <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                    <div
+                      className={`max-w-[85%] p-3 rounded-lg backdrop-blur-sm relative z-[60] ${
+                        message.role === 'user'
+                          ? 'bg-blue-600/80 text-white ml-4 border border-blue-500/30'
+                          : `bg-white/10 text-white mr-4 border border-white/20 ${
+                              message.isComplex ? 'border-purple-400/40' : 
+                              messageType.hasCode ? 'border-green-400/40' : 'border-white/20'
+                            }`
+                      }`}
+                    >
+                      {message.role === 'assistant' && (messageType.hasCode || message.isComplex) && (
+                        <div className="flex items-center gap-2 mb-2 text-xs">
+                          {messageType.hasCode && (
+                            <span className="bg-green-500/20 text-green-300 px-2 py-1 rounded-full flex items-center gap-1">
+                              <Code className="w-3 h-3" />
+                              Code
+                            </span>
+                          )}
+                          {message.isComplex && (
+                            <span className="bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full flex items-center gap-1">
+                              <Brain className="w-3 h-3" />
+                              Expert
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                      {message.timestamp && (
+                        <p className="text-xs opacity-50 mt-2">
+                          {new Date(message.timestamp).toLocaleTimeString()}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
+              
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="bg-white/10 text-white p-3 rounded-lg mr-4 border border-white/20 backdrop-blur-sm relative z-[60]">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                    <div className="flex items-center space-x-2">
+                      <Brain className="w-4 h-4 text-purple-400 animate-pulse" />
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                      </div>
+                      <span className="text-xs text-purple-300">Analyse en cours...</span>
                     </div>
                   </div>
                 </div>
@@ -325,7 +333,7 @@ export const ChatBot = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Area */}
+            {/* Enhanced Input Area */}
             <div className="p-4 border-t border-white/10 relative z-[60] bg-black/20 backdrop-blur-sm">
               <div className="flex space-x-2">
                 <input
@@ -333,8 +341,8 @@ export const ChatBot = () => {
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
-                  placeholder="Tapez votre message..."
-                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 backdrop-blur-sm relative z-[60]"
+                  placeholder="Posez votre question technique, partagez du code, ou discutons..."
+                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 backdrop-blur-sm relative z-[60] text-sm"
                   disabled={isLoading}
                 />
                 <button
@@ -345,6 +353,9 @@ export const ChatBot = () => {
                   <Send className="w-5 h-5" />
                 </button>
               </div>
+              <p className="text-xs text-gray-400 mt-2 text-center">
+                💡 Je peux résoudre vos problèmes de code, débugger, conseiller sur l'architecture, et bien plus !
+              </p>
             </div>
           </div>
         </div>
