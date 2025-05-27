@@ -32,7 +32,7 @@ const FooterContact = ({ legalSection, contactInfo, className }: FooterContactPr
         </p>
         <p className="flex items-center gap-2">
           <MapPin className="h-4 w-4" />
-          {contactInfo.location}
+          Marrakech, Maroc / Londres, UK / Dakar, Sénégal / Canada / Belgique / Suisse
         </p>
       </address>
     </div>
