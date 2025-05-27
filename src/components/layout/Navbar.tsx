@@ -59,14 +59,14 @@ const Navbar = () => {
           {!isMobile && <DesktopNav navigation={navigationItems} />}
           
           {isMobile && (
-            <>
+            <div className="flex items-center">
               <MobileMenuButton onClick={toggleMobileMenu} isOpen={isOpen} />
               <MobileNav 
                 navigation={navigationItems}
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
               />
-            </>
+            </div>
           )}
         </div>
       </div>
