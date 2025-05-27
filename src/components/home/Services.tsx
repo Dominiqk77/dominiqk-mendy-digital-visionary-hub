@@ -365,22 +365,8 @@ const Services = () => {
             
             <TabsList 
               ref={tabsListRef}
-              className="bg-black/30 border border-white/10 backdrop-blur-md flex w-full md:w-auto p-1 rounded-lg relative smooth-scroll-container no-horizontal-overflow"
-              style={{ 
-                scrollbarWidth: 'none', 
-                msOverflowStyle: 'none',
-                overflowX: isMobile ? 'auto' : 'visible',
-                overflowY: 'hidden',
-                WebkitOverflowScrolling: 'touch',
-                scrollBehavior: 'smooth'
-              }}
+              className="bg-black/30 border border-white/10 backdrop-blur-md flex w-full md:w-auto p-1 rounded-lg relative services-tabs-list no-horizontal-overflow"
             >
-              <style jsx>{`
-                .TabsList::-webkit-scrollbar {
-                  display: none;
-                }
-              `}</style>
-              
               <TabsTrigger 
                 value="featured" 
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white px-4 py-2 flex-1 md:flex-none whitespace-nowrap transition-all duration-200"

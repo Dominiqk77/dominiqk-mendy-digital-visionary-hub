@@ -13,11 +13,12 @@ export const useOptimizedScroll = () => {
       html.style.overflowX = 'hidden';
       html.style.overscrollBehavior = 'none';
       
-      // Better touch performance
+      // Better touch performance with proper typing
       body.style.touchAction = 'pan-y';
       body.style.overflowX = 'hidden';
       body.style.overscrollBehaviorY = 'none';
-      body.style.WebkitOverflowScrolling = 'touch';
+      // Use type assertion for webkit-specific properties
+      (body.style as any).WebkitOverflowScrolling = 'touch';
 
       // Prevent horizontal scroll on all containers
       const containers = document.querySelectorAll('div, section, article, main, header, footer, nav');

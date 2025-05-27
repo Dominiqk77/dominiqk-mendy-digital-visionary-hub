@@ -150,6 +150,27 @@ img.fade-in.loaded {
   opacity: 1;
 }
 
+/* Services tabs list scrolling styles */
+.services-tabs-list {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.services-tabs-list::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .services-tabs-list {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}
+
 /* Mobile-specific optimizations */
 @media (max-width: 768px) {
   /* Faster transitions on mobile */
