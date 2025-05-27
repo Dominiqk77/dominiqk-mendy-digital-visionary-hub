@@ -1,11 +1,11 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, Send, X } from 'lucide-react';
+import { MessageCircle, Send, X, Calendar, Paperclip } from 'lucide-react';
 
 export const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: "Salut ! Je suis l'assistant IA. Comment puis-je vous aider aujourd'hui ?" },
+    { role: 'assistant', content: "Salut ! Je suis Dominiqk Mendy. Comment puis-je vous aider aujourd'hui ?" },
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +38,27 @@ export const ChatBot = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleReservation = () => {
+    // Fonction pour gérer la réservation
+    console.log("Redirection vers la page de réservation");
+    window.open('/contact', '_blank');
+  };
+
+  const handleFileUpload = () => {
+    // Fonction pour gérer l'upload de fichier
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '*/*';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        console.log("Fichier sélectionné:", file.name);
+        // Ici on pourrait traiter le fichier
+      }
+    };
+    input.click();
   };
 
   return (
@@ -136,40 +157,58 @@ export const ChatBot = () => {
             </div>
 
             {/* Header - with higher z-index */}
-            <div className="flex items-center justify-between p-4 border-b border-white/10 relative z-20">
+            <div className="flex items-center justify-between p-4 border-b border-white/10 relative z-50 bg-black/20 backdrop-blur-sm">
               <div className="flex items-center space-x-3">
                 <div className="relative">
                   <img 
                     src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
-                    alt="Assistant IA" 
+                    alt="Dominiqk Mendy" 
                     className="w-10 h-10 rounded-full object-cover border-2 border-blue-400/50"
                   />
                   <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-black/90"></div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white">Assistant IA</h3>
+                  <h3 className="font-semibold text-white">Dominiqk Mendy</h3>
                   <p className="text-xs text-green-300 font-medium">Consultant Expert</p>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-white transition-colors p-1 z-30"
+                className="text-gray-400 hover:text-white transition-colors p-1 z-50"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
+            {/* Action Buttons - avec z-index élevé */}
+            <div className="flex gap-2 p-4 border-b border-white/10 relative z-50 bg-black/20 backdrop-blur-sm">
+              <button
+                onClick={handleReservation}
+                className="flex-1 bg-blue-600/80 hover:bg-blue-700/80 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 backdrop-blur-sm border border-blue-500/30"
+              >
+                <Calendar className="w-4 h-4" />
+                Réserver
+              </button>
+              <button
+                onClick={handleFileUpload}
+                className="flex-1 bg-purple-600/80 hover:bg-purple-700/80 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 backdrop-blur-sm border border-purple-500/30"
+              >
+                <Paperclip className="w-4 h-4" />
+                Envoyer un fichier
+              </button>
+            </div>
+
             {/* Messages Area - with higher z-index */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 relative z-10">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 relative z-40">
               {messages.map((message, index) => (
                 <div
                   key={index}
                   className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[80%] p-3 rounded-lg backdrop-blur-sm relative z-20 ${
+                    className={`max-w-[80%] p-3 rounded-lg backdrop-blur-sm relative z-50 ${
                       message.role === 'user'
-                        ? 'bg-blue-600/80 text-white ml-4'
+                        ? 'bg-blue-600/80 text-white ml-4 border border-blue-500/30'
                         : 'bg-white/10 text-white mr-4 border border-white/20'
                     }`}
                   >
@@ -179,7 +218,7 @@ export const ChatBot = () => {
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white/10 text-white p-3 rounded-lg mr-4 border border-white/20 backdrop-blur-sm relative z-20">
+                  <div className="bg-white/10 text-white p-3 rounded-lg mr-4 border border-white/20 backdrop-blur-sm relative z-50">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
@@ -192,7 +231,7 @@ export const ChatBot = () => {
             </div>
 
             {/* Input Area - with highest z-index */}
-            <div className="p-4 border-t border-white/10 relative z-30">
+            <div className="p-4 border-t border-white/10 relative z-50 bg-black/20 backdrop-blur-sm">
               <div className="flex space-x-2">
                 <input
                   type="text"
@@ -200,13 +239,13 @@ export const ChatBot = () => {
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
                   placeholder="Tapez votre message..."
-                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 backdrop-blur-sm relative z-30"
+                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 backdrop-blur-sm relative z-50"
                   disabled={isLoading}
                 />
                 <button
                   onClick={handleSendMessage}
                   disabled={isLoading || !inputMessage.trim()}
-                  className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white p-2 rounded-lg transition-colors relative z-30 flex-shrink-0"
+                  className="bg-blue-600/80 hover:bg-blue-700/80 disabled:bg-gray-600/80 text-white p-2 rounded-lg transition-colors relative z-50 flex-shrink-0 border border-blue-500/30 backdrop-blur-sm"
                 >
                   <Send className="w-5 h-5" />
                 </button>
