@@ -30,10 +30,12 @@ export const ChatBot = () => {
 
     try {
       // Si pas de clé API, demander à l'utilisateur
-      if (!apiKey) {
+      let currentApiKey = apiKey;
+      if (!currentApiKey) {
         const key = prompt("Veuillez entrer votre clé API Google Gemini pour activer les réponses intelligentes :");
         if (key) {
           setApiKey(key);
+          currentApiKey = key;
         } else {
           setMessages(prevMessages => [...prevMessages, { 
             role: 'assistant', 
@@ -44,7 +46,9 @@ export const ChatBot = () => {
         }
       }
 
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
+      console.log("Envoi de la requête à Gemini avec la clé API:", currentApiKey.substring(0, 10) + "...");
+
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${currentApiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,34 +56,82 @@ export const ChatBot = () => {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Tu es Dominiqk Mendy, un consultant expert en intelligence artificielle, développement web, et transformation digitale. Tu es professionnel, compétent et bienveillant. Réponds de manière naturelle et professionnelle à cette question : ${inputMessage}`
+              text: `Tu es Dominiqk Mendy, un consultant expert en intelligence artificielle, développement web, et transformation digitale basé au Sénégal. Tu es professionnel, compétent et bienveillant. Tu as une expertise reconnue dans le domaine de l'IA et du développement digital. Réponds de manière naturelle, professionnelle et personnalisée à cette question en français : ${inputMessage}`
             }]
           }],
           generationConfig: {
-            temperature: 0.7,
+            temperature: 0.8,
             topK: 40,
             topP: 0.95,
-            maxOutputTokens: 1024,
-          }
+            maxOutputTokens: 1000,
+          },
+          safetySettings: [
+            {
+              category: "HARM_CATEGORY_HARASSMENT",
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+              category: "HARM_CATEGORY_HATE_SPEECH", 
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+              category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+              category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            }
+          ]
         }),
       });
 
+      console.log("Statut de la réponse:", response.status);
+
       if (!response.ok) {
-        throw new Error(`Erreur API: ${response.status}`);
+        const errorData = await response.json();
+        console.error("Erreur API détaillée:", errorData);
+        
+        if (response.status === 403) {
+          throw new Error("Clé API invalide ou non autorisée. Veuillez vérifier votre clé API Gemini.");
+        } else if (response.status === 400) {
+          throw new Error("Requête invalide. Veuillez réessayer.");
+        } else {
+          throw new Error(`Erreur API: ${response.status} - ${errorData.error?.message || 'Erreur inconnue'}`);
+        }
       }
 
       const data = await response.json();
-      const assistantReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu traiter votre demande.";
+      console.log("Réponse complète de Gemini:", data);
+      
+      const assistantReply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      
+      if (!assistantReply) {
+        console.error("Aucune réponse valide trouvée dans:", data);
+        throw new Error("Aucune réponse générée par l'IA");
+      }
       
       setMessages(prevMessages => [...prevMessages, { 
         role: 'assistant', 
-        content: assistantReply 
+        content: assistantReply.trim()
       }]);
+
     } catch (error) {
       console.error("Erreur lors de l'envoi du message :", error);
+      
+      let errorMessage = "Désolé, je rencontre actuellement des difficultés techniques.";
+      
+      if (error.message.includes("Clé API invalide")) {
+        errorMessage = "Votre clé API Gemini semble invalide. Veuillez vérifier que vous avez entré la bonne clé et qu'elle est activée pour l'API Generative Language.";
+        setApiKey(''); // Reset API key pour redemander
+      } else if (error.message.includes("403")) {
+        errorMessage = "Problème d'autorisation avec votre clé API. Assurez-vous que l'API Generative Language est activée dans votre projet Google Cloud.";
+        setApiKey(''); // Reset API key pour redemander
+      }
+      
       setMessages(prevMessages => [...prevMessages, { 
         role: 'assistant', 
-        content: "Désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants ou vérifier votre clé API." 
+        content: errorMessage
       }]);
     } finally {
       setIsLoading(false);
@@ -126,7 +178,6 @@ export const ChatBot = () => {
             
             {/* Enhanced Immersive Starfield Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-              {/* Deep space nebulae */}
               <div className="cosmic-nebula blue w-96 h-96 -top-20 -left-20"></div>
               <div className="cosmic-nebula purple w-80 h-80 -bottom-10 -right-10" style={{animationDelay: '20s'}}></div>
               <div className="cosmic-nebula indigo w-72 h-72 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" style={{animationDelay: '40s'}}></div>
