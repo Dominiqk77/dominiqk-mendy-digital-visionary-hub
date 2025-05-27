@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -10,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowRight, Award, Book, Briefcase, Calendar, Check, GraduationCap, Laptop, Landmark, Star, Users, Globe, Rocket, Brain, Code2, Heart, MapPin, Lightbulb, Target } from 'lucide-react';
+import { ArrowRight, Award, Book, Briefcase, Calendar, Check, GraduationCap, Laptop, Landmark, Star, Users, Globe, Rocket, Brain, Code2, Heart, MapPin, Lightbulb, Target, Building2, TrendingUp, Zap, Crown, Sparkles } from 'lucide-react';
 
 const AboutPage = () => {
   // Set page metadata
@@ -28,42 +27,67 @@ const AboutPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Career timeline data
+  // Enhanced career timeline data with visual elements
   const careerTimeline = [
     {
       year: "2023 - Présent",
       title: "Fondateur & CEO",
       company: "Millennium Capital Invest Ltd",
       description: "Direction de projets innovants à l'échelle internationale et développement de solutions digitales pour clients de divers continents.",
-      location: "Marrakech / Londres / Remote"
+      location: "Marrakech / Londres / Remote",
+      icon: <Crown className="w-8 h-8" />,
+      color: "from-yellow-500 to-orange-500",
+      bgColor: "from-yellow-500/10 to-orange-500/10",
+      achievements: ["Leadership International", "Innovation Digitale", "Vision Stratégique", "Impact Global"],
+      level: "CEO"
     },
     {
       year: "2020 - 2023",
       title: "Consultant Senior en Transformation Digitale",
       company: "Millennium Capital Invest Ltd",
       description: "Accompagnement d'entreprises internationales dans leur transition numérique et formation de talents locaux et internationaux.",
-      location: "Marrakech, Maroc"
+      location: "Marrakech, Maroc",
+      icon: <TrendingUp className="w-8 h-8" />,
+      color: "from-blue-500 to-indigo-500",
+      bgColor: "from-blue-500/10 to-indigo-500/10",
+      achievements: ["Transformation Digitale", "Formation Internationale", "Consulting Expert", "Projets Stratégiques"],
+      level: "Senior"
     },
     {
       year: "2018 - 2020",
       title: "Lead Developer & Chef de Projet Tech",
       company: "GlobalTech Solutions",
       description: "Direction d'une équipe de 8 développeurs et architecte principal sur des projets fintech et e-commerce internationaux.",
-      location: "Marrakech / Remote"
+      location: "Marrakech / Remote",
+      icon: <Rocket className="w-8 h-8" />,
+      color: "from-purple-500 to-pink-500",
+      bgColor: "from-purple-500/10 to-pink-500/10",
+      achievements: ["Leadership Équipe", "Architecture Technique", "Projets Fintech", "E-commerce International"],
+      level: "Lead"
     },
     {
       year: "2015 - 2018",
       title: "Développeur Full-Stack Senior",
       company: "InnovateTech Ltd",
       description: "Développement de solutions web complexes et intégration de technologies IA pour des clients internationaux.",
-      location: "Marrakech, Maroc / Remote"
+      location: "Marrakech, Maroc / Remote",
+      icon: <Code2 className="w-8 h-8" />,
+      color: "from-green-500 to-emerald-500",
+      bgColor: "from-green-500/10 to-emerald-500/10",
+      achievements: ["Développement IA", "Solutions Complexes", "Clients Internationaux", "Innovation Tech"],
+      level: "Senior"
     },
     {
       year: "2012 - 2015",
       title: "Développeur Full-Stack",
       company: "WebWorks International",
       description: "Création de sites e-commerce et plateformes web pour PME et startups européennes et nord-africaines.",
-      location: "Marrakech, Maroc / Remote"
+      location: "Marrakech, Maroc / Remote",
+      icon: <Laptop className="w-8 h-8" />,
+      color: "from-teal-500 to-cyan-500",
+      bgColor: "from-teal-500/10 to-cyan-500/10",
+      achievements: ["E-commerce", "Startups", "PME Européennes", "Bases Solides"],
+      level: "Developer"
     }
   ];
 
@@ -487,52 +511,318 @@ const AboutPage = () => {
           </PageContainer>
         </section>
         
-        {/* Career Timeline */}
-        <section className="py-20">
+        {/* Enhanced Career Timeline - Ultra Creative Design */}
+        <section className="py-20 relative overflow-hidden">
+          {/* Cosmic background effects */}
+          <div className="absolute inset-0">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '3s'}}></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-yellow-500/15 to-orange-500/15 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1.5s'}}></div>
+          </div>
+
+          {/* Floating particles */}
+          <div className="absolute inset-0 opacity-30">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 bg-white rounded-full"
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: [0, 1, 0],
+                  scale: [0.5, 1.5, 0.5],
+                  y: [0, -100, 0]
+                }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 8 + i * 0.5,
+                  delay: i * 0.8
+                }}
+                style={{
+                  top: `${20 + Math.random() * 60}%`,
+                  left: `${10 + Math.random() * 80}%`,
+                }}
+              />
+            ))}
+          </div>
+
           <PageContainer>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4 text-white">Parcours Professionnel</h2>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
-            </div>
-            
-            <div className="relative">
-              {/* Vertical line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-portfolio-blue via-portfolio-purple to-portfolio-blue z-10"></div>
-              
-              <div className="space-y-20">
-                {careerTimeline.map((item, idx) => (
-                  <motion.div 
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className={`flex items-center ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+            <div className="max-w-7xl mx-auto relative z-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-20"
+              >
+                <div className="flex justify-center mb-6">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                    className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 p-4 shadow-xl"
                   >
-                    <div className={`w-full md:w-1/2 ${idx % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
-                      <div className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-primary/30 transition-all duration-300">
-                        <div className="text-primary font-semibold mb-1">{item.year}</div>
-                        <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                        <div className="text-lg text-white/80 mb-2">{item.company}</div>
-                        <p className="text-gray-300">{item.description}</p>
-                        <div className="flex items-center mt-3 text-sm text-primary/80 gap-2 justify-start">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                          </svg>
-                          {item.location}
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="hidden md:block relative w-12 z-20">
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-gradient-to-r from-portfolio-blue to-portfolio-purple border-4 border-black"></div>
-                    </div>
-                    
-                    <div className="hidden md:block w-1/2"></div>
+                    <Briefcase className="w-full h-full text-white" />
                   </motion.div>
-                ))}
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                  Parcours <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-400 bg-clip-text text-transparent">Professionnel</span>
+                </h2>
+                <div className="h-1 w-32 bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-400 mx-auto mb-6"></div>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                  Une évolution constante vers l'excellence, marquée par l'innovation et l'impact international
+                </p>
+              </motion.div>
+              
+              {/* Career Evolution Path */}
+              <div className="relative">
+                {/* Central Timeline Spine */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-500 via-purple-500 via-green-500 to-yellow-500 z-10 rounded-full shadow-lg"></div>
+                
+                {/* Experience Cards */}
+                <div className="space-y-24">
+                  {careerTimeline.map((item, idx) => (
+                    <motion.div 
+                      key={idx}
+                      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 0.8, delay: idx * 0.2 }}
+                      className={`flex items-center ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8`}
+                    >
+                      {/* Experience Card */}
+                      <div className={`w-full md:w-5/12 ${idx % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}>
+                        <motion.div
+                          whileHover={{ scale: 1.02, y: -5 }}
+                          className={`relative bg-gradient-to-br ${item.bgColor} backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-xl overflow-hidden group`}
+                        >
+                          {/* Background Glow Effect */}
+                          <div className={`absolute inset-0 bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                          
+                          {/* Decorative Elements */}
+                          <div className={`absolute top-4 right-4 w-16 h-16 bg-gradient-to-r ${item.color} opacity-20 rounded-full blur-xl group-hover:opacity-40 transition-opacity`}></div>
+                          <div className={`absolute bottom-4 left-4 w-8 h-8 bg-gradient-to-r ${item.color} opacity-30 rounded-full blur-lg`}></div>
+                          
+                          {/* Content */}
+                          <div className="relative z-10">
+                            {/* Header */}
+                            <div className="flex items-start justify-between mb-6">
+                              <div className="flex items-center gap-4">
+                                <motion.div
+                                  whileHover={{ rotate: 360, scale: 1.1 }}
+                                  transition={{ duration: 0.5 }}
+                                  className={`w-14 h-14 rounded-full bg-gradient-to-r ${item.color} p-3 flex items-center justify-center text-white shadow-lg`}
+                                >
+                                  {item.icon}
+                                </motion.div>
+                                <div>
+                                  <Badge variant="outline" className={`text-xs font-semibold mb-2 border-gradient bg-gradient-to-r ${item.color} text-white border-0`}>
+                                    {item.level}
+                                  </Badge>
+                                  <p className="text-sm font-semibold text-gray-400 uppercase tracking-wider">{item.year}</p>
+                                </div>
+                              </div>
+                              <motion.div
+                                animate={{ rotate: [0, 10, -10, 0] }}
+                                transition={{ duration: 4, repeat: Infinity }}
+                                className="flex items-center gap-1 text-yellow-400"
+                              >
+                                <Sparkles className="w-4 h-4" />
+                                <Star className="w-3 h-3" />
+                              </motion.div>
+                            </div>
+                            
+                            {/* Job Details */}
+                            <h3 className="text-2xl font-bold text-white mb-2 leading-tight">
+                              {item.title}
+                            </h3>
+                            <div className="flex items-center gap-2 mb-4">
+                              <Building2 className="w-4 h-4 text-primary" />
+                              <span className="text-lg text-primary font-semibold">{item.company}</span>
+                            </div>
+                            
+                            <p className="text-gray-300 leading-relaxed mb-6">
+                              {item.description}
+                            </p>
+                            
+                            {/* Location */}
+                            <div className="flex items-center gap-2 mb-6 text-sm text-gray-400">
+                              <MapPin className="w-4 h-4 text-primary" />
+                              <span>{item.location}</span>
+                            </div>
+                            
+                            {/* Achievements */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                              {item.achievements.map((achievement, achIdx) => (
+                                <motion.div
+                                  key={achIdx}
+                                  initial={{ opacity: 0, x: -20 }}
+                                  whileInView={{ opacity: 1, x: 0 }}
+                                  viewport={{ once: true }}
+                                  transition={{ duration: 0.4, delay: 0.1 * achIdx }}
+                                  className="flex items-center gap-3 p-3 rounded-lg bg-black/30 backdrop-blur-sm border border-white/10 hover:border-primary/30 transition-all group/achievement"
+                                >
+                                  <motion.div 
+                                    whileHover={{ scale: 1.2, rotate: 180 }}
+                                    className={`w-3 h-3 rounded-full bg-gradient-to-r ${item.color} shadow-md group-hover/achievement:shadow-lg`}
+                                  ></motion.div>
+                                  <span className="text-white text-sm font-medium group-hover/achievement:text-primary transition-colors">
+                                    {achievement}
+                                  </span>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        </motion.div>
+                      </div>
+                      
+                      {/* Central Timeline Node */}
+                      <div className="hidden md:block relative w-2/12 z-20">
+                        <motion.div
+                          whileHover={{ scale: 1.2, rotate: 360 }}
+                          transition={{ duration: 0.5 }}
+                          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                        >
+                          <div className={`relative w-16 h-16 rounded-full bg-gradient-to-r ${item.color} border-4 border-black shadow-xl`}>
+                            <div className="absolute inset-2 rounded-full bg-black flex items-center justify-center">
+                              <div className={`w-6 h-6 rounded-full bg-gradient-to-r ${item.color}`}></div>
+                            </div>
+                            
+                            {/* Pulsing rings */}
+                            <motion.div
+                              animate={{ scale: [1, 1.5, 1], opacity: [0.7, 0, 0.7] }}
+                              transition={{ duration: 2, repeat: Infinity, delay: idx * 0.3 }}
+                              className={`absolute inset-0 rounded-full border-2 border-gradient bg-gradient-to-r ${item.color}`}
+                            />
+                          </div>
+                        </motion.div>
+                      </div>
+                      
+                      {/* Visual Representation */}
+                      <div className={`hidden md:block w-5/12 ${idx % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}`}>
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.8, delay: 0.3 }}
+                          whileHover={{ scale: 1.05, rotate: 2 }}
+                          className={`relative w-full h-80 rounded-2xl bg-gradient-to-br ${item.bgColor} backdrop-blur-md border border-white/20 shadow-xl overflow-hidden`}
+                        >
+                          {/* Abstract Visual Elements */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
+                          
+                          {/* Floating Elements */}
+                          <div className="absolute inset-0 p-8">
+                            {Array.from({ length: 6 }).map((_, i) => (
+                              <motion.div
+                                key={i}
+                                animate={{ 
+                                  y: [0, -20, 0],
+                                  opacity: [0.3, 0.8, 0.3],
+                                  scale: [0.8, 1.2, 0.8]
+                                }}
+                                transition={{ 
+                                  duration: 3 + i * 0.5, 
+                                  repeat: Infinity,
+                                  delay: i * 0.5
+                                }}
+                                className={`absolute w-4 h-4 rounded-full bg-gradient-to-r ${item.color} opacity-60 blur-sm`}
+                                style={{
+                                  top: `${20 + Math.random() * 60}%`,
+                                  left: `${20 + Math.random() * 60}%`,
+                                }}
+                              />
+                            ))}
+                          </div>
+                          
+                          {/* Central Icon */}
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <motion.div
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                              className={`w-24 h-24 rounded-full bg-gradient-to-r ${item.color} p-6 shadow-2xl`}
+                            >
+                              {item.icon}
+                            </motion.div>
+                          </div>
+                          
+                          {/* Year Badge */}
+                          <div className="absolute bottom-6 right-6">
+                            <div className={`px-4 py-2 rounded-full bg-gradient-to-r ${item.color} text-white font-bold text-sm shadow-lg`}>
+                              {item.year}
+                            </div>
+                          </div>
+                          
+                          {/* Level Indicator */}
+                          <div className="absolute top-6 left-6">
+                            <div className="bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-white text-xs font-semibold border border-white/20">
+                              {item.level}
+                            </div>
+                          </div>
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
+              
+              {/* Career Evolution Summary */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mt-24 text-center"
+              >
+                <div className="bg-gradient-to-r from-black/60 via-blue-900/20 to-black/60 backdrop-blur-md rounded-3xl p-12 border border-white/10 relative overflow-hidden">
+                  {/* Background effects */}
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
+                  <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
+                  
+                  <div className="relative z-10">
+                    <div className="flex justify-center mb-6">
+                      <motion.div
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                        className="w-16 h-16 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 p-4 shadow-xl"
+                      >
+                        <TrendingUp className="w-full h-full text-white" />
+                      </motion.div>
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">Évolution Professionnelle</h3>
+                    <p className="text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8">
+                      Plus de 15 années d'évolution constante, de développeur passionné à leader international en transformation digitale. 
+                      Chaque étape a contribué à forger une expertise unique, alliant excellence technique et vision stratégique pour 
+                      accompagner les entreprises vers l'avenir digital.
+                    </p>
+                    
+                    {/* Key Metrics */}
+                    <div className="grid md:grid-cols-4 gap-6 mt-10">
+                      {[
+                        { label: "Années d'expérience", value: "15+", icon: <Calendar className="w-6 h-6" /> },
+                        { label: "Projets réalisés", value: "200+", icon: <Target className="w-6 h-6" /> },
+                        { label: "Pays d'intervention", value: "10+", icon: <Globe className="w-6 h-6" /> },
+                        { label: "Technologies maîtrisées", value: "25+", icon: <Zap className="w-6 h-6" /> }
+                      ].map((metric, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          className="group"
+                        >
+                          <Card className="h-full bg-black/50 border border-white/10 hover:border-primary/30 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/10">
+                            <CardContent className="p-6 text-center">
+                              <div className="text-primary mb-3 group-hover:scale-110 transition-transform flex justify-center">
+                                {metric.icon}
+                              </div>
+                              <div className="text-3xl font-bold text-white mb-2">{metric.value}</div>
+                              <p className="text-gray-300 text-sm">{metric.label}</p>
+                            </CardContent>
+                          </Card>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </PageContainer>
         </section>
