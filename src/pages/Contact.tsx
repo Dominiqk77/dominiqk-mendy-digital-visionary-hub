@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -14,6 +13,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -31,6 +31,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 
 // Data Line Animation Component
 const DataLines = () => {
@@ -87,17 +88,59 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Adresse email invalide.",
   }),
+  phone: z.string().optional(),
+  company: z.string().optional(),
   subject: z.string().min(3, {
     message: "Le sujet doit contenir au moins 3 caractères.",
+  }),
+  request_type: z.string().min(1, {
+    message: "Veuillez sélectionner un type de demande.",
   }),
   message: z.string().min(10, {
     message: "Le message doit contenir au moins 10 caractères.",
   }),
+  budget_range: z.string().optional(),
+  project_timeline: z.string().optional(),
 });
+
+const REQUEST_TYPES = [
+  { value: "consultation-ia", label: "Consultation en IA" },
+  { value: "developpement-web", label: "Développement Web" },
+  { value: "transformation-digitale", label: "Transformation Digitale" },
+  { value: "conseil-strategie", label: "Conseil & Stratégie" },
+  { value: "formation-ia", label: "Formation en IA" },
+  { value: "analyse-donnees", label: "Analyse de Données" },
+  { value: "automatisation", label: "Automatisation de Processus" },
+  { value: "ecommerce", label: "Solution E-commerce" },
+  { value: "application-mobile", label: "Application Mobile" },
+  { value: "marketing-digital", label: "Marketing Digital" },
+  { value: "gouvernance-electronique", label: "E-Gouvernance" },
+  { value: "chatbot-ia", label: "Chatbot & IA Conversationnelle" },
+  { value: "audit-technique", label: "Audit Technique" },
+  { value: "autres", label: "Autres demandes" }
+];
+
+const BUDGET_RANGES = [
+  { value: "moins-5k", label: "Moins de 5 000€" },
+  { value: "5k-15k", label: "5 000€ - 15 000€" },
+  { value: "15k-50k", label: "15 000€ - 50 000€" },
+  { value: "50k-100k", label: "50 000€ - 100 000€" },
+  { value: "plus-100k", label: "Plus de 100 000€" },
+  { value: "a-discuter", label: "À discuter" }
+];
+
+const PROJECT_TIMELINES = [
+  { value: "urgent", label: "Urgent (moins d'1 mois)" },
+  { value: "court-terme", label: "Court terme (1-3 mois)" },
+  { value: "moyen-terme", label: "Moyen terme (3-6 mois)" },
+  { value: "long-terme", label: "Long terme (6+ mois)" },
+  { value: "flexible", label: "Flexible" }
+];
 
 const Contact = () => {
   const { toast } = useToast();
   const [stars, setStars] = useState<{ x: number; y: number; size: number; opacity: number }[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   useEffect(() => {
     // Set page title for SEO
@@ -129,22 +172,69 @@ const Contact = () => {
     defaultValues: {
       name: "",
       email: "",
+      phone: "",
+      company: "",
       subject: "",
+      request_type: "",
       message: "",
+      budget_range: "",
+      project_timeline: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    // Here you would typically send the form data to your backend
-    
-    toast({
-      title: "Message envoyé!",
-      description: "Votre message a été envoyé avec succès. Je vous répondrai dans les plus brefs délais.",
-    });
-    
-    // Reset form
-    form.reset();
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+    console.log('Form submission started:', values);
+
+    try {
+      // Préparer les données pour Supabase
+      const submissionData = {
+        name: values.name,
+        email: values.email,
+        phone: values.phone || null,
+        company: values.company || null,
+        subject: values.subject,
+        request_type: values.request_type,
+        message: values.message,
+        budget_range: values.budget_range || null,
+        project_timeline: values.project_timeline || null,
+        source_page: '/contact',
+        status: 'nouveau',
+        lead_score: 0
+      };
+
+      console.log('Inserting data into Supabase:', submissionData);
+
+      // Insérer dans Supabase
+      const { data, error } = await supabase
+        .from('contact_submissions')
+        .insert([submissionData])
+        .select();
+
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
+
+      console.log('Data inserted successfully:', data);
+
+      toast({
+        title: "Message envoyé avec succès!",
+        description: "Votre demande a été enregistrée. Je vous répondrai dans les plus brefs délais.",
+      });
+      
+      // Reset form
+      form.reset();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Erreur lors de l'envoi",
+        description: "Une erreur s'est produite. Veuillez réessayer ou m'envoyer un email directement.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -329,7 +419,7 @@ const Contact = () => {
                     <div className="absolute inset-0 bg-indigo-600 rounded-full"></div>
                   </div>
                   
-                  <h2 className="text-2xl font-bold mb-6 text-white">Envoyez-moi un message</h2>
+                  <h2 className="text-2xl font-bold mb-6 text-white">Envoyez-moi un message détaillé</h2>
                   <div className="h-1 w-12 bg-indigo-500 mb-6"></div>
                   
                   <Form {...form}>
@@ -363,7 +453,62 @@ const Contact = () => {
                           )}
                         />
                       </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <FormField
+                          control={form.control}
+                          name="phone"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-gray-200">Téléphone</FormLabel>
+                              <FormControl>
+                                <Input placeholder="+221 XX XXX XX XX" {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="company"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-gray-200">Entreprise</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Nom de votre entreprise" {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
                       
+                      <FormField
+                        control={form.control}
+                        name="request_type"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Type de demande*</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger className="bg-gray-900/50 border-white/10 text-white">
+                                  <SelectValue placeholder="Sélectionnez le type de votre demande" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent className="bg-gray-900 border-white/10">
+                                {REQUEST_TYPES.map((type) => (
+                                  <SelectItem key={type.value} value={type.value} className="text-white hover:bg-gray-800">
+                                    {type.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
                       <FormField
                         control={form.control}
                         name="subject"
@@ -377,17 +522,69 @@ const Contact = () => {
                           </FormItem>
                         )}
                       />
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <FormField
+                          control={form.control}
+                          name="budget_range"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-gray-200">Budget estimé</FormLabel>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                  <SelectTrigger className="bg-gray-900/50 border-white/10 text-white">
+                                    <SelectValue placeholder="Sélectionnez votre budget" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent className="bg-gray-900 border-white/10">
+                                  {BUDGET_RANGES.map((budget) => (
+                                    <SelectItem key={budget.value} value={budget.value} className="text-white hover:bg-gray-800">
+                                      {budget.label}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name="project_timeline"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-gray-200">Délais souhaités</FormLabel>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                  <SelectTrigger className="bg-gray-900/50 border-white/10 text-white">
+                                    <SelectValue placeholder="Sélectionnez vos délais" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent className="bg-gray-900 border-white/10">
+                                  {PROJECT_TIMELINES.map((timeline) => (
+                                    <SelectItem key={timeline.value} value={timeline.value} className="text-white hover:bg-gray-800">
+                                      {timeline.label}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
                       
                       <FormField
                         control={form.control}
                         name="message"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-gray-200">Message*</FormLabel>
+                            <FormLabel className="text-gray-200">Message détaillé*</FormLabel>
                             <FormControl>
                               <Textarea 
-                                placeholder="Votre message..."
-                                rows={5}
+                                placeholder="Décrivez votre projet, vos besoins, vos objectifs et toute information pertinente..."
+                                rows={6}
                                 {...field}
                                 className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500"
                               />
@@ -400,10 +597,11 @@ const Contact = () => {
                       <div className="flex justify-end">
                         <Button 
                           type="submit" 
-                          className="px-8 py-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white"
+                          disabled={isSubmitting}
+                          className="px-8 py-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white disabled:opacity-50"
                         >
                           <div className="flex items-center gap-2">
-                            <span>Envoyer le message</span>
+                            <span>{isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}</span>
                             <Send className="h-5 w-5" />
                           </div>
                         </Button>
@@ -477,4 +675,3 @@ const Contact = () => {
 };
 
 export default Contact;
-

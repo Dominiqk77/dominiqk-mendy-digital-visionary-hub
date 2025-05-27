@@ -220,6 +220,60 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_submissions: {
+        Row: {
+          budget_range: string | null
+          company: string | null
+          created_at: string
+          email: string
+          id: string
+          lead_score: number | null
+          message: string
+          name: string
+          phone: string | null
+          project_timeline: string | null
+          request_type: string
+          source_page: string | null
+          status: string | null
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          budget_range?: string | null
+          company?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          lead_score?: number | null
+          message: string
+          name: string
+          phone?: string | null
+          project_timeline?: string | null
+          request_type: string
+          source_page?: string | null
+          status?: string | null
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          budget_range?: string | null
+          company?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          lead_score?: number | null
+          message?: string
+          name?: string
+          phone?: string | null
+          project_timeline?: string | null
+          request_type?: string
+          source_page?: string | null
+          status?: string | null
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
