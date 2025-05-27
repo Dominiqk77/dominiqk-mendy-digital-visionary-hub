@@ -573,8 +573,8 @@ const AboutPage = () => {
               
               {/* Career Evolution Path */}
               <div className="relative">
-                {/* Central Timeline Spine */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-500 via-purple-500 via-green-500 to-yellow-500 z-10 rounded-full shadow-lg"></div>
+                {/* Central Timeline Spine - Hidden on mobile */}
+                <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-500 via-purple-500 via-green-500 to-yellow-500 z-10 rounded-full shadow-lg"></div>
                 
                 {/* Experience Cards */}
                 <div className="space-y-24">
