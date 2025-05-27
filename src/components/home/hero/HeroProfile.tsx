@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, Brain, Globe, Zap } from 'lucide-react';
@@ -28,9 +29,9 @@ const HeroProfile = ({ isMobile }: HeroProfileProps) => {
           </AspectRatio>
         </div>
         
-        {/* Simplified Expert Certifié icon for mobile - moved up */}
+        {/* Simplified Expert Certifié icon for mobile - moved up more */}
         <motion.div
-          className="absolute -top-8 -right-8"
+          className="absolute -top-12 -right-8"
           initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={shouldReduceMotion ? { duration: 0.3 } : { delay: 0.4, duration: 0.6 }}
@@ -39,6 +40,17 @@ const HeroProfile = ({ isMobile }: HeroProfileProps) => {
             <Award className="w-6 h-6 text-yellow-900" strokeWidth={2.5} />
             <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-300 rounded-full"></div>
           </div>
+          {/* Expert Certifié text for mobile */}
+          <motion.div
+            className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+          >
+            <span className="text-xs font-semibold text-yellow-400 bg-black/40 px-2 py-1 rounded backdrop-blur-sm border border-yellow-500/30">
+              Expert Certifié
+            </span>
+          </motion.div>
         </motion.div>
 
         {/* Simplified Expert IA icon */}
@@ -99,9 +111,9 @@ const HeroProfile = ({ isMobile }: HeroProfileProps) => {
         </AspectRatio>
       </div>
       
-      {/* Enhanced Expert Certifié icon - moved up */}
+      {/* Enhanced Expert Certifié icon - moved up more */}
       <motion.div
-        className="absolute -top-10 -right-12 group"
+        className="absolute -top-14 -right-12 group"
         initial={{ opacity: 0, scale: 0.5, rotateY: -180 }}
         animate={{ opacity: 1, scale: 1, rotateY: 0 }}
         transition={{ delay: 0.4, duration: 0.8, type: "spring", stiffness: 100 }}
