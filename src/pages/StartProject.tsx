@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -20,6 +19,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Check, ArrowRight, Star, RocketIcon, Zap, CircuitBoard } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 // StarField background component
 const StarField = () => {
@@ -87,10 +87,31 @@ const formSchema = z.object({
   }),
   company: z.string().optional(),
   phone: z.string().optional(),
+  position: z.string().optional(),
+  companySize: z.string().optional(),
+  industry: z.string().optional(),
   projectType: z.string({
     required_error: "Veuillez sélectionner un type de projet.",
   }),
-  budget: z.string().optional(),
+  projectScope: z.string().optional(),
+  targetAudience: z.string().optional(),
+  currentSituation: z.string().optional(),
+  mainObjectives: z.string().optional(),
+  specificFeatures: z.string().optional(),
+  technicalRequirements: z.string().optional(),
+  designPreferences: z.string().optional(),
+  budget: z.string({
+    required_error: "Veuillez sélectionner un budget.",
+  }),
+  timeline: z.string().optional(),
+  priority: z.string().optional(),
+  hasExistingSolution: z.string().optional(),
+  marketingGoals: z.string().optional(),
+  competitorAnalysis: z.string().optional(),
+  successMetrics: z.string().optional(),
+  additionalServices: z.array(z.string()).optional(),
+  communicationPreference: z.string().optional(),
+  previousExperience: z.string().optional(),
   message: z.string().min(10, {
     message: "La description du projet doit contenir au moins 10 caractères.",
   }),
@@ -123,47 +144,180 @@ const StartProject = () => {
       email: "",
       company: "",
       phone: "",
+      position: "",
+      companySize: "",
+      industry: "",
       projectType: "",
+      projectScope: "",
+      targetAudience: "",
+      currentSituation: "",
+      mainObjectives: "",
+      specificFeatures: "",
+      technicalRequirements: "",
+      designPreferences: "",
       budget: "",
+      timeline: "",
+      priority: "",
+      hasExistingSolution: "",
+      marketingGoals: "",
+      competitorAnalysis: "",
+      successMetrics: "",
+      additionalServices: [],
+      communicationPreference: "",
+      previousExperience: "",
       message: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
-    // In a real application, you would send this data to your backend
     
-    toast({
-      title: "Demande envoyée!",
-      description: "Votre demande de projet a été reçue. Je vous contacterai très prochainement.",
-    });
-    
-    // Reset form
-    form.reset();
-    
-    // Redirect to thank you page or homepage after a short delay
-    setTimeout(() => {
-      navigate('/');
-    }, 3000);
+    try {
+      // Save to Supabase contact_submissions table
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert({
+          name: values.name,
+          email: values.email,
+          phone: values.phone || null,
+          company: values.company || null,
+          subject: `Nouveau projet: ${values.projectType}`,
+          request_type: 'Démarrer un Projet',
+          message: values.message,
+          budget_range: values.budget,
+          project_timeline: values.timeline || null,
+          source_page: '/start-project',
+          status: 'nouveau',
+          lead_score: 85, // High score for project requests
+        });
+
+      if (error) {
+        console.error('Error saving to database:', error);
+        throw error;
+      }
+
+      toast({
+        title: "Demande envoyée!",
+        description: "Votre demande de projet a été reçue. Je vous contacterai très prochainement.",
+      });
+      
+      // Reset form
+      form.reset();
+      
+      // Redirect to thank you page or homepage after a short delay
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'envoi. Veuillez réessayer.",
+        variant: "destructive",
+      });
+    }
   };
 
   const projectTypes = [
-    "Développement Web / Mobile",
+    "Site Web Vitrine",
+    "Site Web E-commerce", 
+    "Application Web",
+    "Application Mobile (iOS/Android)",
+    "Application Mobile Hybride",
+    "Plateforme SaaS",
     "Solution IA / Machine Learning",
-    "Marketing Digital",
-    "E-Gouvernance",
-    "Formation / Coaching",
+    "Chatbot Intelligence Artificielle",
+    "Automatisation de Processus",
+    "Analyse de Données / Business Intelligence",
+    "API & Intégrations",
+    "Solution E-Gouvernance",
+    "Plateforme Éducative (LMS)",
+    "Réseau Social / Communauté",
+    "Marketplace",
+    "CRM/ERP Personnalisé",
+    "Solution IoT",
+    "Blockchain / Crypto",
+    "Marketing Digital Complet",
+    "Refonte/Modernisation Existant",
+    "Formation & Coaching",
     "Consulting Stratégique",
+    "Audit Technique",
     "Autre"
   ];
 
   const budgetRanges = [
-    "< 1 000 000 FCFA",
-    "1 000 000 - 5 000 000 FCFA",
-    "5 000 000 - 10 000 000 FCFA",
-    "10 000 000 - 25 000 000 FCFA",
-    "> 25 000 000 FCFA",
-    "À déterminer"
+    "< 2 000 €",
+    "2 000 € - 5 000 €", 
+    "5 000 € - 10 000 €",
+    "10 000 € - 20 000 €",
+    "20 000 € - 50 000 €",
+    "50 000 € - 100 000 €",
+    "100 000 € - 250 000 €",
+    "> 250 000 €",
+    "À déterminer selon besoins"
+  ];
+
+  const companySizes = [
+    "Entrepreneur individuel",
+    "Startup (1-10 employés)",
+    "PME (11-50 employés)", 
+    "Entreprise moyenne (51-250 employés)",
+    "Grande entreprise (250+ employés)",
+    "Organisation gouvernementale",
+    "ONG / Association",
+    "Établissement d'enseignement"
+  ];
+
+  const industries = [
+    "Technologie / IT",
+    "E-commerce / Retail",
+    "Finance / Banque",
+    "Santé / Médical",
+    "Éducation / Formation",
+    "Immobilier",
+    "Tourisme / Hôtellerie",
+    "Agriculture / Agroalimentaire",
+    "Industrie / Manufacturing",
+    "Services professionnels",
+    "Marketing / Communication",
+    "Transport / Logistique",
+    "Énergie / Environnement",
+    "Arts / Culture",
+    "Sport / Fitness",
+    "Gouvernement / Public",
+    "Autre"
+  ];
+
+  const timelines = [
+    "Urgent (< 1 mois)",
+    "Court terme (1-3 mois)",
+    "Moyen terme (3-6 mois)",
+    "Long terme (6-12 mois)",
+    "Très long terme (> 1 an)",
+    "Flexible / À déterminer"
+  ];
+
+  const priorities = [
+    "Très haute priorité",
+    "Haute priorité", 
+    "Priorité moyenne",
+    "Priorité faible",
+    "Projet exploratoire"
+  ];
+
+  const additionalServicesList = [
+    "Hébergement et maintenance",
+    "Formation utilisateurs",
+    "Support technique 24/7",
+    "Référencement SEO/SEA",
+    "Rédaction de contenu",
+    "Photographie/Vidéographie",
+    "Design graphique/Branding",
+    "Analyse de performance",
+    "Migration de données",
+    "Intégrations tierces",
+    "Sécurité renforcée",
+    "Conformité RGPD"
   ];
 
   return (
@@ -227,146 +381,534 @@ const StartProject = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="max-w-3xl mx-auto cosmic-card rounded-xl p-6 md:p-10 backdrop-blur-sm"
+              className="max-w-5xl mx-auto cosmic-card rounded-xl p-6 md:p-10 backdrop-blur-sm"
             >
               <div className="absolute top-0 right-0 w-full h-full overflow-hidden rounded-xl z-[-1] opacity-5">
                 <div className="tech-grid w-full h-full"></div>
               </div>
               
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-white">Décrivez votre projet</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-white">Décrivez votre projet en détail</h2>
                 <div className="flex items-center text-indigo-400 text-sm">
                   <CircuitBoard className="mr-2 h-5 w-5" />
-                  <span>Système prêt</span>
+                  <span>Formulaire sécurisé</span>
                 </div>
               </div>
               
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-gray-200">Nom complet *</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Votre nom" {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-gray-200">Email *</FormLabel>
-                          <FormControl>
-                            <Input type="email" placeholder="votre@email.com" {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                  {/* Informations de contact */}
+                  <div className="bg-gray-900/30 p-6 rounded-lg border border-white/10">
+                    <h3 className="text-xl font-semibold text-white mb-4">📧 Informations de contact</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Nom complet *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Votre nom et prénom" {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Email *</FormLabel>
+                            <FormControl>
+                              <Input type="email" placeholder="votre@email.com" {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Téléphone</FormLabel>
+                            <FormControl>
+                              <Input placeholder="+221 XX XXX XX XX" {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="position"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Votre fonction</FormLabel>
+                            <FormControl>
+                              <Input placeholder="CEO, CTO, Responsable Marketing..." {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                   </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="company"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-gray-200">Entreprise / Organisation</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Nom de votre entreprise" {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="phone"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-gray-200">Téléphone</FormLabel>
-                          <FormControl>
-                            <Input placeholder="+221 XX XXX XX XX" {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+
+                  {/* Informations entreprise */}
+                  <div className="bg-gray-900/30 p-6 rounded-lg border border-white/10">
+                    <h3 className="text-xl font-semibold text-white mb-4">🏢 Informations entreprise</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="company"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Nom de l'entreprise</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Nom de votre entreprise" {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="companySize"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Taille de l'entreprise</FormLabel>
+                            <FormControl>
+                              <select
+                                className="w-full h-10 px-3 py-2 rounded-md border border-white/10 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                                {...field}
+                              >
+                                <option value="" disabled className="bg-gray-900">Sélectionnez la taille</option>
+                                {companySizes.map((size) => (
+                                  <option key={size} value={size} className="bg-gray-900">{size}</option>
+                                ))}
+                              </select>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="industry"
+                        render={({ field }) => (
+                          <FormItem className="md:col-span-2">
+                            <FormLabel className="text-gray-200">Secteur d'activité</FormLabel>
+                            <FormControl>
+                              <select
+                                className="w-full h-10 px-3 py-2 rounded-md border border-white/10 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                                {...field}
+                              >
+                                <option value="" disabled className="bg-gray-900">Sélectionnez votre secteur</option>
+                                {industries.map((industry) => (
+                                  <option key={industry} value={industry} className="bg-gray-900">{industry}</option>
+                                ))}
+                              </select>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                   </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="projectType"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-gray-200">Type de projet *</FormLabel>
-                          <FormControl>
-                            <select
-                              className="w-full h-10 px-3 py-2 rounded-md border border-white/10 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
-                              {...field}
-                            >
-                              <option value="" disabled className="bg-gray-900">Sélectionnez un type</option>
-                              {projectTypes.map((type) => (
-                                <option key={type} value={type} className="bg-gray-900">{type}</option>
-                              ))}
-                            </select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="budget"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-gray-200">Budget estimé</FormLabel>
-                          <FormControl>
-                            <select
-                              className="w-full h-10 px-3 py-2 rounded-md border border-white/10 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
-                              {...field}
-                            >
-                              <option value="" disabled className="bg-gray-900">Sélectionnez un budget</option>
-                              {budgetRanges.map((range) => (
-                                <option key={range} value={range} className="bg-gray-900">{range}</option>
-                              ))}
-                            </select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+
+                  {/* Détails du projet */}
+                  <div className="bg-gray-900/30 p-6 rounded-lg border border-white/10">
+                    <h3 className="text-xl font-semibold text-white mb-4">🚀 Détails du projet</h3>
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <FormField
+                          control={form.control}
+                          name="projectType"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-gray-200">Type de projet *</FormLabel>
+                              <FormControl>
+                                <select
+                                  className="w-full h-10 px-3 py-2 rounded-md border border-white/10 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                                  {...field}
+                                >
+                                  <option value="" disabled className="bg-gray-900">Sélectionnez un type</option>
+                                  {projectTypes.map((type) => (
+                                    <option key={type} value={type} className="bg-gray-900">{type}</option>
+                                  ))}
+                                </select>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="projectScope"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-gray-200">Portée du projet</FormLabel>
+                              <FormControl>
+                                <select
+                                  className="w-full h-10 px-3 py-2 rounded-md border border-white/10 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                                  {...field}
+                                >
+                                  <option value="" disabled className="bg-gray-900">Sélectionnez la portée</option>
+                                  <option value="local" className="bg-gray-900">Local/Régional</option>
+                                  <option value="national" className="bg-gray-900">National</option>
+                                  <option value="international" className="bg-gray-900">International</option>
+                                  <option value="global" className="bg-gray-900">Global</option>
+                                </select>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      
+                      <FormField
+                        control={form.control}
+                        name="targetAudience"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Public cible</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Décrivez votre audience cible (âge, profession, intérêts...)" {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="currentSituation"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Situation actuelle</FormLabel>
+                            <FormControl>
+                              <Textarea placeholder="Décrivez votre situation actuelle, les défis rencontrés..." rows={3} {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="mainObjectives"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Objectifs principaux</FormLabel>
+                            <FormControl>
+                              <Textarea placeholder="Quels sont vos objectifs principaux avec ce projet?" rows={3} {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                   </div>
-                  
-                  <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-gray-200">Description du projet *</FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder="Décrivez votre projet, vos objectifs, vos attentes..." 
-                            rows={6}
-                            {...field} 
-                            className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500"
+
+                  {/* Spécifications techniques */}
+                  <div className="bg-gray-900/30 p-6 rounded-lg border border-white/10">
+                    <h3 className="text-xl font-semibold text-white mb-4">⚙️ Spécifications techniques</h3>
+                    <div className="space-y-6">
+                      <FormField
+                        control={form.control}
+                        name="specificFeatures"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Fonctionnalités spécifiques souhaitées</FormLabel>
+                            <FormControl>
+                              <Textarea placeholder="Listez les fonctionnalités importantes pour votre projet..." rows={4} {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="technicalRequirements"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Exigences techniques particulières</FormLabel>
+                            <FormControl>
+                              <Textarea placeholder="Technologies préférées, contraintes techniques, intégrations nécessaires..." rows={3} {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="designPreferences"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Préférences de design</FormLabel>
+                            <FormControl>
+                              <Textarea placeholder="Style visuel souhaité, couleurs, inspiration, exemples de sites..." rows={3} {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Budget et planning */}
+                  <div className="bg-gray-900/30 p-6 rounded-lg border border-white/10">
+                    <h3 className="text-xl font-semibold text-white mb-4">💰 Budget et planning</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="budget"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Budget estimé *</FormLabel>
+                            <FormControl>
+                              <select
+                                className="w-full h-10 px-3 py-2 rounded-md border border-white/10 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                                {...field}
+                              >
+                                <option value="" disabled className="bg-gray-900">Sélectionnez un budget</option>
+                                {budgetRanges.map((range) => (
+                                  <option key={range} value={range} className="bg-gray-900">{range}</option>
+                                ))}
+                              </select>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="timeline"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Délai souhaité</FormLabel>
+                            <FormControl>
+                              <select
+                                className="w-full h-10 px-3 py-2 rounded-md border border-white/10 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                                {...field}
+                              >
+                                <option value="" disabled className="bg-gray-900">Sélectionnez un délai</option>
+                                {timelines.map((timeline) => (
+                                  <option key={timeline} value={timeline} className="bg-gray-900">{timeline}</option>
+                                ))}
+                              </select>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="priority"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Niveau de priorité</FormLabel>
+                            <FormControl>
+                              <select
+                                className="w-full h-10 px-3 py-2 rounded-md border border-white/10 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                                {...field}
+                              >
+                                <option value="" disabled className="bg-gray-900">Sélectionnez la priorité</option>
+                                {priorities.map((priority) => (
+                                  <option key={priority} value={priority} className="bg-gray-900">{priority}</option>
+                                ))}
+                              </select>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="hasExistingSolution"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Solution existante</FormLabel>
+                            <FormControl>
+                              <select
+                                className="w-full h-10 px-3 py-2 rounded-md border border-white/10 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                                {...field}
+                              >
+                                <option value="" disabled className="bg-gray-900">Avez-vous déjà une solution?</option>
+                                <option value="none" className="bg-gray-900">Aucune solution existante</option>
+                                <option value="basic" className="bg-gray-900">Solution basique à améliorer</option>
+                                <option value="advanced" className="bg-gray-900">Solution avancée à remplacer</option>
+                                <option value="migrate" className="bg-gray-900">Migration/Modernisation nécessaire</option>
+                              </select>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Contexte marketing et business */}
+                  <div className="bg-gray-900/30 p-6 rounded-lg border border-white/10">
+                    <h3 className="text-xl font-semibold text-white mb-4">📊 Contexte business</h3>
+                    <div className="space-y-6">
+                      <FormField
+                        control={form.control}
+                        name="marketingGoals"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Objectifs marketing</FormLabel>
+                            <FormControl>
+                              <Textarea placeholder="Acquisition clients, notoriété, conversion, rétention..." rows={3} {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="competitorAnalysis"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Analyse concurrentielle</FormLabel>
+                            <FormControl>
+                              <Textarea placeholder="Principaux concurrents, leurs forces/faiblesses, votre différenciation..." rows={3} {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="successMetrics"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Indicateurs de succès</FormLabel>
+                            <FormControl>
+                              <Textarea placeholder="Comment mesurerez-vous le succès de ce projet? KPIs, ROI..." rows={3} {...field} className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Services additionnels */}
+                  <div className="bg-gray-900/30 p-6 rounded-lg border border-white/10">
+                    <h3 className="text-xl font-semibold text-white mb-4">🔧 Services additionnels</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {additionalServicesList.map((service) => (
+                        <label key={service} className="flex items-center space-x-3 text-gray-300 cursor-pointer hover:text-white transition-colors">
+                          <input
+                            type="checkbox"
+                            className="rounded border-white/20 bg-gray-900/50 text-indigo-600 focus:ring-indigo-500/30"
+                            onChange={(e) => {
+                              const currentServices = form.getValues('additionalServices') || [];
+                              if (e.target.checked) {
+                                form.setValue('additionalServices', [...currentServices, service]);
+                              } else {
+                                form.setValue('additionalServices', currentServices.filter(s => s !== service));
+                              }
+                            }}
                           />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                          <span className="text-sm">{service}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Préférences de communication */}
+                  <div className="bg-gray-900/30 p-6 rounded-lg border border-white/10">
+                    <h3 className="text-xl font-semibold text-white mb-4">📞 Préférences de communication</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="communicationPreference"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Moyen de communication préféré</FormLabel>
+                            <FormControl>
+                              <select
+                                className="w-full h-10 px-3 py-2 rounded-md border border-white/10 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                                {...field}
+                              >
+                                <option value="" disabled className="bg-gray-900">Sélectionnez votre préférence</option>
+                                <option value="email" className="bg-gray-900">Email</option>
+                                <option value="phone" className="bg-gray-900">Téléphone</option>
+                                <option value="video" className="bg-gray-900">Visioconférence</option>
+                                <option value="whatsapp" className="bg-gray-900">WhatsApp</option>
+                                <option value="teams" className="bg-gray-900">Microsoft Teams</option>
+                                <option value="slack" className="bg-gray-900">Slack</option>
+                              </select>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="previousExperience"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-200">Expérience précédente</FormLabel>
+                            <FormControl>
+                              <select
+                                className="w-full h-10 px-3 py-2 rounded-md border border-white/10 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                                {...field}
+                              >
+                                <option value="" disabled className="bg-gray-900">Avez-vous déjà travaillé avec un développeur?</option>
+                                <option value="first_time" className="bg-gray-900">Première fois</option>
+                                <option value="some_experience" className="bg-gray-900">Quelques expériences</option>
+                                <option value="experienced" className="bg-gray-900">Très expérimenté</option>
+                                <option value="technical_background" className="bg-gray-900">Background technique</option>
+                              </select>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Description détaillée */}
+                  <div className="bg-gray-900/30 p-6 rounded-lg border border-white/10">
+                    <h3 className="text-xl font-semibold text-white mb-4">📝 Description détaillée</h3>
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-200">Description complète du projet *</FormLabel>
+                          <FormControl>
+                            <Textarea 
+                              placeholder="Décrivez votre projet en détail, vos attentes, contraintes particulières, tout ce qui peut nous aider à mieux comprendre vos besoins..." 
+                              rows={8}
+                              {...field} 
+                              className="bg-gray-900/50 border-white/10 text-white placeholder:text-gray-500"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   
                   <div className="flex justify-center mt-8">
                     <Button 
@@ -375,7 +917,7 @@ const StartProject = () => {
                       className="px-8 py-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white"
                     >
                       <div className="flex items-center gap-2">
-                        <span>Envoyer ma demande</span>
+                        <span>Envoyer ma demande détaillée</span>
                         <div className="relative">
                           <ArrowRight className="h-5 w-5" />
                           <div className="absolute -right-1 -top-1 w-3 h-3 bg-indigo-400 rounded-full animate-ping opacity-75"></div>
@@ -503,4 +1045,3 @@ const StartProject = () => {
 };
 
 export default StartProject;
-
