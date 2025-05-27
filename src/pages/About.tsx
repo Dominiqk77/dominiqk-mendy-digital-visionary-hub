@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -230,19 +231,18 @@ const AboutPage = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="relative"
+                className="flex justify-center"
               >
-                <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-xl">
-                  <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/30 to-portfolio-purple/30 z-10"></div>
+                <div className="relative">
                   <img 
                     src="/lovable-uploads/7b98f889-bcee-4a02-936c-da25dd311425.png" 
                     alt="Dominiqk Mendy" 
-                    className="w-full h-auto object-cover"
+                    className="w-64 h-64 object-cover rounded-full border-4 border-gradient-to-r from-blue-600 to-purple-600 shadow-xl"
                   />
-                </div>
-                
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg shadow-lg transform rotate-3">
-                  <span className="font-semibold">15+ années d'expérience</span>
+                  
+                  <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg shadow-lg transform rotate-3">
+                    <span className="font-semibold">15+ années d'expérience</span>
+                  </div>
                 </div>
               </motion.div>
             </motion.div>
