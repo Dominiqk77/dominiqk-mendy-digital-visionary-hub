@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -13,6 +12,7 @@ import Stats from '../components/home/Stats';
 import Testimonials from '../components/home/Testimonials';
 import CTASection from '../components/home/CTASection';
 import Certifications from '../components/home/Certifications';
+import RecentProjects from '../components/home/RecentProjects';
 import { Toaster } from "@/components/ui/toaster";
 import { preloadImages } from '../lib/utils';
 import { usePreventHorizontalScroll } from '@/hooks/use-mobile';
@@ -211,6 +211,15 @@ const Index = () => {
           variants={sectionVariants}
         >
           <Experience />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={sectionVariants}
+        >
+          <RecentProjects />
         </motion.div>
         
         <motion.div
