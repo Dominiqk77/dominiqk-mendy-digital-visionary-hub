@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,7 +22,7 @@ import StartProject from "./pages/StartProject";
 import AITrainingPage from "./pages/services/AITrainingPage";
 import EGovernance from "./pages/services/EGovernance";
 import SenServices from "./pages/projects/SenServices";
-import ChatBot from "./components/chat/ChatBot";
+import { ChatBot } from "./components/chat/ChatBot";
 import AboutPage from "./pages/About";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
