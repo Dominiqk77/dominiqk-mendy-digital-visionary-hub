@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Clock, DollarSign, Globe, ChartBar } from 'lucide-react';
@@ -35,9 +34,9 @@ const Stats = () => {
       )
     },
     {
-      title: "Clients Internationaux",
-      value: "1K+",
-      description: "Projets menés avec succès pour des clients dans le monde entier",
+      title: "Pays d'intervention",
+      value: "20+",
+      description: "Projets menés avec succès dans le monde entier",
       color: "from-cyan-500 to-blue-400", // Updated AI theme colors
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mb-2 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -48,9 +47,9 @@ const Stats = () => {
       )
     },
     {
-      title: "Certifications",
-      value: "12+",
-      description: "Certifications internationales dans les domaines de pointe",
+      title: "Technologies Maîtrisées",
+      value: "100+",
+      description: "Certifications et technologies dans les domaines de pointe",
       color: "from-teal-500 to-emerald-400", // Updated AI theme colors
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mb-2 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -62,9 +61,9 @@ const Stats = () => {
       )
     },
     {
-      title: "ROI Moyen",
-      value: "250%",
-      description: "Retour sur investissement pour nos clients en transformation digitale",
+      title: "Projets Réalisés",
+      value: "2K+",
+      description: "Projets web, IA et transformation digitale menés avec succès",
       color: "from-emerald-500 to-green-400", // Updated AI theme colors
       icon: <DollarSign className="h-6 w-6 mb-2 mx-auto" />
     },
