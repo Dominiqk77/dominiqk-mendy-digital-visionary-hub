@@ -9,6 +9,7 @@ export const ChatBot = () => {
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [apiKey, setApiKey] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -28,26 +29,69 @@ export const ChatBot = () => {
     setIsLoading(true);
 
     try {
-      // Simulate an API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      const assistantReply = { role: 'assistant', content: `Réponse simulée à : ${inputMessage}` };
-      setMessages(prevMessages => [...prevMessages, assistantReply]);
+      // Si pas de clé API, demander à l'utilisateur
+      if (!apiKey) {
+        const key = prompt("Veuillez entrer votre clé API Google Gemini pour activer les réponses intelligentes :");
+        if (key) {
+          setApiKey(key);
+        } else {
+          setMessages(prevMessages => [...prevMessages, { 
+            role: 'assistant', 
+            content: "Pour obtenir des réponses intelligentes, veuillez fournir votre clé API Google Gemini. Vous pouvez l'obtenir sur https://makersuite.google.com/app/apikey" 
+          }]);
+          setIsLoading(false);
+          return;
+        }
+      }
+
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: `Tu es Dominiqk Mendy, un consultant expert en intelligence artificielle, développement web, et transformation digitale. Tu es professionnel, compétent et bienveillant. Réponds de manière naturelle et professionnelle à cette question : ${inputMessage}`
+            }]
+          }],
+          generationConfig: {
+            temperature: 0.7,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 1024,
+          }
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erreur API: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const assistantReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu traiter votre demande.";
+      
+      setMessages(prevMessages => [...prevMessages, { 
+        role: 'assistant', 
+        content: assistantReply 
+      }]);
     } catch (error) {
       console.error("Erreur lors de l'envoi du message :", error);
-      setMessages(prevMessages => [...prevMessages, { role: 'assistant', content: "Désolé, je n'ai pas pu traiter votre demande pour le moment." }]);
+      setMessages(prevMessages => [...prevMessages, { 
+        role: 'assistant', 
+        content: "Désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants ou vérifier votre clé API." 
+      }]);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleReservation = () => {
-    // Fonction pour gérer la réservation
     console.log("Redirection vers la page de réservation");
     window.open('/contact', '_blank');
   };
 
   const handleFileUpload = () => {
-    // Fonction pour gérer l'upload de fichier
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '*/*';
@@ -55,7 +99,10 @@ export const ChatBot = () => {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (file) {
         console.log("Fichier sélectionné:", file.name);
-        // Ici on pourrait traiter le fichier
+        setMessages(prevMessages => [...prevMessages, { 
+          role: 'assistant', 
+          content: `J'ai bien reçu votre fichier "${file.name}". Pour le moment, je peux voir le nom du fichier. Dans une future mise à jour, je pourrai analyser son contenu. En attendant, n'hésitez pas à me décrire ce que vous souhaitez faire avec ce fichier.` 
+        }]);
       }
     };
     input.click();
@@ -77,14 +124,13 @@ export const ChatBot = () => {
         <div className="fixed inset-0 z-50 flex items-end justify-end p-4">
           <div className="bg-black/90 backdrop-blur-md border border-white/20 rounded-lg shadow-2xl w-full max-w-md h-[600px] flex flex-col relative overflow-hidden">
             
-            {/* Enhanced Immersive Starfield Background - Fixed Position with lower z-index */}
+            {/* Enhanced Immersive Starfield Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
               {/* Deep space nebulae */}
               <div className="cosmic-nebula blue w-96 h-96 -top-20 -left-20"></div>
               <div className="cosmic-nebula purple w-80 h-80 -bottom-10 -right-10" style={{animationDelay: '20s'}}></div>
               <div className="cosmic-nebula indigo w-72 h-72 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" style={{animationDelay: '40s'}}></div>
               
-              {/* Multi-layered star field */}
               <div className="star-layer-1">
                 {Array.from({length: 15}).map((_, i) => (
                   <div
@@ -127,7 +173,6 @@ export const ChatBot = () => {
                 ))}
               </div>
               
-              {/* Floating cosmic particles */}
               {Array.from({length: 20}).map((_, i) => (
                 <div
                   key={`particle-${i}`}
@@ -141,7 +186,6 @@ export const ChatBot = () => {
                 />
               ))}
               
-              {/* Occasional shooting stars */}
               {Array.from({length: 3}).map((_, i) => (
                 <div
                   key={`shooting-${i}`}
@@ -156,8 +200,8 @@ export const ChatBot = () => {
               ))}
             </div>
 
-            {/* Header - with higher z-index */}
-            <div className="flex items-center justify-between p-4 border-b border-white/10 relative z-50 bg-black/20 backdrop-blur-sm">
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-white/10 relative z-[60] bg-black/20 backdrop-blur-sm">
               <div className="flex items-center space-x-3">
                 <div className="relative">
                   <img 
@@ -174,14 +218,14 @@ export const ChatBot = () => {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-white transition-colors p-1 z-50"
+                className="text-gray-400 hover:text-white transition-colors p-1 z-[70]"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Action Buttons - avec z-index élevé */}
-            <div className="flex gap-2 p-4 border-b border-white/10 relative z-50 bg-black/20 backdrop-blur-sm">
+            {/* Action Buttons */}
+            <div className="flex gap-2 p-4 border-b border-white/10 relative z-[60] bg-black/20 backdrop-blur-sm">
               <button
                 onClick={handleReservation}
                 className="flex-1 bg-blue-600/80 hover:bg-blue-700/80 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 backdrop-blur-sm border border-blue-500/30"
@@ -198,15 +242,15 @@ export const ChatBot = () => {
               </button>
             </div>
 
-            {/* Messages Area - with higher z-index */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 relative z-40">
+            {/* Messages Area */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 relative z-[55]">
               {messages.map((message, index) => (
                 <div
                   key={index}
                   className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[80%] p-3 rounded-lg backdrop-blur-sm relative z-50 ${
+                    className={`max-w-[80%] p-3 rounded-lg backdrop-blur-sm relative z-[60] ${
                       message.role === 'user'
                         ? 'bg-blue-600/80 text-white ml-4 border border-blue-500/30'
                         : 'bg-white/10 text-white mr-4 border border-white/20'
@@ -218,7 +262,7 @@ export const ChatBot = () => {
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white/10 text-white p-3 rounded-lg mr-4 border border-white/20 backdrop-blur-sm relative z-50">
+                  <div className="bg-white/10 text-white p-3 rounded-lg mr-4 border border-white/20 backdrop-blur-sm relative z-[60]">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
@@ -230,8 +274,8 @@ export const ChatBot = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Area - with highest z-index */}
-            <div className="p-4 border-t border-white/10 relative z-50 bg-black/20 backdrop-blur-sm">
+            {/* Input Area */}
+            <div className="p-4 border-t border-white/10 relative z-[60] bg-black/20 backdrop-blur-sm">
               <div className="flex space-x-2">
                 <input
                   type="text"
@@ -239,13 +283,13 @@ export const ChatBot = () => {
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
                   placeholder="Tapez votre message..."
-                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 backdrop-blur-sm relative z-50"
+                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 backdrop-blur-sm relative z-[60]"
                   disabled={isLoading}
                 />
                 <button
                   onClick={handleSendMessage}
                   disabled={isLoading || !inputMessage.trim()}
-                  className="bg-blue-600/80 hover:bg-blue-700/80 disabled:bg-gray-600/80 text-white p-2 rounded-lg transition-colors relative z-50 flex-shrink-0 border border-blue-500/30 backdrop-blur-sm"
+                  className="bg-blue-600/80 hover:bg-blue-700/80 disabled:bg-gray-600/80 text-white p-2 rounded-lg transition-colors relative z-[60] flex-shrink-0 border border-blue-500/30 backdrop-blur-sm"
                 >
                   <Send className="w-5 h-5" />
                 </button>
