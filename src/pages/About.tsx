@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowRight, Award, Book, Briefcase, Calendar, Check, GraduationCap, Laptop, Landmark, Star, Users } from 'lucide-react';
+import { ArrowRight, Award, Book, Briefcase, Calendar, Check, GraduationCap, Laptop, Landmark, Star, Users, Globe, Rocket, Brain, Code2, Heart, MapPin, Lightbulb, Target } from 'lucide-react';
 
 const AboutPage = () => {
   // Set page metadata
@@ -64,6 +64,50 @@ const AboutPage = () => {
       company: "WebWorks International",
       description: "Création de sites e-commerce et plateformes web pour PME et startups européennes et nord-africaines.",
       location: "Marrakech, Maroc / Remote"
+    }
+  ];
+
+  // Story chapters for creative storytelling
+  const storyChapters = [
+    {
+      chapter: "Chapitre 1",
+      title: "Les Racines : Dakar, l'Éveil Technologique",
+      icon: <Rocket className="w-8 h-8" />,
+      period: "2010-2014",
+      story: "Tout a commencé à Dakar, où ma passion pour la création et l'innovation a pris racine. Dès mon plus jeune âge, je transformais chaque idée en projet tangible. Ma formation à l'ENSUP Dakar et à l'ESGHA m'a donné les bases solides en marketing, communication et gestion hôtelière.",
+      highlights: ["Formation Marketing & Communication", "Gestion Hôtelière", "Premiers projets créatifs", "Vision entrepreneuriale naissante"],
+      color: "from-orange-500 to-red-500",
+      bgColor: "from-orange-500/10 to-red-500/10"
+    },
+    {
+      chapter: "Chapitre 2", 
+      title: "La Métamorphose : Marrakech, Terre d'Innovation",
+      icon: <Brain className="w-8 h-8" />,
+      period: "2015-2017",
+      story: "L'aventure marocaine commence avec mon Master en Management et Stratégies d'Entreprises à Marrakech. Cette ville magique devient le théâtre de ma transformation digitale. Je découvre ma véritable passion pour les technologies de pointe et l'intelligence artificielle.",
+      highlights: ["Master en Management", "Découverte de l'IA", "Premiers projets tech", "Formation continue en ligne"],
+      color: "from-blue-500 to-indigo-500",
+      bgColor: "from-blue-500/10 to-indigo-500/10"
+    },
+    {
+      chapter: "Chapitre 3",
+      title: "L'Ascension : Expert Reconnu",
+      icon: <Code2 className="w-8 h-8" />,
+      period: "2018-2022",
+      story: "Les années d'expertise se construisent : développement web avancé, maîtrise de l'IA, leadership d'équipes internationales. Mes projets touchent l'Europe, l'Afrique et le Moyen-Orient. Je devient un pont technologique entre les continents.",
+      highlights: ["Lead Developer expérimenté", "Projets internationaux", "Équipes multiculturelles", "Expertise IA approfondie"],
+      color: "from-purple-500 to-pink-500", 
+      bgColor: "from-purple-500/10 to-pink-500/10"
+    },
+    {
+      chapter: "Chapitre 4",
+      title: "La Vision Globale : Impact International",
+      icon: <Globe className="w-8 h-8" />,
+      period: "2023-Présent",
+      story: "Aujourd'hui, je dirige Millennium Capital Invest, voyageant entre Marrakech, Londres, la France et l'Espagne. Ma mission : démocratiser l'accès aux technologies avancées et former la nouvelle génération de talents numériques à l'échelle mondiale.",
+      highlights: ["CEO & Fondateur", "Présence internationale", "Formation de talents", "Innovation continue"],
+      color: "from-green-500 to-emerald-500",
+      bgColor: "from-green-500/10 to-emerald-500/10"
     }
   ];
 
@@ -249,46 +293,196 @@ const AboutPage = () => {
           </PageContainer>
         </section>
         
-        {/* My Story Section */}
-        <section className="py-20 bg-black/30 backdrop-blur-md border-t border-b border-white/10">
+        {/* My Story Section - Enhanced Storytelling */}
+        <section className="py-20 bg-black/30 backdrop-blur-md border-t border-b border-white/10 relative overflow-hidden">
+          {/* Background effects */}
+          <div className="absolute inset-0">
+            <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-1/4 right-1/6 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+          </div>
+          
+          {/* Floating tech symbols */}
+          <div className="absolute inset-0 opacity-5">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute text-white text-4xl"
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: [0.1, 0.3, 0.1], 
+                  y: [0, -20, 0],
+                  rotate: [0, 360]
+                }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 10 + i * 2,
+                  delay: i * 1.5
+                }}
+                style={{
+                  top: `${10 + Math.random() * 80}%`,
+                  left: `${5 + Math.random() * 90}%`,
+                }}
+              >
+                {['⚡', '🚀', '💡', '🌟', '⭐', '✨', '🔥', '💫'][i]}
+              </motion.div>
+            ))}
+          </div>
+
           <PageContainer>
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold mb-10 text-white text-center">Mon Parcours</h2>
+            <div className="max-w-6xl mx-auto relative z-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-16"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                  Mon <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-400 bg-clip-text text-transparent">Parcours</span>
+                </h2>
+                <div className="h-1 w-32 bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-400 mx-auto mb-6"></div>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                  Une odyssée technologique à travers les continents, façonnée par la passion, l'innovation et l'impact mondial
+                </p>
+              </motion.div>
               
-              <div className="space-y-10">
-                <div>
-                  <h3 className="text-2xl font-semibold mb-4 text-white">Un Expert International</h3>
-                  <p className="text-gray-300 mb-4 leading-relaxed">
-                    Mon parcours professionnel s'étend sur plus de 15 années d'expérience internationale. Basé à Marrakech depuis 11 ans, je voyage régulièrement entre le Maroc, Londres, la France et l'Espagne pour servir une clientèle diversifiée et internationale, tout en développant des projets innovants comme SenServices, une plateforme d'e-gouvernance destinée à révolutionner les services administratifs.
-                  </p>
-                  <p className="text-gray-300 mb-4 leading-relaxed">
-                    Ma formation inclut un Master en Management et Stratégies d'Entreprises à Marrakech, complété par de nombreuses certifications internationales en ligne dans des domaines de pointe comme l'intelligence artificielle, le cloud computing et le développement web avancé. Cette approche hybride m'a permis d'acquérir une expertise technique solide tout en maintenant une vision stratégique adaptée aux enjeux mondiaux.
-                  </p>
-                  <p className="text-gray-300 leading-relaxed">
-                    Aujourd'hui, je combine mon expertise technique en développement web et IA avec une vision stratégique pour créer des solutions digitales à fort impact pour des clients du monde entier. Ma passion est d'accompagner les organisations dans leur transition numérique, tout en formant la prochaine génération de talents tech internationaux.
-                  </p>
-                </div>
-                
-                <div>
-                  <h3 className="text-2xl font-semibold mb-4 text-white">Ma Vision</h3>
-                  <p className="text-gray-300 leading-relaxed">
-                    Je crois profondément que l'innovation technologique est un puissant vecteur de développement global. Mon ambition est de contribuer à l'émergence d'un écosystème tech mondial inclusif, où talents et expertises de tous horizons collaborent pour développer des solutions adaptées aux défis uniques de chaque marché, tout en partageant les meilleures pratiques internationales.
-                  </p>
-                  <div className="mt-6 grid md:grid-cols-2 gap-6">
-                    {values.map((value, index) => (
-                      <Card key={index} className="bg-black/50 border border-white/10 hover:border-primary/30 transition-all duration-300">
-                        <CardContent className="p-6">
-                          <div className="text-primary mb-3">
-                            {value.icon}
+              {/* Story Chapters */}
+              <div className="space-y-20">
+                {storyChapters.map((chapter, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, delay: index * 0.2 }}
+                    className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12`}
+                  >
+                    {/* Content Side */}
+                    <div className="flex-1 space-y-6">
+                      <div className="flex items-center gap-4">
+                        <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${chapter.color} p-4 flex items-center justify-center text-white shadow-lg`}>
+                          {chapter.icon}
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-400 uppercase tracking-wider">{chapter.chapter}</p>
+                          <p className="text-lg font-medium text-white">{chapter.period}</p>
+                        </div>
+                      </div>
+                      
+                      <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
+                        {chapter.title}
+                      </h3>
+                      
+                      <p className="text-lg text-gray-300 leading-relaxed">
+                        {chapter.story}
+                      </p>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {chapter.highlights.map((highlight, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, delay: 0.1 * idx }}
+                            className="flex items-center gap-3 p-3 rounded-lg bg-black/30 backdrop-blur-sm border border-white/10"
+                          >
+                            <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${chapter.color}`}></div>
+                            <span className="text-white text-sm font-medium">{highlight}</span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    {/* Visual Side */}
+                    <div className="flex-1 flex justify-center">
+                      <motion.div
+                        whileHover={{ scale: 1.05, rotate: 2 }}
+                        className={`relative w-80 h-80 rounded-2xl bg-gradient-to-br ${chapter.bgColor} backdrop-blur-md border border-white/20 shadow-xl overflow-hidden`}
+                      >
+                        {/* Decorative elements */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
+                        <div className={`absolute top-4 right-4 w-12 h-12 rounded-full bg-gradient-to-r ${chapter.color} opacity-80 blur-xl`}></div>
+                        <div className={`absolute bottom-4 left-4 w-8 h-8 rounded-full bg-gradient-to-r ${chapter.color} opacity-60 blur-lg`}></div>
+                        
+                        {/* Content */}
+                        <div className="absolute inset-0 p-8 flex flex-col justify-center items-center text-center">
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                            className={`w-20 h-20 rounded-full bg-gradient-to-r ${chapter.color} p-5 mb-6 shadow-lg`}
+                          >
+                            {chapter.icon}
+                          </motion.div>
+                          <h4 className="text-xl font-bold text-white mb-2">{chapter.chapter}</h4>
+                          <p className="text-gray-300 text-sm">{chapter.period}</p>
+                          
+                          {/* Animated dots */}
+                          <div className="flex gap-2 mt-6">
+                            {[...Array(3)].map((_, i) => (
+                              <motion.div
+                                key={i}
+                                animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                                transition={{ duration: 2, delay: i * 0.2, repeat: Infinity }}
+                                className={`w-2 h-2 rounded-full bg-gradient-to-r ${chapter.color}`}
+                              />
+                            ))}
                           </div>
-                          <h4 className="text-lg font-semibold text-white mb-2">{value.title}</h4>
-                          <p className="text-gray-300">{value.description}</p>
-                        </CardContent>
-                      </Card>
+                        </div>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              
+              {/* Passion & Vision */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mt-20 text-center"
+              >
+                <div className="bg-gradient-to-r from-black/60 via-purple-900/20 to-black/60 backdrop-blur-md rounded-3xl p-12 border border-white/10">
+                  <div className="flex justify-center mb-6">
+                    <motion.div
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                      className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 p-4 shadow-lg"
+                    >
+                      <Heart className="w-full h-full text-white" />
+                    </motion.div>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">Ma Passion & Ma Vision</h3>
+                  <p className="text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                    Je crois profondément que l'innovation technologique est un puissant vecteur de développement global. 
+                    Mon ambition est de contribuer à l'émergence d'un écosystème tech mondial inclusif, où talents et expertises 
+                    de tous horizons collaborent pour développer des solutions adaptées aux défis uniques de chaque marché, 
+                    tout en partageant les meilleures pratiques internationales.
+                  </p>
+                  
+                  <div className="mt-8 grid md:grid-cols-2 gap-6">
+                    {values.map((value, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        className="group"
+                      >
+                        <Card className="h-full bg-black/50 border border-white/10 hover:border-primary/30 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/10">
+                          <CardContent className="p-6">
+                            <div className="text-primary mb-3 group-hover:scale-110 transition-transform">
+                              {value.icon}
+                            </div>
+                            <h4 className="text-lg font-semibold text-white mb-2">{value.title}</h4>
+                            <p className="text-gray-300 text-sm">{value.description}</p>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </PageContainer>
         </section>
