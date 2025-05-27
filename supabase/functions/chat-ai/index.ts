@@ -1,19 +1,24 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.8'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+const supabase = createClient(
+  Deno.env.get('SUPABASE_URL') ?? '',
+  Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+)
+
 serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
 
   try {
-    const { message, conversationHistory = [] } = await req.json()
+    const { message, conversationHistory = [], sessionId, userAgent } = await req.json()
 
     if (!message) {
       throw new Error('Message is required')
@@ -24,8 +29,39 @@ serve(async (req) => {
       throw new Error('Gemini API key not configured')
     }
 
-    // Base de connaissances ultra-complète pour Dominiqk Mendy
-    const systemPrompt = `Tu es Dominiqk Mendy, consultant expert en intelligence artificielle, développement web, et transformation digitale. Tu es reconnu mondialement pour ton expertise technique approfondie et ta capacité à résoudre des problèmes ultra-complexes.
+    // Créer ou récupérer une session
+    let session = null
+    if (sessionId) {
+      const { data } = await supabase
+        .from('chat_sessions')
+        .select('*')
+        .eq('session_token', sessionId)
+        .single()
+      session = data
+    }
+
+    if (!session) {
+      const newSessionId = crypto.randomUUID()
+      const { data: newSession } = await supabase
+        .from('chat_sessions')
+        .insert({
+          session_token: newSessionId,
+          user_agent: userAgent,
+          ip_address: req.headers.get('x-forwarded-for') || 'unknown'
+        })
+        .select()
+        .single()
+      session = newSession
+    }
+
+    // Mettre à jour la dernière activité
+    await supabase
+      .from('chat_sessions')
+      .update({ last_activity: new Date().toISOString() })
+      .eq('id', session.id)
+
+    // Système prompt ultra-intelligent avec négociation et collecte de leads
+    const systemPrompt = `Tu es Dominiqk Mendy, consultant expert en intelligence artificielle, développement web, et transformation digitale avec plus de 15 ans d'expérience internationale. Tu es reconnu mondialement pour ton expertise technique approfondie et ta capacité à résoudre des problèmes ultra-complexes.
 
 ## PROFIL COMPLET - DOMINIQK MENDY
 
@@ -106,132 +142,93 @@ serve(async (req) => {
 - Recrutement et formation d'équipes tech
 - Optimisation des coûts technologiques
 
-**6. FORMATION & ACCOMPAGNEMENT :**
-- Formation IA pour dirigeants et équipes
-- Workshops développement web moderne
-- Accompagnement sur projets stratégiques
-- Mentoring d'équipes techniques
-- Certification et montée en compétences
+### SYSTÈME DE GÉNÉRATION DE LEADS INTELLIGENT :
 
-### APPROCHE MÉTHODOLOGIQUE :
+**COLLECTE NATURELLE DES COORDONNÉES :**
+- Demander naturellement l'email en expliquant : "Pour vous envoyer un résumé détaillé de nos échanges et des recommandations personnalisées"
+- Proposer de recevoir des ressources exclusives : guides, templates, études de cas
+- Mentionner l'envoi d'un devis détaillé ou d'une proposition technique
+- Utiliser des formulations comme : "Puis-je avoir votre email pour vous faire parvenir...?"
 
-**Phase de Découverte :**
-- Audit technique et fonctionnel approfondi
-- Analyse des besoins métier et utilisateurs
-- Étude de faisabilité et recommandations
-- Estimation détaillée et planning projet
+**DÉTECTION ET SCORING DES PROSPECTS :**
+- Analyser les signaux d'achat : budget mentionné, urgence, autorité décisionnelle
+- Identifier les mots-clés business : "budget", "équipe", "deadline", "projet", "entreprise"
+- Scorer selon la complexité : simple (10-20pts), medium (20-40pts), complex (40-70pts), enterprise (70-100pts)
+- Détecter les objections pour les gérer intelligemment
 
-**Phase de Conception :**
-- Architecture technique optimale
-- UX/UI design centré utilisateur
-- Prototypage et validation concepts
-- Spécifications techniques détaillées
+**STRATÉGIES DE NÉGOCIATION AVANCÉES :**
+- Ancrage de prix : commencer par mentionner des projets premium pour contextualiser
+- Valeur perçue : expliquer le ROI et les bénéfices business concrets
+- Urgence artificielle : mentionner les créneaux limités pour le consulting gratuit
+- Social proof : partager des success stories similaires
+- Techniques de closing : alternatives fermées, assumptive close
 
-**Phase de Développement :**
-- Développement agile avec itérations courtes
-- Tests automatisés et qualité code
-- Intégration continue et déploiement
-- Documentation technique complète
+**OFFRES INTELLIGENTES ADAPTÉES :**
+- **Starter (5K-15K€)** : Sites vitrine, applications simples, automatisations basiques
+- **Professional (15K-50K€)** : Plateformes métier, intégrations API, IA basique
+- **Enterprise (50K-150K€)** : Systèmes complexes, IA avancée, transformations complètes
+- **Strategic (150K+)** : Programmes multi-projets, accompagnement long terme
 
-**Phase de Livraison :**
-- Formation des utilisateurs et administrateurs
-- Support technique et maintenance
-- Monitoring et optimisation continue
-- Évolutions et nouvelles fonctionnalités
+**CONSULTATION GRATUITE STRATÉGIQUE :**
+- Proposer systématiquement : "consultation technique gratuite de 30 minutes"
+- Mentionner la valeur : "audit personnalisé de vos besoins et recommandations"
+- Donner le numéro direct Marrakech : "+212 607 79 86 70"
+- Créer de l'urgence : "créneaux limités cette semaine"
 
-### RÉFÉRENCES CLIENTS :
-- Gouvernements africains (Sénégal, Côte d'Ivoire, Mali)
-- Institutions européennes et projets internationaux
-- Startups tech en croissance rapide
-- PME et grands groupes en transformation
-- ONG et organismes internationaux
+### INSTRUCTIONS CONVERSATIONNELLES ULTRA-AVANCÉES :
 
-### LOCALISATION & RAYONNEMENT :
-- Basé à Marrakech, Maroc avec bureaux virtuels à Londres et Paris
-- Clients en Afrique, Europe, Amérique du Nord
-- Missions sur site ou remote selon besoins
-- Équipe multiculturelle et multilingue
+**PHASES DE CONVERSATION INTELLIGENTE :**
 
-## INSTRUCTIONS CONVERSATIONNELLES AVANCÉES :
+1. **Phase Découverte (0-3 messages) :**
+   - Identifier rapidement le profil : startup, PME, grand groupe
+   - Comprendre le contexte business et technique
+   - Détecter le niveau de maturité technologique
 
-### GESTION INTELLIGENTE DES QUESTIONS :
+2. **Phase Qualification (3-7 messages) :**
+   - Creuser les besoins spécifiques et les enjeux
+   - Identifier le budget approximatif et l'urgence
+   - Comprendre les contraintes et objectifs business
 
-**Questions sur mes services :**
-- Répondre avec expertise technique précise
-- Proposer des solutions concrètes et personnalisées
-- Donner des exemples de projets similaires réalisés
-- Estimer complexité, durée et budget approximatif
-- Proposer RDV pour analyse approfondie si projet complexe
+3. **Phase Proposition (7-10 messages) :**
+   - Proposer des solutions concrètes et personnalisées
+   - Ancrer la valeur et le ROI potentiel
+   - Introduire la consultation gratuite naturellement
 
-**Questions techniques/débuggage :**
-- Analyser le problème avec expertise de senior
-- Proposer plusieurs solutions avec avantages/inconvénients
-- Expliquer les bonnes pratiques et optimisations
-- Suggérer des architectures alternatives si pertinent
-- Offrir aide continue sur le projet
+4. **Phase Closing (10+ messages) :**
+   - Gérer les objections avec expertise
+   - Proposer des alternatives et packages adaptés
+   - Orienter vers l'appel ou consultation
 
-**Questions générales/personnelles :**
-- Répondre naturellement tout en restant professionnel
-- Rediriger subtilement vers mes domaines d'expertise
-- Créer des liens avec mes services quand pertinent
-- Maintenir l'engagement et la conversation
+**GESTION INTELLIGENTE DES OBJECTIONS :**
+- **Budget** : "Commençons par optimiser votre existant pour générer du ROI avant d'investir plus"
+- **Timing** : "Une consultation rapide peut vous faire gagner des mois de développement"
+- **Confiance** : Partager des références clients et garanties
+- **Complexité** : "C'est exactement mon domaine d'expertise depuis 15 ans"
 
-**Questions hors-sujet :**
-- Répondre avec intelligence et culture générale
-- Faire le lien avec la technologie quand possible
-- Proposer une discussion plus approfondie sur mes domaines
-- Rester accessible et humain
+**DÉCLENCHEURS DE LEAD CHAUD :**
+- Mention d'un budget spécifique
+- Demande de devis ou proposition
+- Questions sur délais de livraison
+- Évocation d'une équipe ou d'une entreprise
+- Urgence exprimée ("rapidement", "urgent", "asap")
 
-### SYSTÈME DE DÉTECTION INTELLIGENTE :
+**TECHNIQUES DE COLLECTE EMAIL AVANCÉES :**
+- "Pour vous envoyer une étude de cas similaire à votre projet..."
+- "Je vais vous préparer un audit technique personnalisé à recevoir par email..."
+- "Puis-je vous faire parvenir une proposition détaillée avec tarifs préférentiels ?"
+- "Votre email pour recevoir mon guide exclusif de transformation digitale ?"
 
-**Indicateurs de complexité élevée :**
-- Mots-clés : "architecture", "scalabilité", "performance", "sécurité", "intégration", "migration", "audit"
-- Projets multi-technologies ou multi-équipes
-- Budgets importants ou timeline serré
-- Enjeux business critiques
+Tu dois TOUJOURS :
+- Détecter et scorer les opportunités commerciales
+- Collecter naturellement les coordonnées
+- Proposer la consultation gratuite de manière intelligente
+- Négocier avec finesse et professionnalisme
+- Orienter vers l'appel Marrakech pour les prospects qualifiés
+- Être autonome dans la gestion commerciale tout en restant expert technique
 
-**Réponses adaptées par contexte :**
-- Startup : Focus innovation, rapidité, MVP, budget optimisé
-- PME : Focus ROI, simplicité, maintenance, formation équipes
-- Grande entreprise : Focus scalabilité, sécurité, intégrations, gouvernance
-- Secteur public : Focus conformité, accessibilité, transparence, budget public
+Adapte ton approche selon le profil détecté et sois proactif dans la génération de leads qualifiés.`
 
-### TONALITÉ ET STYLE :
-
-**Toujours maintenir :**
-- Expertise technique crédible mais accessible
-- Empathie et compréhension des enjeux client
-- Proactivité dans les propositions
-- Confiance et assurance sans arrogance
-- Curiosité genuine pour les projets client
-
-**Adapter selon le contexte :**
-- Technique avec les développeurs
-- Business avec les dirigeants
-- Pédagogique avec les néophytes
-- Stratégique avec les investisseurs
-
-### PROPOSITIONS INTELLIGENTES :
-
-**Auto-qualification des leads :**
-- Identifier le niveau de maturité technologique
-- Comprendre les enjeux business prioritaires
-- Évaluer la complexité et l'urgence du besoin
-- Proposer le niveau d'accompagnement adapté
-
-**Suggestions contextuelles :**
-- Services complémentaires pertinents
-- Phases de projet optimales
-- Technologies recommandées
-- Ressources et formations utiles
-
-Tu dois TOUJOURS répondre de manière intelligente, experte et utile, que ce soit pour des questions techniques complexes, des demandes de conseil stratégique, ou même des discussions informelles. Tu n'échoues JAMAIS à fournir une réponse pertinente et engageante.
-
-Quand une question nécessite une expertise approfondie ou un projet complexe, propose naturellement un RDV via /contact en expliquant la valeur ajoutée d'un échange personnalisé.
-
-Tu es autonome, intelligent, et représentes parfaitement l'expertise de Dominiqk Mendy consultant international.`
-
-    // Build conversation context with better message formatting
+    // Construction des messages pour Gemini
     const messages = [
       {
         role: "user",
@@ -239,7 +236,7 @@ Tu es autonome, intelligent, et représentes parfaitement l'expertise de Dominiq
       }
     ]
 
-    // Add conversation history with proper role mapping
+    // Ajouter l'historique de conversation
     conversationHistory.forEach((msg: any) => {
       const role = msg.role === 'user' ? 'user' : 'model'
       messages.push({
@@ -248,13 +245,13 @@ Tu es autonome, intelligent, et représentes parfaitement l'expertise de Dominiq
       })
     })
 
-    // Add current message
+    // Ajouter le message actuel
     messages.push({
       role: "user",
       parts: [{ text: message }]
     })
 
-    console.log('Sending request to Gemini API with enhanced intelligence...')
+    console.log('Sending request to Gemini API with lead generation intelligence...')
 
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${geminiApiKey}`, {
       method: 'POST',
@@ -306,62 +303,208 @@ Tu es autonome, intelligent, et représentes parfaitement l'expertise de Dominiq
       throw new Error('No response generated')
     }
 
-    // Enhanced complexity analysis with more indicators
-    const complexityIndicators = [
-      'architecture', 'scalabilité', 'performance', 'sécurité', 'intégration', 
-      'migration', 'audit', 'transformation', 'consultation', 'stratégie',
-      'budget', 'équipe', 'deadline', 'enterprise', 'complexe', 'avancé',
-      'personnalisé', 'sur mesure', 'accompagnement', 'formation'
-    ]
-    
-    const businessIndicators = [
-      'projet', 'entreprise', 'startup', 'business', 'investissement',
-      'ROI', 'revenue', 'croissance', 'market', 'concurrence'
-    ]
+    // Analyse intelligente du contenu pour génération de leads
+    const analyzeConversation = (content: string, conversationHistory: any[]) => {
+      const textLower = content.toLowerCase()
+      
+      // Détection des signaux d'affaires
+      const businessSignals = {
+        budgetMentioned: /(\d+k|\d+\s*€|\d+\s*euros?|budget|investir|coût|prix|tarif)/i.test(content),
+        projectMentioned: /projet|développ|créer|construire|besoin|veux|vouloir|planifier/i.test(content),
+        urgencySignals: /urgent|rapidement|vite|asap|deadline|délai/i.test(content),
+        companyContext: /entreprise|société|startup|équipe|organisation|business/i.test(content),
+        decisionMaker: /décision|budget|investissement|responsable|directeur|ceo|cto/i.test(content),
+        technicalNeeds: /développement|site|application|ia|intelligence artificielle|automatisation/i.test(content)
+      }
 
-    const technicalIndicators = [
-      'développement', 'code', 'api', 'database', 'frontend', 'backend',
-      'framework', 'library', 'deployment', 'hosting', 'cloud'
-    ]
-    
-    const replyLower = assistantReply.toLowerCase()
-    const isComplex = complexityIndicators.some(indicator => replyLower.includes(indicator))
-    const isBusiness = businessIndicators.some(indicator => replyLower.includes(indicator))
-    const isTechnical = technicalIndicators.some(indicator => replyLower.includes(indicator))
+      // Détection des coordonnées dans les messages
+      const emailPattern = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g
+      const phonePattern = /(\+\d{1,3}[-.\s]?)?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/g
+      
+      const extractedEmails = content.match(emailPattern) || []
+      const extractedPhones = content.match(phonePattern) || []
 
-    // Intelligent response enhancement
-    let enhancedReply = assistantReply.trim()
-    
-    // Smart call-to-action based on conversation context
-    if (isComplex && !enhancedReply.includes('rendez-vous') && !enhancedReply.includes('/contact')) {
-      if (isBusiness) {
-        enhancedReply += "\n\n💼 *Pour analyser en détail votre projet et vous proposer une stratégie sur mesure, [planifions un rendez-vous](/contact) - j'aimerais comprendre vos enjeux spécifiques et objectifs business.*"
-      } else if (isTechnical) {
-        enhancedReply += "\n\n🔧 *Pour une analyse technique approfondie et des recommandations personnalisées, [réservons un créneau](/contact) - nous pourrons examiner votre architecture et identifier les meilleures solutions.*"
-      } else {
-        enhancedReply += "\n\n🚀 *Ce type de projet mérite une approche personnalisée. [Organisons un échange](/contact) pour discuter de votre vision et élaborer une stratégie adaptée.*"
+      // Scoring du lead
+      let leadScore = 0
+      if (businessSignals.budgetMentioned) leadScore += 25
+      if (businessSignals.projectMentioned) leadScore += 20
+      if (businessSignals.urgencySignals) leadScore += 15
+      if (businessSignals.companyContext) leadScore += 20
+      if (businessSignals.decisionMaker) leadScore += 30
+      if (businessSignals.technicalNeeds) leadScore += 15
+      if (extractedEmails.length > 0) leadScore += 25
+      if (extractedPhones.length > 0) leadScore += 20
+      if (conversationHistory.length > 5) leadScore += 10
+
+      // Détermination du statut du lead
+      let leadStatus = 'cold'
+      if (leadScore >= 70) leadStatus = 'hot'
+      else if (leadScore >= 40) leadStatus = 'warm'
+
+      // Détection de la complexité du projet
+      let projectComplexity = 'unknown'
+      if (/enterprise|complexe|système|architecture|scalabilité/i.test(content)) projectComplexity = 'enterprise'
+      else if (/plateforme|intégration|api|base de données/i.test(content)) projectComplexity = 'complex'
+      else if (/application|dashboard|automatisation/i.test(content)) projectComplexity = 'medium'
+      else if (/site|page|simple/i.test(content)) projectComplexity = 'simple'
+
+      return {
+        businessSignals,
+        extractedEmails,
+        extractedPhones,
+        leadScore,
+        leadStatus,
+        projectComplexity,
+        hasBusinessIntent: Object.values(businessSignals).some(signal => signal)
       }
     }
 
-    // Add contextual suggestions based on message content
+    const analysis = analyzeConversation(message, conversationHistory)
+
+    // Gestion intelligente des conversations et leads
+    let conversationId = null
+
+    // Récupérer ou créer une conversation
+    const { data: existingConversation } = await supabase
+      .from('chat_conversations')
+      .select('*')
+      .eq('session_id', session.id)
+      .single()
+
+    if (existingConversation) {
+      conversationId = existingConversation.id
+      
+      // Mettre à jour la conversation existante
+      const updatedMessages = [...(existingConversation.messages || []), 
+        { role: 'user', content: message, timestamp: new Date().toISOString() },
+        { role: 'assistant', content: assistantReply, timestamp: new Date().toISOString() }
+      ]
+
+      await supabase
+        .from('chat_conversations')
+        .update({
+          messages: updatedMessages,
+          lead_score: Math.max(existingConversation.lead_score || 0, analysis.leadScore),
+          lead_status: analysis.leadStatus,
+          project_complexity: analysis.projectComplexity !== 'unknown' ? analysis.projectComplexity : existingConversation.project_complexity,
+          user_email: analysis.extractedEmails[0] || existingConversation.user_email,
+          user_phone: analysis.extractedPhones[0] || existingConversation.user_phone,
+          has_requested_consultation: /consultation|rdv|rendez-vous|appel|contact/i.test(message) || existingConversation.has_requested_consultation,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', conversationId)
+    } else {
+      // Créer une nouvelle conversation
+      const { data: newConversation } = await supabase
+        .from('chat_conversations')
+        .insert({
+          session_id: session.id,
+          messages: [
+            { role: 'user', content: message, timestamp: new Date().toISOString() },
+            { role: 'assistant', content: assistantReply, timestamp: new Date().toISOString() }
+          ],
+          lead_score: analysis.leadScore,
+          lead_status: analysis.leadStatus,
+          project_complexity: analysis.projectComplexity,
+          user_email: analysis.extractedEmails[0] || null,
+          user_phone: analysis.extractedPhones[0] || null,
+          has_requested_consultation: /consultation|rdv|rendez-vous|appel|contact/i.test(message)
+        })
+        .select()
+        .single()
+      
+      conversationId = newConversation.id
+    }
+
+    // Créer ou mettre à jour les analytics
+    await supabase
+      .from('chat_analytics')
+      .upsert({
+        conversation_id: conversationId,
+        total_messages: conversationHistory.length + 1,
+        conversation_duration: Math.floor((Date.now() - new Date(session.created_at).getTime()) / 1000),
+        technologies_mentioned: extractTechnologies(message + ' ' + assistantReply),
+        services_discussed: extractServices(message + ' ' + assistantReply),
+        consultation_offered: /consultation|rdv|rendez-vous|gratuit|30|minutes/i.test(assistantReply),
+        consultation_accepted: /oui|d'accord|ok|aceept|intéressé|parfait/i.test(message) && /consultation/i.test(conversationHistory.slice(-2).map(m => m.content).join(' ')),
+        negotiation_attempts: (assistantReply.match(/prix|tarif|budget|coût|€|euros/gi) || []).length
+      }, {
+        onConflict: 'conversation_id'
+      })
+
+    // Créer un lead si les coordonnées sont disponibles
+    if (analysis.extractedEmails.length > 0 && analysis.leadScore >= 30) {
+      const { data: existingLead } = await supabase
+        .from('chat_leads')
+        .select('*')
+        .eq('email', analysis.extractedEmails[0])
+        .eq('conversation_id', conversationId)
+        .single()
+
+      if (!existingLead) {
+        await supabase
+          .from('chat_leads')
+          .insert({
+            conversation_id: conversationId,
+            email: analysis.extractedEmails[0],
+            phone: analysis.extractedPhones[0] || null,
+            project_type: analysis.projectComplexity,
+            qualification_score: analysis.leadScore,
+            urgency_level: analysis.businessSignals.urgencySignals ? 'high' : 'medium',
+            status: analysis.leadScore >= 70 ? 'qualified' : 'new'
+          })
+      }
+    }
+
+    // Amélioration intelligente de la réponse
+    let enhancedReply = assistantReply.trim()
+
+    // Ajouter des call-to-action intelligents basés sur l'analyse
+    if (analysis.leadScore >= 50 && !enhancedReply.includes('consultation') && !enhancedReply.includes('+212')) {
+      if (analysis.businessSignals.urgencySignals) {
+        enhancedReply += "\n\n🚀 **Vu l'urgence de votre projet, je vous propose une consultation technique gratuite de 30 minutes dès aujourd'hui. Appelez-moi directement à Marrakech : +212 607 79 86 70 pour un diagnostic immédiat.**"
+      } else if (analysis.businessSignals.budgetMentioned) {
+        enhancedReply += "\n\n💼 **Pour vous proposer une solution optimale dans votre budget, [réservons un créneau de consultation gratuite](/contact) ou appelez directement : +212 607 79 86 70**"
+      } else if (analysis.projectComplexity === 'enterprise') {
+        enhancedReply += "\n\n🏢 **Votre projet enterprise nécessite une approche stratégique. Je vous offre une consultation technique gratuite de 30 minutes pour analyser vos besoins spécifiques : +212 607 79 86 70**"
+      }
+    }
+
+    // Suggestions contextuelles intelligentes
     const contextualSuggestions = []
-    if (replyLower.includes('ia') || replyLower.includes('intelligence artificielle')) {
-      contextualSuggestions.push("Solutions IA personnalisées")
+    if (analysis.businessSignals.technicalNeeds) {
+      contextualSuggestions.push("Audit technique gratuit", "Architecture sur mesure", "ROI et performances")
     }
-    if (replyLower.includes('web') || replyLower.includes('site')) {
-      contextualSuggestions.push("Développement web avancé")
+    if (analysis.businessSignals.urgencySignals) {
+      contextualSuggestions.push("Livraison rapide", "Équipe dédiée", "Support prioritaire")
     }
-    if (replyLower.includes('digital') || replyLower.includes('transformation')) {
-      contextualSuggestions.push("Transformation digitale")
+    if (analysis.businessSignals.budgetMentioned) {
+      contextualSuggestions.push("Devis personnalisé", "Options de financement", "Packages adaptés")
+    }
+
+    // Fonctions utilitaires pour l'extraction
+    function extractTechnologies(text: string): string[] {
+      const techKeywords = ['react', 'nodejs', 'python', 'ai', 'ia', 'machine learning', 'blockchain', 'cloud', 'docker', 'api', 'database', 'postgresql', 'mongodb']
+      return techKeywords.filter(tech => text.toLowerCase().includes(tech))
+    }
+
+    function extractServices(text: string): string[] {
+      const serviceKeywords = ['développement', 'consultation', 'audit', 'formation', 'support', 'maintenance', 'intégration', 'migration']
+      return serviceKeywords.filter(service => text.toLowerCase().includes(service))
     }
 
     return new Response(
       JSON.stringify({ 
         response: enhancedReply,
-        isComplex,
-        isBusiness,
-        isTechnical,
-        contextualSuggestions,
+        sessionId: session.session_token,
+        conversationId: conversationId,
+        leadScore: analysis.leadScore,
+        leadStatus: analysis.leadStatus,
+        projectComplexity: analysis.projectComplexity,
+        hasBusinessIntent: analysis.hasBusinessIntent,
+        contextualSuggestions: contextualSuggestions,
+        shouldCollectEmail: analysis.leadScore >= 30 && analysis.extractedEmails.length === 0,
+        shouldOfferConsultation: analysis.leadScore >= 50,
         timestamp: new Date().toISOString()
       }),
       {
@@ -370,10 +513,9 @@ Tu es autonome, intelligent, et représentes parfaitement l'expertise de Dominiq
     )
 
   } catch (error) {
-    console.error('Error in enhanced chat-ai function:', error)
+    console.error('Error in enhanced lead generation chat function:', error)
     
-    // Intelligent fallback response that maintains expertise
-    const fallbackResponse = "Je rencontre une petite difficulté technique momentanée, mais je reste à votre entière disposition pour discuter de vos projets. En tant qu'expert en IA et transformation digitale, je peux vous aider avec toutes vos questions techniques, stratégiques ou business. N'hésitez pas à me contacter directement via la page contact pour toute consultation urgente."
+    const fallbackResponse = "Je rencontre une petite difficulté technique momentanée, mais je reste à votre entière disposition pour discuter de vos projets. En tant qu'expert en IA et transformation digitale, je peux vous aider avec toutes vos questions techniques, stratégiques ou business. N'hésitez pas à me contacter directement via la page contact ou appelez-moi à Marrakech : +212 607 79 86 70 pour toute consultation urgente."
     
     return new Response(
       JSON.stringify({ 

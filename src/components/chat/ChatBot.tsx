@@ -1,7 +1,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, Send, X, Calendar, Paperclip, Brain, Code, Phone, Lightbulb, Zap } from 'lucide-react';
+import { MessageCircle, Send, X, Calendar, Paperclip, Brain, Code, Phone, Lightbulb, Zap, StopCircle, Mail } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/components/ui/use-toast';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -11,6 +12,17 @@ interface Message {
   isBusiness?: boolean;
   isTechnical?: boolean;
   contextualSuggestions?: string[];
+}
+
+interface ConversationData {
+  sessionId?: string;
+  conversationId?: string;
+  leadScore?: number;
+  leadStatus?: string;
+  projectComplexity?: string;
+  hasBusinessIntent?: boolean;
+  shouldCollectEmail?: boolean;
+  shouldOfferConsultation?: boolean;
 }
 
 export const ChatBot = () => {
@@ -24,7 +36,14 @@ export const ChatBot = () => {
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [conversationData, setConversationData] = useState<ConversationData>({});
+  const [isConversationEnded, setIsConversationEnded] = useState(false);
+  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
+  const [userName, setUserName] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const conversationStartTime = useRef<Date>(new Date());
+  const { toast } = useToast();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -33,6 +52,16 @@ export const ChatBot = () => {
   useEffect(() => {
     scrollToBottom()
   }, [messages]);
+
+  // Générer un sessionId unique au démarrage
+  useEffect(() => {
+    if (!conversationData.sessionId) {
+      setConversationData(prev => ({
+        ...prev,
+        sessionId: crypto.randomUUID()
+      }));
+    }
+  }, []);
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
@@ -48,12 +77,14 @@ export const ChatBot = () => {
     setIsLoading(true);
 
     try {
-      console.log("Envoi vers le chatbot ultra-intelligent...");
+      console.log("Envoi vers le système de génération de leads intelligent...");
 
       const { data, error } = await supabase.functions.invoke('chat-ai', {
         body: {
           message: inputMessage,
-          conversationHistory: messages.slice(-15) // Increased context for better intelligence
+          conversationHistory: messages.slice(-15),
+          sessionId: conversationData.sessionId,
+          userAgent: navigator.userAgent
         }
       });
 
@@ -74,6 +105,33 @@ export const ChatBot = () => {
         };
         
         setMessages(prevMessages => [...prevMessages, assistantMessage]);
+        
+        // Mettre à jour les données de conversation
+        setConversationData(prev => ({
+          ...prev,
+          sessionId: data.sessionId,
+          conversationId: data.conversationId,
+          leadScore: data.leadScore,
+          leadStatus: data.leadStatus,
+          projectComplexity: data.projectComplexity,
+          hasBusinessIntent: data.hasBusinessIntent,
+          shouldCollectEmail: data.shouldCollectEmail,
+          shouldOfferConsultation: data.shouldOfferConsultation
+        }));
+
+        // Afficher le formulaire email si nécessaire
+        if (data.shouldCollectEmail && !userEmail && !showEmailForm) {
+          setTimeout(() => setShowEmailForm(true), 2000);
+        }
+
+        // Notifications pour les leads chauds
+        if (data.leadScore >= 70) {
+          toast({
+            title: "🔥 Lead chaud détecté !",
+            description: "Prospect hautement qualifié en conversation",
+          });
+        }
+
       } else {
         throw new Error("Aucune réponse reçue");
       }
@@ -83,13 +141,121 @@ export const ChatBot = () => {
       
       const errorMessage: Message = {
         role: 'assistant',
-        content: "Une petite difficulté technique momentanée ! En tant qu'expert en résolution de problèmes, permettez-moi de vous aider autrement. Décrivez-moi votre besoin et je vous fournirai immédiatement des conseils experts. Pour une assistance technique urgente, contactez-moi directement.",
+        content: "Une petite difficulté technique momentanée ! En tant qu'expert en résolution de problèmes, permettez-moi de vous aider autrement. Décrivez-moi votre besoin et je vous fournirai immédiatement des conseils experts. Pour une assistance technique urgente, contactez-moi directement au +212 607 79 86 70.",
         timestamp: new Date().toISOString()
       };
       
       setMessages(prevMessages => [...prevMessages, errorMessage]);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleEndConversation = async () => {
+    setIsConversationEnded(true);
+    
+    // Marquer la conversation comme terminée
+    if (conversationData.conversationId) {
+      try {
+        await supabase
+          .from('chat_conversations')
+          .update({
+            conversation_ended_at: new Date().toISOString(),
+            conversation_summary: messages.slice(-3).map(m => m.content).join(' '),
+          })
+          .eq('id', conversationData.conversationId);
+
+        // Programmer l'envoi d'email automatique dans 20 minutes si email disponible
+        if (userEmail) {
+          setTimeout(async () => {
+            try {
+              await supabase.functions.invoke('send-chat-summary', {
+                body: {
+                  conversationId: conversationData.conversationId,
+                  userEmail: userEmail,
+                  userName: userName
+                }
+              });
+              console.log('Email de suivi programmé avec succès');
+            } catch (error) {
+              console.error('Erreur programmation email:', error);
+            }
+          }, 20 * 60 * 1000); // 20 minutes
+        }
+
+        toast({
+          title: "📊 Conversation terminée",
+          description: "Toutes les données ont été sauvegardées. Email de suivi en cours de préparation.",
+        });
+
+      } catch (error) {
+        console.error('Erreur lors de la finalisation:', error);
+      }
+    }
+
+    // Ajouter un message de fin
+    const endMessage: Message = {
+      role: 'assistant',
+      content: `🙏 **Merci pour cet échange enrichissant !**\n\nJ'ai bien noté tous vos besoins${conversationData.leadScore ? ` (Score de qualification: ${conversationData.leadScore}/100)` : ''}.\n\n**Prochaines étapes :**\n• Vous recevrez un email de suivi dans 20 minutes avec mes recommandations personnalisées\n• Pour une consultation gratuite immédiate : **+212 607 79 86 70**\n• Toutes vos données sont sécurisées et sauvegardées\n\n🚀 **Au plaisir de transformer vos projets en succès !**`,
+      timestamp: new Date().toISOString(),
+      isComplex: true
+    };
+    
+    setMessages(prevMessages => [...prevMessages, endMessage]);
+  };
+
+  const handleEmailSubmit = async () => {
+    if (!userEmail.trim()) return;
+
+    try {
+      // Sauvegarder l'email dans la conversation
+      if (conversationData.conversationId) {
+        await supabase
+          .from('chat_conversations')
+          .update({
+            user_email: userEmail,
+            user_name: userName || null
+          })
+          .eq('id', conversationData.conversationId);
+
+        // Créer ou mettre à jour le lead
+        await supabase
+          .from('chat_leads')
+          .upsert({
+            conversation_id: conversationData.conversationId,
+            email: userEmail,
+            name: userName || null,
+            project_type: conversationData.projectComplexity,
+            qualification_score: conversationData.leadScore || 0,
+            status: conversationData.leadScore && conversationData.leadScore >= 70 ? 'qualified' : 'new'
+          }, {
+            onConflict: 'conversation_id'
+          });
+      }
+
+      setShowEmailForm(false);
+      
+      // Ajouter un message de confirmation
+      const confirmMessage: Message = {
+        role: 'assistant',
+        content: `Parfait ${userName || 'cher prospect'} ! 📧 Votre email **${userEmail}** a été enregistré.\n\nVous recevrez :\n• Un résumé détaillé de notre échange\n• Mes recommandations personnalisées\n• Une proposition technique adaptée\n\n💼 **Pour accélérer le processus, appelez-moi directement : +212 607 79 86 70**`,
+        timestamp: new Date().toISOString(),
+        isBusiness: true
+      };
+      
+      setMessages(prevMessages => [...prevMessages, confirmMessage]);
+
+      toast({
+        title: "✅ Email enregistré",
+        description: "Vous recevrez un suivi personnalisé sous peu.",
+      });
+
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde email:', error);
+      toast({
+        title: "❌ Erreur",
+        description: "Impossible d'enregistrer l'email. Réessayez.",
+      });
     }
   };
 
@@ -269,7 +435,7 @@ export const ChatBot = () => {
               ))}
             </div>
 
-            {/* Enhanced Header with Intelligence Status */}
+            {/* Enhanced Header with Lead Score */}
             <div className="flex items-center justify-between p-4 border-b border-white/10 relative z-[60] bg-black/20 backdrop-blur-sm">
               <div className="flex items-center space-x-3">
                 <div className="relative">
@@ -285,6 +451,15 @@ export const ChatBot = () => {
                   <h3 className="font-semibold text-white flex items-center gap-2">
                     Dominiqk Mendy
                     <span className="text-xs bg-gradient-to-r from-purple-500 to-blue-500 px-2 py-1 rounded-full animate-pulse">Ultra-IA</span>
+                    {conversationData.leadScore && (
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        conversationData.leadScore >= 70 ? 'bg-red-500/20 text-red-300' :
+                        conversationData.leadScore >= 40 ? 'bg-orange-500/20 text-orange-300' :
+                        'bg-blue-500/20 text-blue-300'
+                      }`}>
+                        {conversationData.leadScore}/100
+                      </span>
+                    )}
                   </h3>
                   <p className="text-xs text-green-300 font-medium">Consultant Expert • 15+ ans • International</p>
                 </div>
@@ -297,7 +472,7 @@ export const ChatBot = () => {
               </button>
             </div>
 
-            {/* Enhanced Action Buttons */}
+            {/* Enhanced Action Buttons with End Conversation */}
             <div className="flex gap-2 p-4 border-b border-white/10 relative z-[60] bg-black/20 backdrop-blur-sm">
               <button
                 onClick={handleReservation}
@@ -307,7 +482,7 @@ export const ChatBot = () => {
                 RDV Expert
               </button>
               <button
-                onClick={() => window.open('tel:+212000000000', '_self')}
+                onClick={() => window.open('tel:+212607798670', '_self')}
                 className="flex-1 bg-green-600/80 hover:bg-green-700/80 text-white px-3 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 backdrop-blur-sm border border-green-500/30 text-sm"
               >
                 <Phone className="w-4 h-4" />
@@ -322,7 +497,7 @@ export const ChatBot = () => {
               </button>
             </div>
 
-            {/* Enhanced Messages Area with Intelligence Indicators */}
+            {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 relative z-[55]">
               {messages.map((message, index) => {
                 const messageType = detectMessageType(message.content);
@@ -369,6 +544,63 @@ export const ChatBot = () => {
                   </div>
                 );
               })}
+
+              {/* End Conversation Button */}
+              {messages.length > 3 && !isConversationEnded && (
+                <div className="flex justify-center">
+                  <button
+                    onClick={handleEndConversation}
+                    className="bg-red-600/80 hover:bg-red-700/80 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2 backdrop-blur-sm border border-red-500/30 text-sm relative z-[60]"
+                  >
+                    <StopCircle className="w-4 h-4" />
+                    Terminer la discussion
+                  </button>
+                </div>
+              )}
+
+              {/* Email Collection Form */}
+              {showEmailForm && !userEmail && (
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 relative z-[60]">
+                  <h4 className="text-white font-medium mb-3 flex items-center gap-2">
+                    <Mail className="w-4 h-4" />
+                    Recevez vos recommandations personnalisées
+                  </h4>
+                  <div className="space-y-3">
+                    <input
+                      type="text"
+                      placeholder="Votre nom (optionnel)"
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                      className="w-full bg-white/10 border border-white/20 rounded px-3 py-2 text-white placeholder-gray-400 text-sm"
+                    />
+                    <input
+                      type="email"
+                      placeholder="Votre email professionnel"
+                      value={userEmail}
+                      onChange={(e) => setUserEmail(e.target.value)}
+                      className="w-full bg-white/10 border border-white/20 rounded px-3 py-2 text-white placeholder-gray-400 text-sm"
+                      required
+                    />
+                    <div className="flex gap-2">
+                      <button
+                        onClick={handleEmailSubmit}
+                        className="flex-1 bg-blue-600/80 hover:bg-blue-700/80 text-white px-3 py-2 rounded transition-colors text-sm"
+                      >
+                        Envoyer
+                      </button>
+                      <button
+                        onClick={() => setShowEmailForm(false)}
+                        className="px-3 py-2 text-gray-400 hover:text-white transition-colors text-sm"
+                      >
+                        Plus tard
+                      </button>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-2">
+                    📧 Résumé + recommandations + consultation gratuite
+                  </p>
+                </div>
+              )}
               
               {isLoading && (
                 <div className="flex justify-start">
@@ -398,11 +630,11 @@ export const ChatBot = () => {
                   onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
                   placeholder="Posez-moi n'importe quelle question : technique, business, stratégique..."
                   className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 backdrop-blur-sm relative z-[60] text-sm"
-                  disabled={isLoading}
+                  disabled={isLoading || isConversationEnded}
                 />
                 <button
                   onClick={handleSendMessage}
-                  disabled={isLoading || !inputMessage.trim()}
+                  disabled={isLoading || !inputMessage.trim() || isConversationEnded}
                   className="bg-blue-600/80 hover:bg-blue-700/80 disabled:bg-gray-600/80 text-white p-2 rounded-lg transition-colors relative z-[60] flex-shrink-0 border border-blue-500/30 backdrop-blur-sm"
                 >
                   <Send className="w-5 h-5" />
@@ -410,6 +642,9 @@ export const ChatBot = () => {
               </div>
               <p className="text-xs text-gray-400 mt-2 text-center">
                 🧠 Expert IA • 🚀 Conseils stratégiques • 🔧 Solutions techniques • 💼 Projets business
+                {conversationData.leadScore && (
+                  <span className="ml-2">• 📊 Score: {conversationData.leadScore}/100</span>
+                )}
               </p>
             </div>
           </div>

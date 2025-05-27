@@ -9,13 +9,230 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      chat_analytics: {
+        Row: {
+          consultation_accepted: boolean | null
+          consultation_offered: boolean | null
+          conversation_duration: number | null
+          conversation_id: string | null
+          created_at: string
+          id: string
+          negotiation_attempts: number | null
+          objections_raised: string[] | null
+          services_discussed: string[] | null
+          technologies_mentioned: string[] | null
+          total_messages: number | null
+        }
+        Insert: {
+          consultation_accepted?: boolean | null
+          consultation_offered?: boolean | null
+          conversation_duration?: number | null
+          conversation_id?: string | null
+          created_at?: string
+          id?: string
+          negotiation_attempts?: number | null
+          objections_raised?: string[] | null
+          services_discussed?: string[] | null
+          technologies_mentioned?: string[] | null
+          total_messages?: number | null
+        }
+        Update: {
+          consultation_accepted?: boolean | null
+          consultation_offered?: boolean | null
+          conversation_duration?: number | null
+          conversation_id?: string | null
+          created_at?: string
+          id?: string
+          negotiation_attempts?: number | null
+          objections_raised?: string[] | null
+          services_discussed?: string[] | null
+          technologies_mentioned?: string[] | null
+          total_messages?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_analytics_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "chat_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_conversations: {
+        Row: {
+          budget_mentioned: string | null
+          business_context: string | null
+          consultation_scheduled: boolean | null
+          conversation_ended_at: string | null
+          conversation_summary: string | null
+          created_at: string
+          email_sent: boolean | null
+          email_sent_at: string | null
+          has_requested_consultation: boolean | null
+          id: string
+          lead_score: number | null
+          lead_status: string | null
+          messages: Json
+          project_complexity: string | null
+          session_id: string
+          updated_at: string
+          user_email: string | null
+          user_name: string | null
+          user_phone: string | null
+        }
+        Insert: {
+          budget_mentioned?: string | null
+          business_context?: string | null
+          consultation_scheduled?: boolean | null
+          conversation_ended_at?: string | null
+          conversation_summary?: string | null
+          created_at?: string
+          email_sent?: boolean | null
+          email_sent_at?: string | null
+          has_requested_consultation?: boolean | null
+          id?: string
+          lead_score?: number | null
+          lead_status?: string | null
+          messages?: Json
+          project_complexity?: string | null
+          session_id: string
+          updated_at?: string
+          user_email?: string | null
+          user_name?: string | null
+          user_phone?: string | null
+        }
+        Update: {
+          budget_mentioned?: string | null
+          business_context?: string | null
+          consultation_scheduled?: boolean | null
+          conversation_ended_at?: string | null
+          conversation_summary?: string | null
+          created_at?: string
+          email_sent?: boolean | null
+          email_sent_at?: string | null
+          has_requested_consultation?: boolean | null
+          id?: string
+          lead_score?: number | null
+          lead_status?: string | null
+          messages?: Json
+          project_complexity?: string | null
+          session_id?: string
+          updated_at?: string
+          user_email?: string | null
+          user_name?: string | null
+          user_phone?: string | null
+        }
+        Relationships: []
+      }
+      chat_leads: {
+        Row: {
+          budget_range: string | null
+          company: string | null
+          conversation_id: string | null
+          created_at: string
+          email: string
+          follow_up_date: string | null
+          id: string
+          lead_source: string | null
+          name: string | null
+          notes: string | null
+          phone: string | null
+          project_type: string | null
+          qualification_score: number | null
+          status: string | null
+          updated_at: string
+          urgency_level: string | null
+        }
+        Insert: {
+          budget_range?: string | null
+          company?: string | null
+          conversation_id?: string | null
+          created_at?: string
+          email: string
+          follow_up_date?: string | null
+          id?: string
+          lead_source?: string | null
+          name?: string | null
+          notes?: string | null
+          phone?: string | null
+          project_type?: string | null
+          qualification_score?: number | null
+          status?: string | null
+          updated_at?: string
+          urgency_level?: string | null
+        }
+        Update: {
+          budget_range?: string | null
+          company?: string | null
+          conversation_id?: string | null
+          created_at?: string
+          email?: string
+          follow_up_date?: string | null
+          id?: string
+          lead_source?: string | null
+          name?: string | null
+          notes?: string | null
+          phone?: string | null
+          project_type?: string | null
+          qualification_score?: number | null
+          status?: string | null
+          updated_at?: string
+          urgency_level?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_leads_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "chat_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_sessions: {
+        Row: {
+          created_at: string
+          id: string
+          ip_address: string | null
+          is_active: boolean | null
+          last_activity: string
+          session_token: string
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          is_active?: boolean | null
+          last_activity?: string
+          session_token: string
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          is_active?: boolean | null
+          last_activity?: string
+          session_token?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      calculate_lead_score: {
+        Args: { conversation_id: string }
+        Returns: number
+      }
+      cleanup_inactive_sessions: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
