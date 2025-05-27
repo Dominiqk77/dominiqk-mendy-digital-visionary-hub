@@ -749,28 +749,82 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
                   <span className="text-green-400 font-medium">Mode Google Gemini activé - Expert Personnel</span>
                 </div>
                 
-                {/* Messages area with starry background */}
+                {/* Messages area with immersive starfield background */}
                 <div className="relative flex-1 p-3 overflow-y-auto bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
-                  {/* Starry background */}
-                  <div 
-                    className="absolute inset-0 opacity-30"
-                    style={{
-                      background: `
-                        radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
-                        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
-                        radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
-                        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
-                        radial-gradient(2px 2px at 160px 30px, #ffffff, transparent),
-                        radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.8), transparent),
-                        radial-gradient(2px 2px at 240px 90px, #ffffff, transparent),
-                        radial-gradient(1px 1px at 280px 20px, rgba(255,255,255,0.6), transparent),
-                        radial-gradient(1px 1px at 320px 50px, #ffffff, transparent),
-                        radial-gradient(2px 2px at 360px 80px, rgba(255,255,255,0.8), transparent)
-                      `,
-                      backgroundSize: '400px 100px',
-                      animation: 'twinkle 3s ease-in-out infinite alternate'
-                    }}
-                  />
+                  {/* Immersive starfield background */}
+                  <div className="immersive-starfield">
+                    {/* Star Layer 1 - Large bright stars */}
+                    <div className="star-layer-1">
+                      <div className="stellar-point large" style={{ top: '10%', left: '15%' }}></div>
+                      <div className="stellar-point large" style={{ top: '25%', left: '70%', animationDelay: '1s' }}></div>
+                      <div className="stellar-point large" style={{ top: '60%', left: '30%', animationDelay: '2s' }}></div>
+                      <div className="stellar-point large" style={{ top: '80%', left: '85%', animationDelay: '0.5s' }}></div>
+                      <div className="stellar-point large" style={{ top: '40%', left: '90%', animationDelay: '1.5s' }}></div>
+                    </div>
+
+                    {/* Star Layer 2 - Medium stars */}
+                    <div className="star-layer-2">
+                      <div className="stellar-point medium" style={{ top: '5%', left: '40%' }}></div>
+                      <div className="stellar-point medium" style={{ top: '20%', left: '20%', animationDelay: '0.8s' }}></div>
+                      <div className="stellar-point medium" style={{ top: '35%', left: '60%', animationDelay: '1.2s' }}></div>
+                      <div className="stellar-point medium" style={{ top: '50%', left: '10%', animationDelay: '2.5s' }}></div>
+                      <div className="stellar-point medium" style={{ top: '70%', left: '55%', animationDelay: '0.3s' }}></div>
+                      <div className="stellar-point medium" style={{ top: '85%', left: '25%', animationDelay: '1.8s' }}></div>
+                      <div className="stellar-point medium" style={{ top: '15%', left: '80%', animationDelay: '3s' }}></div>
+                      <div className="stellar-point medium" style={{ top: '45%', left: '45%', animationDelay: '0.7s' }}></div>
+                    </div>
+
+                    {/* Star Layer 3 - Small background stars */}
+                    <div className="star-layer-3">
+                      <div className="stellar-point small" style={{ top: '8%', left: '25%' }}></div>
+                      <div className="stellar-point small" style={{ top: '12%', left: '65%', animationDelay: '1s' }}></div>
+                      <div className="stellar-point small" style={{ top: '28%', left: '35%', animationDelay: '2s' }}></div>
+                      <div className="stellar-point small" style={{ top: '38%', left: '75%', animationDelay: '0.4s' }}></div>
+                      <div className="stellar-point small" style={{ top: '55%', left: '20%', animationDelay: '1.6s' }}></div>
+                      <div className="stellar-point small" style={{ top: '65%', left: '80%', animationDelay: '2.8s' }}></div>
+                      <div className="stellar-point small" style={{ top: '75%', left: '15%', animationDelay: '0.9s' }}></div>
+                      <div className="stellar-point small" style={{ top: '90%', left: '60%', animationDelay: '1.4s' }}></div>
+                      <div className="stellar-point small" style={{ top: '18%', left: '50%', animationDelay: '2.2s' }}></div>
+                      <div className="stellar-point small" style={{ top: '42%', left: '5%', animationDelay: '0.6s' }}></div>
+                      <div className="stellar-point small" style={{ top: '68%', left: '95%', animationDelay: '1.3s' }}></div>
+                      <div className="stellar-point small" style={{ top: '82%', left: '40%', animationDelay: '2.7s' }}></div>
+                    </div>
+
+                    {/* Cosmic nebulae */}
+                    <div className="cosmic-nebula blue" style={{ 
+                      top: '10%', 
+                      left: '10%', 
+                      width: '200px', 
+                      height: '150px',
+                      animationDelay: '0s'
+                    }}></div>
+                    <div className="cosmic-nebula purple" style={{ 
+                      top: '50%', 
+                      right: '5%', 
+                      width: '180px', 
+                      height: '120px',
+                      animationDelay: '20s'
+                    }}></div>
+                    <div className="cosmic-nebula indigo" style={{ 
+                      bottom: '15%', 
+                      left: '20%', 
+                      width: '150px', 
+                      height: '100px',
+                      animationDelay: '40s'
+                    }}></div>
+
+                    {/* Floating cosmic particles */}
+                    <div className="cosmic-particles" style={{ top: '20%', left: '5%', animationDelay: '0s' }}></div>
+                    <div className="cosmic-particles" style={{ top: '40%', left: '15%', animationDelay: '3s' }}></div>
+                    <div className="cosmic-particles" style={{ top: '60%', left: '8%', animationDelay: '6s' }}></div>
+                    <div className="cosmic-particles" style={{ top: '80%', left: '12%', animationDelay: '9s' }}></div>
+                    <div className="cosmic-particles" style={{ top: '30%', left: '2%', animationDelay: '12s' }}></div>
+
+                    {/* Shooting stars */}
+                    <div className="shooting-star" style={{ top: '15%', left: '10%', animationDelay: '8s' }}></div>
+                    <div className="shooting-star" style={{ top: '45%', left: '20%', animationDelay: '25s' }}></div>
+                  </div>
+
                   <div className="relative z-10">
                     {messages.map((message) => (
                       <div 
@@ -934,28 +988,74 @@ Répondez comme Dominiqk Mendy en personne : expert, créatif, humble, avec des 
               <span className="text-green-400 font-medium">Mode Google Gemini activé - Expert Personnel</span>
             </div>
 
-            {/* Messages area with starry background */}
+            {/* Messages area with immersive starfield background */}
             <div className="relative flex-1 p-3 overflow-y-auto bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
-              {/* Starry background */}
-              <div 
-                className="absolute inset-0 opacity-30"
-                style={{
-                  background: `
-                    radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
-                    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
-                    radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
-                    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
-                    radial-gradient(2px 2px at 160px 30px, #ffffff, transparent),
-                    radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.8), transparent),
-                    radial-gradient(2px 2px at 240px 90px, #ffffff, transparent),
-                    radial-gradient(1px 1px at 280px 20px, rgba(255,255,255,0.6), transparent),
-                    radial-gradient(1px 1px at 320px 50px, #ffffff, transparent),
-                    radial-gradient(2px 2px at 360px 80px, rgba(255,255,255,0.8), transparent)
-                  `,
-                  backgroundSize: '400px 100px',
-                  animation: 'twinkle 3s ease-in-out infinite alternate'
-                }}
-              />
+              {/* Immersive starfield background */}
+              <div className="immersive-starfield">
+                {/* Star Layer 1 - Large bright stars */}
+                <div className="star-layer-1">
+                  <div className="stellar-point large" style={{ top: '10%', left: '15%' }}></div>
+                  <div className="stellar-point large" style={{ top: '25%', left: '70%', animationDelay: '1s' }}></div>
+                  <div className="stellar-point large" style={{ top: '60%', left: '30%', animationDelay: '2s' }}></div>
+                  <div className="stellar-point large" style={{ top: '80%', left: '85%', animationDelay: '0.5s' }}></div>
+                </div>
+
+                {/* Star Layer 2 - Medium stars */}
+                <div className="star-layer-2">
+                  <div className="stellar-point medium" style={{ top: '5%', left: '40%' }}></div>
+                  <div className="stellar-point medium" style={{ top: '20%', left: '20%', animationDelay: '0.8s' }}></div>
+                  <div className="stellar-point medium" style={{ top: '35%', left: '60%', animationDelay: '1.2s' }}></div>
+                  <div className="stellar-point medium" style={{ top: '50%', left: '10%', animationDelay: '2.5s' }}></div>
+                  <div className="stellar-point medium" style={{ top: '70%', left: '55%', animationDelay: '0.3s' }}></div>
+                  <div className="stellar-point medium" style={{ top: '85%', left: '25%', animationDelay: '1.8s' }}></div>
+                </div>
+
+                {/* Star Layer 3 - Small background stars */}
+                <div className="star-layer-3">
+                  <div className="stellar-point small" style={{ top: '8%', left: '25%' }}></div>
+                  <div className="stellar-point small" style={{ top: '12%', left: '65%', animationDelay: '1s' }}></div>
+                  <div className="stellar-point small" style={{ top: '28%', left: '35%', animationDelay: '2s' }}></div>
+                  <div className="stellar-point small" style={{ top: '38%', left: '75%', animationDelay: '0.4s' }}></div>
+                  <div className="stellar-point small" style={{ top: '55%', left: '20%', animationDelay: '1.6s' }}></div>
+                  <div className="stellar-point small" style={{ top: '65%', left: '80%', animationDelay: '2.8s' }}></div>
+                  <div className="stellar-point small" style={{ top: '75%', left: '15%', animationDelay: '0.9s' }}></div>
+                  <div className="stellar-point small" style={{ top: '90%', left: '60%', animationDelay: '1.4s' }}></div>
+                </div>
+
+                {/* Cosmic nebulae */}
+                <div className="cosmic-nebula blue" style={{ 
+                  top: '10%', 
+                  left: '10%', 
+                  width: '150px', 
+                  height: '100px',
+                  animationDelay: '0s'
+                }}></div>
+                <div className="cosmic-nebula purple" style={{ 
+                  top: '50%', 
+                  right: '5%', 
+                  width: '120px', 
+                  height: '80px',
+                  animationDelay: '20s'
+                }}></div>
+                <div className="cosmic-nebula indigo" style={{ 
+                  bottom: '15%', 
+                  left: '20%', 
+                  width: '100px', 
+                  height: '70px',
+                  animationDelay: '40s'
+                }}></div>
+
+                {/* Floating cosmic particles */}
+                <div className="cosmic-particles" style={{ top: '20%', left: '5%', animationDelay: '0s' }}></div>
+                <div className="cosmic-particles" style={{ top: '40%', left: '15%', animationDelay: '3s' }}></div>
+                <div className="cosmic-particles" style={{ top: '60%', left: '8%', animationDelay: '6s' }}></div>
+                <div className="cosmic-particles" style={{ top: '80%', left: '12%', animationDelay: '9s' }}></div>
+
+                {/* Shooting stars */}
+                <div className="shooting-star" style={{ top: '15%', left: '10%', animationDelay: '8s' }}></div>
+                <div className="shooting-star" style={{ top: '45%', left: '20%', animationDelay: '25s' }}></div>
+              </div>
+
               <div className="relative z-10">
                 {messages.map((message) => (
                   <div 
