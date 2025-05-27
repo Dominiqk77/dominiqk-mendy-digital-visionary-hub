@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -236,7 +235,7 @@ const AboutPage = () => {
                 <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-xl">
                   <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/30 to-portfolio-purple/30 z-10"></div>
                   <img 
-                    src="/lovable-uploads/1d07325e-d8c2-4e54-ac4e-3caf0120f9eb.png" 
+                    src="/lovable-uploads/7b98f889-bcee-4a02-936c-da25dd311425.png" 
                     alt="Dominiqk Mendy" 
                     className="w-full h-auto object-cover"
                   />
