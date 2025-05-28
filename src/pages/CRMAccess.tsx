@@ -213,6 +213,8 @@ const CRMAccess = () => {
   return (
     <div className="min-h-screen flex flex-col bg-portfolio-space relative">
       <Navbar />
+      
+      {/* Space background - matching AISolutions page exactly */}
       <EnhancedSpaceBackground />
       
       <main className="flex-grow z-10 relative">
