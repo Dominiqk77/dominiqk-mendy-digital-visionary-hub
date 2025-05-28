@@ -573,7 +573,7 @@ const CRMAccess = () => {
                       
                       <div className="relative z-10">
                         <CardTitle className={`text-2xl font-bold mb-3 ${
-                          plan.popular ? 'text-white' : 'text-gray-100'
+                          plan.popular ? 'text-black' : 'text-gray-100'
                         }`}>
                           {plan.name}
                         </CardTitle>
@@ -582,20 +582,20 @@ const CRMAccess = () => {
                         <div className="mb-4">
                           {plan.originalPrice && (
                             <div className={`text-lg line-through mb-1 ${
-                              plan.popular ? 'text-cyan-300' : 'text-gray-400'
+                              plan.popular ? 'text-gray-600' : 'text-gray-400'
                             }`}>
                               {plan.originalPrice}/mois
                             </div>
                           )}
                           <div className={`text-5xl font-bold mb-2 ${
                             plan.popular 
-                              ? 'bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent' 
+                              ? 'text-black' 
                               : 'text-indigo-400'
                           }`}>
                             {plan.price}
                           </div>
                           <div className={`text-sm ${
-                            plan.popular ? 'text-cyan-200' : 'text-gray-400'
+                            plan.popular ? 'text-gray-700' : 'text-gray-400'
                           }`}>{plan.period}</div>
                           {plan.savings && (
                             <div className="inline-block bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-medium mt-2">
@@ -605,7 +605,7 @@ const CRMAccess = () => {
                         </div>
                         
                         <CardDescription className={`text-base ${
-                          plan.popular ? 'text-cyan-100' : 'text-gray-300'
+                          plan.popular ? 'text-gray-800' : 'text-gray-300'
                         }`}>
                           {plan.description}
                         </CardDescription>
@@ -617,7 +617,7 @@ const CRMAccess = () => {
                       {/* Features */}
                       <div className="space-y-4 mb-8">
                         <h4 className={`font-semibold text-lg mb-4 flex items-center ${
-                          plan.popular ? 'text-white' : 'text-white'
+                          plan.popular ? 'text-black' : 'text-white'
                         }`}>
                           <CheckCircle className="w-5 h-5 text-green-400 mr-2" />
                           Inclus dans ce plan
@@ -625,7 +625,7 @@ const CRMAccess = () => {
                         <ul className="space-y-3">
                           {plan.features.map((feature, featureIndex) => (
                             <li key={featureIndex} className={`flex items-start ${
-                              plan.popular ? 'text-cyan-100' : 'text-gray-300'
+                              plan.popular ? 'text-gray-800' : 'text-gray-300'
                             }`}>
                               <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
                               <span className="text-sm leading-relaxed">{feature}</span>
@@ -677,7 +677,7 @@ const CRMAccess = () => {
                       {/* Additional Info */}
                       {plan.popular && (
                         <div className="text-center mt-4">
-                          <p className="text-xs text-cyan-300">
+                          <p className="text-xs text-gray-700">
                             ✨ Le choix de 85% de nos clients
                           </p>
                         </div>
