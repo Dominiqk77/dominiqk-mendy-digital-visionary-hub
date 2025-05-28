@@ -9,6 +9,87 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      api_usage_logs: {
+        Row: {
+          api_name: string
+          cost: number | null
+          created_at: string | null
+          endpoint: string | null
+          id: string
+          request_data: Json | null
+          response_status: number | null
+          tokens_used: number | null
+          user_id: string | null
+        }
+        Insert: {
+          api_name: string
+          cost?: number | null
+          created_at?: string | null
+          endpoint?: string | null
+          id?: string
+          request_data?: Json | null
+          response_status?: number | null
+          tokens_used?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          api_name?: string
+          cost?: number | null
+          created_at?: string | null
+          endpoint?: string | null
+          id?: string
+          request_data?: Json | null
+          response_status?: number | null
+          tokens_used?: number | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      automation_workflows: {
+        Row: {
+          configuration: Json | null
+          created_at: string | null
+          description: string | null
+          id: string
+          last_run: string | null
+          n8n_workflow_id: string | null
+          name: string
+          status: string | null
+          total_runs: number | null
+          updated_at: string | null
+          user_id: string | null
+          workflow_type: string | null
+        }
+        Insert: {
+          configuration?: Json | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          last_run?: string | null
+          n8n_workflow_id?: string | null
+          name: string
+          status?: string | null
+          total_runs?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+          workflow_type?: string | null
+        }
+        Update: {
+          configuration?: Json | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          last_run?: string | null
+          n8n_workflow_id?: string | null
+          name?: string
+          status?: string | null
+          total_runs?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+          workflow_type?: string | null
+        }
+        Relationships: []
+      }
       chat_analytics: {
         Row: {
           consultation_accepted: boolean | null
@@ -274,6 +355,276 @@ export type Database = {
         }
         Relationships: []
       }
+      crm_leads: {
+        Row: {
+          company_name: string | null
+          company_size: string | null
+          contact_name: string | null
+          created_at: string | null
+          email: string | null
+          id: string
+          industry: string | null
+          last_contact_date: string | null
+          lead_score: number | null
+          notes: string | null
+          phone: string | null
+          social_profiles: Json | null
+          source_type: string | null
+          status: string | null
+          tags: string[] | null
+          updated_at: string | null
+          user_id: string | null
+          website: string | null
+        }
+        Insert: {
+          company_name?: string | null
+          company_size?: string | null
+          contact_name?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          industry?: string | null
+          last_contact_date?: string | null
+          lead_score?: number | null
+          notes?: string | null
+          phone?: string | null
+          social_profiles?: Json | null
+          source_type?: string | null
+          status?: string | null
+          tags?: string[] | null
+          updated_at?: string | null
+          user_id?: string | null
+          website?: string | null
+        }
+        Update: {
+          company_name?: string | null
+          company_size?: string | null
+          contact_name?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          industry?: string | null
+          last_contact_date?: string | null
+          lead_score?: number | null
+          notes?: string | null
+          phone?: string | null
+          social_profiles?: Json | null
+          source_type?: string | null
+          status?: string | null
+          tags?: string[] | null
+          updated_at?: string | null
+          user_id?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
+      generated_content: {
+        Row: {
+          api_used: string | null
+          content: string | null
+          content_type: string
+          created_at: string | null
+          generation_cost: number | null
+          id: string
+          metadata: Json | null
+          title: string | null
+          user_id: string | null
+        }
+        Insert: {
+          api_used?: string | null
+          content?: string | null
+          content_type: string
+          created_at?: string | null
+          generation_cost?: number | null
+          id?: string
+          metadata?: Json | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          api_used?: string | null
+          content?: string | null
+          content_type?: string
+          created_at?: string | null
+          generation_cost?: number | null
+          id?: string
+          metadata?: Json | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      marketing_campaigns: {
+        Row: {
+          budget: number | null
+          campaign_type: string | null
+          content: Json | null
+          created_at: string | null
+          end_date: string | null
+          id: string
+          metrics: Json | null
+          name: string
+          start_date: string | null
+          status: string | null
+          target_audience: Json | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          budget?: number | null
+          campaign_type?: string | null
+          content?: Json | null
+          created_at?: string | null
+          end_date?: string | null
+          id?: string
+          metrics?: Json | null
+          name: string
+          start_date?: string | null
+          status?: string | null
+          target_audience?: Json | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          budget?: number | null
+          campaign_type?: string | null
+          content?: Json | null
+          created_at?: string | null
+          end_date?: string | null
+          id?: string
+          metrics?: Json | null
+          name?: string
+          start_date?: string | null
+          status?: string | null
+          target_audience?: Json | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          budget_range: string | null
+          created_at: string | null
+          deadline: string | null
+          description: string | null
+          id: string
+          progress: number | null
+          project_type: string | null
+          status: string | null
+          title: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          budget_range?: string | null
+          created_at?: string | null
+          deadline?: string | null
+          description?: string | null
+          id?: string
+          progress?: number | null
+          project_type?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          budget_range?: string | null
+          created_at?: string | null
+          deadline?: string | null
+          description?: string | null
+          id?: string
+          progress?: number | null
+          project_type?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      seo_analyses: {
+        Row: {
+          analysis_type: string | null
+          created_at: string | null
+          id: string
+          recommendations: string[] | null
+          results: Json | null
+          score: number | null
+          user_id: string | null
+          website_url: string
+        }
+        Insert: {
+          analysis_type?: string | null
+          created_at?: string | null
+          id?: string
+          recommendations?: string[] | null
+          results?: Json | null
+          score?: number | null
+          user_id?: string | null
+          website_url: string
+        }
+        Update: {
+          analysis_type?: string | null
+          created_at?: string | null
+          id?: string
+          recommendations?: string[] | null
+          results?: Json | null
+          score?: number | null
+          user_id?: string | null
+          website_url?: string
+        }
+        Relationships: []
+      }
+      user_profiles: {
+        Row: {
+          api_usage_count: number | null
+          company_name: string | null
+          company_size: string | null
+          created_at: string | null
+          id: string
+          industry: string | null
+          monthly_api_limit: number | null
+          phone: string | null
+          subscription_plan: string | null
+          subscription_status: string | null
+          updated_at: string | null
+          user_id: string | null
+          website: string | null
+        }
+        Insert: {
+          api_usage_count?: number | null
+          company_name?: string | null
+          company_size?: string | null
+          created_at?: string | null
+          id?: string
+          industry?: string | null
+          monthly_api_limit?: number | null
+          phone?: string | null
+          subscription_plan?: string | null
+          subscription_status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          website?: string | null
+        }
+        Update: {
+          api_usage_count?: number | null
+          company_name?: string | null
+          company_size?: string | null
+          created_at?: string | null
+          id?: string
+          industry?: string | null
+          monthly_api_limit?: number | null
+          phone?: string | null
+          subscription_plan?: string | null
+          subscription_status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -281,6 +632,10 @@ export type Database = {
     Functions: {
       calculate_lead_score: {
         Args: { conversation_id: string }
+        Returns: number
+      }
+      calculate_lead_score_crm: {
+        Args: { lead_id: string }
         Returns: number
       }
       cleanup_inactive_sessions: {
