@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
@@ -243,27 +244,27 @@ const CRMAccess = () => {
     <div className="min-h-screen flex flex-col relative">
       <Navbar />
       
-      {/* Modern Gradient Background */}
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 z-0">
-        {/* Animated gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 animate-pulse"></div>
+      {/* Dark Modern Gradient Background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-gray-950 via-slate-950 to-black z-0">
+        {/* Subtle animated gradient overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/10 via-purple-900/10 to-slate-900/10 animate-pulse"></div>
         
-        {/* Dynamic geometric shapes */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-40 right-20 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
+        {/* Darker geometric shapes */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-40 right-20 w-96 h-96 bg-indigo-600/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyan-600/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
         
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+        {/* Darker grid pattern overlay */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
           backgroundSize: '50px 50px'
         }}></div>
         
-        {/* Floating particles */}
+        {/* Dimmer floating particles */}
         {Array.from({ length: 50 }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-white/30 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-white/15 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
