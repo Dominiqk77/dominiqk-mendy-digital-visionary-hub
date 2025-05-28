@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import EnhancedSpaceBackground from '@/components/space/EnhancedSpaceBackground';
+import SenServicesBackground from '@/components/space/SenServicesBackground';
 import { 
   LayoutDashboard, 
   Users, 
@@ -244,8 +245,8 @@ const CRMAccess = () => {
     <div className="min-h-screen flex flex-col bg-portfolio-space relative">
       <Navbar />
       
-      {/* Space background - matching AISolutions page exactly */}
-      <EnhancedSpaceBackground />
+      {/* Space background - using SenServicesBackground like AI Training page */}
+      <SenServicesBackground />
       
       <main className="flex-grow z-10 relative">
         {/* Hero Section */}
@@ -535,7 +536,7 @@ const CRMAccess = () => {
                   {/* Popular Badge */}
                   {plan.popular && (
                     <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20">
-                      <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-6 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg">
+                      <div className="bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white px-6 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg">
                         <Crown className="w-4 h-4" />
                         {plan.highlight}
                         <Star className="w-4 h-4 fill-current" />
@@ -558,7 +559,7 @@ const CRMAccess = () => {
                   
                   <Card className={`h-full relative overflow-hidden transition-all duration-500 ${
                     plan.popular 
-                      ? 'bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 border-2 border-purple-500/50 shadow-2xl shadow-purple-500/20 scale-105' 
+                      ? 'bg-gradient-to-br from-blue-500/10 via-cyan-500/10 to-teal-500/10 border-2 border-cyan-500/50 shadow-2xl shadow-cyan-500/20 scale-105' 
                       : plan.name === 'Découverte'
                       ? 'bg-black/40 border border-orange-500/20 hover:border-orange-500/40'
                       : 'bg-black/40 border border-white/10 hover:border-purple-500/30'
@@ -567,7 +568,7 @@ const CRMAccess = () => {
                     {/* Card Header */}
                     <CardHeader className="text-center pb-8 relative">
                       {plan.popular && (
-                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5 rounded-t-lg"></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-cyan-500/5 to-teal-500/5 rounded-t-lg"></div>
                       )}
                       
                       <div className="relative z-10">
@@ -586,7 +587,7 @@ const CRMAccess = () => {
                           )}
                           <div className={`text-5xl font-bold mb-2 ${
                             plan.popular 
-                              ? 'bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent' 
+                              ? 'bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent' 
                               : 'text-indigo-400'
                           }`}>
                             {plan.price}
@@ -645,7 +646,7 @@ const CRMAccess = () => {
                       <Button 
                         className={`w-full h-14 text-lg font-semibold transition-all duration-300 ${
                           plan.popular 
-                            ? 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl' 
+                            ? 'bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl' 
                             : plan.name === 'Découverte'
                             ? 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white'
                             : 'bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/40'
