@@ -581,7 +581,9 @@ const CRMAccess = () => {
                         {/* Pricing */}
                         <div className="mb-4">
                           {plan.originalPrice && (
-                            <div className="text-gray-400 text-lg line-through mb-1">
+                            <div className={`text-lg line-through mb-1 ${
+                              plan.popular ? 'text-cyan-300' : 'text-gray-400'
+                            }`}>
                               {plan.originalPrice}/mois
                             </div>
                           )}
@@ -592,7 +594,9 @@ const CRMAccess = () => {
                           }`}>
                             {plan.price}
                           </div>
-                          <div className="text-gray-400 text-sm">{plan.period}</div>
+                          <div className={`text-sm ${
+                            plan.popular ? 'text-cyan-200' : 'text-gray-400'
+                          }`}>{plan.period}</div>
                           {plan.savings && (
                             <div className="inline-block bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-medium mt-2">
                               {plan.savings}
@@ -600,7 +604,9 @@ const CRMAccess = () => {
                           )}
                         </div>
                         
-                        <CardDescription className="text-gray-300 text-base">
+                        <CardDescription className={`text-base ${
+                          plan.popular ? 'text-cyan-100' : 'text-gray-300'
+                        }`}>
                           {plan.description}
                         </CardDescription>
                       </div>
@@ -610,13 +616,17 @@ const CRMAccess = () => {
                     <CardContent className="relative">
                       {/* Features */}
                       <div className="space-y-4 mb-8">
-                        <h4 className="text-white font-semibold text-lg mb-4 flex items-center">
+                        <h4 className={`font-semibold text-lg mb-4 flex items-center ${
+                          plan.popular ? 'text-white' : 'text-white'
+                        }`}>
                           <CheckCircle className="w-5 h-5 text-green-400 mr-2" />
                           Inclus dans ce plan
                         </h4>
                         <ul className="space-y-3">
                           {plan.features.map((feature, featureIndex) => (
-                            <li key={featureIndex} className="flex items-start text-gray-300">
+                            <li key={featureIndex} className={`flex items-start ${
+                              plan.popular ? 'text-cyan-100' : 'text-gray-300'
+                            }`}>
                               <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
                               <span className="text-sm leading-relaxed">{feature}</span>
                             </li>
@@ -667,7 +677,7 @@ const CRMAccess = () => {
                       {/* Additional Info */}
                       {plan.popular && (
                         <div className="text-center mt-4">
-                          <p className="text-xs text-gray-400">
+                          <p className="text-xs text-cyan-300">
                             ✨ Le choix de 85% de nos clients
                           </p>
                         </div>
