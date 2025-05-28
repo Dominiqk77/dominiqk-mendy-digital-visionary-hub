@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Globe, ArrowRight } from 'lucide-react';
+import { Zap, Globe, ArrowRight, LayoutDashboard } from 'lucide-react';
 
 const HeroButtons = () => {
   return (
@@ -33,6 +32,20 @@ const HeroButtons = () => {
           <Globe className="mr-2 h-4 w-4 animate-spin-slow" />
           <span>Démarrer un projet</span>
           <ArrowRight className="ml-2 h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
+        </Link>
+      </Button>
+      
+      <Button 
+        size="lg" 
+        variant="outline" 
+        className="w-full sm:w-auto border-gradient-to-r from-emerald-500 to-blue-500 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 text-white hover:from-emerald-500/20 hover:to-blue-500/20 transition-all duration-300 transform hover:scale-105 group relative"
+      >
+        <Link to="/crm-access" className="flex items-center justify-center">
+          <LayoutDashboard className="mr-2 h-4 w-4" />
+          <span>CRM Pro</span>
+          <div className="ml-2 px-1.5 py-0.5 bg-emerald-500 text-xs rounded-full text-white font-bold animate-pulse">
+            NEW
+          </div>
         </Link>
       </Button>
       

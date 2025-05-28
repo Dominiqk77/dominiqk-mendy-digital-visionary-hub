@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,6 +9,8 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import CRM from "./pages/CRM";
+import CRMAccess from "./pages/CRMAccess";
+import APIConfiguration from "./pages/APIConfiguration";
 import ServicesPage from "./pages/Services";
 import AIServices from "./pages/services/AIServices";
 import WebServices from "./pages/services/WebServices";
@@ -50,6 +53,8 @@ const App = () => (
           {/* CRM Routes */}
           <Route path="/auth" element={<Auth />} />
           <Route path="/crm/*" element={<CRM />} />
+          <Route path="/crm-access" element={<CRMAccess />} />
+          <Route path="/api-configuration" element={<APIConfiguration />} />
           
           {/* Original Routes */}
           <Route path="/services" element={<ServicesPage />} />

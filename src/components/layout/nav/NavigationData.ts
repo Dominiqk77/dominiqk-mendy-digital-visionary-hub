@@ -40,6 +40,9 @@ export const navigationItems: NavigationItem[] = [
     name: 'Portfolio',
     href: '/portfolio'
   }, {
+    name: 'CRM Pro',
+    href: '/crm-access'
+  }, {
     name: 'Blog',
     href: '/blog'
   }, {
