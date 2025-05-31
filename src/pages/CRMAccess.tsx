@@ -6,17 +6,12 @@ import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import OptimizedTestimonialCard from '../components/crm/OptimizedTestimonialCard';
-import TestimonialCarousel from '../components/home/testimonials/TestimonialCarousel';
-import { getRandomTestimonials } from '../data/crmTestimonials';
 import { useDynamicUrgency } from '../hooks/useDynamicUrgency';
 import { LayoutDashboard, Users, FileText, FolderOpen, Zap, Search, BarChart3, Settings, CheckCircle, Star, ArrowRight, Shield, Cpu, Globe, Target, TrendingUp, Clock, Database, Bot, Mail, Phone, MessageSquare, Calendar, DollarSign, Award, Rocket, Lock, Headphones, BookOpen, ChevronRight, BrainCircuit, Code, X, Crown, Infinity, Timer, Heart, Flame } from 'lucide-react';
 
 const CRMAccess = () => {
   const { currentUrgency, timeLeft } = useDynamicUrgency();
   const [currentUsers, setCurrentUsers] = useState(847);
-  const [testimonials, setTestimonials] = useState([]);
-  const [isTestimonialsPaused, setIsTestimonialsPaused] = useState(false);
 
   useEffect(() => {
     // Set page title for SEO
@@ -30,9 +25,6 @@ const CRMAccess = () => {
 
     // Scroll to top on page load
     window.scrollTo(0, 0);
-
-    // Load testimonials
-    setTestimonials(getRandomTestimonials(12, 'all'));
 
     // Simulate real users counter
     const userCounter = setInterval(() => {
@@ -288,12 +280,8 @@ const CRMAccess = () => {
                 Automatisez vos ventes, générez du contenu illimité et multipliez votre chiffre d'affaires.
               </p>
 
-              {/* Social Proof */}
               <div className="flex items-center justify-center gap-4 mb-8 text-gray-300">
                 <div className="flex items-center gap-2">
-                  <div className="flex -space-x-2">
-                    {testimonials.slice(0, 3).map((testimonial, i) => <img key={i} src={testimonial.image} alt={testimonial.name} className="w-8 h-8 rounded-full border-2 border-white" />)}
-                  </div>
                   <span className="text-sm">+{currentUsers} clients satisfaits</span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -315,7 +303,6 @@ const CRMAccess = () => {
                 </Button>
               </div>
 
-              {/* Trust badges */}
               <div className="flex items-center justify-center gap-6 mt-8 text-sm text-gray-400">
                 <div className="flex items-center gap-2">
                   <Shield className="w-4 h-4 text-green-400" />
@@ -548,57 +535,6 @@ const CRMAccess = () => {
                 </motion.div>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Enhanced Testimonials Section with Carousel */}
-        <section className="py-20 relative z-10">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-                Ils ont <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">Multiplié</span> leur CA
-              </h2>
-              <div className="h-1 w-32 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 mx-auto mb-8"></div>
-              <p className="text-xl text-gray-300">
-                📈 Découvrez comment nos clients ont révolutionné leur business avec DOM CRM
-              </p>
-            </div>
-
-            {/* Testimonials Carousel */}
-            <TestimonialCarousel
-              testimonials={testimonials}
-              autoPlay={true}
-              isPaused={isTestimonialsPaused}
-              onMouseEnter={() => setIsTestimonialsPaused(true)}
-              onMouseLeave={() => setIsTestimonialsPaused(false)}
-            />
-
-            {/* Additional Social Proof */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="text-center mt-12"
-            >
-              <div className="inline-flex items-center bg-green-500/10 border border-green-500/20 rounded-full px-8 py-4 hover:scale-105 transition-transform">
-                <div className="flex items-center space-x-4">
-                  <div className="flex -space-x-2">
-                    {testimonials.slice(0, 4).map((testimonial, i) => (
-                      <img key={i} src={testimonial.image} alt={testimonial.name} className="w-8 h-8 rounded-full border-2 border-green-400" />
-                    ))}
-                  </div>
-                  <div className="text-green-400 font-bold">
-                    +{currentUsers} entreprises font confiance à DOM CRM
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    ))}
-                    <span className="text-green-400 font-medium ml-2">4.9/5</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
           </div>
         </section>
 
