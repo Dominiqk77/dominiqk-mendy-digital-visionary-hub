@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useAnimation } from 'framer-motion';
@@ -7,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useAuth } from '@/hooks/useAuth';
 import { useSubscription } from '@/hooks/useSubscription';
+import { formatTime } from '@/utils/formatTime';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { 
@@ -39,7 +41,12 @@ import {
   Layers,
   Code,
   Database,
-  Cloud
+  Cloud,
+  LayoutDashboard,
+  Bot,
+  FolderOpen,
+  Search,
+  Clock
 } from 'lucide-react';
 
 const CRMAccess = () => {
