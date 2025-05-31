@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
@@ -401,7 +402,7 @@ const CRMAccess = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="group"
                 >
-                  <Card className="h-full border-none overflow-hidden cosmic-hover">
+                  <Card className="h-full border-none overflow-hidden cosmic-hover bg-black/40 backdrop-blur-md hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20">
                     <CardHeader>
                       <div className="rounded-full p-3 w-16 h-16 flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-500 mb-4">
                         {feature.icon}
