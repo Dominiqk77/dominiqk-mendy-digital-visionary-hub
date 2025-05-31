@@ -6,6 +6,8 @@ import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
+import OptimizedTestimonialCard from '../components/crm/OptimizedTestimonialCard';
+import { getRandomTestimonials } from '../data/crmTestimonials';
 import { 
   LayoutDashboard, 
   Users, 
@@ -55,6 +57,7 @@ const CRMAccess = () => {
   });
 
   const [currentUsers, setCurrentUsers] = useState(847);
+  const [testimonials, setTestimonials] = useState([]);
 
   useEffect(() => {
     // Set page title for SEO
@@ -70,6 +73,9 @@ const CRMAccess = () => {
     
     // Scroll to top on page load
     window.scrollTo(0, 0);
+
+    // Load testimonials
+    setTestimonials(getRandomTestimonials(6, 'all'));
 
     // Timer countdown for urgency
     const timer = setInterval(() => {
@@ -214,20 +220,26 @@ const CRMAccess = () => {
       period: "À vie",
       description: "Pour tester DOM CRM",
       features: [
-        "1 projet uniquement",
-        "5 leads maximum",
-        "100 appels API/mois",
-        "Intégrations basiques",
-        "Support communautaire"
+        "✅ 1 projet uniquement",
+        "✅ 5 leads maximum",
+        "✅ 100 appels API/mois",
+        "✅ Intégrations basiques",
+        "✅ Support communautaire",
+        "✅ Dashboard simplifié",
+        "✅ Exports CSV basiques"
       ],
       limitations: [
-        "Pas de renouvellement",
-        "Fonctionnalités limitées"
+        "❌ Pas de renouvellement automatique",
+        "❌ Fonctionnalités IA limitées",
+        "❌ Pas d'automation avancée"
       ],
       popular: false,
       cta: "Essayer Gratuitement",
       highlight: "GRATUIT",
-      priceId: "free"
+      priceId: "free",
+      bgGradient: "from-green-500/20 to-emerald-500/20",
+      borderColor: "border-green-500/30",
+      ctaStyle: "bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700"
     },
     {
       name: "Professionnel",
@@ -236,21 +248,28 @@ const CRMAccess = () => {
       period: "par mois",
       description: "Pour les entrepreneurs sérieux",
       features: [
-        "10 projets actifs",
-        "100 leads qualifiés",
-        "5 000 appels API/mois",
-        "Toutes les intégrations IA",
-        "Automation avancée complète",
-        "Génération de contenu illimitée",
-        "Analytics et rapports détaillés",
-        "Support prioritaire 24/7"
+        "🚀 10 projets actifs",
+        "🎯 100 leads qualifiés",
+        "⚡ 5 000 appels API/mois",
+        "🤖 Toutes les intégrations IA",
+        "🔄 Automation avancée complète",
+        "📝 Génération de contenu illimitée",
+        "📊 Analytics et rapports détaillés",
+        "🎧 Support prioritaire 24/7",
+        "📱 Application mobile",
+        "🔒 Sécurité renforcée",
+        "💾 Backup automatique"
       ],
       limitations: [],
       popular: true,
       cta: "Démarrer Maintenant",
       highlight: "POPULAIRE",
       savings: "Économisez 50€/mois",
-      priceId: "price_1RUxYUCVhM2O2LkqfxyZg3mS"
+      priceId: "price_1RUxYUCVhM2O2LkqfxyZg3mS",
+      bgGradient: "from-blue-500/25 via-cyan-500/25 to-teal-500/25",
+      borderColor: "border-cyan-400/80",
+      ctaStyle: "bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600",
+      glowEffect: "shadow-2xl shadow-cyan-500/30"
     },
     {
       name: "Enterprise",
@@ -259,23 +278,29 @@ const CRMAccess = () => {
       period: "par mois",
       description: "Pour agences et entreprises",
       features: [
-        "50 projets actifs",
-        "1 000 leads qualifiés",
-        "25 000 appels API/mois",
-        "IA avancée + GPT-4",
-        "Automatisations complètes",
-        "Support téléphonique",
-        "Analytics avancées",
-        "Intégrations premium",
-        "White-label disponible",
-        "Formation incluse"
+        "🏢 50 projets actifs",
+        "👥 1 000 leads qualifiés",
+        "⚡ 25 000 appels API/mois",
+        "🧠 IA avancée + GPT-4",
+        "🔄 Automatisations complètes",
+        "☎️ Support téléphonique dédié",
+        "📈 Analytics avancées premium",
+        "🔗 Intégrations premium",
+        "🎨 White-label disponible",
+        "🎓 Formation incluse (5h)",
+        "👨‍💼 Account manager dédié",
+        "🔐 SSO et sécurité enterprise",
+        "📋 SLA garanti 99.9%"
       ],
       limitations: [],
       popular: false,
       cta: "Commencer Enterprise",
       highlight: "BUSINESS",
       savings: "Économisez 100€/mois",
-      priceId: "price_1RUxbYCVhM2O2LkqUaDGcsqe"
+      priceId: "price_1RUxbYCVhM2O2LkqUaDGcsqe",
+      bgGradient: "from-purple-500/20 to-pink-500/20",
+      borderColor: "border-purple-500/40",
+      ctaStyle: "bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700"
     },
     {
       name: "Expert",
@@ -284,17 +309,20 @@ const CRMAccess = () => {
       period: "par mois",
       description: "Accompagnement premium personnalisé",
       features: [
-        "Projets illimités",
-        "Leads illimités",
-        "100 000 appels API/mois",
-        "3h de consultation/mois",
-        "Développement sur-mesure",
-        "Stratégie digitale personnalisée",
-        "Accès direct au fondateur",
-        "Révision de projets",
-        "Mentoring équipe",
-        "ROI garanti",
-        "Support 24/7"
+        "∞ Projets illimités",
+        "∞ Leads illimités",
+        "⚡ 100 000 appels API/mois",
+        "👨‍🏫 3h de consultation/mois",
+        "⚙️ Développement sur-mesure",
+        "🎯 Stratégie digitale personnalisée",
+        "📞 Accès direct au fondateur",
+        "🔍 Révision de projets mensuelle",
+        "👥 Mentoring équipe complète",
+        "💰 ROI garanti ou remboursé",
+        "🆘 Support 24/7 priorité max",
+        "🏆 Certification équipe incluse",
+        "📈 Consulting stratégique illimité",
+        "🤝 Partenariat business exclusif"
       ],
       limitations: [],
       exclusive: true,
@@ -302,31 +330,10 @@ const CRMAccess = () => {
       cta: "Réserver Consultation",
       highlight: "EXCLUSIF",
       savings: "Économisez 300€/mois",
-      priceId: "price_1RUxpACVhM2O2LkqqBckAanw"
-    }
-  ];
-
-  const testimonials = [
-    {
-      name: "Marie Dupont",
-      company: "TechStart",
-      image: "/lovable-uploads/3dc03f5f-4997-43fa-89f4-2f4d7c7902fa.png",
-      text: "DOM CRM a transformé notre business ! +300% de CA en 6 mois.",
-      rating: 5
-    },
-    {
-      name: "Pierre Martin",
-      company: "Digital Agency",
-      image: "/lovable-uploads/445e686e-aae9-44a9-a285-b1bc0fe5ce56.png",
-      text: "L'IA nous fait gagner 20h par semaine, incroyable !",
-      rating: 5
-    },
-    {
-      name: "Sophie Bernard",
-      company: "E-commerce Plus",
-      image: "/lovable-uploads/4552f385-40ce-4af0-9268-eef512c36047.png",
-      text: "ROI de 450% dès le premier mois. Je recommande !",
-      rating: 5
+      priceId: "price_1RUxpACVhM2O2LkqqBckAanw",
+      bgGradient: "from-yellow-500/15 via-orange-500/15 to-red-500/15",
+      borderColor: "border-yellow-400/60",
+      ctaStyle: "bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 hover:from-yellow-600 hover:via-orange-600 hover:to-red-600"
     }
   ];
 
@@ -415,7 +422,7 @@ const CRMAccess = () => {
               <div className="flex items-center justify-center gap-4 mb-8 text-gray-300">
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-2">
-                    {testimonials.map((testimonial, i) => (
+                    {testimonials.slice(0, 3).map((testimonial, i) => (
                       <img key={i} src={testimonial.image} alt={testimonial.name} className="w-8 h-8 rounded-full border-2 border-white" />
                     ))}
                   </div>
@@ -678,49 +685,62 @@ const CRMAccess = () => {
           </div>
         </section>
 
-        {/* Testimonials Section */}
-        <section className="py-16 relative z-10">
+        {/* Optimized Testimonials Section */}
+        <section className="py-20 relative z-10">
           <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4 text-white">
-                Ils ont <span className="text-gradient-cosmic">Multiplié</span> leur CA
+            <div className="max-w-4xl mx-auto text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                Ils ont <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">Multiplié</span> leur CA
               </h2>
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+              <div className="h-1 w-32 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 mx-auto mb-8"></div>
+              <p className="text-xl text-gray-300">
+                📈 Découvrez comment nos clients ont révolutionné leur business avec DOM CRM
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
               {testimonials.map((testimonial, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="group"
                 >
-                  <Card className="bg-black/40 border-white/10 backdrop-blur-sm hover:border-indigo-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl">
-                    <CardContent className="p-6 text-center">
-                      <img 
-                        src={testimonial.image} 
-                        alt={testimonial.name}
-                        className="w-16 h-16 rounded-full mx-auto mb-4 border-4 border-indigo-500/30"
-                      />
-                      <div className="flex justify-center mb-3">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        ))}
-                      </div>
-                      <p className="text-gray-300 mb-4 italic">"{testimonial.text}"</p>
-                      <div className="text-white font-semibold">{testimonial.name}</div>
-                      <div className="text-gray-400 text-sm">{testimonial.company}</div>
-                    </CardContent>
-                  </Card>
+                  <OptimizedTestimonialCard {...testimonial} />
                 </motion.div>
               ))}
             </div>
+
+            {/* Additional Social Proof */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="text-center mt-12"
+            >
+              <div className="inline-flex items-center bg-green-500/10 border border-green-500/20 rounded-full px-8 py-4 hover:scale-105 transition-transform">
+                <div className="flex items-center space-x-4">
+                  <div className="flex -space-x-2">
+                    {testimonials.slice(0, 4).map((testimonial, i) => (
+                      <img key={i} src={testimonial.image} alt={testimonial.name} className="w-8 h-8 rounded-full border-2 border-green-400" />
+                    ))}
+                  </div>
+                  <div className="text-green-400 font-bold">
+                    +{currentUsers} entreprises font confiance à DOM CRM
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                    <span className="text-green-400 font-medium ml-2">4.9/5</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </section>
 
-        {/* Pricing Section */}
+        {/* Optimized Pricing Section */}
         <section className="py-20 relative z-10">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center mb-16">
@@ -748,7 +768,7 @@ const CRMAccess = () => {
                   transition={{ delay: index * 0.1 }}
                   className="relative group"
                 >
-                  {/* Badges */}
+                  {/* Enhanced Badges */}
                   {plan.popular && (
                     <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20">
                       <div className="bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white px-6 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg animate-bounce">
@@ -775,20 +795,18 @@ const CRMAccess = () => {
                   
                   <Card className={`h-full relative overflow-hidden transition-all duration-500 ${
                     plan.popular 
-                      ? 'bg-gradient-to-br from-blue-500/20 via-cyan-500/20 to-teal-500/20 border-2 border-cyan-400/80 shadow-2xl shadow-cyan-500/30 scale-105 hover:scale-110' 
+                      ? `bg-gradient-to-br ${plan.bgGradient} border-2 ${plan.borderColor} ${plan.glowEffect} scale-105 hover:scale-110` 
                       : plan.exclusive
-                      ? 'bg-gradient-to-br from-yellow-500/10 via-orange-500/10 to-red-500/10 border-2 border-yellow-400/50 shadow-2xl shadow-yellow-500/20 hover:scale-105'
-                      : plan.name === 'Découverte'
-                      ? 'bg-black/40 border border-green-500/30 hover:border-green-400/60 hover:scale-105'
-                      : 'bg-black/40 border border-white/10 hover:border-purple-500/40 hover:scale-105'
+                      ? `bg-gradient-to-br ${plan.bgGradient} border-2 ${plan.borderColor} shadow-2xl shadow-yellow-500/20 hover:scale-105`
+                      : `bg-gradient-to-br ${plan.bgGradient} border ${plan.borderColor} hover:scale-105`
                   } backdrop-blur-lg group-hover:shadow-2xl`}>
                     
-                    {/* Glowing effect for popular plan */}
+                    {/* Enhanced Glowing effect */}
                     {plan.popular && (
                       <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-blue-400/10 to-teal-400/10 rounded-lg animate-pulse"></div>
                     )}
                     
-                    {/* Card Header */}
+                    {/* Enhanced Card Header */}
                     <CardHeader className="text-center pb-8 relative">
                       <div className="relative z-10">
                         <CardTitle className={`text-2xl font-bold mb-3 ${
@@ -797,7 +815,7 @@ const CRMAccess = () => {
                           {plan.name}
                         </CardTitle>
                         
-                        {/* Pricing */}
+                        {/* Enhanced Pricing Display */}
                         <div className="mb-4">
                           {plan.originalPrice && (
                             <div className={`text-lg line-through mb-1 ${
@@ -811,11 +829,13 @@ const CRMAccess = () => {
                               ? 'text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text' 
                               : plan.exclusive
                               ? 'text-transparent bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text'
+                              : plan.name === 'Découverte'
+                              ? 'text-transparent bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text'
                               : 'text-indigo-400'
                           }`}>
                             {plan.price}
                           </div>
-                          <div className={`text-sm ${
+                          <div className={`text-sm font-medium ${
                             plan.popular ? 'text-gray-300' : 'text-gray-400'
                           }`}>{plan.period}</div>
                           {plan.savings && (
@@ -825,7 +845,7 @@ const CRMAccess = () => {
                           )}
                         </div>
                         
-                        <CardDescription className={`text-base ${
+                        <CardDescription className={`text-base font-medium ${
                           plan.popular ? 'text-gray-200' : 'text-gray-300'
                         }`}>
                           {plan.description}
@@ -833,11 +853,11 @@ const CRMAccess = () => {
                       </div>
                     </CardHeader>
                     
-                    {/* Card Content */}
-                    <CardContent className="relative">
-                      {/* Features */}
+                    {/* Enhanced Card Content */}
+                    <CardContent className="relative px-6 pb-8">
+                      {/* Enhanced Features Display */}
                       <div className="space-y-4 mb-8">
-                        <h4 className={`font-semibold text-lg mb-4 flex items-center ${
+                        <h4 className={`font-bold text-lg mb-4 flex items-center ${
                           plan.popular ? 'text-white' : 'text-white'
                         }`}>
                           <CheckCircle className="w-5 h-5 text-green-400 mr-2" />
@@ -845,16 +865,18 @@ const CRMAccess = () => {
                         </h4>
                         <ul className="space-y-3">
                           {plan.features.map((feature, featureIndex) => (
-                            <li key={featureIndex} className={`flex items-start ${
-                              plan.popular ? 'text-gray-100' : 'text-gray-300'
+                            <li key={featureIndex} className={`flex items-start text-sm font-medium ${
+                              plan.popular ? 'text-gray-100' : 'text-gray-200'
                             }`}>
-                              <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
-                              <span className="text-sm leading-relaxed">{feature}</span>
+                              <div className="mr-3 mt-0.5 flex-shrink-0">
+                                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                              </div>
+                              <span className="leading-relaxed">{feature}</span>
                             </li>
                           ))}
                         </ul>
                         
-                        {/* Limitations */}
+                        {/* Enhanced Limitations Display */}
                         {plan.limitations.length > 0 && (
                           <div className="mt-6 pt-4 border-t border-gray-700">
                             <h4 className="text-gray-400 font-medium text-sm mb-3 flex items-center">
@@ -863,9 +885,9 @@ const CRMAccess = () => {
                             </h4>
                             <ul className="space-y-2">
                               {plan.limitations.map((limitation, limitIndex) => (
-                                <li key={limitIndex} className="flex items-start text-gray-500">
-                                  <X className="w-4 h-4 text-red-400 mr-3 flex-shrink-0 mt-0.5" />
-                                  <span className="text-xs">{limitation}</span>
+                                <li key={limitIndex} className="flex items-start text-gray-500 text-xs">
+                                  <X className="w-3 h-3 text-red-400 mr-2 flex-shrink-0 mt-0.5" />
+                                  <span>{limitation}</span>
                                 </li>
                               ))}
                             </ul>
@@ -873,17 +895,9 @@ const CRMAccess = () => {
                         )}
                       </div>
                       
-                      {/* CTA Button */}
+                      {/* Enhanced CTA Button */}
                       <Button 
-                        className={`w-full h-14 text-lg font-semibold transition-all duration-300 ${
-                          plan.popular 
-                            ? 'bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600 text-white shadow-lg hover:shadow-2xl hover:scale-105' 
-                            : plan.exclusive
-                            ? 'bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 hover:from-yellow-600 hover:via-orange-600 hover:to-red-600 text-white shadow-lg hover:shadow-xl hover:scale-105'
-                            : plan.name === 'Découverte'
-                            ? 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white hover:scale-105'
-                            : 'bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/40 hover:scale-105'
-                        }`}
+                        className={`w-full h-14 text-lg font-bold transition-all duration-300 shadow-xl ${plan.ctaStyle} hover:shadow-2xl hover:scale-105`}
                         size="lg"
                         asChild
                       >
@@ -897,10 +911,10 @@ const CRMAccess = () => {
                         </Link>
                       </Button>
                       
-                      {/* Additional Info */}
+                      {/* Enhanced Additional Info */}
                       {plan.popular && (
                         <div className="text-center mt-4">
-                          <p className="text-xs text-gray-300 flex items-center justify-center gap-1">
+                          <p className="text-xs text-gray-300 flex items-center justify-center gap-1 font-medium">
                             <Heart className="w-3 h-3 text-red-400" />
                             Le choix de 85% de nos clients
                             <Heart className="w-3 h-3 text-red-400" />
@@ -910,7 +924,7 @@ const CRMAccess = () => {
 
                       {plan.exclusive && (
                         <div className="text-center mt-4">
-                          <p className="text-xs text-yellow-400 animate-pulse">
+                          <p className="text-xs text-yellow-400 animate-pulse font-bold">
                             👑 Places limitées - Entretien préalable requis
                           </p>
                         </div>
@@ -921,16 +935,16 @@ const CRMAccess = () => {
               ))}
             </div>
             
-            {/* Money Back Guarantee */}
+            {/* Enhanced Money Back Guarantee */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
               className="text-center mt-12"
             >
-              <div className="inline-flex items-center bg-green-500/10 border border-green-500/20 rounded-full px-6 py-3 hover:scale-105 transition-transform">
-                <Shield className="w-5 h-5 text-green-400 mr-3" />
-                <span className="text-green-400 font-medium">
+              <div className="inline-flex items-center bg-green-500/10 border border-green-500/20 rounded-full px-8 py-4 hover:scale-105 transition-transform">
+                <Shield className="w-6 h-6 text-green-400 mr-3" />
+                <span className="text-green-400 font-bold text-lg">
                   ✅ Garantie Satisfait ou Remboursé 30 jours ✅
                 </span>
               </div>
