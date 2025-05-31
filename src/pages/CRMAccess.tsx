@@ -152,9 +152,9 @@ const CRMAccess = () => {
     cta: "Essayer Gratuitement",
     highlight: "GRATUIT",
     priceId: "free",
-    bgGradient: "from-green-500/20 to-emerald-500/20",
-    borderColor: "border-green-500/30",
-    ctaStyle: "bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700",
+    bgGradient: "from-green-50 to-emerald-50",
+    borderColor: "border-green-300",
+    ctaStyle: "bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white",
     textColor: "text-gray-900"
   }, {
     name: "Professionnel",
@@ -169,10 +169,10 @@ const CRMAccess = () => {
     highlight: "POPULAIRE",
     savings: `Économisez 50€/mois + ${currentUrgency.discount}`,
     priceId: "price_1RUxYUCVhM2O2LkqfxyZg3mS",
-    bgGradient: "from-blue-500/25 via-cyan-500/25 to-teal-500/25",
-    borderColor: "border-cyan-400/80",
-    ctaStyle: "bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600",
-    glowEffect: "shadow-2xl shadow-cyan-500/30",
+    bgGradient: "from-blue-50 to-cyan-50",
+    borderColor: "border-cyan-400",
+    ctaStyle: "bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600 text-white",
+    glowEffect: "shadow-lg shadow-cyan-500/20",
     textColor: "text-gray-900"
   }, {
     name: "Enterprise",
@@ -187,9 +187,9 @@ const CRMAccess = () => {
     highlight: "BUSINESS",
     savings: `Économisez 100€/mois + ${currentUrgency.discount}`,
     priceId: "price_1RUxbYCVhM2O2LkqUaDGcsqe",
-    bgGradient: "from-purple-500/20 to-pink-500/20",
-    borderColor: "border-purple-500/40",
-    ctaStyle: "bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700",
+    bgGradient: "from-purple-50 to-pink-50",
+    borderColor: "border-purple-400",
+    ctaStyle: "bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white",
     textColor: "text-gray-900"
   }, {
     name: "Expert",
@@ -205,9 +205,9 @@ const CRMAccess = () => {
     highlight: "EXCLUSIF",
     savings: `Économisez 300€/mois + ${currentUrgency.discount}`,
     priceId: "price_1RUxpACVhM2O2LkqqBckAanw",
-    bgGradient: "from-yellow-500/15 via-orange-500/15 to-red-500/15",
-    borderColor: "border-yellow-400/60",
-    ctaStyle: "bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 hover:from-yellow-600 hover:via-orange-600 hover:to-red-600",
+    bgGradient: "from-yellow-50 to-orange-50",
+    borderColor: "border-yellow-400",
+    ctaStyle: "bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 hover:from-yellow-600 hover:via-orange-600 hover:to-red-600 text-white",
     textColor: "text-gray-900"
   }];
 
@@ -414,7 +414,7 @@ const CRMAccess = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="group"
                 >
-                  <Card className="h-full bg-black/50 backdrop-blur-md border border-white/10 hover:border-white/30 transition-all overflow-hidden cosmic-hover">
+                  <Card className="h-full border-none overflow-hidden cosmic-hover">
                     <CardHeader>
                       <div className="rounded-full p-3 w-16 h-16 flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-500 mb-4">
                         {feature.icon}
@@ -602,7 +602,7 @@ const CRMAccess = () => {
           </div>
         </section>
 
-        {/* Enhanced Pricing Section with Better Text Visibility */}
+        {/* Enhanced Pricing Section with Improved Text Visibility */}
         <section className="py-20 relative z-10">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center mb-16">
@@ -649,39 +649,34 @@ const CRMAccess = () => {
                     </div>
                   )}
                   
-                  <Card className={`h-full relative overflow-hidden transition-all duration-500 ${plan.popular ? `bg-gradient-to-br from-white/15 to-white/5 border-2 ${plan.borderColor} ${plan.glowEffect} scale-105 hover:scale-110` : plan.exclusive ? `bg-gradient-to-br from-white/15 to-white/5 border-2 ${plan.borderColor} shadow-2xl shadow-yellow-500/20 hover:scale-105` : `bg-gradient-to-br from-white/15 to-white/5 border ${plan.borderColor} hover:scale-105`} backdrop-blur-lg group-hover:shadow-2xl`}>
-                    
-                    {/* Enhanced Glowing effect */}
-                    {plan.popular && (
-                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-blue-400/10 to-teal-400/10 rounded-lg animate-pulse"></div>
-                    )}
+                  <Card className={`h-full relative overflow-hidden transition-all duration-500 ${plan.popular ? `bg-gradient-to-br ${plan.bgGradient} border-2 ${plan.borderColor} ${plan.glowEffect} scale-105 hover:scale-110` : plan.exclusive ? `bg-gradient-to-br ${plan.bgGradient} border-2 ${plan.borderColor} shadow-2xl shadow-yellow-500/20 hover:scale-105` : `bg-gradient-to-br ${plan.bgGradient} border ${plan.borderColor} hover:scale-105`} backdrop-blur-lg group-hover:shadow-2xl`}>
                     
                     {/* Enhanced Card Header */}
                     <CardHeader className="text-center pb-8 relative">
                       <div className="relative z-10">
-                        <CardTitle className="text-2xl font-bold mb-3 text-white">
+                        <CardTitle className={`text-2xl font-bold mb-3 ${plan.textColor}`}>
                           {plan.name}
                         </CardTitle>
                         
                         {/* Enhanced Pricing Display */}
                         <div className="mb-4">
                           {plan.originalPrice && (
-                            <div className="text-lg line-through mb-1 text-gray-400">
+                            <div className="text-lg line-through mb-1 text-gray-500">
                               {plan.originalPrice}/mois
                             </div>
                           )}
-                          <div className={`text-5xl font-bold mb-2 ${plan.popular ? 'text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text' : plan.exclusive ? 'text-transparent bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text' : plan.name === 'Découverte' ? 'text-transparent bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text' : 'text-white'}`}>
+                          <div className={`text-5xl font-bold mb-2 ${plan.popular ? 'text-transparent bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text' : plan.exclusive ? 'text-transparent bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text' : plan.name === 'Découverte' ? 'text-transparent bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text' : 'text-purple-700'}`}>
                             {plan.price}
                           </div>
-                          <div className="text-sm font-medium text-gray-300">{plan.period}</div>
+                          <div className={`text-sm font-medium ${plan.textColor}`}>{plan.period}</div>
                           {plan.savings && (
-                            <div className="inline-block bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-medium mt-2 animate-pulse">
+                            <div className="inline-block bg-green-500/20 text-green-600 px-3 py-1 rounded-full text-xs font-medium mt-2 animate-pulse border border-green-300">
                               🔥 {plan.savings}
                             </div>
                           )}
                         </div>
                         
-                        <CardDescription className="text-base font-medium text-gray-200">
+                        <CardDescription className={`text-base font-medium ${plan.textColor} opacity-80`}>
                           {plan.description}
                         </CardDescription>
                       </div>
@@ -691,15 +686,15 @@ const CRMAccess = () => {
                     <CardContent className="relative px-6 pb-8">
                       {/* Enhanced Features Display */}
                       <div className="space-y-4 mb-8">
-                        <h4 className="font-bold text-lg mb-4 flex items-center text-white">
-                          <CheckCircle className="w-5 h-5 text-green-400 mr-2" />
+                        <h4 className={`font-bold text-lg mb-4 flex items-center ${plan.textColor}`}>
+                          <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                           Inclus dans ce plan
                         </h4>
                         <ul className="space-y-3">
                           {plan.features.map((feature, featureIndex) => (
-                            <li key={featureIndex} className="flex items-start text-sm font-medium text-gray-100">
+                            <li key={featureIndex} className={`flex items-start text-sm font-medium ${plan.textColor}`}>
                               <div className="mr-3 mt-0.5 flex-shrink-0">
-                                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                               </div>
                               <span className="leading-relaxed">{feature}</span>
                             </li>
@@ -708,15 +703,15 @@ const CRMAccess = () => {
                         
                         {/* Enhanced Limitations Display */}
                         {plan.limitations.length > 0 && (
-                          <div className="mt-6 pt-4 border-t border-gray-700">
-                            <h4 className="text-gray-400 font-medium text-sm mb-3 flex items-center">
-                              <X className="w-4 h-4 text-red-400 mr-2" />
+                          <div className="mt-6 pt-4 border-t border-gray-300">
+                            <h4 className={`${plan.textColor} opacity-70 font-medium text-sm mb-3 flex items-center`}>
+                              <X className="w-4 h-4 text-red-500 mr-2" />
                               Limitations
                             </h4>
                             <ul className="space-y-2">
                               {plan.limitations.map((limitation, limitIndex) => (
-                                <li key={limitIndex} className="flex items-start text-gray-400 text-xs">
-                                  <X className="w-3 h-3 text-red-400 mr-2 flex-shrink-0 mt-0.5" />
+                                <li key={limitIndex} className={`flex items-start ${plan.textColor} opacity-70 text-xs`}>
+                                  <X className="w-3 h-3 text-red-500 mr-2 flex-shrink-0 mt-0.5" />
                                   <span>{limitation}</span>
                                 </li>
                               ))}
@@ -736,17 +731,17 @@ const CRMAccess = () => {
                       {/* Enhanced Additional Info */}
                       {plan.popular && (
                         <div className="text-center mt-4">
-                          <p className="text-xs text-gray-300 flex items-center justify-center gap-1 font-medium">
-                            <Heart className="w-3 h-3 text-red-400" />
+                          <p className={`text-xs ${plan.textColor} flex items-center justify-center gap-1 font-medium opacity-80`}>
+                            <Heart className="w-3 h-3 text-red-500" />
                             Le choix de 85% de nos clients
-                            <Heart className="w-3 h-3 text-red-400" />
+                            <Heart className="w-3 h-3 text-red-500" />
                           </p>
                         </div>
                       )}
 
                       {plan.exclusive && (
                         <div className="text-center mt-4">
-                          <p className="text-xs text-yellow-400 animate-pulse font-bold">
+                          <p className={`text-xs ${plan.textColor} animate-pulse font-bold opacity-80`}>
                             👑 Places limitées - Entretien préalable requis
                           </p>
                         </div>
