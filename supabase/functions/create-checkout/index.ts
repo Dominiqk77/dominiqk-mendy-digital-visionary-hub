@@ -57,11 +57,15 @@ serve(async (req) => {
         },
       ],
       mode: "subscription",
-      success_url: `${req.headers.get("origin")}/crm?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.headers.get("origin")}/crm`,
+      success_url: `${req.headers.get("origin")}/subscription?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.get("origin")}/subscription`,
       metadata: {
         user_id: user.id,
       },
+      subscription_data: {
+        trial_period_days: 14, // 14 jours d'essai gratuit
+      },
+      payment_method_collection: 'if_required',
     });
 
     logStep("Checkout session created", { sessionId: session.id, url: session.url });

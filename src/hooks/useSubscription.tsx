@@ -57,12 +57,13 @@ export const useSubscription = () => {
           usage_current: localData.usage_current,
         });
       } else {
+        // Default limits for free users - more restrictive to encourage upgrades
         setSubscription({
           subscribed: data.subscribed || false,
           subscription_tier: data.subscription_tier,
           subscription_end: data.subscription_end,
           trial_ends_at: null,
-          plan_limits: { projects: 1, leads: 5, api_calls: 100 },
+          plan_limits: { projects: 2, leads: 10, api_calls: 50 }, // Reduced free limits
           usage_current: { projects: 0, leads: 0, api_calls: 0 },
         });
       }
@@ -98,6 +99,7 @@ export const useSubscription = () => {
 
       if (error) throw error;
 
+      // Open in the same tab for better conversion
       window.location.href = data.url;
     } catch (error: any) {
       console.error('Error creating checkout session:', error);
