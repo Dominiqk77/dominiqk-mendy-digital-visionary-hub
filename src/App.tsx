@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Toaster } from '@/components/ui/toaster';
@@ -19,15 +19,13 @@ function App() {
       <AuthProvider>
         <TooltipProvider>
           <Toaster />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Auth />} />
-              <Route path="/subscription" element={<Subscription />} />
-              <Route path="/crm/*" element={<CRM />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Auth />} />
+            <Route path="/subscription" element={<Subscription />} />
+            <Route path="/crm/*" element={<CRM />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </TooltipProvider>
       </AuthProvider>
     </QueryClientProvider>
