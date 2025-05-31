@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -39,7 +38,7 @@ interface UserData {
   id: string;
   email: string;
   created_at: string;
-  last_sign_in_at: string;
+  last_sign_in_at?: string;
   subscription_tier?: string;
   subscription_status?: string;
   total_revenue?: number;
@@ -76,7 +75,7 @@ export const AdminPanel = () => {
     try {
       setLoading(true);
       
-      // Load users with subscription data
+      // Load users with subscription data - mapping to correct UserData format
       const { data: usersData, error: usersError } = await supabase
         .from('subscribers')
         .select(`
@@ -90,6 +89,16 @@ export const AdminPanel = () => {
 
       if (usersError) throw usersError;
 
+      // Transform the data to match UserData interface
+      const transformedUsers: UserData[] = (usersData || []).map(user => ({
+        id: user.user_id,
+        email: user.email,
+        created_at: user.created_at,
+        last_sign_in_at: user.updated_at, // Using updated_at as fallback
+        subscription_tier: user.subscription_tier,
+        subscription_status: user.subscribed ? 'active' : 'inactive'
+      }));
+
       // Load business metrics
       const { data: metricsData, error: metricsError } = await supabase
         .from('business_metrics')
@@ -99,7 +108,7 @@ export const AdminPanel = () => {
 
       if (metricsError) throw metricsError;
 
-      setUsers(usersData || []);
+      setUsers(transformedUsers);
       setMetrics(metricsData || []);
     } catch (error: any) {
       toast({
@@ -264,7 +273,7 @@ export const AdminPanel = () => {
               <CardContent>
                 <div className="space-y-4">
                   {users.slice(0, 5).map((user) => (
-                    <div key={user.user_id} className="flex items-center justify-between">
+                    <div key={user.id} className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                           <Users className="w-4 h-4 text-blue-600" />
@@ -330,7 +339,7 @@ export const AdminPanel = () => {
             <CardContent>
               <div className="space-y-4">
                 {users.map((user) => (
-                  <div key={user.user_id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                  <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
                     <div className="flex items-center space-x-4">
                       <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
                         {user.email.charAt(0).toUpperCase()}
