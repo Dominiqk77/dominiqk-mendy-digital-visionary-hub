@@ -11,7 +11,7 @@ const plans = [
     id: 'basic',
     name: 'Formule Basic',
     price: 49,
-    priceId: 'prod_SPn8SR0l8UjIIJ',
+    priceId: 'price_1RUxYUCVhM2O2LkqfxyZg3mS',
     icon: Zap,
     description: 'Pour freelancers débutants',
     features: [
@@ -29,7 +29,7 @@ const plans = [
     id: 'premium',
     name: 'Formule Premium',
     price: 149,
-    priceId: 'prod_SPnBgQ21hPR6JF',
+    priceId: 'price_1RUxahCVhM2O2LkqRFJ1f6Ym',
     icon: Crown,
     description: 'Pour professionnels établis',
     popular: true,
@@ -51,7 +51,7 @@ const plans = [
     id: 'enterprise',
     name: 'Formule Enterprise',
     price: 399,
-    priceId: 'prod_SPnB3KVZ9CvYjG',
+    priceId: 'price_1RUxbYCVhM2O2LkqUaDGcsqe',
     icon: Building,
     description: 'Pour agences et entreprises',
     features: [
@@ -73,7 +73,7 @@ const plans = [
     id: 'consultant',
     name: 'Consultant Expert',
     price: 999,
-    priceId: 'prod_SPnBConsultant', // À créer dans Stripe
+    priceId: 'price_1RUxpACVhM2O2LkqqBckAanw',
     icon: Star,
     description: 'Accompagnement premium personnalisé',
     exclusive: true,
