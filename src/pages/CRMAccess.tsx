@@ -349,7 +349,7 @@ const CRMAccess = () => {
           </div>
         </section>
 
-        {/* Why Choose Section */}
+        {/* Why Choose Section - Background restauré */}
         <section className="py-16 relative z-10">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center mb-12">
@@ -660,7 +660,7 @@ const CRMAccess = () => {
                       <Button className={`w-full h-14 text-lg font-bold transition-all duration-300 shadow-xl ${plan.ctaStyle} hover:shadow-2xl hover:scale-105`} size="lg" asChild>
                         <Link to={plan.name === 'Expert' ? "/contact" : "/auth"} className="flex items-center justify-center">
                           {plan.cta}
-                          {plan.name === 'Expert' ? <MessageSquare className="ml-2 h-5 w-5" /> : <ArrowRight className="ml-2 h-5 w-5" />}
+                          {plan.name === 'Expert' ? <MessageSquare className="ml-2 h-5 w-5" /> : <ArrowRight className="ml-2 h-4 w-4" />}
                         </Link>
                       </Button>
                       
