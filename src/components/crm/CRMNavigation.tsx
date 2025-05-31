@@ -22,9 +22,6 @@ const CRMNavigation = () => {
   const { subscription } = useSubscription();
   const location = useLocation();
 
-  // Check if user is admin
-  const isAdmin = user?.email === 'admin@dominiqkmendy.com'; // Replace with proper admin check
-
   const navItems = [
     { path: '/crm', icon: LayoutDashboard, label: 'Dashboard' },
     { path: '/crm/leads', icon: Users, label: 'Leads' },
@@ -32,7 +29,6 @@ const CRMNavigation = () => {
     { path: '/crm/projects', icon: FolderOpen, label: 'Projets' },
     { path: '/crm/automation', icon: Zap, label: 'Automation' },
     { path: '/crm/seo', icon: Search, label: 'SEO' },
-    ...(isAdmin ? [{ path: '/crm/admin', icon: Settings, label: 'Admin' }] : []),
   ];
 
   return (
@@ -42,12 +38,9 @@ const CRMNavigation = () => {
           <div className="flex items-center space-x-8">
             <Link to="/crm" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">DOM</span>
+                <span className="text-white font-bold text-sm">CRM</span>
               </div>
-              <div>
-                <span className="font-bold text-gray-900">CRM</span>
-                <span className="text-xs text-gray-500 ml-1">Pro</span>
-              </div>
+              <span className="font-semibold text-gray-900">AI Suite</span>
             </Link>
 
             <div className="hidden md:flex items-center space-x-1">
@@ -65,11 +58,6 @@ const CRMNavigation = () => {
                   >
                     <item.icon className="w-4 h-4" />
                     <span>{item.label}</span>
-                    {item.label === 'Admin' && (
-                      <Badge className="bg-red-500 text-white text-xs px-1 py-0">
-                        ADMIN
-                      </Badge>
-                    )}
                   </Link>
                 );
               })}
@@ -88,14 +76,7 @@ const CRMNavigation = () => {
                 )}
               </Button>
             </Link>
-            <div className="hidden md:block">
-              <span className="text-sm text-gray-600">{user?.email}</span>
-              {isAdmin && (
-                <Badge className="ml-2 bg-red-500 text-white text-xs">
-                  ADMIN
-                </Badge>
-              )}
-            </div>
+            <span className="text-sm text-gray-600">{user?.email}</span>
             <Button
               variant="outline"
               size="sm"
@@ -103,7 +84,7 @@ const CRMNavigation = () => {
               className="flex items-center space-x-2"
             >
               <LogOut className="w-4 h-4" />
-              <span className="hidden md:inline">Déconnexion</span>
+              <span>Déconnexion</span>
             </Button>
           </div>
         </div>

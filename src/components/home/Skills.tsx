@@ -412,7 +412,7 @@ const Skills = () => {
                         {skill.level}%
                       </Badge>
                     </div>
-                    <Progress value={skill.level} className="h-2 bg-white/10" />
+                    <Progress value={skill.level} className="h-2 bg-white/10" indicatorColor="linear-gradient(to right, var(--portfolio-purple), var(--portfolio-blue))" />
                   </div>
                 </motion.div>
               ))}
@@ -444,7 +444,7 @@ const Skills = () => {
                         {skill.level}%
                       </Badge>
                     </div>
-                    <Progress value={skill.level} className="h-2 bg-white/10" />
+                    <Progress value={skill.level} className="h-2 bg-white/10" indicatorColor="linear-gradient(to right, var(--portfolio-blue), var(--portfolio-cyan))" />
                   </div>
                 </motion.div>
               ))}
@@ -476,7 +476,7 @@ const Skills = () => {
                         {skill.level}%
                       </Badge>
                     </div>
-                    <Progress value={skill.level} className="h-2 bg-white/10" />
+                    <Progress value={skill.level} className="h-2 bg-white/10" indicatorColor="linear-gradient(to right, var(--portfolio-pink), var(--portfolio-purple))" />
                   </div>
                 </motion.div>
               ))}

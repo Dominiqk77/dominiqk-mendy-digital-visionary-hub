@@ -150,7 +150,7 @@ const MarketingMetrics = () => {
             </div>
             <span className="text-xl font-semibold text-white">{metric.value}%</span>
           </div>
-          <Progress value={metric.value} />
+          <Progress value={metric.value} className="h-2" indicatorColor={metric.color} />
         </motion.div>
       ))}
     </motion.div>

@@ -8,7 +8,6 @@ import ContentGenerator from '@/components/crm/ContentGenerator';
 import ProjectsManager from '@/components/crm/ProjectsManager';
 import AutomationCenter from '@/components/crm/AutomationCenter';
 import SEOAnalyzer from '@/components/crm/SEOAnalyzer';
-import { AdminPanel } from '@/components/crm/AdminPanel';
 import CRMNavigation from '@/components/crm/CRMNavigation';
 
 const CRM = () => {
@@ -16,11 +15,8 @@ const CRM = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-        <div className="text-center space-y-4">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent mx-auto"></div>
-          <div className="text-blue-600 font-medium">Chargement de DOM CRM...</div>
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -40,7 +36,6 @@ const CRM = () => {
           <Route path="/projects" element={<ProjectsManager />} />
           <Route path="/automation" element={<AutomationCenter />} />
           <Route path="/seo" element={<SEOAnalyzer />} />
-          <Route path="/admin" element={<AdminPanel />} />
         </Routes>
       </div>
     </div>

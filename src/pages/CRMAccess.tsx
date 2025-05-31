@@ -1,61 +1,51 @@
 
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion, useAnimation } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { useAuth } from '@/hooks/useAuth';
-import { useSubscription } from '@/hooks/useSubscription';
-import { formatTime } from '@/utils/formatTime';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { 
-  Rocket, 
+  LayoutDashboard, 
+  Users, 
+  FileText, 
+  FolderOpen, 
   Zap, 
-  Crown, 
-  Shield, 
-  Star, 
-  Target,
-  BarChart3,
-  Users,
-  MessageSquare,
-  TrendingUp,
-  Globe,
-  Smartphone,
-  Mail,
+  Search, 
+  BarChart3, 
+  Settings,
   CheckCircle,
-  Check,
-  Sparkles,
-  Timer,
-  Award,
-  Lock,
-  Unlock,
+  Star,
   ArrowRight,
-  Plus,
-  X,
-  Heart,
-  Brain,
-  Eye,
-  Layers,
-  Code,
+  Shield,
+  Cpu,
+  Globe,
+  Target,
+  TrendingUp,
+  Clock,
   Database,
-  Cloud,
-  LayoutDashboard,
   Bot,
-  FolderOpen,
-  Search,
-  Clock
+  Mail,
+  Phone,
+  MessageSquare,
+  Calendar,
+  DollarSign,
+  Award,
+  Rocket,
+  Lock,
+  Headphones,
+  BookOpen,
+  ChevronRight,
+  BrainCircuit,
+  Code,
+  X,
+  Crown,
+  Infinity
 } from 'lucide-react';
 
 const CRMAccess = () => {
-  const navigate = useNavigate();
-  const { user, loading: authLoading } = useAuth();
-  const { subscription, loading: subscriptionLoading } = useSubscription();
-  const [timeLeft, setTimeLeft] = useState(72 * 60 * 60); // 72 heures en secondes
-  const [selectedPlan, setSelectedPlan] = useState('pro');
-  
   useEffect(() => {
     // Set page title for SEO
     document.title = 'DOM CRM - Solution CRM Révolutionnaire | Dominiqk Mendy';
@@ -182,478 +172,623 @@ const CRMAccess = () => {
     }
   ];
 
-  const subscriptionPlans = [
+  const plans = [
     {
-      id: 'free',
-      name: 'Découverte',
-      price: 0,
-      period: 'Gratuit',
-      badge: '🎁 GRATUIT',
-      badgeColor: 'bg-green-500',
-      description: 'Parfait pour découvrir le potentiel de notre CRM',
+      name: "Découverte",
+      price: "Gratuit",
+      originalPrice: null,
+      period: "À vie",
+      description: "Pour tester DOM CRM une seule fois",
       features: [
-        '1 projet actif',
-        '5 leads maximum',
-        '100 API calls/mois',
-        'Support communautaire',
-        'Templates de base',
-        'Exports CSV limités'
+        "1 projet uniquement",
+        "5 leads maximum (une fois)",
+        "Intégrations basiques",
+        "Support communautaire",
+        "Accès limité aux fonctionnalités"
       ],
       limitations: [
-        'Fonctionnalités IA limitées',
-        'Pas d\'automatisation',
-        'Pas de support prioritaire'
+        "Pas de renouvellement",
+        "Fonctionnalités limitées",
+        "Sans automation avancée"
       ],
-      cta: 'Commencer gratuitement',
-      highlight: false,
-      gradient: 'from-gray-500 to-gray-600'
+      popular: false,
+      cta: "Essayer Gratuitement",
+      highlight: "LIMITÉ"
     },
     {
-      id: 'pro',
-      name: 'Pro',
-      price: 99,
-      period: '/mois',
-      badge: '🚀 PLUS POPULAIRE',
-      badgeColor: 'bg-blue-500',
-      description: 'La solution complète pour entrepreneurs ambitieux',
+      name: "Professionnel",
+      price: "99€",
+      originalPrice: "149€",
+      period: "par mois",
+      description: "Pour les entrepreneurs sérieux",
       features: [
-        '10 projets actifs',
-        'Leads illimités',
-        '5000 API calls/mois',
-        'IA Content Generator',
-        'Automatisations avancées',
-        'Analytics en temps réel',
-        'Support prioritaire 24/7',
-        'Templates premium',
-        'Intégrations tierces',
-        'Exports illimités'
+        "5 projets actifs",
+        "100 leads/mois",
+        "Toutes les intégrations IA",
+        "Automation avancée complète",
+        "Génération de contenu illimitée",
+        "Analytics et rapports détaillés",
+        "Support prioritaire 24/7",
+        "Formation personnalisée incluse"
       ],
-      bonusFeatures: [
-        '🎁 1 mois d\'IA gratuit (valeur 50€)',
-        '🔥 Templates exclusifs',
-        '⚡ Onboarding personnalisé'
-      ],
-      cta: 'Démarrer Pro maintenant',
-      highlight: true,
-      gradient: 'from-blue-500 to-purple-600',
-      discount: 50,
-      originalPrice: 199
+      limitations: [],
+      popular: true,
+      cta: "Démarrer Maintenant",
+      highlight: "POPULAIRE",
+      savings: "Économisez 50€/mois"
     },
     {
-      id: 'business',
-      name: 'Business',
-      price: 299,
-      period: '/mois',
-      badge: '👑 PREMIUM',
-      badgeColor: 'bg-purple-500',
-      description: 'Pour les équipes qui veulent dominer leur marché',
+      name: "Enterprise",
+      price: "Sur mesure",
+      originalPrice: null,
+      period: "Contact",
+      description: "Solutions sur-mesure pour grandes entreprises",
       features: [
-        'Projets illimités',
-        'Leads illimités',
-        '20000 API calls/mois',
-        'IA avancée multi-modèles',
-        'Workflows personnalisés',
-        'White-label complet',
-        'API privée',
-        'Support dédié',
-        'Formation équipe incluse',
-        'Intégrations sur mesure'
+        "Projets illimités",
+        "Leads illimités",
+        "API privée dédiée",
+        "Développements personnalisés",
+        "Infrastructure dédiée",
+        "Account manager personnel",
+        "SLA garantie 99.99%",
+        "Formation équipe complète"
       ],
-      bonusFeatures: [
-        '🎁 Setup gratuit (valeur 500€)',
-        '🔥 Formation équipe complète',
-        '⚡ Account manager dédié',
-        '💎 Accès beta features'
-      ],
-      cta: 'Accéder au Business',
-      highlight: false,
-      gradient: 'from-purple-500 to-pink-600'
-    },
-    {
-      id: 'enterprise',
-      name: 'Enterprise',
-      price: 999,
-      period: '/mois',
-      badge: '💎 ENTERPRISE',
-      badgeColor: 'bg-gradient-to-r from-amber-500 to-orange-600',
-      description: 'Solution sur mesure pour les organisations d\'envergure',
-      features: [
-        'Infrastructure dédiée',
-        'Tout illimité',
-        'IA propriétaire custom',
-        'Développements sur mesure',
-        'SLA 99.9% garanti',
-        'Support 24/7/365',
-        'Sécurité enterprise',
-        'Conformité RGPD++',
-        'Formations illimitées',
-        'Consulting stratégique'
-      ],
-      bonusFeatures: [
-        '🎁 Développement custom inclus',
-        '🔥 Infrastructure dédiée',
-        '⚡ Support white-glove',
-        '💎 Roadmap prioritaire'
-      ],
-      cta: 'Contacter notre équipe',
-      highlight: false,
-      gradient: 'from-amber-500 to-orange-600'
+      limitations: [],
+      popular: false,
+      cta: "Nous Contacter",
+      highlight: "SUR-MESURE"
     }
   ];
-
-  const testimonials = [
-    {
-      name: "Marie Dubois",
-      company: "TechStartup Pro",
-      role: "CEO",
-      comment: "Le CRM a transformé notre business ! +300% de conversions en 3 mois.",
-      avatar: "MD",
-      rating: 5,
-      revenue: "+150K€"
-    },
-    {
-      name: "Thomas Laurent",
-      company: "Digital Agency",
-      role: "Directeur Commercial",
-      comment: "Incroyable ! L'IA nous fait gagner 15h/semaine sur la prospection.",
-      avatar: "TL",
-      rating: 5,
-      revenue: "+85K€"
-    },
-    {
-      name: "Sophie Martin", 
-      company: "E-commerce Plus",
-      role: "CMO",
-      comment: "ROI de 400% dès le premier mois. Un investissement qui change tout !",
-      avatar: "SM",
-      rating: 5,
-      revenue: "+200K€"
-    }
-  ];
-
-  const handleGetStarted = async (planId: string) => {
-    if (!user) {
-      navigate('/auth');
-      return;
-    }
-
-    if (planId === 'free') {
-      navigate('/crm');
-      return;
-    }
-
-    try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          priceId: getPriceId(planId),
-          userId: user.id
-        })
-      });
-
-      const { url } = await response.json();
-      window.location.href = url;
-    } catch (error) {
-      console.error('Erreur lors de la création de la session:', error);
-    }
-  };
-
-  const getPriceId = (planId: string) => {
-    const priceIds = {
-      pro: 'price_pro_monthly',
-      business: 'price_business_monthly', 
-      enterprise: 'price_enterprise_monthly'
-    };
-    return priceIds[planId as keyof typeof priceIds];
-  };
-
-  if (authLoading || subscriptionLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-        <div className="text-center space-y-4">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent mx-auto"></div>
-          <div className="text-blue-600 font-medium">Chargement...</div>
-        </div>
-      </div>
-    );
-  }
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col relative">
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid.svg')] opacity-20"></div>
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="relative z-10 pt-20">
-          {/* Hero Section */}
-          <section className="py-20">
-            <div className="container mx-auto px-4">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="text-center max-w-4xl mx-auto mb-16"
-              >
-                <div className="mb-6">
-                  <Badge className="bg-red-500/20 text-red-300 border-red-500/30 mb-4">
-                    🔥 PROMOTION LIMITÉE - {formatTime(timeLeft)}
+      
+      {/* Dark Modern Gradient Background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-gray-950 via-slate-950 to-black z-0">
+        {/* Subtle animated gradient overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/10 via-purple-900/10 to-slate-900/10 animate-pulse"></div>
+        
+        {/* Darker geometric shapes */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-40 right-20 w-96 h-96 bg-indigo-600/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyan-600/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
+        
+        {/* Darker grid pattern overlay */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}></div>
+        
+        {/* Dimmer floating particles */}
+        {Array.from({ length: 50 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white/15 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${2 + Math.random() * 3}s`
+            }}
+          />
+        ))}
+      </div>
+      
+      <main className="flex-grow z-10 relative">
+        {/* Hero Section */}
+        <section className="py-20 md:py-28 relative overflow-hidden">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              initial="hidden"
+              animate="visible"
+              variants={animationVariants}
+              transition={{ duration: 0.7 }}
+              className="max-w-4xl mx-auto text-center"
+            >
+              <div className="inline-block px-4 py-1.5 bg-portfolio-purple/10 backdrop-blur-sm rounded-full text-portfolio-purple border border-portfolio-purple/20 text-sm font-medium mb-4">
+                <div className="flex items-center gap-2">
+                  <BrainCircuit className="h-4 w-4" />
+                  <span>CRM Révolutionnaire</span>
+                  <Badge className="bg-emerald-500 text-white text-xs px-2 py-0.5 animate-pulse">
+                    NOUVEAU
                   </Badge>
                 </div>
-                
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                  DOM CRM PRO
-                </h1>
-                
-                <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-                  La première plateforme CRM <span className="text-blue-400 font-semibold">propulsée par l'IA</span> qui transforme vos visiteurs en clients et multiplie vos revenus par <span className="text-green-400 font-bold text-3xl">3x minimum</span>
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                  <div className="bg-black/30 backdrop-blur-sm rounded-lg p-6 border border-white/10">
-                    <div className="text-3xl font-bold text-green-400 mb-2">+284%</div>
-                    <div className="text-gray-300">Augmentation moyenne des conversions</div>
-                  </div>
-                  <div className="bg-black/30 backdrop-blur-sm rounded-lg p-6 border border-white/10">
-                    <div className="text-3xl font-bold text-blue-400 mb-2">15min</div>
-                    <div className="text-gray-300">Temps de setup complet</div>
-                  </div>
-                  <div className="bg-black/30 backdrop-blur-sm rounded-lg p-6 border border-white/10">
-                    <div className="text-3xl font-bold text-purple-400 mb-2">24/7</div>
-                    <div className="text-gray-300">IA qui travaille pour vous</div>
-                  </div>
-                </div>
-
-                <Button 
-                  onClick={() => handleGetStarted('pro')}
-                  className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-12 py-6 text-xl font-semibold rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
-                >
-                  <Rocket className="mr-3 h-6 w-6" />
-                  Démarrer maintenant - 50% de réduction
+              </div>
+              
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-indigo-600">DOM CRM</span>
+              </h1>
+              
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+              
+              <p className="text-xl text-gray-200 mb-8">
+                La plateforme CRM tout-en-un qui révolutionne votre business grâce à l'Intelligence Artificielle.
+                Automatisez vos ventes, générez du contenu illimité et multipliez votre chiffre d'affaires.
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-4">
+                <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white">
+                  <Link to="/auth" className="flex items-center">
+                    Démarrer Gratuitement
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
                 
-                <p className="text-sm text-gray-400 mt-4">
-                  ✅ Essai gratuit 14 jours • ✅ Sans engagement • ✅ Support 24/7
-                </p>
-              </motion.div>
-            </div>
-          </section>
-
-          {/* Pricing Plans */}
-          <section className="py-20">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                  Choisissez votre <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">machine à revenus</span>
-                </h2>
-                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                  Des plans conçus pour transformer votre business, quel que soit votre niveau
-                </p>
+                <Button size="lg" variant="outline" className="text-white border-white border hover:bg-white/10">
+                  <Link to="/contact">Voir la Démo Live</Link>
+                </Button>
               </div>
+            </motion.div>
+          </div>
+        </section>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-                {subscriptionPlans.map((plan, index) => (
-                  <motion.div
-                    key={plan.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className={`relative rounded-2xl p-8 ${
-                      plan.highlight 
-                        ? 'bg-gradient-to-br from-blue-900/50 to-purple-900/50 border-2 border-blue-400/50 shadow-2xl shadow-blue-500/20 scale-105' 
-                        : 'bg-black/40 border border-white/10'
-                    } backdrop-blur-sm hover:border-white/20 transition-all duration-300 hover:scale-105 group`}
-                  >
-                    {plan.highlight && (
-                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <Badge className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 text-sm font-bold">
-                          ⚡ OFFRE LIMITÉE
+        {/* Stats Row */}
+        <section className="py-8 relative z-10">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+              {[
+                { number: "500+", label: "Entreprises Actives" },
+                { number: "250%", label: "ROI Moyen" },
+                { number: "15h", label: "Économisées/Semaine" },
+                { number: "99.9%", label: "Uptime Garanti" }
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + index * 0.1 }}
+                  className="text-center"
+                >
+                  <div className="text-2xl md:text-3xl font-bold text-indigo-400 mb-2">{stat.number}</div>
+                  <div className="text-gray-400 text-sm">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Why Choose Section */}
+        <section className="py-16 relative z-10">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4 text-white">Pourquoi choisir DOM CRM</h2>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+              <p className="text-gray-300">
+                Notre CRM révolutionnaire est conçu pour répondre aux défis spécifiques 
+                des entreprises modernes, en offrant des résultats concrets et mesurables.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {[
+                {
+                  icon: <BrainCircuit className="h-10 w-10" />,
+                  title: "IA Intégrée",
+                  description: "Intelligence artificielle native pour automatiser et optimiser tous vos processus"
+                },
+                {
+                  icon: <Code className="h-10 w-10" />,
+                  title: "Intégration Transparente",
+                  description: "Solution conçue pour s'intégrer parfaitement à votre infrastructure existante"
+                },
+                {
+                  icon: <Shield className="h-10 w-10" />,
+                  title: "Sécurité Maximale",
+                  description: "Protection des données et respect des normes RGPD et standards internationaux"
+                },
+                {
+                  icon: <Cpu className="h-10 w-10" />,
+                  title: "Performance Optimisée",
+                  description: "Plateforme optimisée pour fonctionner efficacement même avec des ressources limitées"
+                },
+                {
+                  icon: <Database className="h-10 w-10" />,
+                  title: "Évolutivité",
+                  description: "Capacité à évoluer et à s'adapter à mesure que votre entreprise se développe"
+                },
+                {
+                  icon: <ArrowRight className="h-10 w-10" />,
+                  title: "Support 24/7",
+                  description: "Assistance technique et commerciale disponible en permanence pour vous accompagner"
+                }
+              ].map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group"
+                >
+                  <Card className="h-full bg-black/50 backdrop-blur-md border border-white/10 hover:border-white/30 transition-all overflow-hidden cosmic-hover">
+                    <CardHeader>
+                      <div className="rounded-full p-3 w-16 h-16 flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-500 mb-4">
+                        {feature.icon}
+                      </div>
+                      <CardTitle className="text-xl text-white">{feature.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-300">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="py-16 backdrop-blur-sm bg-black/20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4 text-white">
+                6 Modules <span className="text-gradient-cosmic">Révolutionnaires</span>
+              </h2>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+              <p className="text-lg text-gray-300">
+                Découvrez les outils qui transformeront votre façon de gérer votre business et vos relations clients
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {crmFeatures.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="group"
+                >
+                  <Card className="h-full border-none overflow-hidden cosmic-hover relative bg-black/40 backdrop-blur-md">
+                    <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-20 group-hover:opacity-30 transition-opacity`}></div>
+                    <div className="absolute inset-0 rounded-xl border border-white/20 group-hover:border-white/30 group-hover:shadow-[0_0_15px_rgba(155,135,245,0.3)] transition-all duration-300"></div>
+                    
+                    <div className="relative z-10 p-6">
+                      <div className={`text-white bg-gradient-to-br ${feature.gradient} p-3 rounded-xl w-16 h-16 flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                        <feature.icon className="w-8 h-8" />
+                      </div>
+                      <h3 className="mt-4 text-xl text-white font-bold mb-3">{feature.title}</h3>
+                      <p className="text-gray-300 mb-4">{feature.description}</p>
+                      <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-lg p-4 border border-indigo-500/20">
+                        <div className="text-sm text-gray-300 whitespace-pre-line">
+                          {feature.details}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="absolute top-0 left-0 w-16 h-16 border-t border-l border-white/10 opacity-50 rounded-tl-xl"></div>
+                    <div className="absolute bottom-0 right-0 w-16 h-16 border-b border-r border-white/10 opacity-50 rounded-br-xl"></div>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section className="py-16 relative z-10">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4 text-white">
+                Résultats <span className="text-gradient-cosmic">Mesurables</span>
+              </h2>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+              <p className="text-lg text-gray-300">
+                Des performances qui parlent d'elles-mêmes. Voici ce que DOM CRM apporte concrètement à votre business.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {keyBenefits.map((benefit, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="text-center group"
+                >
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <benefit.icon className="w-10 h-10 text-white" />
+                  </div>
+                  <div className="text-3xl md:text-4xl font-bold text-indigo-400 mb-2">{benefit.metric}</div>
+                  <h3 className="text-xl font-semibold text-white mb-3">{benefit.title}</h3>
+                  <p className="text-gray-400">{benefit.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Integrations Section */}
+        <section className="py-16 backdrop-blur-sm bg-black/20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4 text-white">
+                APIs <span className="text-gradient-cosmic">Intégrées</span>
+              </h2>
+              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+              <p className="text-lg text-gray-300">
+                Plus de 10 APIs premium intégrées nativement pour décupler les capacités de votre CRM
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {integrations.map((integration, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Card className="bg-black/40 border-white/10 backdrop-blur-sm hover:border-indigo-500/30 transition-all duration-300">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-lg font-semibold text-white">{integration.name}</h3>
+                        <Badge className="bg-indigo-500/20 text-indigo-400 border-indigo-500/30">
+                          {integration.type}
                         </Badge>
                       </div>
-                    )}
+                      <p className="text-gray-300 text-sm">{integration.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                    <div className="text-center mb-8">
-                      <Badge className={`${plan.badgeColor} text-white mb-4`}>
-                        {plan.badge}
+        {/* Pricing Section */}
+        <section className="py-20 relative z-10">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                Tarifs <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Transparents</span>
+              </h2>
+              <div className="h-1 w-32 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto mb-8"></div>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Choisissez le plan qui correspond à vos ambitions. Commencez gratuitement, 
+                évoluez selon vos besoins, sans engagement ni coûts cachés.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              {plans.map((plan, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="relative group"
+                >
+                  {/* Popular Badge */}
+                  {plan.popular && (
+                    <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20">
+                      <div className="bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white px-6 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg">
+                        <Crown className="w-4 h-4" />
+                        {plan.highlight}
+                        <Star className="w-4 h-4 fill-current" />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Other Badges */}
+                  {!plan.popular && plan.highlight && (
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                      <Badge className={`${
+                        plan.name === 'Découverte' 
+                          ? 'bg-orange-500/20 text-orange-400 border-orange-500/30' 
+                          : 'bg-purple-500/20 text-purple-400 border-purple-500/30'
+                      } px-4 py-1 font-medium`}>
+                        {plan.highlight}
                       </Badge>
+                    </div>
+                  )}
+                  
+                  <Card className={`h-full relative overflow-hidden transition-all duration-500 ${
+                    plan.popular 
+                      ? 'bg-gradient-to-br from-blue-500/10 via-cyan-500/10 to-teal-500/10 border-2 border-cyan-500/50 shadow-2xl shadow-cyan-500/20 scale-105' 
+                      : plan.name === 'Découverte'
+                      ? 'bg-black/40 border border-orange-500/20 hover:border-orange-500/40'
+                      : 'bg-black/40 border border-white/10 hover:border-purple-500/30'
+                  } backdrop-blur-lg group-hover:scale-105 group-hover:shadow-2xl`}>
+                    
+                    {/* Card Header */}
+                    <CardHeader className="text-center pb-8 relative">
+                      {plan.popular && (
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-cyan-500/5 to-teal-500/5 rounded-t-lg"></div>
+                      )}
                       
-                      <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                      <p className="text-gray-400 text-sm mb-6">{plan.description}</p>
-                      
-                      <div className="mb-6">
-                        {plan.originalPrice && (
-                          <div className="text-sm text-gray-500 line-through mb-1">
-                            {plan.originalPrice}€{plan.period}
+                      <div className="relative z-10">
+                        <CardTitle className={`text-2xl font-bold mb-3 ${
+                          plan.popular ? 'text-black' : 'text-gray-100'
+                        }`}>
+                          {plan.name}
+                        </CardTitle>
+                        
+                        {/* Pricing */}
+                        <div className="mb-4">
+                          {plan.originalPrice && (
+                            <div className={`text-lg line-through mb-1 ${
+                              plan.popular ? 'text-gray-600' : 'text-gray-400'
+                            }`}>
+                              {plan.originalPrice}/mois
+                            </div>
+                          )}
+                          <div className={`text-5xl font-bold mb-2 ${
+                            plan.popular 
+                              ? 'text-black' 
+                              : 'text-indigo-400'
+                          }`}>
+                            {plan.price}
+                          </div>
+                          <div className={`text-sm ${
+                            plan.popular ? 'text-gray-700' : 'text-gray-400'
+                          }`}>{plan.period}</div>
+                          {plan.savings && (
+                            <div className="inline-block bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-medium mt-2">
+                              {plan.savings}
+                            </div>
+                          )}
+                        </div>
+                        
+                        <CardDescription className={`text-base ${
+                          plan.popular ? 'text-gray-800' : 'text-gray-300'
+                        }`}>
+                          {plan.description}
+                        </CardDescription>
+                      </div>
+                    </CardHeader>
+                    
+                    {/* Card Content */}
+                    <CardContent className="relative">
+                      {/* Features */}
+                      <div className="space-y-4 mb-8">
+                        <h4 className={`font-semibold text-lg mb-4 flex items-center ${
+                          plan.popular ? 'text-black' : 'text-white'
+                        }`}>
+                          <CheckCircle className="w-5 h-5 text-green-400 mr-2" />
+                          Inclus dans ce plan
+                        </h4>
+                        <ul className="space-y-3">
+                          {plan.features.map((feature, featureIndex) => (
+                            <li key={featureIndex} className={`flex items-start ${
+                              plan.popular ? 'text-gray-800' : 'text-gray-300'
+                            }`}>
+                              <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
+                              <span className="text-sm leading-relaxed">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        
+                        {/* Limitations */}
+                        {plan.limitations.length > 0 && (
+                          <div className="mt-6 pt-4 border-t border-gray-700">
+                            <h4 className="text-gray-400 font-medium text-sm mb-3 flex items-center">
+                              <X className="w-4 h-4 text-red-400 mr-2" />
+                              Limitations
+                            </h4>
+                            <ul className="space-y-2">
+                              {plan.limitations.map((limitation, limitIndex) => (
+                                <li key={limitIndex} className="flex items-start text-gray-500">
+                                  <X className="w-4 h-4 text-red-400 mr-3 flex-shrink-0 mt-0.5" />
+                                  <span className="text-xs">{limitation}</span>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
                         )}
-                        <div className="text-4xl font-bold">
-                          {plan.price}€<span className="text-lg text-gray-400">{plan.period}</span>
-                        </div>
-                        {plan.discount && (
-                          <Badge className="bg-red-500 text-white mt-2">
-                            -{plan.discount}% PROMO
-                          </Badge>
-                        )}
                       </div>
-                    </div>
-
-                    <div className="space-y-4 mb-8">
-                      {plan.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-start space-x-3">
-                          <Check className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-gray-300">{feature}</span>
-                        </div>
-                      ))}
                       
-                      {plan.bonusFeatures && (
-                        <div className="border-t border-white/10 pt-4 mt-6">
-                          <p className="text-sm font-semibold text-yellow-400 mb-3">🎁 Bonus exclusifs :</p>
-                          {plan.bonusFeatures.map((bonus, bonusIndex) => (
-                            <div key={bonusIndex} className="flex items-start space-x-3 mb-2">
-                              <Sparkles className="w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm text-yellow-300">{bonus}</span>
-                            </div>
-                          ))}
+                      {/* CTA Button */}
+                      <Button 
+                        className={`w-full h-14 text-lg font-semibold transition-all duration-300 ${
+                          plan.popular 
+                            ? 'bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl' 
+                            : plan.name === 'Découverte'
+                            ? 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white'
+                            : 'bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/40'
+                        }`}
+                        size="lg"
+                        asChild
+                      >
+                        <Link to={plan.name === 'Enterprise' ? "/contact" : "/auth"} className="flex items-center justify-center">
+                          {plan.cta}
+                          {plan.name === 'Enterprise' ? (
+                            <MessageSquare className="ml-2 h-5 w-5" />
+                          ) : (
+                            <ArrowRight className="ml-2 h-5 w-5" />
+                          )}
+                        </Link>
+                      </Button>
+                      
+                      {/* Additional Info */}
+                      {plan.popular && (
+                        <div className="text-center mt-4">
+                          <p className="text-xs text-gray-700">
+                            ✨ Le choix de 85% de nos clients
+                          </p>
                         </div>
                       )}
-
-                      {plan.limitations && (
-                        <div className="border-t border-white/10 pt-4 mt-4">
-                          <p className="text-sm font-semibold text-red-400 mb-3">⚠️ Limitations :</p>
-                          {plan.limitations.map((limitation, limitIndex) => (
-                            <div key={limitIndex} className="flex items-start space-x-3 mb-2">
-                              <X className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm text-red-300">{limitation}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    <Button 
-                      onClick={() => handleGetStarted(plan.id)}
-                      className={`w-full py-4 text-lg font-semibold rounded-xl transition-all duration-300 ${
-                        plan.highlight
-                          ? `bg-gradient-to-r ${plan.gradient} hover:shadow-lg hover:shadow-blue-500/30 transform hover:scale-105`
-                          : 'bg-white/10 hover:bg-white/20 border border-white/20'
-                      }`}
-                    >
-                      {plan.cta}
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </motion.div>
-                ))}
-              </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
-          </section>
-
-          {/* Testimonials Section */}
-          <section className="py-20">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold mb-6">
-                  Ils ont <span className="text-green-400">multiplié leurs revenus</span> avec DOM CRM
-                </h2>
-                <p className="text-xl text-gray-300">Des résultats concrets, des entrepreneurs satisfaits</p>
+            
+            {/* Money Back Guarantee */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="text-center mt-12"
+            >
+              <div className="inline-flex items-center bg-green-500/10 border border-green-500/20 rounded-full px-6 py-3">
+                <Shield className="w-5 h-5 text-green-400 mr-3" />
+                <span className="text-green-400 font-medium">
+                  Garantie Satisfait ou Remboursé 30 jours
+                </span>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                {testimonials.map((testimonial, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.2 }}
-                    className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300"
-                  >
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold mr-4">
-                        {testimonial.avatar}
-                      </div>
-                      <div>
-                        <h4 className="font-semibold">{testimonial.name}</h4>
-                        <p className="text-sm text-gray-400">{testimonial.role}</p>
-                        <p className="text-xs text-blue-400">{testimonial.company}</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex mb-3">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-                    
-                    <p className="text-gray-300 mb-4 italic">"{testimonial.comment}"</p>
-                    
-                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
-                      Revenue: {testimonial.revenue}
-                    </Badge>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* CTA Section */}
-          <section className="py-20">
-            <div className="container mx-auto px-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 backdrop-blur-sm rounded-2xl p-12 border border-white/10 text-center max-w-4xl mx-auto"
-              >
-                <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                  Prêt à <span className="text-green-400">transformer</span> votre business ?
-                </h2>
+            </motion.div>
+          </div>
+        </section>
+        
+        {/* CTA Section */}
+        <section className="py-20 relative z-10">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto bg-gradient-to-r from-indigo-900/40 to-purple-900/40 rounded-2xl overflow-hidden border border-white/10">
+              <div className="p-12 md:p-16 relative">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500 opacity-20 blur-3xl rounded-full"></div>
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
                 
-                <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                  Rejoignez plus de <span className="text-blue-400 font-bold">2,847 entrepreneurs</span> qui génèrent déjà des revenus automatisés 24/7 avec DOM CRM
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-                  <Button 
-                    onClick={() => handleGetStarted('pro')}
-                    className="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white px-12 py-6 text-xl font-semibold rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
-                  >
-                    <Crown className="mr-3 h-6 w-6" />
-                    Accéder au CRM Pro maintenant
-                  </Button>
+                <div className="relative z-10 text-center">
+                  <Rocket className="w-16 h-16 text-indigo-400 mx-auto mb-6" />
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+                    Prêt à Révolutionner Votre Business ?
+                  </h2>
+                  <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
+                    Rejoignez les centaines d'entrepreneurs qui ont transformé leur activité grâce à DOM CRM. 
+                    Configuration en 5 minutes, résultats garantis dès le premier mois.
+                  </p>
                   
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-red-400">⏰ {formatTime(timeLeft)}</div>
-                    <div className="text-sm text-gray-400">Temps restant pour la promo -50%</div>
+                  <div className="flex flex-wrap justify-center gap-4">
+                    <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity text-white" asChild>
+                      <Link to="/auth">
+                        <CheckCircle className="mr-2 h-5 w-5" />
+                        Démarrer Gratuitement
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                    <Button size="lg" variant="outline" className="text-white border-white/50 hover:bg-white/10" asChild>
+                      <Link to="/contact">
+                        <Calendar className="mr-2 h-4 w-4" />
+                        Réserver une Démo
+                      </Link>
+                    </Button>
+                  </div>
+                  
+                  <div className="flex items-center justify-center gap-8 text-sm text-gray-400 mt-8">
+                    <div className="flex items-center">
+                      <Shield className="w-4 h-4 mr-2" />
+                      Sécurisé & RGPD
+                    </div>
+                    <div className="flex items-center">
+                      <Clock className="w-4 h-4 mr-2" />
+                      Support 24/7
+                    </div>
+                    <div className="flex items-center">
+                      <Award className="w-4 h-4 mr-2" />
+                      Garantie Satisfait
+                    </div>
                   </div>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-300">
-                  <div className="flex items-center justify-center">
-                    <Shield className="w-4 h-4 mr-2 text-green-400" />
-                    Garantie 60 jours
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <Zap className="w-4 h-4 mr-2 text-blue-400" />
-                    Setup en 15 minutes
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <Heart className="w-4 h-4 mr-2 text-red-400" />
-                    Support 24/7 inclus
-                  </div>
-                </div>
-              </motion.div>
+              </div>
             </div>
-          </section>
-        </div>
-      </div>
+          </div>
+        </section>
+      </main>
+
       <Footer />
-    </>
+    </div>
   );
 };
 
