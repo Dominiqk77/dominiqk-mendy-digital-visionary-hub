@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
@@ -42,7 +41,9 @@ import {
   Code,
   X,
   Crown,
-  Infinity
+  Infinity,
+  Timer,
+  Gift
 } from 'lucide-react';
 
 const CRMAccess = () => {
@@ -175,68 +176,107 @@ const CRMAccess = () => {
   const plans = [
     {
       name: "Découverte",
-      price: "Gratuit",
+      price: "GRATUIT",
       originalPrice: null,
       period: "À vie",
-      description: "Pour tester DOM CRM une seule fois",
+      description: "Testez DOM CRM gratuitement",
       features: [
-        "1 projet uniquement",
-        "5 leads maximum (une fois)",
-        "Intégrations basiques",
+        "1 projet de test",
+        "5 leads maximum",
+        "50 appels API/mois",
+        "Templates IA basiques",
         "Support communautaire",
-        "Accès limité aux fonctionnalités"
+        "Analytics de base",
+        "Essai 7 jours complet"
       ],
       limitations: [
-        "Pas de renouvellement",
         "Fonctionnalités limitées",
-        "Sans automation avancée"
+        "Pas de support prioritaire"
       ],
       popular: false,
       cta: "Essayer Gratuitement",
-      highlight: "LIMITÉ"
+      highlight: "🎁 GRATUIT",
+      gradient: "from-green-500 to-emerald-600"
     },
     {
-      name: "Professionnel",
+      name: "Formule Pro",
       price: "99€",
       originalPrice: "149€",
       period: "par mois",
-      description: "Pour les entrepreneurs sérieux",
+      description: "Pour entrepreneurs ambitieux",
       features: [
-        "5 projets actifs",
-        "100 leads/mois",
-        "Toutes les intégrations IA",
-        "Automation avancée complète",
-        "Génération de contenu illimitée",
-        "Analytics et rapports détaillés",
+        "10 projets actifs",
+        "500 leads qualifiés",
+        "10 000 appels API/mois",
+        "IA GPT-4 + tous templates premium",
+        "Automatisations complètes",
         "Support prioritaire 24/7",
-        "Formation personnalisée incluse"
+        "Analytics avancées + prédictions",
+        "Intégrations premium illimitées",
+        "Formation personnalisée incluse",
+        "ROI garanti +200% ou remboursé"
       ],
       limitations: [],
       popular: true,
       cta: "Démarrer Maintenant",
-      highlight: "POPULAIRE",
-      savings: "Économisez 50€/mois"
+      highlight: "🔥 PLUS POPULAIRE",
+      savings: "Économisez 50€/mois - PROMO FLASH !",
+      gradient: "from-orange-500 to-red-600"
     },
     {
-      name: "Enterprise",
-      price: "Sur mesure",
-      originalPrice: null,
-      period: "Contact",
-      description: "Solutions sur-mesure pour grandes entreprises",
+      name: "Formule Business",
+      price: "299€",
+      originalPrice: "399€",
+      period: "par mois",
+      description: "Pour équipes et agences",
       features: [
-        "Projets illimités",
-        "Leads illimités",
-        "API privée dédiée",
-        "Développements personnalisés",
+        "50 projets actifs",
+        "2 000 leads illimités",
+        "50 000 appels API/mois",
+        "IA sur-mesure + White-label",
+        "Automatisations avancées",
+        "Account manager dédié",
+        "Analytics prédictives",
+        "API complète + webhooks",
+        "Multi-utilisateurs (5 comptes)",
+        "Onboarding VIP personnalisé",
+        "SLA 99.9% garanti",
+        "Consulting stratégique inclus"
+      ],
+      limitations: [],
+      popular: false,
+      cta: "Choisir Business",
+      highlight: "👑 MEILLEURE VALEUR",
+      savings: "Économisez 100€/mois",
+      gradient: "from-purple-600 to-pink-600"
+    },
+    {
+      name: "Enterprise VIP",
+      price: "999€",
+      originalPrice: "1499€",
+      period: "par mois",
+      description: "Solution complète enterprise",
+      features: [
+        "Projets ILLIMITÉS",
+        "Leads ILLIMITÉS",
+        "500 000 appels API/mois",
+        "IA personnalisée + développements",
         "Infrastructure dédiée",
-        "Account manager personnel",
-        "SLA garantie 99.99%",
-        "Formation équipe complète"
+        "Équipe support dédiée 24/7",
+        "Consulting stratégique premium",
+        "Développements sur-mesure",
+        "Utilisateurs illimités",
+        "Formation équipe complète",
+        "ROI garanti +500%",
+        "Accès direct au fondateur",
+        "Priorité absolue support"
       ],
       limitations: [],
       popular: false,
       cta: "Nous Contacter",
-      highlight: "SUR-MESURE"
+      highlight: "💎 EXCLUSIF VIP",
+      savings: "Économisez 500€/mois",
+      gradient: "from-indigo-600 to-purple-800"
     }
   ];
 
@@ -284,40 +324,75 @@ const CRMAccess = () => {
               animate="visible"
               variants={animationVariants}
               transition={{ duration: 0.7 }}
-              className="max-w-4xl mx-auto text-center"
+              className="max-w-5xl mx-auto text-center"
             >
+              {/* Flash Promo Banner */}
+              <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-full text-lg font-bold mb-6 animate-pulse shadow-lg">
+                <Timer className="w-5 h-5 mr-2" />
+                🔥 PROMO FLASH -33% - Plus que 24h !
+              </div>
+              
               <div className="inline-block px-4 py-1.5 bg-portfolio-purple/10 backdrop-blur-sm rounded-full text-portfolio-purple border border-portfolio-purple/20 text-sm font-medium mb-4">
                 <div className="flex items-center gap-2">
                   <BrainCircuit className="h-4 w-4" />
-                  <span>CRM Révolutionnaire</span>
-                  <Badge className="bg-emerald-500 text-white text-xs px-2 py-0.5 animate-pulse">
-                    NOUVEAU
+                  <span>CRM Révolutionnaire #1 en France</span>
+                  <Badge className="bg-emerald-500 text-white text-xs px-2 py-0.5 animate-bounce">
+                    +1000 CLIENTS
                   </Badge>
                 </div>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-indigo-600">DOM CRM</span>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-orange-500">DOM CRM</span>
               </h1>
               
-              <div className="h-1 w-24 bg-gradient-primary mx-auto mb-6"></div>
+              <div className="h-1 w-32 bg-gradient-to-r from-orange-500 to-red-500 mx-auto mb-6"></div>
               
-              <p className="text-xl text-gray-200 mb-8">
-                La plateforme CRM tout-en-un qui révolutionne votre business grâce à l'Intelligence Artificielle.
-                Automatisez vos ventes, générez du contenu illimité et multipliez votre chiffre d'affaires.
+              <p className="text-2xl text-gray-200 mb-8 leading-relaxed">
+                La machine à cash ultime qui transforme vos visiteurs en clients 24/7.
+                <br />
+                <span className="text-orange-400 font-bold">ROI moyen +300% garanti ou remboursé !</span>
               </p>
               
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white">
+              <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 mb-8">
+                <div className="text-2xl font-bold text-green-800 mb-2">
+                  🎯 GARANTIE ROI 300% ou REMBOURSÉ INTÉGRAL
+                </div>
+                <div className="text-green-700 text-lg">
+                  + de 1000 entrepreneurs ont multiplié leur CA grâce à DOM CRM
+                </div>
+              </div>
+              
+              <div className="flex flex-wrap justify-center gap-6 mb-8">
+                <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-600 hover:opacity-90 text-white text-xl px-8 py-4 h-16 animate-pulse shadow-xl">
                   <Link to="/auth" className="flex items-center">
-                    Démarrer Gratuitement
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <Rocket className="mr-2 h-6 w-6" />
+                    COMMENCER MAINTENANT
+                    <ArrowRight className="ml-2 h-6 w-6" />
                   </Link>
                 </Button>
                 
-                <Button size="lg" variant="outline" className="text-white border-white border hover:bg-white/10">
-                  <Link to="/contact">Voir la Démo Live</Link>
+                <Button size="lg" variant="outline" className="text-white border-white/50 hover:bg-white/10 text-lg px-6 py-4 h-16">
+                  <Link to="/contact" className="flex items-center">
+                    <Calendar className="mr-2 h-5 w-5" />
+                    Voir Démo Live
+                  </Link>
                 </Button>
+              </div>
+              
+              <div className="flex justify-center items-center space-x-8 text-sm text-gray-300">
+                <div className="flex items-center space-x-2">
+                  <Gift className="w-5 h-5 text-green-400" />
+                  <span className="font-semibold">✨ Essai GRATUIT 14 jours</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Shield className="w-5 h-5 text-green-400" />
+                  <span className="font-semibold">🛡️ Garantie 60 jours</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Award className="w-5 h-5 text-green-400" />
+                  <span className="font-semibold">🚀 Sans engagement</span>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -540,18 +615,28 @@ const CRMAccess = () => {
         {/* Pricing Section */}
         <section className="py-20 relative z-10">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-                Tarifs <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Transparents</span>
+            <div className="max-w-5xl mx-auto text-center mb-16">
+              <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+                Tarifs qui <span className="bg-gradient-to-r from-orange-400 via-red-400 to-pink-400 bg-clip-text text-transparent">Explosent</span> votre CA
               </h2>
-              <div className="h-1 w-32 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto mb-8"></div>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Choisissez le plan qui correspond à vos ambitions. Commencez gratuitement, 
-                évoluez selon vos besoins, sans engagement ni coûts cachés.
+              <div className="h-1 w-40 bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 mx-auto mb-8"></div>
+              <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                Choisissez le plan qui transformera votre business en machine à cash. 
+                Plus de 1000 entrepreneurs ont déjà multiplié leur revenus grâce à DOM CRM.
               </p>
+              
+              {/* Flash Sale Banner */}
+              <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-2xl p-6 mt-8 border-2 border-red-400">
+                <div className="text-2xl font-bold text-white mb-2 animate-pulse">
+                  ⚡ FLASH SALE - 50% DE RÉDUCTION ⚡
+                </div>
+                <div className="text-red-100 text-lg">
+                  Offre limitée - Plus que 24h pour en profiter !
+                </div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
               {plans.map((plan, index) => (
                 <motion.div
                   key={index}
@@ -563,10 +648,10 @@ const CRMAccess = () => {
                   {/* Popular Badge */}
                   {plan.popular && (
                     <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20">
-                      <div className="bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white px-6 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg">
-                        <Crown className="w-4 h-4" />
-                        {plan.highlight}
+                      <div className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white px-6 py-3 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg animate-bounce">
                         <Star className="w-4 h-4 fill-current" />
+                        {plan.highlight}
+                        <Crown className="w-4 h-4" />
                       </div>
                     </div>
                   )}
@@ -576,93 +661,98 @@ const CRMAccess = () => {
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
                       <Badge className={`${
                         plan.name === 'Découverte' 
-                          ? 'bg-orange-500/20 text-orange-400 border-orange-500/30' 
-                          : 'bg-purple-500/20 text-purple-400 border-purple-500/30'
-                      } px-4 py-1 font-medium`}>
+                          ? 'bg-green-500/90 text-white border-green-400' 
+                          : plan.name === 'Enterprise VIP'
+                          ? 'bg-purple-600/90 text-white border-purple-400'
+                          : 'bg-blue-500/90 text-white border-blue-400'
+                      } px-4 py-2 font-bold text-sm`}>
                         {plan.highlight}
                       </Badge>
                     </div>
                   )}
+
+                  {/* Savings Badge */}
+                  {plan.savings && (
+                    <div className="absolute -top-2 -right-2 z-20">
+                      <div className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse shadow-lg">
+                        {plan.savings.split(' ')[0]} {plan.savings.split(' ')[1]}
+                      </div>
+                    </div>
+                  )}
                   
-                  <Card className={`h-full relative overflow-hidden transition-all duration-500 ${
+                  <Card className={`h-full relative overflow-hidden transition-all duration-500 group-hover:scale-105 ${
                     plan.popular 
-                      ? 'bg-gradient-to-br from-blue-500/10 via-cyan-500/10 to-teal-500/10 border-2 border-cyan-500/50 shadow-2xl shadow-cyan-500/20 scale-105' 
+                      ? 'border-4 border-orange-400 shadow-2xl shadow-orange-500/30 bg-gradient-to-br from-orange-50/10 to-red-50/10 backdrop-blur-lg' 
+                      : plan.name === 'Enterprise VIP'
+                      ? 'border-4 border-purple-400 shadow-2xl shadow-purple-500/30 bg-gradient-to-br from-purple-50/10 to-indigo-50/10 backdrop-blur-lg'
                       : plan.name === 'Découverte'
-                      ? 'bg-black/40 border border-orange-500/20 hover:border-orange-500/40'
-                      : 'bg-black/40 border border-white/10 hover:border-purple-500/30'
-                  } backdrop-blur-lg group-hover:scale-105 group-hover:shadow-2xl`}>
+                      ? 'border-2 border-green-400 shadow-xl shadow-green-500/20 bg-gradient-to-br from-green-50/10 to-emerald-50/10 backdrop-blur-lg'
+                      : 'border-2 border-blue-400 shadow-xl shadow-blue-500/20 bg-gradient-to-br from-blue-50/10 to-purple-50/10 backdrop-blur-lg'
+                  }`}>
+                    
+                    {/* Animated Background */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${plan.gradient} opacity-5 group-hover:opacity-15 transition-opacity`}></div>
                     
                     {/* Card Header */}
-                    <CardHeader className="text-center pb-8 relative">
-                      {plan.popular && (
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-cyan-500/5 to-teal-500/5 rounded-t-lg"></div>
-                      )}
-                      
+                    <CardHeader className="text-center pb-8 relative z-10">
                       <div className="relative z-10">
-                        <CardTitle className={`text-2xl font-bold mb-3 ${
-                          plan.popular ? 'text-black' : 'text-gray-100'
-                        }`}>
+                        <CardTitle className="text-2xl font-bold mb-4 text-white">
                           {plan.name}
                         </CardTitle>
                         
                         {/* Pricing */}
-                        <div className="mb-4">
+                        <div className="mb-6">
                           {plan.originalPrice && (
-                            <div className={`text-lg line-through mb-1 ${
-                              plan.popular ? 'text-gray-600' : 'text-gray-400'
-                            }`}>
+                            <div className="text-xl line-through mb-2 text-gray-400">
                               {plan.originalPrice}/mois
                             </div>
                           )}
-                          <div className={`text-5xl font-bold mb-2 ${
-                            plan.popular 
-                              ? 'text-black' 
-                              : 'text-indigo-400'
+                          <div className={`text-6xl font-black mb-2 ${
+                            plan.popular ? 'text-orange-400' : 
+                            plan.name === 'Enterprise VIP' ? 'text-purple-400' :
+                            plan.name === 'Découverte' ? 'text-green-400' :
+                            'text-blue-400'
                           }`}>
                             {plan.price}
                           </div>
-                          <div className={`text-sm ${
-                            plan.popular ? 'text-gray-700' : 'text-gray-400'
-                          }`}>{plan.period}</div>
-                          {plan.savings && (
-                            <div className="inline-block bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-medium mt-2">
-                              {plan.savings}
+                          <div className="text-sm text-gray-300 font-medium">
+                            {plan.period}
+                          </div>
+                          {plan.originalPrice && (
+                            <div className="inline-block bg-red-500/20 text-red-300 px-4 py-2 rounded-full text-sm font-bold mt-3 border border-red-400">
+                              -{Math.round(((parseInt(plan.originalPrice.replace('€', '')) - parseInt(plan.price.replace('€', '') || '0')) / parseInt(plan.originalPrice.replace('€', ''))) * 100)}% AUJOURD'HUI !
                             </div>
                           )}
                         </div>
                         
-                        <CardDescription className={`text-base ${
-                          plan.popular ? 'text-gray-800' : 'text-gray-300'
-                        }`}>
+                        <CardDescription className="text-base text-gray-200 font-medium">
                           {plan.description}
                         </CardDescription>
                       </div>
                     </CardHeader>
                     
                     {/* Card Content */}
-                    <CardContent className="relative">
+                    <CardContent className="relative z-10">
                       {/* Features */}
-                      <div className="space-y-4 mb-8">
-                        <h4 className={`font-semibold text-lg mb-4 flex items-center ${
-                          plan.popular ? 'text-black' : 'text-white'
-                        }`}>
+                      <div className="space-y-6 mb-8">
+                        <h4 className="font-bold text-lg mb-4 flex items-center text-white">
                           <CheckCircle className="w-5 h-5 text-green-400 mr-2" />
-                          Inclus dans ce plan
+                          Tout inclus
                         </h4>
-                        <ul className="space-y-3">
+                        <ul className="space-y-4">
                           {plan.features.map((feature, featureIndex) => (
-                            <li key={featureIndex} className={`flex items-start ${
-                              plan.popular ? 'text-gray-800' : 'text-gray-300'
-                            }`}>
-                              <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
-                              <span className="text-sm leading-relaxed">{feature}</span>
+                            <li key={featureIndex} className="flex items-start text-gray-200">
+                              <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center mr-3 mt-0.5">
+                                <Check className="w-4 h-4 text-white" />
+                              </div>
+                              <span className="text-sm leading-relaxed font-medium">{feature}</span>
                             </li>
                           ))}
                         </ul>
                         
                         {/* Limitations */}
                         {plan.limitations.length > 0 && (
-                          <div className="mt-6 pt-4 border-t border-gray-700">
+                          <div className="mt-6 pt-4 border-t border-gray-600">
                             <h4 className="text-gray-400 font-medium text-sm mb-3 flex items-center">
                               <X className="w-4 h-4 text-red-400 mr-2" />
                               Limitations
@@ -681,19 +771,21 @@ const CRMAccess = () => {
                       
                       {/* CTA Button */}
                       <Button 
-                        className={`w-full h-14 text-lg font-semibold transition-all duration-300 ${
+                        className={`w-full h-16 text-lg font-bold transition-all duration-300 shadow-xl hover:shadow-2xl ${
                           plan.popular 
-                            ? 'bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl' 
+                            ? 'bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 hover:from-orange-600 hover:via-red-600 hover:to-pink-600 text-white animate-pulse' 
+                            : plan.name === 'Enterprise VIP'
+                            ? 'bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white'
                             : plan.name === 'Découverte'
-                            ? 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white'
-                            : 'bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/40'
+                            ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white'
+                            : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white'
                         }`}
                         size="lg"
                         asChild
                       >
-                        <Link to={plan.name === 'Enterprise' ? "/contact" : "/auth"} className="flex items-center justify-center">
+                        <Link to={plan.name === 'Enterprise VIP' ? "/contact" : "/auth"} className="flex items-center justify-center">
                           {plan.cta}
-                          {plan.name === 'Enterprise' ? (
+                          {plan.name === 'Enterprise VIP' ? (
                             <MessageSquare className="ml-2 h-5 w-5" />
                           ) : (
                             <ArrowRight className="ml-2 h-5 w-5" />
@@ -701,11 +793,19 @@ const CRMAccess = () => {
                         </Link>
                       </Button>
                       
-                      {/* Additional Info */}
+                      {/* Special Offers */}
                       {plan.popular && (
-                        <div className="text-center mt-4">
-                          <p className="text-xs text-gray-700">
-                            ✨ Le choix de 85% de nos clients
+                        <div className="text-center mt-4 bg-orange-500/20 rounded-lg p-4 border border-orange-400">
+                          <p className="text-orange-200 font-bold text-sm">
+                            🎁 BONUS : Formation 1-on-1 OFFERTE (valeur 497€)
+                          </p>
+                        </div>
+                      )}
+                      
+                      {plan.name === 'Enterprise VIP' && (
+                        <div className="text-center mt-4 bg-purple-500/20 rounded-lg p-4 border border-purple-400">
+                          <p className="text-purple-200 font-bold text-sm">
+                            👑 VIP : Accès direct au fondateur + consulting premium
                           </p>
                         </div>
                       )}
@@ -715,18 +815,36 @@ const CRMAccess = () => {
               ))}
             </div>
             
-            {/* Money Back Guarantee */}
+            {/* Guarantee Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="text-center mt-12"
+              transition={{ delay: 0.8 }}
+              className="text-center mt-16"
             >
-              <div className="inline-flex items-center bg-green-500/10 border border-green-500/20 rounded-full px-6 py-3">
-                <Shield className="w-5 h-5 text-green-400 mr-3" />
-                <span className="text-green-400 font-medium">
-                  Garantie Satisfait ou Remboursé 30 jours
-                </span>
+              <div className="bg-gradient-to-r from-green-600/20 to-blue-600/20 border-2 border-green-400 rounded-2xl p-8 backdrop-blur-lg">
+                <Shield className="w-16 h-16 text-green-400 mx-auto mb-4" />
+                <div className="text-2xl font-bold text-white mb-4">
+                  🔒 GARANTIE SATISFAIT OU REMBOURSÉ 60 JOURS
+                </div>
+                <div className="text-green-200 text-lg max-w-2xl mx-auto">
+                  Testez DOM CRM sans aucun risque. Si vous n'obtenez pas au minimum +200% de ROI, 
+                  nous vous remboursons intégralement, sans questions.
+                </div>
+                <div className="mt-6 flex justify-center space-x-8 text-sm text-gray-300">
+                  <div className="flex items-center">
+                    <Star className="w-4 h-4 text-yellow-400 mr-2" />
+                    <span>Note 4.9/5 (1000+ avis)</span>
+                  </div>
+                  <div className="flex items-center">
+                    <TrendingUp className="w-4 h-4 text-green-400 mr-2" />
+                    <span>ROI moyen +300%</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Users className="w-4 h-4 text-blue-400 mr-2" />
+                    <span>+1000 clients satisfaits</span>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
