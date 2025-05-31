@@ -2,7 +2,9 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { useSubscription } from '@/hooks/useSubscription';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
   LayoutDashboard,
   Users,
@@ -11,11 +13,13 @@ import {
   Settings,
   Search,
   LogOut,
-  Zap
+  Zap,
+  CreditCard
 } from 'lucide-react';
 
 const CRMNavigation = () => {
   const { signOut, user } = useAuth();
+  const { subscription } = useSubscription();
   const location = useLocation();
 
   const navItems = [
@@ -61,6 +65,17 @@ const CRMNavigation = () => {
           </div>
 
           <div className="flex items-center space-x-4">
+            <Link to="/subscription" className="flex items-center space-x-2">
+              <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                <CreditCard className="w-4 h-4" />
+                <span>Abonnement</span>
+                {subscription && (
+                  <Badge variant={subscription.subscribed ? "default" : "secondary"} className="ml-1">
+                    {subscription.subscription_tier || "Gratuit"}
+                  </Badge>
+                )}
+              </Button>
+            </Link>
             <span className="text-sm text-gray-600">{user?.email}</span>
             <Button
               variant="outline"
