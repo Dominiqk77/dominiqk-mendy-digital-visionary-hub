@@ -23,6 +23,7 @@ import LegalNotices from './pages/LegalNotices';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import NotFound from './pages/NotFound';
+import CRMAccess from './pages/CRMAccess';
 
 // Pages de services
 import WebDevelopment from './pages/services/WebDevelopment';
@@ -71,6 +72,7 @@ function App() {
             <Route path="/legal-notices" element={<LegalNotices />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/crm-access" element={<CRMAccess />} />
 
             {/* Routes de services */}
             <Route path="/services/web-development" element={<WebDevelopment />} />
