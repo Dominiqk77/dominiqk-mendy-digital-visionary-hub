@@ -253,7 +253,7 @@ const CRMAccess = () => {
         </div>
       </div>
       
-      <main className="flex-grow z-10 relative pt-12">
+      <main className="flex-grow z-10 relative">
         {/* Hero Section */}
         <section className="py-20 md:py-28 relative overflow-hidden">
           <div className="container mx-auto px-4">
@@ -267,6 +267,20 @@ const CRMAccess = () => {
                   <Badge className="bg-emerald-500 text-white text-xs px-2 py-0.5 animate-pulse">
                     NOUVEAU
                   </Badge>
+                </div>
+              </div>
+
+              {/* Badge d'urgence intégré dans le hero */}
+              <div className={`inline-block px-6 py-3 bg-gradient-to-r ${currentUrgency.color} text-white rounded-full text-sm font-bold mb-6 animate-pulse border border-white/20`}>
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="animate-bounce text-lg">{currentUrgency.icon}</div>
+                  <span>{currentUrgency.badge}</span>
+                  <div className="flex items-center space-x-2 bg-black/30 px-3 py-1 rounded-full">
+                    <Timer className="w-4 h-4" />
+                    <span>Se termine dans: {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}</span>
+                  </div>
+                  <span>{currentUrgency.message}</span>
+                  <div className="animate-bounce text-lg">{currentUrgency.icon}</div>
                 </div>
               </div>
               
