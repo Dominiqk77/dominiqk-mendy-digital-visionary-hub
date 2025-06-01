@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
@@ -7,11 +6,9 @@ import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import { useDynamicUrgency } from '../hooks/useDynamicUrgency';
-import { LayoutDashboard, Users, FileText, FolderOpen, Zap, Search, BarChart3, Settings, CheckCircle, Star, ArrowRight, Shield, Cpu, Globe, Target, TrendingUp, Clock, Database, Bot, Mail, Phone, MessageSquare, Calendar, DollarSign, Award, Rocket, Lock, Headphones, BookOpen, ChevronRight, BrainCircuit, Code, X, Crown, Infinity, Timer, Heart, Flame } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, FolderOpen, Zap, Search, BarChart3, Settings, CheckCircle, Star, ArrowRight, Shield, Cpu, Globe, Target, TrendingUp, Clock, Database, Bot, Mail, Phone, MessageSquare, Calendar, DollarSign, Award, Rocket, Lock, Headphones, BookOpen, ChevronRight, BrainCircuit, Code, X, Crown, Infinity, Heart, Flame } from 'lucide-react';
 
 const CRMAccess = () => {
-  const { currentUrgency, timeLeft } = useDynamicUrgency();
   const [currentUsers, setCurrentUsers] = useState(847);
 
   useEffect(() => {
@@ -160,7 +157,7 @@ const CRMAccess = () => {
     popular: true,
     cta: "Démarrer Maintenant",
     highlight: "POPULAIRE",
-    savings: `Économisez 50€/mois + ${currentUrgency.discount}`,
+    savings: "Économisez 50€/mois",
     priceId: "price_1RUxYUCVhM2O2LkqfxyZg3mS",
     bgGradient: "from-blue-50 to-cyan-50",
     borderColor: "border-cyan-400",
@@ -178,7 +175,7 @@ const CRMAccess = () => {
     popular: false,
     cta: "Commencer Enterprise",
     highlight: "BUSINESS",
-    savings: `Économisez 100€/mois + ${currentUrgency.discount}`,
+    savings: "Économisez 100€/mois",
     priceId: "price_1RUxbYCVhM2O2LkqUaDGcsqe",
     bgGradient: "from-purple-50 to-pink-50",
     borderColor: "border-purple-400",
@@ -196,7 +193,7 @@ const CRMAccess = () => {
     popular: false,
     cta: "Réserver Consultation",
     highlight: "EXCLUSIF",
-    savings: `Économisez 300€/mois + ${currentUrgency.discount}`,
+    savings: "Économisez 300€/mois",
     priceId: "price_1RUxpACVhM2O2LkqqBckAanw",
     bgGradient: "from-yellow-50 to-orange-50",
     borderColor: "border-yellow-400",
@@ -238,20 +235,6 @@ const CRMAccess = () => {
         animationDuration: `${2 + Math.random() * 3}s`
       }} />)}
       </div>
-
-      {/* Enhanced Urgency Banner with Dynamic Content */}
-      <div className={`fixed top-16 left-0 right-0 z-50 bg-gradient-to-r ${currentUrgency.color} text-white py-2`}>
-        <div className="container mx-auto px-4 flex items-center justify-center space-x-4 text-sm font-bold">
-          <div className="animate-bounce text-lg">{currentUrgency.icon}</div>
-          <span className="animate-pulse">{currentUrgency.badge}</span>
-          <div className="flex items-center space-x-2 bg-black/30 px-3 py-1 rounded-full">
-            <Timer className="w-4 h-4" />
-            <span>Se termine dans: {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}</span>
-          </div>
-          <span>{currentUrgency.message}</span>
-          <div className="animate-bounce text-lg">{currentUrgency.icon}</div>
-        </div>
-      </div>
       
       <main className="flex-grow z-10 relative">
         {/* Hero Section */}
@@ -267,20 +250,6 @@ const CRMAccess = () => {
                   <Badge className="bg-emerald-500 text-white text-xs px-2 py-0.5 animate-pulse">
                     NOUVEAU
                   </Badge>
-                </div>
-              </div>
-
-              {/* Badge d'urgence intégré dans le hero */}
-              <div className={`inline-block px-6 py-3 bg-gradient-to-r ${currentUrgency.color} text-white rounded-full text-sm font-bold mb-6 animate-pulse border border-white/20`}>
-                <div className="flex items-center justify-center space-x-3">
-                  <div className="animate-bounce text-lg">{currentUrgency.icon}</div>
-                  <span>{currentUrgency.badge}</span>
-                  <div className="flex items-center space-x-2 bg-black/30 px-3 py-1 rounded-full">
-                    <Timer className="w-4 h-4" />
-                    <span>Se termine dans: {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}</span>
-                  </div>
-                  <span>{currentUrgency.message}</span>
-                  <div className="animate-bounce text-lg">{currentUrgency.icon}</div>
                 </div>
               </div>
               
@@ -553,21 +522,16 @@ const CRMAccess = () => {
           </div>
         </section>
 
-        {/* Enhanced Pricing Section with Improved Text Visibility */}
+        {/* Pricing Section without urgency discount badges */}
         <section className="py-20 relative z-10">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center mb-16">
-              <div className={`inline-flex items-center bg-gradient-to-r ${currentUrgency.color.replace('from-', 'from-').replace('via-', 'via-').replace('to-', 'to-')}/20 border border-orange-500/30 rounded-full px-6 py-2 mb-6`}>
-                <div className="animate-bounce text-orange-400 mr-2">{currentUrgency.icon}</div>
-                <span className="text-orange-400 font-bold">{currentUrgency.badge} - Plus que {String(timeLeft.hours).padStart(2, '0')}h{String(timeLeft.minutes).padStart(2, '0')}m</span>
-              </div>
-              
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                 Tarifs <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Ultra-Attractifs</span>
               </h2>
               <div className="h-1 w-32 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto mb-8"></div>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                🎯 Profitez de <strong className="text-yellow-400">{currentUrgency.discount} de réduction</strong> sur tous nos plans ! 
+                🎯 Profitez de réductions exceptionnelles sur tous nos plans ! 
                 Une seule adresse email suffit pour démarrer. <strong className="text-green-400">Garantie satisfait ou remboursé 30 jours.</strong>
               </p>
             </div>
