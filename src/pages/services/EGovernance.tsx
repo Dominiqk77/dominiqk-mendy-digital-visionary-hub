@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight, Globe, BarChart3, ShieldCheck, Users, Zap, Clock, Award, Check, Building2, Laptop, FileText, Briefcase, Lock } from 'lucide-react';
+
 const EGovernance = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -632,7 +633,7 @@ const EGovernance = () => {
                 </div>
                 
                 <Button asChild className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 py-6">
-                  <Link to="/projects/senservices" className="flex items-center justify-center gap-2">
+                  <Link to="/projects/sen-services" className="flex items-center justify-center gap-2">
                     <span>Découvrir le projet en détail</span>
                     <ArrowRight size={16} />
                   </Link>
@@ -668,7 +669,7 @@ const EGovernance = () => {
               <div className="flex justify-center mt-10">
                 <Button asChild variant="outline" className="border-white/30 hover:bg-white/10 backdrop-blur-sm py-6 text-white">
                   <a href="https://senadmin.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                    <span className="">En savoir plus sur l'interface administrateur</span>
+                    <span>En savoir plus sur l'interface administrateur</span>
                     <ArrowRight size={16} />
                   </a>
                 </Button>
@@ -725,4 +726,5 @@ const EGovernance = () => {
       <Footer />
     </div>;
 };
+
 export default EGovernance;
