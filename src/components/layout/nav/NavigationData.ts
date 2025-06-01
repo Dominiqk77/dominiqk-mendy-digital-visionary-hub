@@ -28,7 +28,7 @@ export const navigationItems: NavigationItem[] = [
       href: '/services/ai-training'
     }, {
       name: 'E-Gouvernance',
-      href: '/services/egouvernance'
+      href: '/services/e-governance'
     }, {
       name: 'Consulting',
       href: '/services/consulting'
