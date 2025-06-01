@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -14,17 +13,17 @@ import Testimonials from '../components/home/Testimonials';
 import CTASection from '../components/home/CTASection';
 import Certifications from '../components/home/Certifications';
 import { Toaster } from "@/components/ui/toaster";
-import { preloadImages } from '../lib/utils';
+import { preloadCriticalAssets } from '../lib/utils';
 import { usePreventHorizontalScroll } from '@/hooks/use-mobile';
 
 // Optimized animation variants for better performance
 const sectionVariants = {
-  hidden: { opacity: 0, y: 10 },
+  hidden: { opacity: 0, y: 8 }, // Reduced animation distance
   visible: { 
     opacity: 1, 
     y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.3, // Faster animation
       ease: "easeOut"
     }
   }
@@ -60,25 +59,21 @@ const Index = () => {
       );
     }
 
-    // Optimized preload strategy for critical assets
-    const preloadAssets = () => {
-      // Critical images that should load immediately
-      const criticalImages = [
-        '/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png'
-      ];
-      
-      // Use the preloadImages utility to efficiently load images
-      preloadImages(criticalImages).then(() => {
-        console.log('Critical images preloaded successfully');
+    // Enhanced preload strategy for faster loading
+    const preloadAssets = async () => {
+      try {
+        // Start preloading critical assets immediately
+        await preloadCriticalAssets();
+        console.log('All critical assets preloaded successfully');
         setIsLoaded(true);
-      }).catch(error => {
-        console.error('Error preloading images:', error);
-        // Even on error, we should show content after a short timeout
-        setTimeout(() => setIsLoaded(true), 100);
-      });
+      } catch (error) {
+        console.error('Error preloading assets:', error);
+        // Show content after short timeout even on error
+        setTimeout(() => setIsLoaded(true), 200);
+      }
     };
     
-    // Preload critical assets immediately
+    // Start preloading immediately for faster UX
     preloadAssets();
     
     // Scroll to top on page load (unless there's a hash)
@@ -136,42 +131,43 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col overflow-hidden relative max-w-full bg-portfolio-space">
-      {/* Simplified background for better performance */}
+      {/* Optimized background for better performance */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-grid-small-white/5 z-0"></div>
         
         {/* Reduced neural network nodes for better performance */}
-        {Array.from({ length: 8 }).map((_, i) => (
+        {Array.from({ length: 6 }).map((_, i) => ( // Reduced from 8 to 6
           <div 
             key={`node-${i}`}
             className="absolute rounded-full bg-portfolio-purple/20 backdrop-blur-sm"
             style={{
-              width: `${Math.random() * 6 + 3}px`,
-              height: `${Math.random() * 6 + 3}px`,
+              width: `${Math.random() * 4 + 2}px`, // Smaller nodes
+              height: `${Math.random() * 4 + 2}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              boxShadow: '0 0 10px rgba(155, 135, 245, 0.4)',
-              animation: `pulse ${Math.random() * 4 + 3}s infinite alternate ease-in-out`,
-              animationDelay: `${Math.random() * 3}s`
+              boxShadow: '0 0 8px rgba(155, 135, 245, 0.3)', // Reduced glow
+              animation: `pulse ${Math.random() * 4 + 2}s infinite alternate ease-in-out`,
+              animationDelay: `${Math.random() * 2}s`,
+              willChange: 'opacity, transform'
             }}
           />
         ))}
         
         {/* Optimized nebula effects */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-portfolio-purple/15 blur-[100px] rounded-full animate-pulse-slow"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-portfolio-blue/15 blur-[120px] rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
+        <div className="absolute -top-24 -right-24 w-80 h-80 bg-portfolio-purple/12 blur-[80px] rounded-full animate-pulse-slow" style={{ willChange: 'opacity, transform' }}></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-portfolio-blue/12 blur-[100px] rounded-full animate-pulse-slow" style={{animationDelay: '2s', willChange: 'opacity, transform'}}></div>
       </div>
       
       <Navbar />
       
-      {/* Main content with optimized rendering and transitions */}
-      <main className={`flex-grow relative z-10 transition-opacity duration-300 overflow-x-hidden ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Main content with optimized rendering and faster transitions */}
+      <main className={`flex-grow relative z-10 transition-opacity duration-200 overflow-x-hidden ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         <Hero />
         
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-30px" }} // Reduced margin for faster triggering
           variants={sectionVariants}
         >
           <About />
@@ -180,7 +176,7 @@ const Index = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-30px" }}
           variants={sectionVariants}
         >
           <Services />
@@ -189,7 +185,7 @@ const Index = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-30px" }}
           variants={sectionVariants}
         >
           <Skills />
@@ -198,7 +194,7 @@ const Index = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-30px" }}
           variants={sectionVariants}
         >
           <Stats />
@@ -207,7 +203,7 @@ const Index = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-30px" }}
           variants={sectionVariants}
         >
           <Experience />
@@ -216,7 +212,7 @@ const Index = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-30px" }}
           variants={sectionVariants}
         >
           <Certifications />
@@ -225,7 +221,7 @@ const Index = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-30px" }}
           variants={sectionVariants}
         >
           <Testimonials />
@@ -234,7 +230,7 @@ const Index = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-30px" }}
           variants={sectionVariants}
         >
           <CTASection />
