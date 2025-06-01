@@ -85,6 +85,7 @@ function App() {
             <Route path="/services/consulting-strategy" element={<ConsultingStrategyServices />} />
             <Route path="/services/data-analysis" element={<DataAnalysisServices />} />
             <Route path="/services/marketing" element={<MarketingServices />} />
+            <Route path="/services/egouvernance" element={<EGovernance />} />
             <Route path="/services/e-governance" element={<EGovernance />} />
             <Route path="/services/e-governance-services" element={<EGovernanceServices />} />
 
