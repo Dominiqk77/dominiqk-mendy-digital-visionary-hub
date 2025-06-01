@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { TrendingUp, ArrowRight, Target, BarChart, Megaphone, Users, Search, Eye } from 'lucide-react';
+import { TrendingUp, ArrowRight, Target, BarChart, Megaphone, Users, Search, Eye, Rocket, Zap } from 'lucide-react';
 import AdvancedCosmicBackground from '@/components/space/AdvancedCosmicBackground';
 
 const DigitalMarketing = () => {

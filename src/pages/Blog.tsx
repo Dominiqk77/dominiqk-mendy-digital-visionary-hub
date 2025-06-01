@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, User, Tag, Search, Filter, ChevronRight, BookOpen, TrendingUp } from 'lucide-react';
+import { Calendar, Clock, User, Tag, Search, Filter, ChevronRight, BookOpen, TrendingUp, X } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Button } from "@/components/ui/button";

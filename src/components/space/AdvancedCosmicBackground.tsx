@@ -8,7 +8,7 @@ const AdvancedCosmicBackground = () => {
         {Array.from({ length: 200 }).map((_, i) => (
           <div 
             key={i}
-            className="absolute rounded-full"
+            className="absolute rounded-full animate-pulse"
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
@@ -16,14 +16,15 @@ const AdvancedCosmicBackground = () => {
               height: `${Math.random() * 3}px`,
               backgroundColor: 'white',
               opacity: Math.random() * 0.7 + 0.3,
-              animation: `twinkle ${Math.random() * 5 + 3}s ease-in-out infinite`
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${Math.random() * 5 + 3}s`
             }}
           />
         ))}
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/10 via-purple-900/10 to-black"></div>
       
-      <style jsx>{`
+      <style>{`
         @keyframes twinkle {
           0%, 100% { 
             opacity: 0.3; 
@@ -33,6 +34,9 @@ const AdvancedCosmicBackground = () => {
             opacity: 1; 
             transform: scale(1.2); 
           }
+        }
+        .animate-pulse {
+          animation: twinkle var(--duration, 5s) ease-in-out infinite;
         }
       `}</style>
     </div>
