@@ -32,14 +32,14 @@ const CosmicBackground = () => {
         {Array.from({ length: 100 }).map((_, i) => (
           <div
             key={`star-medium-${i}`}
-            className="absolute bg-blue-200 rounded-full opacity-60"
+            className="absolute bg-blue-200 rounded-full opacity-60 animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               width: `${Math.random() * 2 + 0.5}px`,
               height: `${Math.random() * 2 + 0.5}px`,
-              animation: `twinkle ${Math.random() * 4 + 3}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 5}s`
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${Math.random() * 4 + 3}s`
             }}
           />
         ))}
@@ -48,14 +48,14 @@ const CosmicBackground = () => {
         {Array.from({ length: 200 }).map((_, i) => (
           <div
             key={`star-small-${i}`}
-            className="absolute bg-purple-200 rounded-full opacity-40"
+            className="absolute bg-purple-200 rounded-full opacity-40 animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               width: '1px',
               height: '1px',
-              animation: `twinkle ${Math.random() * 6 + 4}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 8}s`
+              animationDelay: `${Math.random() * 8}s`,
+              animationDuration: `${Math.random() * 6 + 4}s`
             }}
           />
         ))}
@@ -79,36 +79,21 @@ const CosmicBackground = () => {
         }}></div>
       </div>
       
-      {/* Floating particles */}
+      {/* Floating particles with bounce animation */}
       <div className="absolute inset-0">
         {Array.from({ length: 20 }).map((_, i) => (
           <div
             key={`particle-${i}`}
-            className="absolute w-1 h-1 bg-white rounded-full opacity-30"
+            className="absolute w-1 h-1 bg-white rounded-full opacity-30 animate-bounce"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animation: `float ${Math.random() * 10 + 10}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 5}s`
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${Math.random() * 10 + 10}s`
             }}
           />
         ))}
       </div>
-      
-      {/* CSS Animations */}
-      <style jsx>{`
-        @keyframes twinkle {
-          0%, 100% { opacity: 0.3; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.2); }
-        }
-        
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) translateX(0px); }
-          25% { transform: translateY(-20px) translateX(10px); }
-          50% { transform: translateY(-40px) translateX(-5px); }
-          75% { transform: translateY(-20px) translateX(-10px); }
-        }
-      `}</style>
     </div>
   );
 };
