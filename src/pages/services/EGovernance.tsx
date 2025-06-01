@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
@@ -11,9 +11,109 @@ import { Badge } from "@/components/ui/badge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight, Globe, BarChart3, ShieldCheck, Users, Zap, Clock, Award, Check, Building2, Laptop, FileText, Briefcase, Lock } from 'lucide-react';
-import AdvancedCosmicBackground from '@/components/space/AdvancedCosmicBackground';
 
 const EGovernance = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Animation for data grid background
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    canvas.width = window.innerWidth;
+    canvas.height = Math.max(document.body.scrollHeight, window.innerHeight);
+
+    // Data lines properties with reduced density for better performance
+    const dataLines: {
+      startX: number;
+      startY: number;
+      endX: number;
+      endY: number;
+      speed: number;
+      progress: number;
+      color: string;
+    }[] = [];
+    const generateLines = () => {
+      // Reduce node count by 30% for better performance
+      const nodeCount = Math.floor(canvas.width / 130);
+
+      // Create vertical node lines (data pathways)
+      for (let i = 0; i < nodeCount; i++) {
+        const x = i / nodeCount * canvas.width;
+
+        // Create fewer data pulse animations (2 instead of 3)
+        for (let j = 0; j < 2; j++) {
+          const startY = -50 - Math.random() * 200;
+          const endY = canvas.height + 50;
+          const speed = 0.15 + Math.random() * 0.25; // Slightly slower animations
+          const progress = Math.random();
+          // More vibrant colors with higher opacity for better visibility
+          const colors = ['rgba(155, 135, 245, 0.8)', 'rgba(14, 165, 233, 0.8)', 'rgba(59, 130, 246, 0.8)'];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          dataLines.push({
+            startX: x,
+            startY,
+            endX: x,
+            endY,
+            speed,
+            progress,
+            color
+          });
+        }
+      }
+    };
+    generateLines();
+
+    // Animation loop
+    const animate = () => {
+      // Clear canvas with a pure dark background (no gray gradient)
+      ctx.fillStyle = 'rgba(10, 12, 20, 0.04)'; // Dark space background
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw and update data lines
+      dataLines.forEach(line => {
+        // Draw the data line
+        const currentY = line.startY + (line.endY - line.startY) * line.progress;
+        const gradient = ctx.createLinearGradient(line.startX, currentY - 50, line.startX, currentY);
+        gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
+        gradient.addColorStop(1, line.color);
+        ctx.beginPath();
+        ctx.moveTo(line.startX, currentY - 50);
+        ctx.lineTo(line.startX, currentY);
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Draw the data pulse (small circle)
+        ctx.beginPath();
+        ctx.arc(line.startX, currentY, 2, 0, Math.PI * 2);
+        ctx.fillStyle = line.color;
+        ctx.fill();
+
+        // Update progress
+        line.progress += line.speed / 100;
+
+        // Reset when reaching the end
+        if (line.progress >= 1) {
+          line.progress = 0;
+        }
+      });
+      requestAnimationFrame(animate);
+    };
+    animate();
+
+    // Handle window resize
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = Math.max(document.body.scrollHeight, window.innerHeight);
+      dataLines.length = 0;
+      generateLines();
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Set page metadata
   useEffect(() => {
     document.title = "E-Gouvernance & Transformation Numérique des États | Dominiqk Mendy";
@@ -166,9 +266,9 @@ const EGovernance = () => {
     features: ["Digitalisation de plus de 500 démarches administratives", "Réduction des délais de traitement de 96%", "Interface citoyenne intuitive", "Dashboard administratif avancé"],
     status: "Plus d'un million d'utilisateurs actifs"
   }];
-  return <div className="min-h-screen flex flex-col bg-portfolio-space relative">
-      {/* Advanced cosmic background */}
-      <AdvancedCosmicBackground />
+  return <div className="min-h-screen flex flex-col overflow-hidden relative">
+      {/* Interactive background */}
+      <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" />
       
       <Navbar />
       

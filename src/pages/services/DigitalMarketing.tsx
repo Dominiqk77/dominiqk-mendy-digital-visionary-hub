@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -5,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { TrendingUp, ArrowRight, Target, BarChart, Megaphone, Users, Search, Eye, Rocket, Zap } from 'lucide-react';
-import AdvancedCosmicBackground from '@/components/space/AdvancedCosmicBackground';
+import { LineChart, ArrowRight, Rocket, Share2, Zap, BookOpen, Layout, PieChart } from 'lucide-react';
+import EnhancedSpaceBackground from '@/components/space/EnhancedSpaceBackground';
 
 const DigitalMarketing = () => {
   useEffect(() => {
@@ -34,8 +35,8 @@ const DigitalMarketing = () => {
     <div className="min-h-screen flex flex-col bg-portfolio-space relative">
       <Navbar />
       
-      {/* Advanced cosmic background */}
-      <AdvancedCosmicBackground />
+      {/* Space background */}
+      <EnhancedSpaceBackground />
       
       <main className="flex-grow z-10 relative">
         {/* Hero Section */}
@@ -50,7 +51,7 @@ const DigitalMarketing = () => {
             >
               <div className="inline-block px-4 py-1.5 bg-orange-500/10 backdrop-blur-sm rounded-full text-orange-400 border border-orange-500/20 text-sm font-medium mb-4">
                 <div className="flex items-center gap-2">
-                  <TrendingUp className="h-4 w-4" />
+                  <LineChart className="h-4 w-4" />
                   <span>Marketing Digital</span>
                 </div>
               </div>
@@ -97,32 +98,32 @@ const DigitalMarketing = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {[
                 {
-                  icon: <TrendingUp className="h-10 w-10" />,
+                  icon: <LineChart className="h-10 w-10" />,
                   title: "SEO/SEA Avancé",
                   description: "Optimisation pour les moteurs de recherche et publicités ciblées pour une visibilité maximale"
                 },
                 {
-                  icon: <Target className="h-10 w-10" />,
+                  icon: <Share2 className="h-10 w-10" />,
                   title: "Social Media Marketing",
                   description: "Gestion de vos réseaux sociaux et campagnes publicitaires ciblées pour engager votre audience"
                 },
                 {
-                  icon: <BarChart className="h-10 w-10" />,
+                  icon: <Layout className="h-10 w-10" />,
                   title: "Content Marketing",
                   description: "Création de contenu stratégique pour renforcer votre autorité et engager votre audience"
                 },
                 {
-                  icon: <Megaphone className="h-10 w-10" />,
+                  icon: <Zap className="h-10 w-10" />,
                   title: "Conversion Optimization",
                   description: "Optimisation des parcours utilisateurs pour maximiser les taux de conversion"
                 },
                 {
-                  icon: <Users className="h-10 w-10" />,
+                  icon: <PieChart className="h-10 w-10" />,
                   title: "Analytics & Reporting",
                   description: "Suivi précis des performances et rapports détaillés pour mesurer les résultats"
                 },
                 {
-                  icon: <Search className="h-10 w-10" />,
+                  icon: <Rocket className="h-10 w-10" />,
                   title: "Growth Hacking",
                   description: "Stratégies innovantes pour accélérer votre croissance avec un budget optimisé"
                 }
@@ -167,7 +168,7 @@ const DigitalMarketing = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
-                  icon: <TrendingUp size={40} />,
+                  icon: <LineChart size={40} />,
                   title: "SEO/SEA/SMO Avancé",
                   description: "Optimisation multi-canaux pour améliorer votre visibilité sur les moteurs de recherche et réseaux sociaux.",
                   link: "/services/marketing/seo",
