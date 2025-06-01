@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -7,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { LineChart, ArrowRight, Rocket, Share2, Zap, BookOpen, Layout, PieChart } from 'lucide-react';
-import EnhancedSpaceBackground from '@/components/space/EnhancedSpaceBackground';
+import CosmicBackground from '@/components/space/CosmicBackground';
 
 const DigitalMarketing = () => {
   useEffect(() => {
@@ -35,8 +34,8 @@ const DigitalMarketing = () => {
     <div className="min-h-screen flex flex-col bg-portfolio-space relative">
       <Navbar />
       
-      {/* Space background */}
-      <EnhancedSpaceBackground />
+      {/* Cosmic background */}
+      <CosmicBackground />
       
       <main className="flex-grow z-10 relative">
         {/* Hero Section */}
