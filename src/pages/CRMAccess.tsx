@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
@@ -981,7 +980,7 @@ const CRMAccess = () => {
                   Nous prenons le risque pour que vous n'en ayez aucun.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
         
