@@ -17,7 +17,7 @@ const HeroProfile = ({ isMobile }: HeroProfileProps) => {
       <div className="relative max-w-[220px]">
         {/* Simplified glow effect for mobile */}
         <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/40 to-portfolio-purple/40 rounded-full blur-2xl opacity-30"></div>
-        <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary">
+        <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary bg-gradient-to-br from-slate-800 via-blue-900 to-slate-900">
           <AspectRatio ratio={1 / 1} className="w-full h-full">
             <img 
               src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
@@ -88,7 +88,7 @@ const HeroProfile = ({ isMobile }: HeroProfileProps) => {
     <div className="relative max-w-[280px] sm:max-w-[320px] mx-auto">
       {/* Enhanced glow effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-portfolio-blue/60 to-portfolio-purple/60 rounded-full blur-3xl opacity-40 animate-pulse-slow"></div>
-      <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-primary">
+      <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-primary bg-gradient-to-br from-slate-800 via-blue-900 to-slate-900">
         <AspectRatio ratio={1 / 1} className="w-full h-full">
           <img 
             src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
