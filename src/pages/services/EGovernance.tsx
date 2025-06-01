@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight, Globe, BarChart3, ShieldCheck, Users, Zap, Clock, Award, Check, Building2, Laptop, FileText, Briefcase, Lock } from 'lucide-react';
-import CosmicBackground from '@/components/space/CosmicBackground';
+import AdvancedCosmicBackground from '@/components/space/AdvancedCosmicBackground';
 
 const EGovernance = () => {
   // Set page metadata
@@ -166,9 +166,9 @@ const EGovernance = () => {
     features: ["Digitalisation de plus de 500 démarches administratives", "Réduction des délais de traitement de 96%", "Interface citoyenne intuitive", "Dashboard administratif avancé"],
     status: "Plus d'un million d'utilisateurs actifs"
   }];
-  return <div className="min-h-screen flex flex-col overflow-hidden relative">
-      {/* Cosmic background */}
-      <CosmicBackground />
+  return <div className="min-h-screen flex flex-col bg-portfolio-space relative">
+      {/* Advanced cosmic background */}
+      <AdvancedCosmicBackground />
       
       <Navbar />
       

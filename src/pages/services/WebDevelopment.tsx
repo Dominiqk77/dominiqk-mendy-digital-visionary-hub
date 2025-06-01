@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Code, ArrowRight, Globe, Smartphone, ShoppingCart, FileCode, Blocks, BadgeCheck } from 'lucide-react';
-import CosmicBackground from '@/components/space/CosmicBackground';
+import AdvancedCosmicBackground from '@/components/space/AdvancedCosmicBackground';
 
 const WebDevelopment = () => {
   useEffect(() => {
@@ -34,8 +34,8 @@ const WebDevelopment = () => {
     <div className="min-h-screen flex flex-col bg-portfolio-space relative">
       <Navbar />
       
-      {/* Cosmic background */}
-      <CosmicBackground />
+      {/* Advanced cosmic background */}
+      <AdvancedCosmicBackground />
       
       <main className="flex-grow z-10 relative">
         {/* Hero Section */}
