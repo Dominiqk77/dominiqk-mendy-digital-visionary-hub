@@ -9,7 +9,7 @@ import Footer from '../components/layout/Footer';
 import { LayoutDashboard, Users, FileText, FolderOpen, Zap, Search, BarChart3, Settings, CheckCircle, Star, ArrowRight, Shield, Cpu, Globe, Target, TrendingUp, Clock, Database, Bot, Mail, Phone, MessageSquare, Calendar, DollarSign, Award, Rocket, Lock, Headphones, BookOpen, ChevronRight, BrainCircuit, Code, X, Crown, Infinity, Heart, Flame } from 'lucide-react';
 
 const CRMAccess = () => {
-  const [currentUsers, setCurrentUsers] = useState(847);
+  const [currentUsers, setCurrentUsers] = useState(112);
 
   useEffect(() => {
     // Set page title for SEO
@@ -266,7 +266,7 @@ const CRMAccess = () => {
 
               <div className="flex items-center justify-center gap-4 mb-8 text-gray-300">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm">+{currentUsers} clients satisfaits</span>
+                  <span className="text-sm">+{currentUsers} entreprises actives</span>
                 </div>
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
@@ -310,7 +310,7 @@ const CRMAccess = () => {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
               {[
-                { number: "847+", label: "Entreprises Actives", icon: Users },
+                { number: "112+", label: "Entreprises Actives", icon: Users },
                 { number: "250%", label: "ROI Moyen", icon: TrendingUp },
                 { number: "15h", label: "Économisées/Semaine", icon: Clock },
                 { number: "99.9%", label: "Uptime Garanti", icon: Shield }
