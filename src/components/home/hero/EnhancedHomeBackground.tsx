@@ -79,12 +79,19 @@ const EnhancedHomeBackground = () => {
       drops[i] = Math.random() * -100;
     }
 
-    // Optimized matrix drawing with performance controls
+    // Frame counter for slowing down matrix animation
+    let frameCount = 0;
+    const matrixUpdateFrequency = isMobile ? (isLowEnd ? 4 : 3) : 2; // Slower animation: update every 2-4 frames instead of every frame
+
+    // Optimized matrix drawing with performance controls and slower animation
     const drawMatrix = () => {
       // Pause animations during scroll for better performance
       if (isScrolling && isMobile) {
         return;
       }
+      
+      // Increment frame counter for slower animation
+      frameCount++;
       
       // Semi-transparent black to create trail effect - optimized for mobile
       ctx.fillStyle = isMobile ? 'rgba(0, 0, 0, 0.08)' : 'rgba(0, 0, 0, 0.05)';
@@ -101,6 +108,9 @@ const EnhancedHomeBackground = () => {
       // Reduce complexity on mobile
       const updateFrequency = isMobile ? (isLowEnd ? 3 : 2) : 1;
       
+      // Only update drops position every matrixUpdateFrequency frames for slower animation
+      const shouldUpdateDrops = frameCount % matrixUpdateFrequency === 0;
+      
       for (let i = 0; i < drops.length; i += updateFrequency) {
         // Choose a random character
         const text = charArray[Math.floor(Math.random() * charArray.length)];
@@ -112,12 +122,14 @@ const EnhancedHomeBackground = () => {
         ctx.font = `${fontSize}px monospace`;
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         
-        // Move the drop down
-        drops[i]++;
-        
-        // Send the drop back to the top randomly after it's reached the bottom
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
+        // Move the drop down only when shouldUpdateDrops is true (slower animation)
+        if (shouldUpdateDrops) {
+          drops[i]++;
+          
+          // Send the drop back to the top randomly after it's reached the bottom
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
         }
       }
     };
@@ -256,7 +268,6 @@ const EnhancedHomeBackground = () => {
       
       {/* Optimized web development visual elements */}
       <svg className="absolute inset-0 z-0 opacity-10 w-full h-full" style={{ willChange: 'auto' }}>
-        {/* Reduced elements on mobile for performance */}
         {Array.from({ length: isMobile ? 4 : 6 }).map((_, i) => (
           <text
             key={`symbol-${i}`}
@@ -273,7 +284,6 @@ const EnhancedHomeBackground = () => {
           </text>
         ))}
         
-        {/* Optimized connection lines */}
         {Array.from({ length: isMobile ? 4 : 8 }).map((_, i) => (
           <line 
             key={`line-h-${i}`}
@@ -306,7 +316,6 @@ const EnhancedHomeBackground = () => {
         ))}
       </svg>
       
-      {/* Optimized digital nodes with performance controls */}
       {Array.from({ length: isMobile ? 6 : 12 }).map((_, i) => {
         const x = Math.random() * 100;
         const y = Math.random() * 100;
