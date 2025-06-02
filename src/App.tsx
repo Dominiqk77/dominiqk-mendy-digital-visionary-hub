@@ -28,6 +28,7 @@ import AITrainingPage from "./pages/services/AITrainingPage";
 import EGovernance from "./pages/services/EGovernance";
 import SenServices from "./pages/projects/SenServices";
 import { ChatBot } from "./components/chat/ChatBot";
+import BackToTop from "./components/ui/BackToTop";
 import AboutPage from "./pages/About";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -93,6 +94,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <BackToTop />
         <ChatBot />
       </TooltipProvider>
     </AuthProvider>
