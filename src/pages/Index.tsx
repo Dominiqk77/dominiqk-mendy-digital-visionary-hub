@@ -14,8 +14,8 @@ import Testimonials from '../components/home/Testimonials';
 import CTASection from '../components/home/CTASection';
 import Certifications from '../components/home/Certifications';
 import { Toaster } from "@/components/ui/toaster";
-import { preloadCriticalAssets } from '../lib/utils';
-import { usePreventHorizontalScroll, useIsMobile, usePerformanceOptimization } from '@/hooks/use-mobile';
+import { preloadImages } from '../lib/utils';
+import { usePreventHorizontalScroll } from '@/hooks/use-mobile';
 
 // Optimized animation variants for better performance
 const sectionVariants = {
@@ -33,10 +33,8 @@ const sectionVariants = {
 const Index = () => {
   const location = useLocation();
   const [isLoaded, setIsLoaded] = useState(false);
-  const isMobile = useIsMobile();
-  const { isLowEnd, isScrolling } = usePerformanceOptimization();
   
-  // Prevent horizontal scroll with enhanced mobile optimization
+  // Prevent horizontal scroll
   usePreventHorizontalScroll();
 
   useEffect(() => {
@@ -62,24 +60,28 @@ const Index = () => {
       );
     }
 
-    // Ultra-fast preload strategy for critical assets
-    const preloadAssets = async () => {
-      try {
-        // Preload critical assets with high priority
-        await preloadCriticalAssets();
-        console.log('Critical assets preloaded successfully');
+    // Optimized preload strategy for critical assets
+    const preloadAssets = () => {
+      // Critical images that should load immediately
+      const criticalImages = [
+        '/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png'
+      ];
+      
+      // Use the preloadImages utility to efficiently load images
+      preloadImages(criticalImages).then(() => {
+        console.log('Critical images preloaded successfully');
         setIsLoaded(true);
-      } catch (error) {
-        console.warn('Some assets failed to preload:', error);
-        // Still show content after short timeout
+      }).catch(error => {
+        console.error('Error preloading images:', error);
+        // Even on error, we should show content after a short timeout
         setTimeout(() => setIsLoaded(true), 100);
-      }
+      });
     };
     
-    // Start preloading immediately
+    // Preload critical assets immediately
     preloadAssets();
     
-    // Enhanced scroll optimization
+    // Scroll to top on page load (unless there's a hash)
     if (!location.hash) {
       window.scrollTo({
         top: 0,
@@ -87,7 +89,7 @@ const Index = () => {
       });
     }
 
-    // Handle anchor link navigation with optimized scrolling
+    // Handle anchor link navigation with smoother scrolling
     const handleAnchorClick = () => {
       const { hash } = location;
       if (hash) {
@@ -106,62 +108,23 @@ const Index = () => {
 
     handleAnchorClick();
     
-    // Enhanced viewport meta tag for better mobile performance
+    // Add viewport meta tag for better mobile handling if not present
     if (!document.querySelector('meta[name="viewport"]')) {
       const viewportMeta = document.createElement('meta');
       viewportMeta.name = 'viewport';
-      viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+      viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
       document.head.appendChild(viewportMeta);
     }
 
-    // Enhanced mobile optimizations
-    if (isMobile) {
-      // Optimize for mobile performance
-      document.documentElement.style.cssText += `
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeSpeed;
-        transform: translate3d(0, 0, 0);
-        backface-visibility: hidden;
-        perspective: 1000px;
-      `;
-      
-      // Prevent mobile Safari zoom on input focus
-      const inputs = document.querySelectorAll('input, textarea, select');
-      inputs.forEach(input => {
-        input.setAttribute('autocomplete', 'off');
-        input.setAttribute('autocorrect', 'off');
-        input.setAttribute('autocapitalize', 'off');
-      });
-    }
+  }, [location]);
 
-  }, [location, isMobile]);
-
-  // Ultra-smooth scrolling for the entire page
+  // Enable smooth scrolling for the entire page
   useEffect(() => {
     const html = document.querySelector('html');
     if (html) {
       html.style.scrollBehavior = 'smooth';
       html.classList.add('overflow-x-hidden');
-      
-      // Enhanced mobile scroll properties
-      if (isMobile) {
-        html.style.cssText += `
-          overscroll-behavior: none;
-          touch-action: pan-y;
-          -webkit-overflow-scrolling: touch;
-          scroll-padding-top: 80px;
-        `;
-      }
     }
-    
-    // Optimize body for mobile scrolling
-    document.body.style.cssText += `
-      overscroll-behavior: none;
-      touch-action: pan-y;
-      transform: translate3d(0, 0, 0);
-      backface-visibility: hidden;
-    `;
     
     return () => {
       if (html) {
@@ -169,16 +132,16 @@ const Index = () => {
         html.classList.remove('overflow-x-hidden');
       }
     };
-  }, [isMobile]);
+  }, []);
 
   return (
-    <div className="min-h-screen flex flex-col overflow-hidden relative max-w-full bg-portfolio-space" style={{ transform: 'translate3d(0, 0, 0)' }}>
-      {/* Ultra-optimized background for mobile performance */}
-      <div className="absolute inset-0 z-0" style={{ willChange: isScrolling ? 'auto' : 'transform' }}>
+    <div className="min-h-screen flex flex-col overflow-hidden relative max-w-full bg-portfolio-space">
+      {/* Simplified background for better performance */}
+      <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-grid-small-white/5 z-0"></div>
         
-        {/* Reduced neural network nodes for better mobile performance */}
-        {!isScrolling && Array.from({ length: isMobile ? 4 : 8 }).map((_, i) => (
+        {/* Reduced neural network nodes for better performance */}
+        {Array.from({ length: 8 }).map((_, i) => (
           <div 
             key={`node-${i}`}
             className="absolute rounded-full bg-portfolio-purple/20 backdrop-blur-sm"
@@ -189,26 +152,20 @@ const Index = () => {
               top: `${Math.random() * 100}%`,
               boxShadow: '0 0 10px rgba(155, 135, 245, 0.4)',
               animation: `pulse ${Math.random() * 4 + 3}s infinite alternate ease-in-out`,
-              animationDelay: `${Math.random() * 3}s`,
-              transform: 'translate3d(0, 0, 0)',
-              willChange: 'transform, opacity'
+              animationDelay: `${Math.random() * 3}s`
             }}
           />
         ))}
         
-        {/* Optimized nebula effects with conditional rendering */}
-        {!isScrolling && (
-          <>
-            <div className="absolute -top-24 -right-24 w-96 h-96 bg-portfolio-purple/15 blur-[100px] rounded-full animate-pulse-slow" style={{ transform: 'translate3d(0, 0, 0)' }}></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-portfolio-blue/15 blur-[120px] rounded-full animate-pulse-slow" style={{animationDelay: '2s', transform: 'translate3d(0, 0, 0)'}}></div>
-          </>
-        )}
+        {/* Optimized nebula effects */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-portfolio-purple/15 blur-[100px] rounded-full animate-pulse-slow"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-portfolio-blue/15 blur-[120px] rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
       </div>
       
       <Navbar />
       
-      {/* Main content with ultra-optimized rendering and transitions */}
-      <main className={`flex-grow relative z-10 transition-opacity duration-300 overflow-x-hidden ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ transform: 'translate3d(0, 0, 0)' }}>
+      {/* Main content with optimized rendering and transitions */}
+      <main className={`flex-grow relative z-10 transition-opacity duration-300 overflow-x-hidden ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         <Hero />
         
         <motion.div

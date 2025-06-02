@@ -1,27 +1,16 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { useIsMobile, usePerformanceOptimization } from '@/hooks/use-mobile';
-import { throttle, createOptimizedRAF, PerformanceController } from '@/lib/utils';
 
 const EnhancedHomeBackground = () => {
   const [stars, setStars] = useState<{id: number, x: number, y: number, size: number, opacity: number, speed: number}[]>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const isMobile = useIsMobile();
-  const { isLowEnd, isScrolling } = usePerformanceOptimization();
-  const performanceController = useRef<PerformanceController>();
   
-  // Initialize performance controller
-  React.useEffect(() => {
-    performanceController.current = new PerformanceController(isMobile, isLowEnd);
-  }, [isMobile, isLowEnd]);
-  
-  // Initialize matrix-style code rain with performance optimization
+  // Initialize matrix-style code rain
   useEffect(() => {
-    // Generate optimized stars based on device capability
+    // Generate random stars
     const generateStars = () => {
-      const starCount = isMobile ? (isLowEnd ? 30 : 50) : 100;
-      const newStars = Array.from({ length: starCount }, (_, i) => ({
+      const newStars = Array.from({ length: 100 }, (_, i) => ({
         id: i,
         x: Math.random() * 100,
         y: Math.random() * 100,
@@ -34,14 +23,14 @@ const EnhancedHomeBackground = () => {
 
     generateStars();
 
-    // Optimized matrix code rain effect
+    // Matrix code rain effect
     const canvas = canvasRef.current;
     if (!canvas) return;
     
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size to cover the entire hero section with GPU acceleration
+    // Set canvas size to cover the entire hero section
     const resizeCanvas = () => {
       if (canvas) {
         const heroSection = canvas.closest('[class*="hero"]') || canvas.parentElement;
@@ -52,57 +41,30 @@ const EnhancedHomeBackground = () => {
           canvas.width = window.innerWidth;
           canvas.height = window.innerHeight;
         }
-        // Enable GPU acceleration for canvas
-        canvas.style.transform = 'translate3d(0, 0, 0)';
-        canvas.style.willChange = 'transform';
       }
     };
 
     resizeCanvas();
-    
-    // Throttled resize handler for performance
-    const throttledResize = throttle(resizeCanvas, 250);
-    window.addEventListener('resize', throttledResize);
+    window.addEventListener('resize', resizeCanvas);
 
-    // Optimized characters for matrix effect
+    // Characters for the matrix effect - combining code and tech symbols
     const chars = '10アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ{}[]/\\<>()=+-*&^%$#@!;:';
     const charArray = chars.split('');
-    const fontSize = isMobile ? 12 : 14;
-    const columns = Math.floor(canvas.width / fontSize);
-    
-    // Reduce columns on mobile for better performance
-    const maxColumns = isMobile ? Math.min(columns, isLowEnd ? 30 : 50) : columns;
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
     
     // Initialize drops at random positions
     const drops: number[] = [];
-    for (let i = 0; i < maxColumns; i++) {
+    for (let i = 0; i < columns; i++) {
       drops[i] = Math.random() * -100;
     }
 
-    // Frame counter for slowing down matrix animation - DRASTICALLY INCREASED
-    let frameCount = 0;
-    const matrixUpdateFrequency = isMobile ? (isLowEnd ? 15 : 12) : 10; // MUCH slower: update every 10-15 frames instead of 2-4
-
-    // Additional counter for even slower drop movement
-    let dropMoveCounter = 0;
-    const dropMoveFrequency = isMobile ? (isLowEnd ? 20 : 15) : 12; // Even slower drop movement
-
-    // Optimized matrix drawing with performance controls and much slower animation
     const drawMatrix = () => {
-      // Pause animations during scroll for better performance
-      if (isScrolling && isMobile) {
-        return;
-      }
-      
-      // Increment frame counter for slower animation
-      frameCount++;
-      dropMoveCounter++;
-      
-      // Semi-transparent black to create trail effect - optimized for mobile
-      ctx.fillStyle = isMobile ? 'rgba(0, 0, 0, 0.08)' : 'rgba(0, 0, 0, 0.05)';
+      // Semi-transparent black to create trail effect
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
-      // Optimized colors array
+      // Random character colors in blue/purple palette (your brand colors)
       const colors = [
         'rgba(14, 165, 233, 0.7)', // blue
         'rgba(155, 135, 245, 0.7)', // purple
@@ -110,14 +72,7 @@ const EnhancedHomeBackground = () => {
         'rgba(8, 145, 178, 0.7)', // cyan
       ];
       
-      // Reduce complexity on mobile
-      const updateFrequency = isMobile ? (isLowEnd ? 3 : 2) : 1;
-      
-      // Only update drops position every matrixUpdateFrequency frames for slower animation
-      const shouldUpdateDrops = frameCount % matrixUpdateFrequency === 0;
-      const shouldMoveDrops = dropMoveCounter % dropMoveFrequency === 0;
-      
-      for (let i = 0; i < drops.length; i += updateFrequency) {
+      for (let i = 0; i < drops.length; i++) {
         // Choose a random character
         const text = charArray[Math.floor(Math.random() * charArray.length)];
         
@@ -128,125 +83,56 @@ const EnhancedHomeBackground = () => {
         ctx.font = `${fontSize}px monospace`;
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         
-        // Move the drop down only when both counters allow it (much slower)
-        if (shouldUpdateDrops && shouldMoveDrops) {
-          drops[i]++;
-          
-          // Send the drop back to the top randomly after it's reached the bottom - slower reset
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.99) { // Changed from 0.975 to 0.99 for slower reset
-            drops[i] = 0;
-          }
+        // Move the drop down
+        drops[i]++;
+        
+        // Send the drop back to the top randomly after it's reached the bottom
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
         }
       }
     };
     
-    // Optimized animation loop with performance controls
-    let animationId: number;
-    const animate = () => {
-      drawMatrix();
-      
-      if (!isScrolling || !isMobile) {
-        animationId = requestAnimationFrame(animate);
-      } else {
-        // Resume after scroll ends
-        setTimeout(() => {
-          if (!isScrolling) {
-            animationId = requestAnimationFrame(animate);
-          }
-        }, 100);
-      }
-    };
-    
-    // Start animation with 60fps throttling
-    animationId = createOptimizedRAF(animate, isMobile ? (isLowEnd ? 30 : 45) : 60);
+    // Run the animation
+    const interval = setInterval(drawMatrix, 40);
 
-    // Optimized resize observer
-    const resizeObserver = new ResizeObserver(throttle(() => {
+    // Re-resize canvas when content changes
+    const resizeObserver = new ResizeObserver(() => {
       resizeCanvas();
-    }, 250));
+    });
     
     if (canvas.parentElement) {
       resizeObserver.observe(canvas.parentElement);
     }
 
     return () => {
-      window.removeEventListener('resize', throttledResize);
-      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', resizeCanvas);
+      clearInterval(interval);
       resizeObserver.disconnect();
-      // Clean up GPU acceleration
-      if (canvas) {
-        canvas.style.willChange = 'auto';
-        canvas.style.transform = '';
-      }
     };
-  }, [isMobile, isLowEnd, isScrolling]);
+  }, []);
 
   return (
     <>
-      {/* Matrix code rain effect - optimized for mobile performance */}
+      {/* Matrix code rain effect - now covers full hero section */}
       <canvas 
         ref={canvasRef} 
         className="absolute inset-0 z-0 opacity-20 w-full h-full"
-        style={{ 
-          minHeight: '100%',
-          willChange: isScrolling ? 'auto' : 'transform'
-        }}
+        style={{ minHeight: '100%' }}
       />
       
-      {/* AI-themed particle background with conditional rendering */}
-      {!isScrolling && (
-        <div id="particles-js" className="absolute inset-0 z-0 opacity-80"></div>
-      )}
+      {/* AI-themed particle background with reduced opacity for better performance */}
+      <div id="particles-js" className="absolute inset-0 z-0 opacity-80"></div>
       
-      {/* Enhanced AI-themed background elements with performance optimization */}
+      {/* Enhanced AI-themed background elements with better performance */}
       <div className="absolute inset-0 z-0 opacity-15 bg-grid-small-white/5"></div>
       
-      {/* Optimized nebula effects - reduced on mobile */}
-      <motion.div 
-        className="absolute -top-24 -right-24 w-96 h-96 bg-purple-600/30 blur-[120px] rounded-full"
-        animate={!isScrolling ? {
-          opacity: [0.3, 0.15, 0.3],
-          scale: [1, 1.05, 1]
-        } : {}}
-        transition={{
-          repeat: Infinity,
-          duration: isMobile ? 15 : 10,
-          ease: "easeInOut"
-        }}
-        style={{ willChange: isScrolling ? 'auto' : 'transform, opacity' }}
-      />
+      {/* Nebula effects */}
+      <div className="absolute -top-24 -right-24 w-96 h-96 bg-purple-600/30 blur-[120px] rounded-full animate-pulse-slow"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/20 blur-[150px] rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
+      <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-cyan-600/20 blur-[100px] rounded-full animate-pulse-slow" style={{animationDelay: '1s'}}></div>
       
-      <motion.div 
-        className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/20 blur-[150px] rounded-full"
-        animate={!isScrolling ? {
-          opacity: [0.2, 0.1, 0.2],
-          scale: [1, 1.08, 1]
-        } : {}}
-        transition={{
-          repeat: Infinity,
-          duration: isMobile ? 18 : 12,
-          ease: "easeInOut",
-          delay: 2
-        }}
-        style={{ willChange: isScrolling ? 'auto' : 'transform, opacity' }}
-      />
-      
-      <motion.div 
-        className="absolute top-1/4 left-1/3 w-64 h-64 bg-cyan-600/20 blur-[100px] rounded-full"
-        animate={!isScrolling ? {
-          opacity: [0.2, 0.1, 0.2],
-          scale: [1, 1.1, 1]
-        } : {}}
-        transition={{
-          repeat: Infinity,
-          duration: isMobile ? 20 : 15,
-          ease: "easeInOut",
-          delay: 1
-        }}
-        style={{ willChange: isScrolling ? 'auto' : 'transform, opacity' }}
-      />
-      
-      {/* Optimized stars with conditional animation */}
+      {/* Stars */}
       {stars.map((star) => (
         <motion.div
           key={`star-${star.id}`}
@@ -257,13 +143,11 @@ const EnhancedHomeBackground = () => {
             width: `${star.size}px`,
             height: `${star.size}px`,
             opacity: star.opacity,
-            transform: 'translate3d(0, 0, 0)', // GPU acceleration
-            willChange: isScrolling ? 'auto' : 'transform, opacity'
           }}
-          animate={!isScrolling ? {
+          animate={{
             opacity: [star.opacity, star.opacity * 1.5, star.opacity],
             scale: [1, 1.2, 1],
-          } : {}}
+          }}
           transition={{
             repeat: Infinity,
             duration: 3 + Math.random() * 7,
@@ -272,9 +156,10 @@ const EnhancedHomeBackground = () => {
         />
       ))}
       
-      {/* Optimized web development visual elements */}
-      <svg className="absolute inset-0 z-0 opacity-10 w-full h-full" style={{ willChange: 'auto' }}>
-        {Array.from({ length: isMobile ? 4 : 6 }).map((_, i) => (
+      {/* Web development specific visual elements */}
+      <svg className="absolute inset-0 z-0 opacity-10 w-full h-full">
+        {/* Code brackets and tech symbols */}
+        {Array.from({ length: 6 }).map((_, i) => (
           <text
             key={`symbol-${i}`}
             x={`${Math.random() * 90 + 5}%`}
@@ -283,14 +168,15 @@ const EnhancedHomeBackground = () => {
             opacity="0.2"
             fontSize={Math.random() * 20 + 20}
             fontFamily="monospace"
-            className={isScrolling ? "" : "animate-pulse-slow"}
+            className="animate-pulse-slow"
             style={{animationDelay: `${i * 0.5}s`}}
           >
             {['{ }', '[ ]', '( )', '< >', '/>', '&&', '||', '==', '!=', '=>'][Math.floor(Math.random() * 10)]}
           </text>
         ))}
         
-        {Array.from({ length: isMobile ? 4 : 8 }).map((_, i) => (
+        {/* Connection lines - technical grid */}
+        {Array.from({ length: 8 }).map((_, i) => (
           <line 
             key={`line-h-${i}`}
             x1="0" 
@@ -300,12 +186,12 @@ const EnhancedHomeBackground = () => {
             stroke="#9b87f5" 
             strokeWidth="0.5" 
             strokeDasharray="10,20"
-            className={isScrolling ? "" : "animate-pulse-slow"}
+            className="animate-pulse-slow"
             style={{animationDelay: `${i * 0.2}s`}}
             opacity="0.2"
           />
         ))}
-        {Array.from({ length: isMobile ? 4 : 8 }).map((_, i) => (
+        {Array.from({ length: 8 }).map((_, i) => (
           <line 
             key={`line-v-${i}`}
             x1={`${i * 12}%`}
@@ -315,14 +201,15 @@ const EnhancedHomeBackground = () => {
             stroke="#0EA5E9" 
             strokeWidth="0.5" 
             strokeDasharray="10,20"
-            className={isScrolling ? "" : "animate-pulse-slow"}
+            className="animate-pulse-slow"
             style={{animationDelay: `${i * 0.2 + 1}s`}}
             opacity="0.2"
           />
         ))}
       </svg>
       
-      {Array.from({ length: isMobile ? 6 : 12 }).map((_, i) => {
+      {/* Digital nodes - representing connectivity */}
+      {Array.from({ length: 12 }).map((_, i) => {
         const x = Math.random() * 100;
         const y = Math.random() * 100;
         return (
@@ -336,10 +223,8 @@ const EnhancedHomeBackground = () => {
               height: `${Math.random() * 6 + 3}px`,
               opacity: 0.3,
               boxShadow: '0 0 8px rgba(99, 102, 241, 0.6)',
-              transform: 'translate3d(0, 0, 0)', // GPU acceleration
-              animation: isScrolling ? 'none' : `pulse ${Math.random() * 4 + 3}s infinite alternate ease-in-out`,
-              animationDelay: `${Math.random() * 5}s`,
-              willChange: isScrolling ? 'auto' : 'transform, opacity'
+              animation: `pulse ${Math.random() * 4 + 3}s infinite alternate ease-in-out`,
+              animationDelay: `${Math.random() * 5}s`
             }}
           />
         );
