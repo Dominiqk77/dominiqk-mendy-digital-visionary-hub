@@ -79,11 +79,15 @@ const EnhancedHomeBackground = () => {
       drops[i] = Math.random() * -100;
     }
 
-    // Frame counter for slowing down matrix animation
+    // Frame counter for slowing down matrix animation - DRASTICALLY INCREASED
     let frameCount = 0;
-    const matrixUpdateFrequency = isMobile ? (isLowEnd ? 4 : 3) : 2; // Slower animation: update every 2-4 frames instead of every frame
+    const matrixUpdateFrequency = isMobile ? (isLowEnd ? 15 : 12) : 10; // MUCH slower: update every 10-15 frames instead of 2-4
 
-    // Optimized matrix drawing with performance controls and slower animation
+    // Additional counter for even slower drop movement
+    let dropMoveCounter = 0;
+    const dropMoveFrequency = isMobile ? (isLowEnd ? 20 : 15) : 12; // Even slower drop movement
+
+    // Optimized matrix drawing with performance controls and much slower animation
     const drawMatrix = () => {
       // Pause animations during scroll for better performance
       if (isScrolling && isMobile) {
@@ -92,6 +96,7 @@ const EnhancedHomeBackground = () => {
       
       // Increment frame counter for slower animation
       frameCount++;
+      dropMoveCounter++;
       
       // Semi-transparent black to create trail effect - optimized for mobile
       ctx.fillStyle = isMobile ? 'rgba(0, 0, 0, 0.08)' : 'rgba(0, 0, 0, 0.05)';
@@ -110,6 +115,7 @@ const EnhancedHomeBackground = () => {
       
       // Only update drops position every matrixUpdateFrequency frames for slower animation
       const shouldUpdateDrops = frameCount % matrixUpdateFrequency === 0;
+      const shouldMoveDrops = dropMoveCounter % dropMoveFrequency === 0;
       
       for (let i = 0; i < drops.length; i += updateFrequency) {
         // Choose a random character
@@ -122,12 +128,12 @@ const EnhancedHomeBackground = () => {
         ctx.font = `${fontSize}px monospace`;
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         
-        // Move the drop down only when shouldUpdateDrops is true (slower animation)
-        if (shouldUpdateDrops) {
+        // Move the drop down only when both counters allow it (much slower)
+        if (shouldUpdateDrops && shouldMoveDrops) {
           drops[i]++;
           
-          // Send the drop back to the top randomly after it's reached the bottom
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          // Send the drop back to the top randomly after it's reached the bottom - slower reset
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.99) { // Changed from 0.975 to 0.99 for slower reset
             drops[i] = 0;
           }
         }
