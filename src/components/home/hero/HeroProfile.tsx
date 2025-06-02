@@ -20,7 +20,7 @@ const HeroProfile = ({ isMobile }: HeroProfileProps) => {
         <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary">
           <AspectRatio ratio={1 / 1} className="w-full h-full">
             <img 
-              src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
+              src="/lovable-uploads/68ba6135-c47a-4bfc-b4e3-4dda4cb52845.png" 
               alt="Dominiqk Mendy" 
               className="w-full h-full object-cover" 
               loading="eager"
@@ -91,7 +91,7 @@ const HeroProfile = ({ isMobile }: HeroProfileProps) => {
       <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-primary">
         <AspectRatio ratio={1 / 1} className="w-full h-full">
           <img 
-            src="/lovable-uploads/c0a0e8cc-455f-443c-849f-9c1c4aa6981c.png" 
+            src="/lovable-uploads/68ba6135-c47a-4bfc-b4e3-4dda4cb52845.png" 
             alt="Dominiqk Mendy" 
             className="w-full h-full object-cover" 
             loading="eager"
