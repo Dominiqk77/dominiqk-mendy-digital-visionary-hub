@@ -29,14 +29,6 @@ serve(async (req) => {
       throw new Error('Gemini API key not configured')
     }
 
-    // Délai intelligent basé sur la complexité du message
-    const messageLength = message.length
-    const complexityDelay = Math.min(Math.max(messageLength * 20, 1000), 4000) // 1-4 secondes
-    console.log(`Délai de réflexion : ${complexityDelay}ms pour un message de ${messageLength} caractères`)
-    
-    // Simulation du temps de lecture et de réflexion
-    await new Promise(resolve => setTimeout(resolve, complexityDelay))
-
     // Créer ou récupérer une session
     let session = null
     if (sessionId) {
@@ -68,44 +60,8 @@ serve(async (req) => {
       .update({ last_activity: new Date().toISOString() })
       .eq('id', session.id)
 
-    // Système prompt ultra-intelligent avec formatage en paragraphes
+    // Système prompt ultra-intelligent avec négociation et collecte de leads
     const systemPrompt = `Tu es Dominiqk Mendy, consultant expert en intelligence artificielle, développement web, et transformation digitale avec plus de 15 ans d'expérience internationale. Tu es reconnu mondialement pour ton expertise technique approfondie et ta capacité à résoudre des problèmes ultra-complexes.
-
-## RÈGLES DE FORMATAGE STRICTES POUR DES RÉPONSES PROFESSIONNELLES :
-
-### STRUCTURE OBLIGATOIRE DES RÉPONSES :
-1. **Paragraphes courts** : Maximum 3-4 phrases par paragraphe
-2. **Séparation claire** : Saut de ligne entre chaque idée principale
-3. **Hiérarchisation** : Utiliser des titres courts avec ** ** pour les sections importantes
-4. **Listes à puces** : Pour énumérer des points clés (3-5 éléments max par liste)
-5. **Espacement** : Laisser une ligne vide entre les paragraphes pour la lisibilité
-
-### EXEMPLES DE FORMATAGE CORRECT :
-
-**Question technique :**
-Votre question sur l'architecture microservices est excellente ! C'est un domaine où j'ai accompagné de nombreuses entreprises.
-
-**Les avantages principaux :**
-• Scalabilité indépendante de chaque service
-• Facilité de maintenance et de débogage
-• Technologie spécialisée par service
-• Déploiement continu simplifié
-
-Pour votre projet spécifique, je recommande de commencer par identifier les domaines métier distincts. Chaque service devrait avoir une responsabilité unique et bien définie.
-
-**Prochaines étapes concrètes :**
-Je peux vous proposer un audit architectural gratuit de 30 minutes pour analyser votre contexte. Cela nous permettra de définir une roadmap de migration adaptée.
-
-### TON ET STYLE :
-- **Professionnel mais accessible** : Éviter le jargon technique excessif
-- **Confiant et expert** : Montrer l'expérience sans arrogance
-- **Structuré et clair** : Chaque réponse doit être facile à scanner
-- **Actionnable** : Toujours donner des étapes concrètes
-
-### LONGUEUR DES PARAGRAPHES :
-- **Introduction** : 1-2 phrases maximum
-- **Développement** : 3-4 phrases par point
-- **Conclusion/Action** : 2-3 phrases avec call-to-action
 
 ## PROFIL COMPLET - DOMINIQK MENDY
 
@@ -269,7 +225,6 @@ Tu dois TOUJOURS :
 - Négocier avec finesse et professionnalisme
 - Orienter vers l'appel Marrakech pour les prospects qualifiés
 - Être autonome dans la gestion commerciale tout en restant expert technique
-- **FORMATER TOUTES TES RÉPONSES EN PARAGRAPHES COURTS ET BIEN STRUCTURÉS**
 
 Adapte ton approche selon le profil détecté et sois proactif dans la génération de leads qualifiés.`
 
@@ -296,7 +251,7 @@ Adapte ton approche selon le profil détecté et sois proactif dans la générat
       parts: [{ text: message }]
     })
 
-    console.log('Sending request to Gemini API with enhanced formatting and lead generation intelligence...')
+    console.log('Sending request to Gemini API with lead generation intelligence...')
 
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${geminiApiKey}`, {
       method: 'POST',
@@ -341,15 +296,12 @@ Adapte ton approche selon le profil détecté et sois proactif dans la générat
     const data = await response.json()
     console.log('Enhanced Gemini AI response received')
     
-    let assistantReply = data.candidates?.[0]?.content?.parts?.[0]?.text
+    const assistantReply = data.candidates?.[0]?.content?.parts?.[0]?.text
     
     if (!assistantReply) {
       console.error('No valid response from Gemini:', data)
       throw new Error('No response generated')
     }
-
-    // Amélioration du formatage des paragraphes
-    assistantReply = formatResponseInParagraphs(assistantReply)
 
     // Analyse intelligente du contenu pour génération de leads
     const analyzeConversation = (content: string, conversationHistory: any[]) => {
@@ -541,50 +493,6 @@ Adapte ton approche selon le profil détecté et sois proactif dans la générat
       return serviceKeywords.filter(service => text.toLowerCase().includes(service))
     }
 
-    // Fonction de formatage en paragraphes
-    function formatResponseInParagraphs(text: string): string {
-      // Nettoyer le texte d'abord
-      let formatted = text.trim()
-      
-      // Séparer les sections avec des titres (texte entre **)
-      formatted = formatted.replace(/\*\*(.*?)\*\*/g, '\n\n**$1**\n')
-      
-      // Ajouter des sauts de ligne après les listes à puces
-      formatted = formatted.replace(/•([^\n]+)/g, '• $1\n')
-      
-      // Séparer les phrases longues en paragraphes (après 3-4 phrases)
-      const sentences = formatted.split(/(?<=[.!?])\s+/)
-      let result = ''
-      let sentenceCount = 0
-      
-      for (let i = 0; i < sentences.length; i++) {
-        const sentence = sentences[i].trim()
-        if (sentence) {
-          result += sentence
-          sentenceCount++
-          
-          // Ajouter un espace après chaque phrase
-          if (i < sentences.length - 1) {
-            result += ' '
-          }
-          
-          // Nouveau paragraphe après 3-4 phrases ou si la phrase se termine par :
-          if (sentenceCount >= 3 || sentence.endsWith(':')) {
-            result += '\n\n'
-            sentenceCount = 0
-          }
-        }
-      }
-      
-      // Nettoyer les multiples sauts de ligne
-      result = result.replace(/\n{3,}/g, '\n\n')
-      
-      // S'assurer qu'il y a des sauts de ligne avant les titres
-      result = result.replace(/([^\n])\n\*\*/g, '$1\n\n**')
-      
-      return result.trim()
-    }
-
     return new Response(
       JSON.stringify({ 
         response: enhancedReply,
@@ -597,8 +505,7 @@ Adapte ton approche selon le profil détecté et sois proactif dans la générat
         contextualSuggestions: contextualSuggestions,
         shouldCollectEmail: analysis.leadScore >= 30 && analysis.extractedEmails.length === 0,
         shouldOfferConsultation: analysis.leadScore >= 50,
-        timestamp: new Date().toISOString(),
-        messageType: analysis.projectComplexity // Pour le frontend pour ajuster la vitesse de frappe
+        timestamp: new Date().toISOString()
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -608,7 +515,7 @@ Adapte ton approche selon le profil détecté et sois proactif dans la générat
   } catch (error) {
     console.error('Error in enhanced lead generation chat function:', error)
     
-    const fallbackResponse = "Je rencontre une petite difficulté technique momentanée, mais je reste à votre entière disposition pour discuter de vos projets.\n\nEn tant qu'expert en IA et transformation digitale, je peux vous aider avec toutes vos questions techniques, stratégiques ou business.\n\nN'hésitez pas à me contacter directement via la page contact ou appelez-moi à Marrakech : +212 607 79 86 70 pour toute consultation urgente."
+    const fallbackResponse = "Je rencontre une petite difficulté technique momentanée, mais je reste à votre entière disposition pour discuter de vos projets. En tant qu'expert en IA et transformation digitale, je peux vous aider avec toutes vos questions techniques, stratégiques ou business. N'hésitez pas à me contacter directement via la page contact ou appelez-moi à Marrakech : +212 607 79 86 70 pour toute consultation urgente."
     
     return new Response(
       JSON.stringify({ 
