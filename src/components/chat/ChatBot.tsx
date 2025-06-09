@@ -1,8 +1,9 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, Send, X, Calendar, Paperclip, Brain, Code, Phone, Lightbulb, Zap, StopCircle, Mail } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/components/ui/use-toast';
+import { TypingMessage } from './TypingMessage';
+import { HumanStatus } from './HumanStatus';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -30,12 +31,15 @@ export const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([
     { 
       role: 'assistant', 
-      content: "Salut ! Je suis Dominiqk Mendy, consultant expert en IA et transformation digitale avec plus de 15 ans d'expérience internationale. Je peux vous aider avec :\n\n🧠 **Questions techniques ultra-complexes** - IA, développement, architecture\n🚀 **Conseils stratégiques** - transformation digitale, innovation\n🔧 **Débuggage et solutions** - résolution de problèmes en temps réel\n💼 **Projets business** - de la startup aux grandes entreprises\n\nPosez-moi n'importe quelle question, je suis là pour vous fournir des réponses expertes et personnalisées !",
+      content: "Salut ! Je suis Dominiqk Mendy, consultant expert en IA et transformation digitale avec plus de 15 ans d'expérience internationale.\n\nJe peux vous aider avec :\n\n🧠 **Questions techniques ultra-complexes** - IA, développement, architecture\n🚀 **Conseils stratégiques** - transformation digitale, innovation\n🔧 **Débuggage et solutions** - résolution de problèmes en temps réel\n💼 **Projets business** - de la startup aux grandes entreprises\n\nPosez-moi n'importe quelle question, je suis là pour vous fournir des réponses expertes et personnalisées !",
       timestamp: new Date().toISOString()
     },
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [humanStatus, setHumanStatus] = useState<'reading' | 'thinking' | 'writing' | null>(null);
+  const [pendingMessage, setPendingMessage] = useState<string>('');
+  const [showTyping, setShowTyping] = useState(false);
   const [conversationData, setConversationData] = useState<ConversationData>({});
   const [isConversationEnded, setIsConversationEnded] = useState(false);
   const [showEmailForm, setShowEmailForm] = useState(false);
@@ -51,7 +55,7 @@ export const ChatBot = () => {
 
   useEffect(() => {
     scrollToBottom()
-  }, [messages]);
+  }, [messages, showTyping, humanStatus]);
 
   // Générer un sessionId unique au démarrage
   useEffect(() => {
@@ -63,6 +67,34 @@ export const ChatBot = () => {
     }
   }, []);
 
+  const simulateHumanResponse = async (userMessage: string, response: any) => {
+    const messageLength = userMessage.length;
+    
+    // Phase 1: Lecture du message (1-2 secondes)
+    setHumanStatus('reading');
+    const readingDelay = Math.min(Math.max(messageLength * 15, 1000), 2000);
+    await new Promise(resolve => setTimeout(resolve, readingDelay));
+    
+    // Phase 2: Réflexion (2-4 secondes selon complexité)
+    setHumanStatus('thinking');
+    let thinkingDelay = Math.min(Math.max(messageLength * 20, 2000), 4000);
+    
+    // Ajuster selon le type de message
+    if (response.messageType === 'enterprise') {
+      thinkingDelay = Math.max(thinkingDelay, 3500);
+    } else if (response.messageType === 'complex') {
+      thinkingDelay = Math.max(thinkingDelay, 3000);
+    }
+    
+    await new Promise(resolve => setTimeout(resolve, thinkingDelay));
+    
+    // Phase 3: Début de l'écriture
+    setHumanStatus('writing');
+    setPendingMessage(response.response);
+    setShowTyping(true);
+    setHumanStatus(null);
+  };
+
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
 
@@ -73,6 +105,7 @@ export const ChatBot = () => {
     };
     
     setMessages(prevMessages => [...prevMessages, userMessage]);
+    const currentMessage = inputMessage;
     setInputMessage('');
     setIsLoading(true);
 
@@ -81,7 +114,7 @@ export const ChatBot = () => {
 
       const { data, error } = await supabase.functions.invoke('chat-ai', {
         body: {
-          message: inputMessage,
+          message: currentMessage,
           conversationHistory: messages.slice(-15),
           sessionId: conversationData.sessionId,
           userAgent: navigator.userAgent
@@ -94,17 +127,8 @@ export const ChatBot = () => {
       }
 
       if (data?.response) {
-        const assistantMessage: Message = {
-          role: 'assistant',
-          content: data.response,
-          timestamp: data.timestamp,
-          isComplex: data.isComplex,
-          isBusiness: data.isBusiness,
-          isTechnical: data.isTechnical,
-          contextualSuggestions: data.contextualSuggestions || []
-        };
-        
-        setMessages(prevMessages => [...prevMessages, assistantMessage]);
+        // Simuler la réponse humaine avant d'afficher
+        await simulateHumanResponse(currentMessage, data);
         
         // Mettre à jour les données de conversation
         setConversationData(prev => ({
@@ -141,13 +165,31 @@ export const ChatBot = () => {
       
       const errorMessage: Message = {
         role: 'assistant',
-        content: "Une petite difficulté technique momentanée ! En tant qu'expert en résolution de problèmes, permettez-moi de vous aider autrement. Décrivez-moi votre besoin et je vous fournirai immédiatement des conseils experts. Pour une assistance technique urgente, contactez-moi directement au +212 607 79 86 70.",
+        content: "Une petite difficulté technique momentanée ! En tant qu'expert en résolution de problèmes, permettez-moi de vous aider autrement.\n\nDécrivez-moi votre besoin et je vous fournirai immédiatement des conseils experts.\n\nPour une assistance technique urgente, contactez-moi directement au +212 607 79 86 70.",
         timestamp: new Date().toISOString()
       };
       
       setMessages(prevMessages => [...prevMessages, errorMessage]);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleTypingComplete = () => {
+    if (pendingMessage) {
+      const assistantMessage: Message = {
+        role: 'assistant',
+        content: pendingMessage,
+        timestamp: new Date().toISOString(),
+        isComplex: conversationData.projectComplexity === 'enterprise' || conversationData.projectComplexity === 'complex',
+        isBusiness: conversationData.hasBusinessIntent,
+        isTechnical: /code|développement|technique|api|base|données/i.test(pendingMessage),
+        contextualSuggestions: []
+      };
+      
+      setMessages(prevMessages => [...prevMessages, assistantMessage]);
+      setPendingMessage('');
+      setShowTyping(false);
     }
   };
 
@@ -274,7 +316,7 @@ export const ChatBot = () => {
         console.log("Fichier sélectionné:", file.name);
         const fileMessage: Message = {
           role: 'assistant',
-          content: `Parfait ! J'ai reçu votre fichier "${file.name}". En tant qu'expert technique, je peux :\n\n🔍 **Analyser votre code** - architecture, performance, sécurité\n🐛 **Débugger les erreurs** - identification et solutions immédiates\n⚡ **Optimiser les performances** - recommandations d'amélioration\n🏗️ **Conseiller sur l'architecture** - bonnes pratiques et scalabilité\n\nDécrivez-moi le problème rencontré ou ce que vous souhaitez améliorer, et je vous fournirai une analyse experte détaillée.`,
+          content: `Parfait ! J'ai reçu votre fichier "${file.name}".\n\nEn tant qu'expert technique, je peux :\n\n🔍 **Analyser votre code** - architecture, performance, sécurité\n🐛 **Débugger les erreurs** - identification et solutions immédiates\n⚡ **Optimiser les performances** - recommandations d'amélioration\n🏗️ **Conseiller sur l'architecture** - bonnes pratiques et scalabilité\n\nDécrivez-moi le problème rencontré ou ce que vous souhaitez améliorer, et je vous fournirai une analyse experte détaillée.`,
           timestamp: new Date().toISOString(),
           isTechnical: true
         };
@@ -545,6 +587,28 @@ export const ChatBot = () => {
                 );
               })}
 
+              {/* Human Status Indicators */}
+              {humanStatus && (
+                <HumanStatus 
+                  status={humanStatus} 
+                  messageLength={inputMessage.length} 
+                />
+              )}
+
+              {/* Typing Message */}
+              {showTyping && pendingMessage && (
+                <div className="flex justify-start">
+                  <TypingMessage
+                    fullText={pendingMessage}
+                    onComplete={handleTypingComplete}
+                    messageType={conversationData.projectComplexity}
+                    isComplex={conversationData.projectComplexity === 'enterprise' || conversationData.projectComplexity === 'complex'}
+                    isTechnical={/code|développement|technique|api|base|données/i.test(pendingMessage)}
+                    isBusiness={conversationData.hasBusinessIntent}
+                  />
+                </div>
+              )}
+
               {/* End Conversation Button */}
               {messages.length > 3 && !isConversationEnded && (
                 <div className="flex justify-center">
@@ -602,21 +666,6 @@ export const ChatBot = () => {
                 </div>
               )}
               
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-white/10 text-white p-3 rounded-lg mr-4 border border-white/20 backdrop-blur-sm relative z-[60]">
-                    <div className="flex items-center space-x-2">
-                      <Brain className="w-4 h-4 text-purple-400 animate-spin" />
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                      </div>
-                      <span className="text-xs text-purple-300">Intelligence en action...</span>
-                    </div>
-                  </div>
-                </div>
-              )}
               <div ref={messagesEndRef} />
             </div>
 
@@ -630,11 +679,11 @@ export const ChatBot = () => {
                   onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
                   placeholder="Posez-moi n'importe quelle question : technique, business, stratégique..."
                   className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 backdrop-blur-sm relative z-[60] text-sm"
-                  disabled={isLoading || isConversationEnded}
+                  disabled={isLoading || isConversationEnded || showTyping}
                 />
                 <button
                   onClick={handleSendMessage}
-                  disabled={isLoading || !inputMessage.trim() || isConversationEnded}
+                  disabled={isLoading || !inputMessage.trim() || isConversationEnded || showTyping}
                   className="bg-blue-600/80 hover:bg-blue-700/80 disabled:bg-gray-600/80 text-white p-2 rounded-lg transition-colors relative z-[60] flex-shrink-0 border border-blue-500/30 backdrop-blur-sm"
                 >
                   <Send className="w-5 h-5" />
