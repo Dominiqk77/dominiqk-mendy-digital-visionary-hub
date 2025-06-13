@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate, Link } from 'react-router-dom';
@@ -20,7 +19,12 @@ const Auth = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/crm');
+      // Redirection spécifique pour l'admin (votre ID utilisateur uniquement)
+      if (user.id === '8b817d69-502c-45e5-ad01-06db52318faf') {
+        navigate('/genspark-admin');
+      } else {
+        navigate('/crm');
+      }
     }
   }, [user, navigate]);
 
@@ -37,7 +41,7 @@ const Auth = () => {
         description: "Redirection vers votre dashboard...",
       });
       
-      navigate('/crm');
+      // Note: La redirection se fera automatiquement via useEffect ci-dessus
     } catch (error: any) {
       toast({
         title: "Erreur de connexion",
