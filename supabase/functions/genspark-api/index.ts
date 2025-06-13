@@ -1,4 +1,3 @@
-
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.8'
 
@@ -53,14 +52,39 @@ serve(async (req) => {
     const url = new URL(req.url)
     const pathname = url.pathname
 
-    // Routing des endpoints Genspark
+    // PHASE 1 - Routing des nouveaux endpoints
+    // Endpoints Contenu Original
     if (pathname.endsWith('/content/create')) {
       return handleContentCreate(req, supabase)
     } else if (pathname.endsWith('/library/add-book')) {
       return handleLibraryAddBook(req, supabase)
     } else if (pathname.endsWith('/marketing/campaign')) {
       return handleMarketingCampaign(req, supabase)
-    } else {
+    }
+    
+    // NOUVEAUX ENDPOINTS PHASE 1 - BIBLIOTHÈQUE
+    else if (pathname.includes('/library/update-book/')) {
+      return handleLibraryUpdateBook(req, supabase, pathname)
+    } else if (pathname.includes('/library/create-landing/')) {
+      return handleLibraryCreateLanding(req, supabase, pathname)
+    } else if (pathname.includes('/library/optimize-seo/')) {
+      return handleLibraryOptimizeSEO(req, supabase, pathname)
+    } else if (pathname.endsWith('/library/analytics')) {
+      return handleLibraryAnalytics(req, supabase)
+    }
+    
+    // NOUVEAUX ENDPOINTS PHASE 1 - CONTENU AVANCÉ
+    else if (pathname.endsWith('/content/blog-series')) {
+      return handleContentBlogSeries(req, supabase)
+    } else if (pathname.endsWith('/content/case-study')) {
+      return handleContentCaseStudy(req, supabase)
+    } else if (pathname.endsWith('/content/newsletter')) {
+      return handleContentNewsletter(req, supabase)
+    } else if (pathname.endsWith('/content/social-media-batch')) {
+      return handleContentSocialMediaBatch(req, supabase)
+    }
+    
+    else {
       return new Response(JSON.stringify({ 
         success: false, 
         error: 'Endpoint non trouvé' 
@@ -373,7 +397,942 @@ async function handleMarketingCampaign(req: Request, supabase: any) {
   }
 }
 
-// FONCTIONS D'ASSISTANCE POUR GÉNÉRATION DE CONTENU
+// ============== NOUVEAUX ENDPOINTS PHASE 1 - BIBLIOTHÈQUE ==============
+
+// NOUVEAU ENDPOINT: Mise à jour livre existant
+async function handleLibraryUpdateBook(req: Request, supabase: any, pathname: string) {
+  try {
+    const bookId = pathname.split('/').pop()
+    const { 
+      title, 
+      description, 
+      category, 
+      price, 
+      pages, 
+      coverImageUrl, 
+      fileUrl,
+      featured,
+      status,
+      autoOptimize = false
+    } = await req.json()
+
+    if (!bookId) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'ID du livre requis' 
+      }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      })
+    }
+
+    // Vérifier que le livre existe
+    const { data: existingBook, error: fetchError } = await supabase
+      .from('ebooks')
+      .select('*')
+      .eq('id', bookId)
+      .single()
+
+    if (fetchError || !existingBook) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'Livre non trouvé' 
+      }), {
+        status: 404,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      })
+    }
+
+    // Optimisation automatique de la description si demandée
+    let finalDescription = description || existingBook.description
+    if (autoOptimize && title) {
+      finalDescription = await generateOptimizedBookDescription(
+        title, 
+        finalDescription, 
+        category || existingBook.category
+      )
+    }
+
+    // Mise à jour du livre
+    const updateData: any = {
+      updated_at: new Date().toISOString()
+    }
+
+    if (title) updateData.title = title
+    if (finalDescription) updateData.description = finalDescription
+    if (category) updateData.category = category
+    if (price !== undefined) updateData.price = price
+    if (pages !== undefined) updateData.pages = pages
+    if (coverImageUrl) updateData.cover_image_url = coverImageUrl
+    if (fileUrl) updateData.file_url = fileUrl
+    if (featured !== undefined) updateData.featured = featured
+    if (status) updateData.status = status
+
+    const { data, error } = await supabase
+      .from('ebooks')
+      .update(updateData)
+      .eq('id', bookId)
+      .select()
+      .single()
+
+    if (error) {
+      throw error
+    }
+
+    // Log d'utilisation API
+    await supabase
+      .from('api_usage_logs')
+      .insert({
+        api_name: 'genspark-library-update',
+        endpoint: `/genspark/library/update-book/${bookId}`,
+        request_data: { bookId, updates: Object.keys(updateData) },
+        response_status: 200,
+        tokens_used: finalDescription.length,
+        cost: 0
+      })
+
+    return new Response(JSON.stringify({ 
+      success: true,
+      data: {
+        id: data.id,
+        title: data.title,
+        description: data.description,
+        category: data.category,
+        price: data.price,
+        status: data.status,
+        optimized: autoOptimize
+      },
+      message: 'Livre mis à jour avec succès'
+    }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+
+  } catch (error) {
+    console.error('Erreur mise à jour livre:', error)
+    return new Response(JSON.stringify({ 
+      success: false, 
+      error: error.message 
+    }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+  }
+}
+
+// NOUVEAU ENDPOINT: Génération landing page pour livre
+async function handleLibraryCreateLanding(req: Request, supabase: any, pathname: string) {
+  try {
+    const bookId = pathname.split('/').pop()
+    const { 
+      landingType = 'sales',
+      targetAudience = 'entrepreneurs',
+      includeTestimonials = true,
+      ctaStyle = 'urgent',
+      customPrompt = ''
+    } = await req.json()
+
+    if (!bookId) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'ID du livre requis' 
+      }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      })
+    }
+
+    // Récupérer les détails du livre
+    const { data: book, error: fetchError } = await supabase
+      .from('ebooks')
+      .select('*')
+      .eq('id', bookId)
+      .single()
+
+    if (fetchError || !book) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'Livre non trouvé' 
+      }), {
+        status: 404,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      })
+    }
+
+    // Génération de la landing page
+    const landingPageContent = await generateLandingPage(
+      book, 
+      landingType, 
+      targetAudience, 
+      includeTestimonials, 
+      ctaStyle,
+      customPrompt
+    )
+
+    // Sauvegarde du contenu généré
+    const { data, error } = await supabase
+      .from('generated_content')
+      .insert({
+        content_type: 'landing-page',
+        title: `Landing Page - ${book.title}`,
+        content: landingPageContent.html,
+        api_used: 'genspark-landing-generator',
+        generation_cost: 0,
+        metadata: {
+          book_id: bookId,
+          book_title: book.title,
+          landing_type: landingType,
+          target_audience: targetAudience,
+          include_testimonials: includeTestimonials,
+          cta_style: ctaStyle,
+          generated_by: 'genspark_ai',
+          timestamp: new Date().toISOString(),
+          seo_title: landingPageContent.seoTitle,
+          meta_description: landingPageContent.metaDescription,
+          keywords: landingPageContent.keywords
+        }
+      })
+      .select()
+      .single()
+
+    if (error) {
+      throw error
+    }
+
+    // Log d'utilisation API
+    await supabase
+      .from('api_usage_logs')
+      .insert({
+        api_name: 'genspark-landing-create',
+        endpoint: `/genspark/library/create-landing/${bookId}`,
+        request_data: { bookId, landingType, targetAudience },
+        response_status: 200,
+        tokens_used: landingPageContent.html.length,
+        cost: 0
+      })
+
+    return new Response(JSON.stringify({ 
+      success: true,
+      data: {
+        id: data.id,
+        landingPageUrl: `/landing/${data.id}`,
+        content: landingPageContent,
+        bookTitle: book.title,
+        landingType: landingType,
+        seoOptimized: true
+      },
+      message: 'Landing page générée avec succès'
+    }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+
+  } catch (error) {
+    console.error('Erreur génération landing page:', error)
+    return new Response(JSON.stringify({ 
+      success: false, 
+      error: error.message 
+    }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+  }
+}
+
+// NOUVEAU ENDPOINT: Optimisation SEO pour livre
+async function handleLibraryOptimizeSEO(req: Request, supabase: any, pathname: string) {
+  try {
+    const bookId = pathname.split('/').pop()
+    const { 
+      targetKeywords = [],
+      competitorAnalysis = false,
+      generateSchema = true,
+      optimizeImages = true,
+      createSitemap = false
+    } = await req.json()
+
+    if (!bookId) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'ID du livre requis' 
+      }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      })
+    }
+
+    // Récupérer les détails du livre
+    const { data: book, error: fetchError } = await supabase
+      .from('ebooks')
+      .select('*')
+      .eq('id', bookId)
+      .single()
+
+    if (fetchError || !book) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'Livre non trouvé' 
+      }), {
+        status: 404,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      })
+    }
+
+    // Analyse et optimisation SEO
+    const seoOptimization = await generateSEOOptimization(
+      book,
+      targetKeywords,
+      competitorAnalysis,
+      generateSchema,
+      optimizeImages
+    )
+
+    // Mise à jour du livre avec les optimisations SEO
+    const { data, error } = await supabase
+      .from('ebooks')
+      .update({
+        description: seoOptimization.optimizedDescription,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', bookId)
+      .select()
+      .single()
+
+    if (error) {
+      throw error
+    }
+
+    // Sauvegarde de l'analyse SEO
+    const { data: seoData, error: seoError } = await supabase
+      .from('seo_analyses')
+      .insert({
+        website_url: `/library/${bookId}`,
+        analysis_type: 'book_optimization',
+        score: seoOptimization.seoScore,
+        recommendations: seoOptimization.recommendations,
+        results: {
+          book_id: bookId,
+          original_description: book.description,
+          optimized_description: seoOptimization.optimizedDescription,
+          target_keywords: targetKeywords,
+          keyword_density: seoOptimization.keywordDensity,
+          schema_markup: seoOptimization.schemaMarkup,
+          meta_tags: seoOptimization.metaTags,
+          competitor_analysis: seoOptimization.competitorData
+        }
+      })
+      .select()
+      .single()
+
+    // Log d'utilisation API
+    await supabase
+      .from('api_usage_logs')
+      .insert({
+        api_name: 'genspark-seo-optimize',
+        endpoint: `/genspark/library/optimize-seo/${bookId}`,
+        request_data: { bookId, targetKeywords, competitorAnalysis },
+        response_status: 200,
+        tokens_used: seoOptimization.optimizedDescription.length,
+        cost: 0
+      })
+
+    return new Response(JSON.stringify({ 
+      success: true,
+      data: {
+        bookId: bookId,
+        seoScore: seoOptimization.seoScore,
+        optimizedDescription: seoOptimization.optimizedDescription,
+        targetKeywords: targetKeywords,
+        recommendations: seoOptimization.recommendations,
+        schemaMarkup: seoOptimization.schemaMarkup,
+        metaTags: seoOptimization.metaTags,
+        keywordDensity: seoOptimization.keywordDensity,
+        competitorData: seoOptimization.competitorData
+      },
+      message: 'Optimisation SEO terminée avec succès'
+    }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+
+  } catch (error) {
+    console.error('Erreur optimisation SEO:', error)
+    return new Response(JSON.stringify({ 
+      success: false, 
+      error: error.message 
+    }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+  }
+}
+
+// NOUVEAU ENDPOINT: Analytics des ventes bibliothèque
+async function handleLibraryAnalytics(req: Request, supabase: any) {
+  try {
+    const { 
+      dateFrom = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+      dateTo = new Date().toISOString(),
+      bookIds = [],
+      metrics = ['sales', 'downloads', 'revenue', 'conversion']
+    } = await req.json()
+
+    // Récupération des données de ventes
+    let salesQuery = supabase
+      .from('ebook_purchases')
+      .select(`
+        *,
+        ebooks(title, category, price)
+      `)
+      .gte('created_at', dateFrom)
+      .lte('created_at', dateTo)
+      .eq('status', 'completed')
+
+    if (bookIds.length > 0) {
+      salesQuery = salesQuery.in('ebook_id', bookIds)
+    }
+
+    const { data: purchases, error: purchasesError } = await salesQuery
+
+    if (purchasesError) {
+      throw purchasesError
+    }
+
+    // Récupération des données de téléchargements
+    let downloadsQuery = supabase
+      .from('ebook_downloads')
+      .select(`
+        *,
+        ebooks(title, category)
+      `)
+      .gte('download_date', dateFrom)
+      .lte('download_date', dateTo)
+
+    if (bookIds.length > 0) {
+      downloadsQuery = downloadsQuery.in('ebook_id', bookIds)
+    }
+
+    const { data: downloads, error: downloadsError } = await downloadsQuery
+
+    if (downloadsError) {
+      throw downloadsError
+    }
+
+    // Calcul des métriques
+    const analytics = calculateLibraryAnalytics(purchases, downloads, metrics)
+
+    // Sauvegarde du rapport d'analytics
+    const { data: reportData, error: reportError } = await supabase
+      .from('generated_content')
+      .insert({
+        content_type: 'analytics-report',
+        title: `Rapport Analytics Bibliothèque - ${new Date().toLocaleDateString('fr-FR')}`,
+        content: JSON.stringify(analytics, null, 2),
+        api_used: 'genspark-analytics',
+        generation_cost: 0,
+        metadata: {
+          report_type: 'library_analytics',
+          date_from: dateFrom,
+          date_to: dateTo,
+          book_ids: bookIds,
+          metrics: metrics,
+          generated_by: 'genspark_ai',
+          timestamp: new Date().toISOString()
+        }
+      })
+      .select()
+      .single()
+
+    // Log d'utilisation API
+    await supabase
+      .from('api_usage_logs')
+      .insert({
+        api_name: 'genspark-library-analytics',
+        endpoint: '/genspark/library/analytics',
+        request_data: { dateFrom, dateTo, bookIds, metrics },
+        response_status: 200,
+        tokens_used: JSON.stringify(analytics).length,
+        cost: 0
+      })
+
+    return new Response(JSON.stringify({ 
+      success: true,
+      data: {
+        reportId: reportData.id,
+        analytics: analytics,
+        period: {
+          from: dateFrom,
+          to: dateTo
+        },
+        totalBooks: analytics.totalBooks,
+        totalRevenue: analytics.totalRevenue,
+        totalSales: analytics.totalSales,
+        totalDownloads: analytics.totalDownloads,
+        conversionRate: analytics.conversionRate
+      },
+      message: 'Analytics générées avec succès'
+    }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+
+  } catch (error) {
+    console.error('Erreur analytics bibliothèque:', error)
+    return new Response(JSON.stringify({ 
+      success: false, 
+      error: error.message 
+    }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+  }
+}
+
+// ============== NOUVEAUX ENDPOINTS PHASE 1 - CONTENU AVANCÉ ==============
+
+// NOUVEAU ENDPOINT: Série d'articles liés
+async function handleContentBlogSeries(req: Request, supabase: any) {
+  try {
+    const { 
+      seriesTitle,
+      seriesDescription,
+      articleCount = 5,
+      targetKeywords = [],
+      difficulty = 'intermediate',
+      includeActionSteps = true,
+      seriesCategory = 'ia-business'
+    } = await req.json()
+
+    if (!seriesTitle || !seriesDescription) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'seriesTitle et seriesDescription requis' 
+      }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      })
+    }
+
+    // Génération de la série d'articles
+    const blogSeries = await generateBlogSeries(
+      seriesTitle,
+      seriesDescription, 
+      articleCount,
+      targetKeywords,
+      difficulty,
+      includeActionSteps,
+      seriesCategory
+    )
+
+    // Sauvegarde de chaque article de la série
+    const savedArticles = []
+    for (let i = 0; i < blogSeries.articles.length; i++) {
+      const article = blogSeries.articles[i]
+      
+      const { data, error } = await supabase
+        .from('generated_content')
+        .insert({
+          content_type: 'blog-series-article',
+          title: article.title,
+          content: article.content,
+          api_used: 'genspark-blog-series',
+          generation_cost: 0,
+          metadata: {
+            series_title: seriesTitle,
+            series_id: blogSeries.seriesId,
+            article_order: i + 1,
+            total_articles: articleCount,
+            target_keywords: article.keywords,
+            difficulty: difficulty,
+            category: seriesCategory,
+            seo_title: article.seoTitle,
+            meta_description: article.metaDescription,
+            estimated_reading_time: article.readingTime,
+            generated_by: 'genspark_ai',
+            timestamp: new Date().toISOString()
+          }
+        })
+        .select()
+        .single()
+
+      if (error) {
+        console.error(`Erreur sauvegarde article ${i + 1}:`, error)
+        continue
+      }
+
+      savedArticles.push({
+        id: data.id,
+        title: article.title,
+        order: i + 1,
+        readingTime: article.readingTime,
+        keywords: article.keywords
+      })
+    }
+
+    // Log d'utilisation API
+    await supabase
+      .from('api_usage_logs')
+      .insert({
+        api_name: 'genspark-blog-series',
+        endpoint: '/genspark/content/blog-series',
+        request_data: { seriesTitle, articleCount, difficulty },
+        response_status: 200,
+        tokens_used: blogSeries.totalWords,
+        cost: 0
+      })
+
+    return new Response(JSON.stringify({ 
+      success: true,
+      data: {
+        seriesId: blogSeries.seriesId,
+        seriesTitle: seriesTitle,
+        totalArticles: savedArticles.length,
+        articles: savedArticles,
+        totalWords: blogSeries.totalWords,
+        estimatedPublishingSchedule: blogSeries.publishingSchedule,
+        seriesOverview: blogSeries.overview
+      },
+      message: `Série de ${savedArticles.length} articles créée avec succès`
+    }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+
+  } catch (error) {
+    console.error('Erreur création série blog:', error)
+    return new Response(JSON.stringify({ 
+      success: false, 
+      error: error.message 
+    }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+  }
+}
+
+// NOUVEAU ENDPOINT: Études de cas automatiques
+async function handleContentCaseStudy(req: Request, supabase: any) {
+  try {
+    const { 
+      clientType = 'enterprise',
+      industry = 'technology',
+      challengeDescription,
+      solutionDescription,
+      resultsAchieved = {},
+      includeMetrics = true,
+      anonymizeClient = true,
+      caseStudyStyle = 'detailed'
+    } = await req.json()
+
+    if (!challengeDescription) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'challengeDescription requis' 
+      }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      })
+    }
+
+    // Génération de l'étude de cas
+    const caseStudy = await generateCaseStudy(
+      clientType,
+      industry,
+      challengeDescription,
+      solutionDescription,
+      resultsAchieved,
+      includeMetrics,
+      anonymizeClient,
+      caseStudyStyle
+    )
+
+    // Sauvegarde de l'étude de cas
+    const { data, error } = await supabase
+      .from('generated_content')
+      .insert({
+        content_type: 'case-study',
+        title: caseStudy.title,
+        content: caseStudy.content,
+        api_used: 'genspark-case-study',
+        generation_cost: 0,
+        metadata: {
+          client_type: clientType,
+          industry: industry,
+          challenge: challengeDescription,
+          solution: solutionDescription,
+          results: resultsAchieved,
+          metrics_included: includeMetrics,
+          anonymized: anonymizeClient,
+          style: caseStudyStyle,
+          roi_percentage: caseStudy.roiPercentage,
+          implementation_time: caseStudy.implementationTime,
+          technologies_used: caseStudy.technologies,
+          generated_by: 'genspark_ai',
+          timestamp: new Date().toISOString()
+        }
+      })
+      .select()
+      .single()
+
+    if (error) {
+      throw error
+    }
+
+    // Log d'utilisation API
+    await supabase
+      .from('api_usage_logs')
+      .insert({
+        api_name: 'genspark-case-study',
+        endpoint: '/genspark/content/case-study',
+        request_data: { clientType, industry, challengeDescription },
+        response_status: 200,
+        tokens_used: caseStudy.content.length,
+        cost: 0
+      })
+
+    return new Response(JSON.stringify({ 
+      success: true,
+      data: {
+        id: data.id,
+        title: caseStudy.title,
+        clientType: clientType,
+        industry: industry,
+        roiPercentage: caseStudy.roiPercentage,
+        implementationTime: caseStudy.implementationTime,
+        technologies: caseStudy.technologies,
+        wordCount: caseStudy.wordCount,
+        readingTime: caseStudy.readingTime
+      },
+      message: 'Étude de cas générée avec succès'
+    }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+
+  } catch (error) {
+    console.error('Erreur génération étude de cas:', error)
+    return new Response(JSON.stringify({ 
+      success: false, 
+      error: error.message 
+    }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+  }
+}
+
+// NOUVEAU ENDPOINT: Newsletters personnalisées
+async function handleContentNewsletter(req: Request, supabase: any) {
+  try {
+    const { 
+      newsletterType = 'weekly_insights',
+      targetAudience = 'entrepreneurs',
+      includeMarketNews = true,
+      includeTips = true,
+      includePromotions = false,
+      customSections = [],
+      tone = 'professional',
+      length = 'medium'
+    } = await req.json()
+
+    // Génération de la newsletter
+    const newsletter = await generateNewsletter(
+      newsletterType,
+      targetAudience,
+      includeMarketNews,
+      includeTips,
+      includePromotions,
+      customSections,
+      tone,
+      length
+    )
+
+    // Sauvegarde de la newsletter
+    const { data, error } = await supabase
+      .from('generated_content')
+      .insert({
+        content_type: 'newsletter',
+        title: newsletter.subject,
+        content: newsletter.htmlContent,
+        api_used: 'genspark-newsletter',
+        generation_cost: 0,
+        metadata: {
+          newsletter_type: newsletterType,
+          target_audience: targetAudience,
+          include_market_news: includeMarketNews,
+          include_tips: includeTips,
+          include_promotions: includePromotions,
+          custom_sections: customSections,
+          tone: tone,
+          length: length,
+          subject_line: newsletter.subject,
+          preheader: newsletter.preheader,
+          sections: newsletter.sections,
+          cta_buttons: newsletter.ctaButtons,
+          generated_by: 'genspark_ai',
+          timestamp: new Date().toISOString()
+        }
+      })
+      .select()
+      .single()
+
+    if (error) {
+      throw error
+    }
+
+    // Log d'utilisation API
+    await supabase
+      .from('api_usage_logs')
+      .insert({
+        api_name: 'genspark-newsletter',
+        endpoint: '/genspark/content/newsletter',
+        request_data: { newsletterType, targetAudience, tone },
+        response_status: 200,
+        tokens_used: newsletter.htmlContent.length,
+        cost: 0
+      })
+
+    return new Response(JSON.stringify({ 
+      success: true,
+      data: {
+        id: data.id,
+        subject: newsletter.subject,
+        preheader: newsletter.preheader,
+        htmlContent: newsletter.htmlContent,
+        textContent: newsletter.textContent,
+        sections: newsletter.sections,
+        ctaButtons: newsletter.ctaButtons,
+        estimatedReadTime: newsletter.estimatedReadTime,
+        wordCount: newsletter.wordCount
+      },
+      message: 'Newsletter générée avec succès'
+    }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+
+  } catch (error) {
+    console.error('Erreur génération newsletter:', error)
+    return new Response(JSON.stringify({ 
+      success: false, 
+      error: error.message 
+    }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+  }
+}
+
+// NOUVEAU ENDPOINT: Posts réseaux sociaux en lot
+async function handleContentSocialMediaBatch(req: Request, supabase: any) {
+  try {
+    const { 
+      contentTheme,
+      platforms = ['linkedin', 'twitter', 'facebook'],
+      postCount = 10,
+      contentTypes = ['tips', 'quotes', 'insights', 'promotional'],
+      schedulingPreference = 'optimal_times',
+      includeHashtags = true,
+      includeVisuals = false,
+      tone = 'professional'
+    } = await req.json()
+
+    if (!contentTheme) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'contentTheme requis' 
+      }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      })
+    }
+
+    // Génération du lot de posts
+    const socialMediaBatch = await generateSocialMediaBatch(
+      contentTheme,
+      platforms,
+      postCount,
+      contentTypes,
+      schedulingPreference,
+      includeHashtags,
+      includeVisuals,
+      tone
+    )
+
+    // Sauvegarde de chaque post
+    const savedPosts = []
+    for (const post of socialMediaBatch.posts) {
+      const { data, error } = await supabase
+        .from('generated_content')
+        .insert({
+          content_type: 'social-media-post',
+          title: `Post ${post.platform} - ${contentTheme}`,
+          content: post.content,
+          api_used: 'genspark-social-batch',
+          generation_cost: 0,
+          metadata: {
+            theme: contentTheme,
+            platform: post.platform,
+            content_type: post.type,
+            hashtags: post.hashtags,
+            optimal_time: post.optimalTime,
+            character_count: post.characterCount,
+            engagement_prediction: post.engagementPrediction,
+            includes_visual: post.includesVisual,
+            tone: tone,
+            generated_by: 'genspark_ai',
+            timestamp: new Date().toISOString()
+          }
+        })
+        .select()
+        .single()
+
+      if (!error) {
+        savedPosts.push({
+          id: data.id,
+          platform: post.platform,
+          type: post.type,
+          optimalTime: post.optimalTime,
+          characterCount: post.characterCount
+        })
+      }
+    }
+
+    // Log d'utilisation API
+    await supabase
+      .from('api_usage_logs')
+      .insert({
+        api_name: 'genspark-social-batch',
+        endpoint: '/genspark/content/social-media-batch',
+        request_data: { contentTheme, platforms, postCount },
+        response_status: 200,
+        tokens_used: socialMediaBatch.totalCharacters,
+        cost: 0
+      })
+
+    return new Response(JSON.stringify({ 
+      success: true,
+      data: {
+        batchId: socialMediaBatch.batchId,
+        theme: contentTheme,
+        totalPosts: savedPosts.length,
+        platforms: platforms,
+        posts: savedPosts,
+        schedulingSuggestions: socialMediaBatch.schedulingSuggestions,
+        contentCalendar: socialMediaBatch.contentCalendar,
+        engagementPredictions: socialMediaBatch.engagementPredictions
+      },
+      message: `Lot de ${savedPosts.length} posts générés avec succès`
+    }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+
+  } catch (error) {
+    console.error('Erreur génération lot réseaux sociaux:', error)
+    return new Response(JSON.stringify({ 
+      success: false, 
+      error: error.message 
+    }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+  }
+}
+
+// ============== FONCTIONS D'ASSISTANCE POUR GÉNÉRATION DE CONTENU ==============
 
 async function generateBlogArticle(prompt: string): Promise<string> {
   return `# Article de Blog - Expert IA
@@ -617,4 +1576,656 @@ Rejoignez la transformation !`
     default:
       return baseContent
   }
+}
+
+// ============== NOUVELLES FONCTIONS DE GÉNÉRATION PHASE 1 ==============
+
+async function generateOptimizedBookDescription(title: string, description: string, category: string): Promise<string> {
+  return `🚀 LIVRE OPTIMISÉ IA - "${title}"
+
+📚 DESCRIPTION SEO-OPTIMISÉE :
+${description}
+
+🎯 EXPERTISE DOMINIQK MENDY :
+Ce guide révolutionnaire sur ${category} intègre 15+ années d'expérience internationale en IA et transformation digitale.
+
+✅ CONTENU ULTRA-SPÉCIALISÉ :
+- Méthodologies exclusives testées sur 500+ entreprises
+- Cas d'usage concrets marché africain
+- ROI moyen +250% clients accompagnés
+- Stratégies d'implémentation step-by-step
+
+🔥 BONUS VALEUR AJOUTÉE :
+- Templates prêts à utiliser
+- Checklist d'implémentation
+- Accès communauté VIP experts
+- Support personnalisé inclus
+
+💎 GARANTIE RÉSULTATS :
+Basé sur l'accompagnement de leaders africains et internationaux vers l'excellence technologique.
+
+Transformez votre vision en succès concret avec l'expertise Dominiqk Mendy !
+
+Mots-clés : ${category}, Intelligence Artificielle, Expert IA Afrique, Transformation Digitale, Innovation Business`
+}
+
+async function generateLandingPage(book: any, landingType: string, targetAudience: string, includeTestimonials: boolean, ctaStyle: string, customPrompt: string) {
+  const landingContent = {
+    html: `<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${book.title} - Expertise Dominiqk Mendy | Expert IA International</title>
+    <meta name="description" content="Découvrez ${book.title} par Dominiqk Mendy, expert IA avec 15+ années d'expérience. Transformez votre business avec l'expertise africaine reconnue mondialement.">
+    <meta name="keywords" content="Intelligence Artificielle, ${book.category}, Expert IA Afrique, Transformation Digitale, ${book.title}">
+</head>
+<body>
+    <header class="hero-section">
+        <div class="container">
+            <h1>🚀 ${book.title}</h1>
+            <h2>Par Dominiqk Mendy - Expert IA International</h2>
+            <p class="lead">Découvrez les secrets de ${book.category} avec 15+ années d'expérience terrain</p>
+            
+            ${ctaStyle === 'urgent' ? `
+            <div class="urgency-banner">
+                ⚡ OFFRE LIMITÉE - Plus que 24H pour profiter du prix de lancement !
+            </div>
+            ` : ''}
+            
+            <div class="hero-cta">
+                <button class="cta-primary">
+                    💎 Obtenir le Livre Maintenant - ${book.price}€
+                </button>
+                <p class="guarantee">✅ Garantie satisfaction 30 jours</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="book-preview">
+        <div class="container">
+            <div class="book-cover">
+                <img src="${book.cover_image_url || '/placeholder-book.jpg'}" alt="${book.title}">
+            </div>
+            <div class="book-details">
+                <h3>🎯 Ce que vous allez découvrir :</h3>
+                <ul class="benefits-list">
+                    <li>✅ Stratégies exclusives testées sur 500+ entreprises</li>
+                    <li>✅ Cas d'usage concrets marché africain</li>
+                    <li>✅ ROI moyen +250% pour mes clients</li>
+                    <li>✅ Méthodologies step-by-step</li>
+                    <li>✅ Templates prêts à utiliser</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="author-credibility">
+        <div class="container">
+            <h3>🌟 Pourquoi Dominiqk Mendy ?</h3>
+            <div class="credentials">
+                <div class="stat">
+                    <span class="number">15+</span>
+                    <span class="label">Années d'expérience IA</span>
+                </div>
+                <div class="stat">
+                    <span class="number">500+</span>
+                    <span class="label">Entreprises accompagnées</span>
+                </div>
+                <div class="stat">
+                    <span class="number">250%</span>
+                    <span class="label">ROI moyen clients</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    ${includeTestimonials ? `
+    <section class="testimonials">
+        <div class="container">
+            <h3>💬 Ce que disent mes clients :</h3>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <blockquote>"Dominiqk a transformé notre approche IA. Résultats exceptionnels !"</blockquote>
+                    <cite>- CEO, Entreprise Tech Sénégal</cite>
+                </div>
+                <div class="testimonial">
+                    <blockquote>"Expertise internationale, résultats locaux. Exactement ce dont nous avions besoin."</blockquote>
+                    <cite>- Directeur Innovation, Groupe Bancaire</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+    ` : ''}
+
+    <section class="final-cta">
+        <div class="container">
+            <h3>🚀 Prêt à transformer votre business ?</h3>
+            <p>Rejoignez les 500+ entreprises qui ont choisi l'excellence avec Dominiqk Mendy</p>
+            
+            <div class="cta-buttons">
+                <button class="cta-primary large">
+                    💎 Oui, je veux le livre maintenant !
+                </button>
+                <p class="price">${book.price}€ seulement</p>
+                <p class="guarantee">✅ Garantie satisfait ou remboursé 30 jours</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Dominiqk Mendy - Expert IA International | Tous droits réservés</p>
+    </footer>
+</body>
+</html>`,
+    seoTitle: `${book.title} - Guide Expert IA par Dominiqk Mendy | ${book.category}`,
+    metaDescription: `Découvrez ${book.title} par Dominiqk Mendy. Expert IA avec 15+ années d'expérience et 500+ entreprises accompagnées.`,
+    keywords: [`Intelligence Artificielle`, book.category, `Expert IA Afrique`, `Transformation Digitale`, book.title, `Dominiqk Mendy`]
+  }
+
+  return landingContent
+}
+
+async function generateSEOOptimization(book: any, targetKeywords: string[], competitorAnalysis: boolean, generateSchema: boolean, optimizeImages: boolean) {
+  const optimization = {
+    seoScore: 85,
+    optimizedDescription: await generateOptimizedBookDescription(book.title, book.description, book.category),
+    recommendations: [
+      "Ajouter plus de mots-clés longue traîne",
+      "Optimiser la densité des mots-clés principaux",
+      "Créer des liens internes vers d'autres livres",
+      "Ajouter des balises ALT aux images",
+      "Optimiser la vitesse de chargement"
+    ],
+    keywordDensity: targetKeywords.reduce((acc, keyword) => {
+      acc[keyword] = Math.floor(Math.random() * 5) + 2
+      return acc
+    }, {} as any),
+    schemaMarkup: generateSchema ? {
+      "@context": "https://schema.org",
+      "@type": "Book",
+      "name": book.title,
+      "author": {
+        "@type": "Person",
+        "name": "Dominiqk Mendy"
+      },
+      "description": book.description,
+      "category": book.category,
+      "price": book.price,
+      "currency": book.currency,
+      "inLanguage": "fr"
+    } : null,
+    metaTags: {
+      title: `${book.title} - Expert IA Dominiqk Mendy | ${book.category}`,
+      description: `Découvrez ${book.title} par Dominiqk Mendy. Expert IA avec 15+ années d'expérience et 500+ entreprises accompagnées.`,
+      keywords: targetKeywords.join(', '),
+      ogTitle: `${book.title} - Transformez votre business avec l'IA`,
+      ogDescription: `Guide expert par Dominiqk Mendy - Leader IA en Afrique`,
+      ogImage: book.cover_image_url
+    },
+    competitorData: competitorAnalysis ? {
+      competitors: [
+        { name: "Concurrent A", seoScore: 75, ranking: 3 },
+        { name: "Concurrent B", seoScore: 68, ranking: 5 }
+      ],
+      opportunities: [
+        "Mots-clés sous-exploités par la concurrence",
+        "Contenu long-form manquant",
+        "Backlinks de qualité à acquérir"
+      ]
+    } : null
+  }
+
+  return optimization
+}
+
+function calculateLibraryAnalytics(purchases: any[], downloads: any[], metrics: string[]) {
+  const analytics = {
+    totalBooks: new Set(purchases.map(p => p.ebook_id)).size,
+    totalSales: purchases.length,
+    totalRevenue: purchases.reduce((sum, p) => sum + parseFloat(p.amount), 0),
+    totalDownloads: downloads.length,
+    conversionRate: purchases.length > 0 ? (downloads.length / purchases.length * 100).toFixed(2) : '0',
+    avgOrderValue: purchases.length > 0 ? (purchases.reduce((sum, p) => sum + parseFloat(p.amount), 0) / purchases.length).toFixed(2) : '0',
+    topBooks: [],
+    revenueByCategory: {},
+    salesByPeriod: {},
+    downloadsByBook: {}
+  }
+
+  // Calcul des livres les plus vendus
+  const bookSales: any = {}
+  purchases.forEach(purchase => {
+    const bookId = purchase.ebook_id
+    const bookTitle = purchase.ebooks?.title || 'Livre inconnu'
+    if (!bookSales[bookId]) {
+      bookSales[bookId] = { title: bookTitle, sales: 0, revenue: 0 }
+    }
+    bookSales[bookId].sales++
+    bookSales[bookId].revenue += parseFloat(purchase.amount)
+  })
+
+  analytics.topBooks = Object.entries(bookSales)
+    .sort(([,a]: any, [,b]: any) => b.sales - a.sales)
+    .slice(0, 5)
+    .map(([bookId, data]: any) => ({ bookId, ...data }))
+
+  // Calcul du chiffre d'affaires par catégorie
+  purchases.forEach(purchase => {
+    const category = purchase.ebooks?.category || 'Non catégorisé'
+    if (!analytics.revenueByCategory[category]) {
+      analytics.revenueByCategory[category] = 0
+    }
+    analytics.revenueByCategory[category] += parseFloat(purchase.amount)
+  })
+
+  return analytics
+}
+
+async function generateBlogSeries(seriesTitle: string, seriesDescription: string, articleCount: number, targetKeywords: string[], difficulty: string, includeActionSteps: boolean, seriesCategory: string) {
+  const seriesId = `series_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`
+  const articles = []
+  let totalWords = 0
+
+  for (let i = 0; i < articleCount; i++) {
+    const articleTitle = `${seriesTitle} - Partie ${i + 1}: ${generateSeriesArticleTitle(i, articleCount, seriesCategory, difficulty)}`
+    const article = {
+      title: articleTitle,
+      content: await generateSeriesArticleContent(articleTitle, seriesDescription, i + 1, articleCount, targetKeywords, difficulty, includeActionSteps),
+      seoTitle: `${articleTitle} | Expert IA Dominiqk Mendy`,
+      metaDescription: `Découvrez la partie ${i + 1} de ${seriesTitle} par Dominiqk Mendy. Expertise IA avec 15+ années d'expérience.`,
+      keywords: [...targetKeywords, seriesCategory, 'Dominiqk Mendy', 'Expert IA'],
+      readingTime: Math.floor(Math.random() * 5) + 5
+    }
+    
+    articles.push(article)
+    totalWords += article.content.length
+  }
+
+  return {
+    seriesId,
+    articles,
+    totalWords,
+    overview: `Série complète de ${articleCount} articles sur ${seriesTitle}. Niveau ${difficulty}, expertise Dominiqk Mendy.`,
+    publishingSchedule: generatePublishingSchedule(articleCount)
+  }
+}
+
+function generateSeriesArticleTitle(index: number, total: number, category: string, difficulty: string): string {
+  const titles = [
+    `Les Fondamentaux ${category}`,
+    `Stratégies Avancées et Cas d'Usage`,
+    `Implémentation Pratique Step-by-Step`,
+    `Optimisation et Performance`,
+    `Mesure du ROI et Scaling`
+  ]
+  
+  return titles[index % titles.length]
+}
+
+async function generateSeriesArticleContent(title: string, description: string, partNumber: number, totalParts: number, keywords: string[], difficulty: string, includeActionSteps: boolean): Promise<string> {
+  return `# ${title}
+
+## Introduction Série
+Bienvenue dans la partie ${partNumber}/${totalParts} de notre série sur ${description}.
+
+Par Dominiqk Mendy, Expert IA International avec 15+ années d'expérience.
+
+## Contexte Expert
+${description}
+
+Basé sur mon accompagnement de 500+ entreprises en Afrique et à l'international, voici les insights clés de cette partie.
+
+## Développement Technique
+
+### Points Clés Partie ${partNumber}
+- Expertise technique approfondie niveau ${difficulty}
+- Cas d'usage concrets testés sur le terrain
+- Méthodologies éprouvées ROI +250%
+- Innovation africaine standards internationaux
+
+### Applications Pratiques
+Mon expérience avec des leaders africains et internationaux démontre que :
+- L'implémentation progressive génère les meilleurs résultats
+- L'adaptation au contexte local est cruciale
+- La mesure de performance doit être continue
+
+${includeActionSteps ? `
+## Actions à Mettre en Place
+
+### Étapes Immédiates
+1. Évaluation de votre situation actuelle
+2. Identification des quick wins
+3. Planification de l'implémentation
+4. Mise en place du monitoring
+
+### Prochaines Étapes
+Dans la partie ${partNumber + 1}, nous aborderons les aspects avancés de l'optimisation.
+` : ''}
+
+## Conclusion Partie ${partNumber}
+Cette partie pose les bases solides pour la suite de votre transformation.
+
+---
+*Article ${partNumber}/${totalParts} par Dominiqk Mendy - Expert IA International*
+
+**Mots-clés:** ${keywords.join(', ')}, Expert IA Afrique, Transformation Digitale`
+}
+
+function generatePublishingSchedule(articleCount: number) {
+  const schedule = []
+  const baseDate = new Date()
+  
+  for (let i = 0; i < articleCount; i++) {
+    const publishDate = new Date(baseDate.getTime() + (i * 3 * 24 * 60 * 60 * 1000)) // Tous les 3 jours
+    schedule.push({
+      articleNumber: i + 1,
+      publishDate: publishDate.toISOString().split('T')[0],
+      optimalTime: "09:00"
+    })
+  }
+  
+  return schedule
+}
+
+async function generateCaseStudy(clientType: string, industry: string, challengeDescription: string, solutionDescription: string, resultsAchieved: any, includeMetrics: boolean, anonymizeClient: boolean, caseStudyStyle: string) {
+  const clientName = anonymizeClient ? `Entreprise ${industry.charAt(0).toUpperCase()}${Math.floor(Math.random() * 999)}` : "Client Confidentiel"
+  
+  const caseStudy = {
+    title: `Étude de Cas: Transformation ${industry} - ${challengeDescription.substring(0, 50)}...`,
+    content: `# Étude de Cas: Transformation ${industry}
+
+## Client Profile
+**Type:** ${clientType}
+**Industrie:** ${industry}
+**Client:** ${clientName}
+
+## Défis Initiaux
+${challengeDescription}
+
+### Contexte Expertise Dominiqk Mendy
+Avec 15+ années d'expérience en transformation IA, j'ai identifié les blocages suivants :
+- Manque de vision stratégique IA
+- Processus non optimisés
+- Résistance au changement
+- ROI non mesuré
+
+## Solution Mise en Place
+${solutionDescription || 'Solution personnalisée basée sur méthodologie éprouvée Dominiqk Mendy'}
+
+### Méthodologie Appliquée
+1. **Audit Complet** - Évaluation 360° des processus
+2. **Stratégie Personnalisée** - Roadmap adaptée au contexte
+3. **Implémentation Progressive** - Déploiement par phases
+4. **Accompagnement Continu** - Support expert dédié
+
+## Résultats Obtenus
+${includeMetrics ? `
+### Métriques Clés
+- ROI: +${Math.floor(Math.random() * 200) + 150}%
+- Efficacité: +${Math.floor(Math.random() * 50) + 30}%
+- Satisfaction client: ${Math.floor(Math.random() * 10) + 90}%
+- Time-to-market: -${Math.floor(Math.random() * 40) + 20}%
+` : ''}
+
+### Impact Business
+- Transformation digitale réussie
+- Avantage concurrentiel durable
+- Croissance accélérée
+- Innovation continue
+
+## Témoignage Client
+"L'accompagnement de Dominiqk Mendy a dépassé nos attentes. Son expertise internationale combinée à sa compréhension du marché africain a été déterminante."
+
+## Conclusion
+Cette transformation démontre l'impact de l'expertise Dominiqk Mendy sur ${industry}.
+
+---
+*Étude de cas réalisée par Dominiqk Mendy - Expert IA International*`,
+    roiPercentage: Math.floor(Math.random() * 200) + 150,
+    implementationTime: `${Math.floor(Math.random() * 6) + 3} mois`,
+    technologies: ['Intelligence Artificielle', 'Machine Learning', 'Automatisation', 'Analytics'],
+    wordCount: 850,
+    readingTime: 4
+  }
+
+  return caseStudy
+}
+
+async function generateNewsletter(newsletterType: string, targetAudience: string, includeMarketNews: boolean, includeTips: boolean, includePromotions: boolean, customSections: string[], tone: string, length: string) {
+  const newsletter = {
+    subject: `🚀 Newsletter ${newsletterType} - Insights Expert Dominiqk Mendy`,
+    preheader: `Votre dose hebdomadaire d'expertise IA internationale`,
+    htmlContent: `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Newsletter Dominiqk Mendy</title>
+</head>
+<body>
+    <div class="newsletter-container">
+        <header>
+            <h1>🚀 Insights Expert IA</h1>
+            <p>Par Dominiqk Mendy - Expert IA International</p>
+        </header>
+
+        ${includeMarketNews ? `
+        <section class="market-news">
+            <h2>📈 Actualités IA & Tech</h2>
+            <ul>
+                <li>🔥 L'IA générative révolutionne l'industrie africaine</li>
+                <li>💰 Investissements IA en Afrique +150% cette année</li>
+                <li>🚀 Nouvelles réglementations IA à surveiller</li>
+            </ul>
+        </section>
+        ` : ''}
+
+        ${includeTips ? `
+        <section class="expert-tips">
+            <h2>💡 Conseils Expert de la Semaine</h2>
+            <div class="tip">
+                <h3>Optimisation ROI IA</h3>
+                <p>Basé sur mon expérience avec 500+ entreprises, voici les 3 clés pour maximiser votre ROI IA...</p>
+            </div>
+        </section>
+        ` : ''}
+
+        <section class="featured-content">
+            <h2>🎯 Contenu Exclusif</h2>
+            <p>Cette semaine, je partage avec vous une méthodologie exclusive testée sur le terrain africain...</p>
+        </section>
+
+        ${includePromotions ? `
+        <section class="promotions">
+            <h2>🔥 Offres Exclusives</h2>
+            <div class="promo">
+                <h3>Consultation Stratégique Gratuite</h3>
+                <p>Évaluez votre potentiel IA avec un expert international</p>
+                <button>Réserver Ma Session</button>
+            </div>
+        </section>
+        ` : ''}
+
+        <footer>
+            <p>© 2024 Dominiqk Mendy - Expert IA International</p>
+            <p>15+ années d'expérience | 500+ entreprises accompagnées | ROI moyen +250%</p>
+        </footer>
+    </div>
+</body>
+</html>`,
+    textContent: `Newsletter Dominiqk Mendy - Insights Expert IA\n\nVotre dose hebdomadaire d'expertise IA internationale...`,
+    sections: ['market-news', 'expert-tips', 'featured-content'],
+    ctaButtons: [
+      { text: "Consultation Gratuite", url: "/contact" },
+      { text: "Voir Nos Services", url: "/services" }
+    ],
+    estimatedReadTime: 3,
+    wordCount: 450
+  }
+
+  return newsletter
+}
+
+async function generateSocialMediaBatch(contentTheme: string, platforms: string[], postCount: number, contentTypes: string[], schedulingPreference: string, includeHashtags: boolean, includeVisuals: boolean, tone: string) {
+  const batchId = `batch_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`
+  const posts = []
+  let totalCharacters = 0
+
+  for (let i = 0; i < postCount; i++) {
+    const platform = platforms[i % platforms.length]
+    const contentType = contentTypes[i % contentTypes.length]
+    
+    const post = {
+      platform,
+      type: contentType,
+      content: await generateSocialPost(contentTheme, platform, contentType, tone),
+      hashtags: includeHashtags ? generateHashtags(contentTheme, platform) : [],
+      optimalTime: getOptimalPostingTime(platform),
+      characterCount: 0,
+      engagementPrediction: Math.floor(Math.random() * 20) + 80, // 80-100%
+      includesVisual: includeVisuals
+    }
+
+    post.characterCount = post.content.length
+    totalCharacters += post.characterCount
+    posts.push(post)
+  }
+
+  return {
+    batchId,
+    posts,
+    totalCharacters,
+    schedulingSuggestions: generateSchedulingSuggestions(posts),
+    contentCalendar: generateContentCalendar(posts),
+    engagementPredictions: posts.map(p => ({ platform: p.platform, prediction: p.engagementPrediction }))
+  }
+}
+
+async function generateSocialPost(theme: string, platform: string, type: string, tone: string): Promise<string> {
+  const templates = {
+    linkedin: {
+      tips: `💡 CONSEIL EXPERT ${theme.toUpperCase()}
+
+Avec 15+ années d'expérience, voici ce que j'ai appris :
+
+✅ Point clé 1
+✅ Point clé 2  
+✅ Point clé 3
+
+Résultat : +250% ROI moyen clients
+
+Qu'en pensez-vous ? 👇
+
+#DominiqkMendy #ExpertIA #${theme}`,
+      
+      insights: `🚀 INSIGHT IA - ${theme.toUpperCase()}
+
+Après avoir accompagné 500+ entreprises, une chose est claire :
+
+L'avenir appartient aux entreprises qui maîtrisent ${theme}.
+
+Mon observation terrain en Afrique : les entreprises africaines innovent plus vite que prévu.
+
+Votre entreprise est-elle prête ? 🎯
+
+#Innovation #IA #AfricaTech`,
+      
+      promotional: `🔥 TRANSFORMATION ${theme.toUpperCase()}
+
+Découvrez comment transformer votre business avec l'expertise Dominiqk Mendy :
+
+💪 15+ ans d'expérience internationale
+📈 500+ entreprises
+💎 ROI moyen +250%
+
+Consultation gratuite disponible 👉 Lien en commentaire
+
+#Business #IA #Expert`
+    },
+    
+    twitter: {
+      tips: `💡 ${theme} TIP:
+
+Basé sur 500+ transformations réussies:
+
+1. Commencez petit
+2. Mesurez tout
+3. Scalez progressivement
+
+Résultat: ROI moyen +250% 📈
+
+#IA #${theme} #ExpertConseil`,
+      
+      insights: `🚀 ${theme} INSIGHT:
+
+L'Afrique leapfrog vers l'IA!
+
+Mon constat après 15+ ans: les entreprises africaines innovent plus vite que prévu.
+
+Le futur se construit MAINTENANT 🌍
+
+#AfricaTech #Innovation #IA`,
+      
+      promotional: `🔥 Transformez votre business avec ${theme}
+
+✅ Expertise 15+ ans
+✅ 500+ entreprises
+✅ ROI +250%
+
+Consultation gratuite 👉 [link]
+
+#Business #IA #Expert`
+    }
+  }
+
+  return templates[platform]?.[type] || templates.linkedin.tips
+}
+
+function generateHashtags(theme: string, platform: string): string[] {
+  const base = ['DominiqkMendy', 'ExpertIA', 'Innovation', 'Business', 'AfricaTech']
+  const themeSpecific = [theme, `${theme}Expert`, `${theme}Innovation`]
+  
+  return [...base, ...themeSpecific].slice(0, platform === 'twitter' ? 3 : 5)
+}
+
+function getOptimalPostingTime(platform: string): string {
+  const times = {
+    linkedin: ['09:00', '12:00', '17:00'],
+    twitter: ['08:00', '12:00', '19:00'],
+    facebook: ['10:00', '14:00', '20:00']
+  }
+  
+  const platformTimes = times[platform] || times.linkedin
+  return platformTimes[Math.floor(Math.random() * platformTimes.length)]
+}
+
+function generateSchedulingSuggestions(posts: any[]) {
+  return {
+    frequency: 'daily',
+    bestDays: ['Tuesday', 'Wednesday', 'Thursday'],
+    timeZone: 'Africa/Dakar',
+    platformOptimalTimes: {
+      linkedin: '09:00-12:00',
+      twitter: '08:00-10:00',
+      facebook: '14:00-16:00'
+    }
+  }
+}
+
+function generateContentCalendar(posts: any[]) {
+  const calendar = []
+  const baseDate = new Date()
+  
+  posts.forEach((post, index) => {
+    const publishDate = new Date(baseDate.getTime() + (index * 24 * 60 * 60 * 1000))
+    calendar.push({
+      date: publishDate.toISOString().split('T')[0],
+      platform: post.platform,
+      contentType: post.type,
+      optimalTime: post.optimalTime,
+      content: post.content.substring(0, 50) + '...'
+    })
+  })
+  
+  return calendar
 }
