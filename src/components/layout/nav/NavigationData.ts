@@ -1,4 +1,3 @@
-
 import { NavigationItem } from './types';
 
 export const navigationItems: NavigationItem[] = [
@@ -67,7 +66,7 @@ export const navigationItems: NavigationItem[] = [
     dropdown: true,
     children: [
       {
-        name: "Dashboard Genspark",
+        name: "Admin",
         href: "/genspark-admin"
       },
       {
