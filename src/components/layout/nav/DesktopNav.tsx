@@ -30,7 +30,7 @@ const DesktopNav = ({ navigation }: DesktopNavProps) => {
                   <NavigationMenuTrigger className="animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white transition-all duration-300">
                     {item.name}
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuContent className={item.name === 'Admin' ? 'right-0' : ''}>
                     <div className="w-[230px] p-4 md:w-[350px] lg:w-[400px]">
                       <div className="grid gap-3">
                         {item.children?.map(child => (
