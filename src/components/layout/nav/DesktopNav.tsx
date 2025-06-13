@@ -25,12 +25,12 @@ const DesktopNav = ({ navigation }: DesktopNavProps) => {
         <NavigationMenuList className="space-x-2">
           {navigation.map(item => (
             <NavigationMenuItem key={item.name}>
-              {item.dropdown ? (
+              {item.dropdown && item.name !== 'Admin' ? (
                 <>
                   <NavigationMenuTrigger className="animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white transition-all duration-300">
                     {item.name}
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className={item.name === 'Admin' ? 'right-0' : ''}>
+                  <NavigationMenuContent>
                     <div className="w-[230px] p-4 md:w-[350px] lg:w-[400px]">
                       <div className="grid gap-3">
                         {item.children?.map(child => (
@@ -50,6 +50,20 @@ const DesktopNav = ({ navigation }: DesktopNavProps) => {
                     </div>
                   </NavigationMenuContent>
                 </>
+              ) : item.name === 'Admin' && item.children ? (
+                // Afficher les items Admin comme boutons individuels
+                item.children.map(child => (
+                  <NavigationMenuItem key={child.name}>
+                    <NavigationMenuLink asChild>
+                      <Link 
+                        to={child.href} 
+                        className={cn(navigationMenuTriggerStyle(), "animate-gradient-slow bg-transparent hover:bg-white/10 hover:text-white px-4 py-2")}
+                      >
+                        {child.name}
+                      </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                ))
               ) : (
                 <NavigationMenuLink asChild>
                   <Link 
