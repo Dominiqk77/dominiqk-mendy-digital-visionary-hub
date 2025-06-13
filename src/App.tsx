@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -37,61 +37,67 @@ import DataAnalysisServices from "./pages/services/DataAnalysisServices";
 import Library from "./pages/Library";
 import EbookDetail from "./pages/EbookDetail";
 import LibrarySuccess from "./pages/LibrarySuccess";
+import GensparkAdmin from "./pages/GensparkAdmin";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          
-          {/* CRM Routes */}
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/crm/*" element={<CRM />} />
-          <Route path="/crm-access" element={<CRMAccess />} />
-          <Route path="/api-configuration" element={<APIConfiguration />} />
-          
-          {/* E-Library Routes */}
-          <Route path="/library" element={<Library />} />
-          <Route path="/library/:id" element={<EbookDetail />} />
-          <Route path="/library/success" element={<LibrarySuccess />} />
-          
-          {/* Services Routes */}
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/services/ai-solutions" element={<AISolutions />} />
-          <Route path="/services/web-development" element={<WebDevelopment />} />
-          <Route path="/services/digital-marketing" element={<DigitalMarketing />} />
-          <Route path="/services/consulting" element={<ConsultingStrategyServices />} />
-          <Route path="/services/ai-training" element={<AITrainingPage />} />
-          <Route path="/services/e-governance" element={<EGovernanceServices />} />
-          <Route path="/services/data-analysis" element={<DataAnalysisServices />} />
+    <BrowserRouter>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            
+            {/* CRM Routes */}
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/crm/*" element={<CRM />} />
+            <Route path="/crm-access" element={<CRMAccess />} />
+            <Route path="/api-configuration" element={<APIConfiguration />} />
+            
+            {/* E-Library Routes */}
+            <Route path="/library" element={<Library />} />
+            <Route path="/library/:id" element={<EbookDetail />} />
+            <Route path="/library/success" element={<LibrarySuccess />} />
+            
+            {/* Services Routes */}
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/ai-solutions" element={<AISolutions />} />
+            <Route path="/services/web-development" element={<WebDevelopment />} />
+            <Route path="/services/digital-marketing" element={<DigitalMarketing />} />
+            <Route path="/services/consulting" element={<ConsultingStrategyServices />} />
+            <Route path="/services/ai-training" element={<AITrainingPage />} />
+            <Route path="/services/e-governance" element={<EGovernanceServices />} />
+            <Route path="/services/data-analysis" element={<DataAnalysisServices />} />
 
-          {/* Other Pages */}
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/academy" element={<AcademyPage />} />
-          <Route path="/tools" element={<ToolsPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:id" element={<BlogPost />} />
-          <Route path="/expertise" element={<ExpertisePage />} />
-          <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="/start-project" element={<StartProject />} />
-          <Route path="/projects/senservices" element={<SenServices />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-of-service" element={<TermsOfService />} />
-          <Route path="/legal-notices" element={<LegalNotices />} />
-          
-          {/* Catch-all route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <BackToTop />
-        <ChatBot />
-      </TooltipProvider>
-    </AuthProvider>
+            {/* Admin Routes */}
+            <Route path="/genspark-admin" element={<GensparkAdmin />} />
+
+            {/* Other Pages */}
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/academy" element={<AcademyPage />} />
+            <Route path="/tools" element={<ToolsPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/expertise" element={<ExpertisePage />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route path="/start-project" element={<StartProject />} />
+            <Route path="/projects/senservices" element={<SenServices />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/legal-notices" element={<LegalNotices />} />
+            
+            {/* Catch-all route */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <BackToTop />
+          <ChatBot />
+        </TooltipProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </QueryClientProvider>
 );
 
