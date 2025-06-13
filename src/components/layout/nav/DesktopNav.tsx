@@ -37,11 +37,11 @@ const DesktopNav = ({ navigation }: DesktopNavProps) => {
                           <NavigationMenuLink key={child.name} asChild>
                             <Link 
                               to={child.href} 
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-accent focus:text-accent-foreground group"
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-white/10 hover:text-white focus:bg-accent focus:text-accent-foreground group"
                             >
-                              <div className="text-sm font-medium leading-none text-gray-900 group-hover:text-blue-600 group-hover:translate-x-1 transition-transform">
+                              <div className="text-sm font-medium leading-none text-white group-hover:text-blue-300 group-hover:translate-x-1 transition-transform">
                                 {child.name}
-                                <span className="block h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 mt-1"></span>
+                                <span className="block h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-300 mt-1"></span>
                               </div>
                             </Link>
                           </NavigationMenuLink>
