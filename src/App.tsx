@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,10 +11,10 @@ import CRM from "./pages/CRM";
 import CRMAccess from "./pages/CRMAccess";
 import APIConfiguration from "./pages/APIConfiguration";
 import ServicesPage from "./pages/Services";
-import AIServices from "./pages/services/AIServices";
-import WebServices from "./pages/services/WebServices";
-import MarketingServices from "./pages/services/MarketingServices";
-import ConsultingServices from "./pages/services/ConsultingServices";
+import AISolutions from "./pages/services/AISolutions";
+import WebDevelopment from "./pages/services/WebDevelopment";
+import DigitalMarketing from "./pages/services/DigitalMarketing";
+import ConsultingStrategyServices from "./pages/services/ConsultingStrategyServices";
 import ContactPage from "./pages/Contact";
 import AcademyPage from "./pages/Academy";
 import ToolsPage from "./pages/Tools";
@@ -25,7 +24,7 @@ import ExpertisePage from "./pages/Expertise";
 import PortfolioPage from "./pages/Portfolio";
 import StartProject from "./pages/StartProject";
 import AITrainingPage from "./pages/services/AITrainingPage";
-import EGovernance from "./pages/services/EGovernance";
+import EGovernanceServices from "./pages/services/EGovernanceServices";
 import SenServices from "./pages/projects/SenServices";
 import { ChatBot } from "./components/chat/ChatBot";
 import BackToTop from "./components/ui/BackToTop";
@@ -33,12 +32,7 @@ import AboutPage from "./pages/About";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import LegalNotices from "./pages/LegalNotices";
-import AISolutions from "./pages/services/AISolutions";
-import WebDevelopment from "./pages/services/WebDevelopment";
-import DigitalMarketing from "./pages/services/DigitalMarketing";
-import EGovernanceServices from "./pages/services/EGovernanceServices";
 import DataAnalysisServices from "./pages/services/DataAnalysisServices";
-import ConsultingStrategyServices from "./pages/services/ConsultingStrategyServices";
 // E-Library imports
 import Library from "./pages/Library";
 import EbookDetail from "./pages/EbookDetail";
@@ -66,24 +60,15 @@ const App = () => (
           <Route path="/library/:id" element={<EbookDetail />} />
           <Route path="/library/success" element={<LibrarySuccess />} />
           
-          {/* Original Routes */}
+          {/* Services Routes */}
           <Route path="/services" element={<ServicesPage />} />
-          
-          {/* Original service category pages */}
-          <Route path="/services/ai-solutions" element={<AIServices />} />
-          <Route path="/services/web-development" element={<WebServices />} />
-          <Route path="/services/digital-marketing" element={<MarketingServices />} />
-          <Route path="/services/consulting" element={<ConsultingServices />} />
-          <Route path="/services/ai-training" element={<AITrainingPage />} />
-          <Route path="/services/egouvernance" element={<EGovernance />} />
-          
-          {/* New service detail pages for featured services */}
           <Route path="/services/ai-solutions" element={<AISolutions />} />
           <Route path="/services/web-development" element={<WebDevelopment />} />
           <Route path="/services/digital-marketing" element={<DigitalMarketing />} />
+          <Route path="/services/consulting" element={<ConsultingStrategyServices />} />
+          <Route path="/services/ai-training" element={<AITrainingPage />} />
           <Route path="/services/e-governance" element={<EGovernanceServices />} />
           <Route path="/services/data-analysis" element={<DataAnalysisServices />} />
-          <Route path="/services/consulting" element={<ConsultingStrategyServices />} />
 
           {/* Other Pages */}
           <Route path="/contact" element={<ContactPage />} />
@@ -100,7 +85,7 @@ const App = () => (
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/legal-notices" element={<LegalNotices />} />
           
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
         <BackToTop />
