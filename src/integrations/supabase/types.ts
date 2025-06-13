@@ -42,6 +42,90 @@ export type Database = {
         }
         Relationships: []
       }
+      affiliate_commissions: {
+        Row: {
+          affiliate_id: string | null
+          commission_amount: number
+          commission_rate: number
+          created_at: string | null
+          id: string
+          paid_at: string | null
+          purchase_id: string | null
+          status: string | null
+        }
+        Insert: {
+          affiliate_id?: string | null
+          commission_amount: number
+          commission_rate: number
+          created_at?: string | null
+          id?: string
+          paid_at?: string | null
+          purchase_id?: string | null
+          status?: string | null
+        }
+        Update: {
+          affiliate_id?: string | null
+          commission_amount?: number
+          commission_rate?: number
+          created_at?: string | null
+          id?: string
+          paid_at?: string | null
+          purchase_id?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_commissions_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_commissions_purchase_id_fkey"
+            columns: ["purchase_id"]
+            isOneToOne: false
+            referencedRelation: "ebook_purchases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      affiliates: {
+        Row: {
+          affiliate_code: string
+          commission_rate: number | null
+          created_at: string | null
+          id: string
+          status: string | null
+          total_commission: number | null
+          total_sales: number | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          affiliate_code: string
+          commission_rate?: number | null
+          created_at?: string | null
+          id?: string
+          status?: string | null
+          total_commission?: number | null
+          total_sales?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          affiliate_code?: string
+          commission_rate?: number | null
+          created_at?: string | null
+          id?: string
+          status?: string | null
+          total_commission?: number | null
+          total_sales?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       api_usage_logs: {
         Row: {
           api_name: string
@@ -478,6 +562,194 @@ export type Database = {
         }
         Relationships: []
       }
+      ebook_categories: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          image_url: string | null
+          name: string
+          slug: string
+          sort_order: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          slug: string
+          sort_order?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          slug?: string
+          sort_order?: number | null
+        }
+        Relationships: []
+      }
+      ebook_downloads: {
+        Row: {
+          download_date: string | null
+          ebook_id: string | null
+          id: string
+          ip_address: string | null
+          purchase_id: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          download_date?: string | null
+          ebook_id?: string | null
+          id?: string
+          ip_address?: string | null
+          purchase_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          download_date?: string | null
+          ebook_id?: string | null
+          id?: string
+          ip_address?: string | null
+          purchase_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ebook_downloads_ebook_id_fkey"
+            columns: ["ebook_id"]
+            isOneToOne: false
+            referencedRelation: "ebooks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ebook_downloads_purchase_id_fkey"
+            columns: ["purchase_id"]
+            isOneToOne: false
+            referencedRelation: "ebook_purchases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ebook_purchases: {
+        Row: {
+          amount: number
+          created_at: string | null
+          currency: string
+          download_count: number | null
+          ebook_id: string | null
+          id: string
+          max_downloads: number | null
+          purchase_date: string | null
+          status: string | null
+          stripe_payment_intent_id: string | null
+          stripe_session_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          currency: string
+          download_count?: number | null
+          ebook_id?: string | null
+          id?: string
+          max_downloads?: number | null
+          purchase_date?: string | null
+          status?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          currency?: string
+          download_count?: number | null
+          ebook_id?: string | null
+          id?: string
+          max_downloads?: number | null
+          purchase_date?: string | null
+          status?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ebook_purchases_ebook_id_fkey"
+            columns: ["ebook_id"]
+            isOneToOne: false
+            referencedRelation: "ebooks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ebooks: {
+        Row: {
+          author: string
+          category: string
+          cover_image_url: string | null
+          created_at: string | null
+          currency: string
+          description: string | null
+          featured: boolean | null
+          file_url: string | null
+          id: string
+          isbn: string | null
+          language: string | null
+          pages: number | null
+          preview_url: string | null
+          price: number
+          status: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author?: string
+          category: string
+          cover_image_url?: string | null
+          created_at?: string | null
+          currency?: string
+          description?: string | null
+          featured?: boolean | null
+          file_url?: string | null
+          id?: string
+          isbn?: string | null
+          language?: string | null
+          pages?: number | null
+          preview_url?: string | null
+          price: number
+          status?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author?: string
+          category?: string
+          cover_image_url?: string | null
+          created_at?: string | null
+          currency?: string
+          description?: string | null
+          featured?: boolean | null
+          file_url?: string | null
+          id?: string
+          isbn?: string | null
+          language?: string | null
+          pages?: number | null
+          preview_url?: string | null
+          price?: number
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       generated_content: {
         Row: {
           api_used: string | null
@@ -769,10 +1041,9 @@ export type Database = {
         Returns: undefined
       }
       has_role: {
-        Args: {
-          _user_id: string
-          _role: Database["public"]["Enums"]["app_role"]
-        }
+        Args:
+          | Record<PropertyKey, never>
+          | { _user_id: string; _role: Database["public"]["Enums"]["app_role"] }
         Returns: boolean
       }
     }

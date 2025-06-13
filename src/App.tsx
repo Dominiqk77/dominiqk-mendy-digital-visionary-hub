@@ -39,6 +39,10 @@ import DigitalMarketing from "./pages/services/DigitalMarketing";
 import EGovernanceServices from "./pages/services/EGovernanceServices";
 import DataAnalysisServices from "./pages/services/DataAnalysisServices";
 import ConsultingStrategyServices from "./pages/services/ConsultingStrategyServices";
+// E-Library imports
+import Library from "./pages/Library";
+import EbookDetail from "./pages/EbookDetail";
+import LibrarySuccess from "./pages/LibrarySuccess";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +60,11 @@ const App = () => (
           <Route path="/crm/*" element={<CRM />} />
           <Route path="/crm-access" element={<CRMAccess />} />
           <Route path="/api-configuration" element={<APIConfiguration />} />
+          
+          {/* E-Library Routes */}
+          <Route path="/library" element={<Library />} />
+          <Route path="/library/:id" element={<EbookDetail />} />
+          <Route path="/library/success" element={<LibrarySuccess />} />
           
           {/* Original Routes */}
           <Route path="/services" element={<ServicesPage />} />
