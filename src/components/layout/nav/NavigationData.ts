@@ -62,7 +62,7 @@ export const navigationItems: NavigationItem[] = [
     href: "/contact",
   },
   {
-    name: "Dashboard Genspark",
+    name: "Admin",
     href: "/genspark-admin"
   },
   {
