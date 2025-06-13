@@ -1,14 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Zap } from 'lucide-react';
+import { Loader2, Zap, Home } from 'lucide-react';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -75,6 +75,16 @@ const Auth = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
+        {/* Home button */}
+        <div className="text-center mb-4">
+          <Button variant="outline" asChild>
+            <Link to="/" className="inline-flex items-center space-x-2">
+              <Home className="w-4 h-4" />
+              <span>Retour à l'accueil</span>
+            </Link>
+          </Button>
+        </div>
+
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">

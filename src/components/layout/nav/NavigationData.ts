@@ -62,19 +62,12 @@ export const navigationItems: NavigationItem[] = [
     href: "/contact",
   },
   {
-    name: "Admin",
-    href: "/genspark-admin",
-    dropdown: true,
-    children: [
-      {
-        name: "Admin",
-        href: "/genspark-admin"
-      },
-      {
-        name: "CRM",
-        href: "/crm"
-      }
-    ]
+    name: "Dashboard Genspark",
+    href: "/genspark-admin"
+  },
+  {
+    name: "CRM",
+    href: "/crm"
   }
 ];
 
