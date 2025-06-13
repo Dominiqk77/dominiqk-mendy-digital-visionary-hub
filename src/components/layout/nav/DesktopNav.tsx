@@ -31,8 +31,8 @@ const DesktopNav = ({ navigation }: DesktopNavProps) => {
                     {item.name}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-[230px] p-4 md:w-[350px] lg:w-[400px] bg-white/95 backdrop-blur-md border border-gray-200 shadow-lg relative overflow-hidden z-[9999]">
-                      <div className="grid gap-3 relative z-10">
+                    <div className="w-[230px] p-4 md:w-[350px] lg:w-[400px]">
+                      <div className="grid gap-3">
                         {item.children?.map(child => (
                           <NavigationMenuLink key={child.name} asChild>
                             <Link 
