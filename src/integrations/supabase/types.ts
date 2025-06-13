@@ -207,6 +207,51 @@ export type Database = {
         }
         Relationships: []
       }
+      book_downloads: {
+        Row: {
+          book_id: string | null
+          book_title: string | null
+          download_date: string | null
+          id: string
+          ip_address: unknown | null
+          lead_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          book_id?: string | null
+          book_title?: string | null
+          download_date?: string | null
+          id?: string
+          ip_address?: unknown | null
+          lead_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          book_id?: string | null
+          book_title?: string | null
+          download_date?: string | null
+          id?: string
+          ip_address?: unknown | null
+          lead_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "book_downloads_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "dominiqk_lead_analytics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "book_downloads_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       business_metrics: {
         Row: {
           created_at: string
@@ -750,6 +795,51 @@ export type Database = {
         }
         Relationships: []
       }
+      engagement_tracking: {
+        Row: {
+          created_at: string | null
+          event_data: Json | null
+          event_type: string | null
+          id: string
+          lead_id: string | null
+          page_url: string | null
+          session_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_data?: Json | null
+          event_type?: string | null
+          id?: string
+          lead_id?: string | null
+          page_url?: string | null
+          session_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_data?: Json | null
+          event_type?: string | null
+          id?: string
+          lead_id?: string | null
+          page_url?: string | null
+          session_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "engagement_tracking_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "dominiqk_lead_analytics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "engagement_tracking_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       generated_content: {
         Row: {
           api_used: string | null
@@ -783,6 +873,48 @@ export type Database = {
           metadata?: Json | null
           title?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      leads: {
+        Row: {
+          campaign: string | null
+          company: string | null
+          created_at: string | null
+          email: string
+          id: string
+          lead_score: number | null
+          name: string | null
+          phone: string | null
+          source: string | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          campaign?: string | null
+          company?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          lead_score?: number | null
+          name?: string | null
+          phone?: string | null
+          source?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          campaign?: string | null
+          company?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          lead_score?: number | null
+          name?: string | null
+          phone?: string | null
+          source?: string | null
+          status?: string | null
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -1025,7 +1157,22 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      dominiqk_lead_analytics: {
+        Row: {
+          company: string | null
+          created_at: string | null
+          email: string | null
+          id: string | null
+          last_download: string | null
+          last_engagement: string | null
+          lead_score: number | null
+          name: string | null
+          status: string | null
+          total_downloads: number | null
+          total_engagements: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       calculate_lead_score: {
@@ -1039,6 +1186,10 @@ export type Database = {
       cleanup_inactive_sessions: {
         Args: Record<PropertyKey, never>
         Returns: undefined
+      }
+      dominiqk_calculate_lead_score: {
+        Args: { lead_uuid: string }
+        Returns: number
       }
       has_role: {
         Args:
