@@ -9,12 +9,6 @@ export interface NavigationItem {
   }[];
 }
 
-export interface NavItem {
-  title: string;
-  href: string;
-  megaMenu?: MegaMenuItem[];
-}
-
 export interface MegaMenuItem {
   title: string;
   items: {

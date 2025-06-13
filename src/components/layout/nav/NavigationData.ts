@@ -1,95 +1,74 @@
 
-import { NavItem, MegaMenuItem } from './types';
+import { NavigationItem } from './types';
 
-export const navigationItems: NavItem[] = [
+export const navigationItems: NavigationItem[] = [
   {
-    title: "Accueil",
+    name: "Accueil",
     href: "/",
   },
   {
-    title: "Services",
+    name: "Services",
     href: "/services",
-    megaMenu: [
+    dropdown: true,
+    children: [
       {
-        title: "Intelligence Artificielle",
-        items: [
-          {
-            title: "Solutions IA",
-            href: "/services/ai-solutions",
-            description: "Développement de solutions IA personnalisées"
-          },
-          {
-            title: "Formation IA",
-            href: "/services/ai-training",
-            description: "Formation complète en Intelligence Artificielle"
-          },
-          {
-            title: "Analyse de Données",
-            href: "/services/data-analysis",
-            description: "Analyse et visualisation de données avancées"
-          }
-        ]
+        name: "Solutions IA",
+        href: "/services/ai-solutions"
       },
       {
-        title: "Développement",
-        items: [
-          {
-            title: "Développement Web",
-            href: "/services/web-development",
-            description: "Applications web modernes et performantes"
-          },
-          {
-            title: "E-gouvernance",
-            href: "/services/e-governance",
-            description: "Solutions numériques pour le secteur public"
-          }
-        ]
+        name: "Formation IA", 
+        href: "/services/ai-training"
       },
       {
-        title: "Marketing & Conseil",
-        items: [
-          {
-            title: "Marketing Digital",
-            href: "/services/digital-marketing",
-            description: "Stratégies marketing digitales ROI+"
-          },
-          {
-            title: "Conseil & Stratégie",
-            href: "/services/consulting",
-            description: "Conseil en transformation digitale"
-          }
-        ]
+        name: "Analyse de Données",
+        href: "/services/data-analysis"
+      },
+      {
+        name: "Développement Web",
+        href: "/services/web-development"
+      },
+      {
+        name: "E-gouvernance",
+        href: "/services/e-governance"
+      },
+      {
+        name: "Marketing Digital",
+        href: "/services/digital-marketing"
+      },
+      {
+        name: "Conseil & Stratégie",
+        href: "/services/consulting"
       }
     ]
   },
   {
-    title: "E-Bibliothèque",
+    name: "E-Bibliothèque",
     href: "/library",
   },
   {
-    title: "Portfolio",
+    name: "Portfolio",
     href: "/portfolio",
   },
   {
-    title: "Blog",
+    name: "Blog",
     href: "/blog",
   },
   {
-    title: "À propos",
+    name: "À propos",
     href: "/about",
   },
   {
-    title: "Contact",
+    name: "Contact",
     href: "/contact",
   }
 ];
 
-export const mobileNavItems: NavItem[] = [
-  { title: "Accueil", href: "/" },
-  { title: "Services", href: "/services" },
-  { title: "E-Bibliothèque", href: "/library" },
-  { title: "Portfolio", href: "/portfolio" },
-  { title: "Blog", href: "/blog" },
-  { title: "À propos", href: "/about" },
-  { title: "Contact", href: "/contact" }
+export const mobileNavItems: NavigationItem[] = [
+  { name: "Accueil", href: "/" },
+  { name: "Services", href: "/services" },
+  { name: "E-Bibliothèque", href: "/library" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Blog", href: "/blog" },
+  { name: "À propos", href: "/about" },
+  { name: "Contact", href: "/contact" }
 ];
