@@ -7,11 +7,21 @@ import Footer from '@/components/layout/Footer';
 import GensparkDashboard from '@/components/admin/GensparkDashboard';
 
 const GensparkAdmin = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
-  // Redirection si pas connecté (sécurité basique)
+  // Afficher un loader pendant le chargement
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  // Si pas connecté, rediriger vers auth mais avec un message spécifique
   if (!user) {
-    return <Navigate to="/auth" replace />;
+    console.log('Utilisateur non connecté, redirection vers /auth');
+    return <Navigate to="/auth" replace state={{ from: '/genspark-admin' }} />;
   }
 
   return (
