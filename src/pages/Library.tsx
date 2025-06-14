@@ -248,7 +248,7 @@ const Library = () => {
         social: `✅ Téléchargé par ${visitorCount.toLocaleString()}+ leaders digitaux`,
         guarantee: "💎 30 jours satisfait ou remboursé + ROI garanti",
         proof: "⭐ Note 4.9/5 basée sur 1,247 avis vérifiés",
-        coverImage: "/lovable-uploads/d32e77e6-1ef9-4080-b10f-d5b0b887a135.png"
+        coverImage: "/lovable-uploads/f2e91082-c538-456a-83be-44ca7ca3dc1a.png"
       },
       "NEW DEAL TECHNOLOGIQUE SÉNÉGAL - Le Guide des Investisseurs": {
         headline: "NEW DEAL TECHNOLOGIQUE SÉNÉGAL",
