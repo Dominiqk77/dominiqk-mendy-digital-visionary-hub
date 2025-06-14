@@ -514,7 +514,7 @@ const Library = () => {
                   </div>
                 </div>
                 
-                {/* Colonne droite avec l'image de couverture - Correction pour affichage */}
+                {/* Colonne droite avec l'image de couverture - Images agrandies */}
                 <div className="relative min-h-[400px] md:min-h-[600px] lg:min-h-[800px] flex items-center justify-center p-4 bg-transparent">
                   {/* Background décoratif */}
                   <div className="absolute inset-0">
@@ -528,7 +528,7 @@ const Library = () => {
                       <img 
                         src="/lovable-uploads/11b48a7f-d009-4592-abd1-daf20806a4e9.png" 
                         alt="IA Business Mastery"
-                        className="w-[300px] md:w-[450px] lg:w-[550px] xl:w-[600px] h-auto shadow-2xl rounded-xl transform hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(59,130,246,0.6)] object-contain mix-blend-normal"
+                        className="w-[400px] md:w-[550px] lg:w-[650px] xl:w-[750px] h-auto shadow-2xl rounded-xl transform hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(59,130,246,0.6)] object-contain mix-blend-normal"
                         style={{ 
                           backgroundColor: 'transparent',
                           filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
@@ -687,7 +687,7 @@ const Library = () => {
                   </div>
                 </div>
                 
-                {/* Colonne droite avec l'image de couverture - Optimisée mobile */}
+                {/* Colonne droite avec l'image de couverture - Images agrandies */}
                 <div className="relative min-h-[400px] md:min-h-[600px] lg:min-h-[800px] flex items-center justify-center p-4 bg-transparent">
                   {/* Background décoratif */}
                   <div className="absolute inset-0">
@@ -701,7 +701,7 @@ const Library = () => {
                       <img 
                         src="/lovable-uploads/5e73d42f-03d3-4e51-a53a-ba5db570a87d.png" 
                         alt="NEW DEAL TECHNOLOGIQUE SÉNÉGAL"
-                        className="w-[300px] md:w-[450px] lg:w-[550px] xl:w-[600px] h-auto shadow-2xl rounded-xl transform hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(251,191,36,0.6)] object-contain mix-blend-normal"
+                        className="w-[400px] md:w-[550px] lg:w-[650px] xl:w-[750px] h-auto shadow-2xl rounded-xl transform hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(251,191,36,0.6)] object-contain mix-blend-normal"
                         style={{ 
                           backgroundColor: 'transparent',
                           filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
