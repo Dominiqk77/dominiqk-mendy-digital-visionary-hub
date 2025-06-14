@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, Send, X, Calendar, Paperclip, Brain, Code, Phone, Lightbulb, Zap, StopCircle, Mail } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
@@ -41,6 +40,7 @@ export const ChatBot = () => {
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [userName, setUserName] = useState('');
+  const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'testing'>('connected');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const conversationStartTime = useRef<Date>(new Date());
   const { toast } = useToast();
@@ -56,10 +56,12 @@ export const ChatBot = () => {
   // Générer un sessionId unique au démarrage
   useEffect(() => {
     if (!conversationData.sessionId) {
+      const sessionId = crypto.randomUUID();
       setConversationData(prev => ({
         ...prev,
-        sessionId: crypto.randomUUID()
+        sessionId: sessionId
       }));
+      console.log('🆔 Session ID generated:', sessionId);
     }
   }, []);
 
@@ -75,77 +77,106 @@ export const ChatBot = () => {
     setMessages(prevMessages => [...prevMessages, userMessage]);
     setInputMessage('');
     setIsLoading(true);
+    setConnectionStatus('testing');
 
     try {
-      console.log("Envoi vers le système de génération de leads intelligent...");
+      console.log("🚀 Envoi vers le système de génération de leads intelligent...");
+      console.log("📝 Session ID:", conversationData.sessionId);
+      console.log("📝 Message length:", inputMessage.length);
+
+      const requestBody = {
+        message: inputMessage,
+        conversationHistory: messages.slice(-10), // Limite l'historique
+        sessionId: conversationData.sessionId,
+        userAgent: navigator.userAgent
+      };
+
+      console.log("📤 Request body prepared");
 
       const { data, error } = await supabase.functions.invoke('chat-ai', {
-        body: {
-          message: inputMessage,
-          conversationHistory: messages.slice(-15),
-          sessionId: conversationData.sessionId,
-          userAgent: navigator.userAgent
-        }
+        body: requestBody
       });
 
+      console.log("📥 Response received:", { data, error });
+
       if (error) {
-        console.error("Erreur Supabase function:", error);
-        throw error;
+        console.error("❌ Supabase function error:", error);
+        throw new Error(`Erreur de communication: ${error.message}`);
       }
 
-      if (data?.response) {
-        const assistantMessage: Message = {
-          role: 'assistant',
-          content: data.response,
-          timestamp: data.timestamp,
-          isComplex: data.isComplex,
-          isBusiness: data.isBusiness,
-          isTechnical: data.isTechnical,
-          contextualSuggestions: data.contextualSuggestions || []
-        };
-        
-        setMessages(prevMessages => [...prevMessages, assistantMessage]);
-        
-        // Mettre à jour les données de conversation
-        setConversationData(prev => ({
-          ...prev,
-          sessionId: data.sessionId,
-          conversationId: data.conversationId,
-          leadScore: data.leadScore,
-          leadStatus: data.leadStatus,
-          projectComplexity: data.projectComplexity,
-          hasBusinessIntent: data.hasBusinessIntent,
-          shouldCollectEmail: data.shouldCollectEmail,
-          shouldOfferConsultation: data.shouldOfferConsultation
-        }));
+      if (!data) {
+        console.error("❌ No data received from function");
+        throw new Error("Aucune réponse reçue du serveur");
+      }
 
-        // Afficher le formulaire email si nécessaire
-        if (data.shouldCollectEmail && !userEmail && !showEmailForm) {
-          setTimeout(() => setShowEmailForm(true), 2000);
-        }
+      if (data.error) {
+        console.error("❌ Function returned error:", data.errorMessage);
+        throw new Error(data.errorMessage || "Erreur dans le traitement de la demande");
+      }
 
-        // Notifications pour les leads chauds
-        if (data.leadScore >= 70) {
-          toast({
-            title: "🔥 Lead chaud détecté !",
-            description: "Prospect hautement qualifié en conversation",
-          });
-        }
+      if (!data.response) {
+        console.error("❌ No response field in data:", data);
+        throw new Error("Format de réponse invalide");
+      }
 
-      } else {
-        throw new Error("Aucune réponse reçue");
+      console.log("✅ Valid response received");
+      setConnectionStatus('connected');
+
+      const assistantMessage: Message = {
+        role: 'assistant',
+        content: data.response,
+        timestamp: data.timestamp,
+        isComplex: data.isComplex,
+        isBusiness: data.isBusiness,
+        isTechnical: data.isTechnical,
+        contextualSuggestions: data.contextualSuggestions || []
+      };
+      
+      setMessages(prevMessages => [...prevMessages, assistantMessage]);
+      
+      // Mettre à jour les données de conversation
+      setConversationData(prev => ({
+        ...prev,
+        sessionId: data.sessionId || prev.sessionId,
+        conversationId: data.conversationId,
+        leadScore: data.leadScore,
+        leadStatus: data.leadStatus,
+        projectComplexity: data.projectComplexity,
+        hasBusinessIntent: data.hasBusinessIntent,
+        shouldCollectEmail: data.shouldCollectEmail,
+        shouldOfferConsultation: data.shouldOfferConsultation
+      }));
+
+      // Afficher le formulaire email si nécessaire
+      if (data.shouldCollectEmail && !userEmail && !showEmailForm) {
+        setTimeout(() => setShowEmailForm(true), 2000);
+      }
+
+      // Notifications pour les leads chauds
+      if (data.leadScore >= 70) {
+        toast({
+          title: "🔥 Lead chaud détecté !",
+          description: "Prospect hautement qualifié en conversation",
+        });
       }
 
     } catch (error) {
-      console.error("Erreur lors de l'envoi du message :", error);
+      console.error("❌ Erreur complète lors de l'envoi du message :", error);
+      setConnectionStatus('disconnected');
       
       const errorMessage: Message = {
         role: 'assistant',
-        content: "Une petite difficulté technique momentanée ! En tant qu'expert en résolution de problèmes, permettez-moi de vous aider autrement. Décrivez-moi votre besoin et je vous fournirai immédiatement des conseils experts. Pour une assistance technique urgente, contactez-moi directement au +212 607 79 86 70.",
+        content: `🔧 **Problème technique temporaire détecté**\n\nJe rencontre une difficulté momentanée, mais en tant qu'expert en résolution de problèmes techniques, permettez-moi de vous aider autrement :\n\n**Solutions immédiates :**\n• Décrivez-moi votre besoin spécifique\n• Je vous fournirai des conseils experts détaillés\n• Pour une assistance technique urgente : **+212 607 79 86 70**\n\n**Mon expertise reste disponible :**\n🧠 IA et Machine Learning\n🚀 Développement web avancé\n💼 Transformation digitale\n🔧 Architecture système\n\n*Erreur technique : ${error instanceof Error ? error.message : 'Erreur de communication'}*`,
         timestamp: new Date().toISOString()
       };
       
       setMessages(prevMessages => [...prevMessages, errorMessage]);
+
+      toast({
+        title: "⚠️ Problème de connexion",
+        description: "Difficulté temporaire. Contactez directement au +212 607 79 86 70",
+        variant: "destructive"
+      });
     } finally {
       setIsLoading(false);
     }
@@ -342,7 +373,7 @@ export const ChatBot = () => {
 
   return (
     <>
-      {/* Enhanced Chat Button with intelligence indicator */}
+      {/* Enhanced Chat Button with connection status indicator */}
       <button
         onClick={() => setIsOpen(true)}
         className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group animate-pulse"
@@ -351,7 +382,10 @@ export const ChatBot = () => {
         <div className="relative">
           <MessageCircle className="w-6 h-6" />
           <Brain className="w-3 h-3 absolute -top-1 -right-1 text-yellow-300 group-hover:animate-spin" />
-          <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+          <div className={`absolute -bottom-1 -left-1 w-2 h-2 rounded-full animate-ping ${
+            connectionStatus === 'connected' ? 'bg-green-400' : 
+            connectionStatus === 'testing' ? 'bg-yellow-400' : 'bg-red-400'
+          }`}></div>
         </div>
       </button>
 
@@ -435,7 +469,7 @@ export const ChatBot = () => {
               ))}
             </div>
 
-            {/* Enhanced Header with Lead Score */}
+            {/* Enhanced Header with connection status */}
             <div className="flex items-center justify-between p-4 border-b border-white/10 relative z-[60] bg-black/20 backdrop-blur-sm">
               <div className="flex items-center space-x-3">
                 <div className="relative">
@@ -444,7 +478,10 @@ export const ChatBot = () => {
                     alt="Dominiqk Mendy" 
                     className="w-10 h-10 rounded-full object-cover border-2 border-blue-400/50"
                   />
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-black/90 animate-pulse"></div>
+                  <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-black/90 animate-ping ${
+                    connectionStatus === 'connected' ? 'bg-green-400' :
+                    connectionStatus === 'testing' ? 'bg-yellow-400' : 'bg-red-400'
+                  }`}></div>
                   <Brain className="absolute -top-1 -left-1 w-3 h-3 text-yellow-300 animate-pulse" />
                 </div>
                 <div>
@@ -461,7 +498,15 @@ export const ChatBot = () => {
                       </span>
                     )}
                   </h3>
-                  <p className="text-xs text-green-300 font-medium">Consultant Expert • 15+ ans • International</p>
+                  <p className="text-xs text-green-300 font-medium flex items-center gap-1">
+                    <span className={`w-2 h-2 rounded-full ${
+                      connectionStatus === 'connected' ? 'bg-green-400' :
+                      connectionStatus === 'testing' ? 'bg-yellow-400' : 'bg-red-400'
+                    }`}></span>
+                    {connectionStatus === 'connected' ? 'En ligne' :
+                     connectionStatus === 'testing' ? 'Test connexion...' : 'Problème connexion'}
+                    • Expert • 15+ ans
+                  </p>
                 </div>
               </div>
               <button
@@ -620,7 +665,7 @@ export const ChatBot = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Enhanced Input Area */}
+            {/* Enhanced Input Area with connection status */}
             <div className="p-4 border-t border-white/10 relative z-[60] bg-black/20 backdrop-blur-sm">
               <div className="flex space-x-2">
                 <input
@@ -628,7 +673,11 @@ export const ChatBot = () => {
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
-                  placeholder="Posez-moi n'importe quelle question : technique, business, stratégique..."
+                  placeholder={connectionStatus === 'connected' ? 
+                    "Posez-moi n'importe quelle question : technique, business, stratégique..." :
+                    connectionStatus === 'testing' ? "Test de connexion en cours..." :
+                    "Problème de connexion - Réessayez ou appelez +212 607 79 86 70"
+                  }
                   className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 backdrop-blur-sm relative z-[60] text-sm"
                   disabled={isLoading || isConversationEnded}
                 />
@@ -644,6 +693,9 @@ export const ChatBot = () => {
                 🧠 Expert IA • 🚀 Conseils stratégiques • 🔧 Solutions techniques • 💼 Projets business
                 {conversationData.leadScore && (
                   <span className="ml-2">• 📊 Score: {conversationData.leadScore}/100</span>
+                )}
+                {connectionStatus !== 'connected' && (
+                  <span className="ml-2 text-red-400">• ⚠️ Connexion instable</span>
                 )}
               </p>
             </div>
