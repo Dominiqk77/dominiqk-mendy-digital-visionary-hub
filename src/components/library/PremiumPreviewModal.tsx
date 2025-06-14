@@ -11,7 +11,9 @@ import { Progress } from "@/components/ui/progress";
 import { 
   Eye, Download, Star, Clock, Users, Shield, ArrowRight, Sparkles, 
   ChevronRight, ChevronLeft, BookOpen, Zap, Target, Trophy,
-  TrendingUp, DollarSign, BarChart3, Lightbulb, Crown
+  TrendingUp, DollarSign, BarChart3, Lightbulb, Crown, Brain,
+  Rocket, Settings, Users2, Globe, MapPin, Calculator, Award,
+  CheckCircle2, AlertTriangle, Briefcase
 } from 'lucide-react';
 
 interface PremiumPreviewModalProps {
@@ -134,6 +136,166 @@ const PremiumPreviewModal: React.FC<PremiumPreviewModalProps> = ({
         text: "Le framework AI-PROFIT a transformé notre approche. Résultats immédiatement visibles.",
         author: "Emma S., VP Strategy Corp",
         result: "Transformation immédiate"
+      }
+    },
+    {
+      page: 6,
+      title: "🧠 Automatisation Intelligente Avancée",
+      content: "Au-delà de l'automatisation basique, découvrez comment créer des systèmes IA qui apprennent et s'adaptent. Ces algorithmes évolutifs ont permis à mes clients d'économiser en moyenne 60% de leurs coûts opérationnels.",
+      highlight: "60% de réduction des coûts opérationnels en moyenne",
+      visuals: {
+        icon: <Brain className="w-8 h-8" />,
+        stats: "-60% coûts opérationnels",
+        color: "from-indigo-400 to-purple-600"
+      },
+      testimonial: {
+        text: "L'automatisation intelligente a réduit nos coûts de 65% tout en améliorant la qualité de service.",
+        author: "Antoine B., COO InnovateTech",
+        result: "-65% coûts, +40% qualité"
+      }
+    },
+    {
+      page: 7,
+      title: "🚀 Stratégies de Mise à l'Échelle IA",
+      content: "Comment passer de l'expérimentation IA à l'implémentation à grande échelle. Ma méthode SCALE-AI permet de déployer l'IA dans toute l'organisation sans résistance au changement.",
+      highlight: "95% de taux d'adoption en entreprise avec SCALE-AI",
+      visuals: {
+        icon: <Rocket className="w-8 h-8" />,
+        stats: "95% adoption rate",
+        color: "from-pink-400 to-red-600"
+      },
+      testimonial: {
+        text: "SCALE-AI nous a permis de déployer l'IA dans 12 départements en 3 mois. Adoption record.",
+        author: "Claire D., Chief Digital Officer",
+        result: "12 depts en 3 mois"
+      }
+    },
+    {
+      page: 8,
+      title: "⚙️ Templates et Outils Prêts à l'Emploi",
+      content: "Plus de 50 templates exclusifs : prompts optimisés, workflows automatisés, dashboards de performance. Ces outils ont une valeur commerciale de 15,000€ et vous font gagner 6 mois de développement.",
+      highlight: "50+ templates d'une valeur de 15,000€",
+      visuals: {
+        icon: <Settings className="w-8 h-8" />,
+        stats: "50+ templates, 15k€ valeur",
+        color: "from-cyan-400 to-blue-600"
+      },
+      testimonial: {
+        text: "Les templates m'ont fait économiser 6 mois de développement. Implémentation immédiate !",
+        author: "Thomas G., Tech Lead StartupIA",
+        result: "6 mois économisés"
+      }
+    },
+    {
+      page: 9,
+      title: "👥 Gestion d'Équipe IA-Augmentée",
+      content: "Transformez votre équipe en super-performers grâce à l'IA collaborative. Mes techniques de management augmenté permettent d'améliorer la productivité de 400% tout en réduisant le stress.",
+      highlight: "+400% productivité équipe, -50% stress",
+      visuals: {
+        icon: <Users2 className="w-8 h-8" />,
+        stats: "+400% productivité",
+        color: "from-green-400 to-teal-600"
+      },
+      testimonial: {
+        text: "Notre équipe est 4x plus productive et paradoxalement moins stressée. Management révolutionnaire !",
+        author: "Marie F., Team Manager InnoLab",
+        result: "+400% productivité"
+      }
+    },
+    {
+      page: 10,
+      title: "🌍 Expansion Internationale avec l'IA",
+      content: "Comment l'IA peut propulser votre entreprise sur les marchés internationaux. Stratégies de localisation automatisée, analyse prédictive des marchés, et adaptation culturelle intelligente.",
+      highlight: "Expansion 10x plus rapide avec l'IA",
+      visuals: {
+        icon: <Globe className="w-8 h-8" />,
+        stats: "10x expansion speed",
+        color: "from-orange-400 to-red-600"
+      },
+      testimonial: {
+        text: "Grâce à l'IA, nous avons conquis 5 nouveaux pays en 4 mois au lieu des 3 ans prévus.",
+        author: "Pedro S., International Director",
+        result: "5 pays en 4 mois"
+      }
+    },
+    {
+      page: 11,
+      title: "📍 Études de Cas Sectorielles",
+      content: "Analyses détaillées de 15 secteurs : e-commerce, santé, finance, industrie, services... Découvrez les applications IA spécifiques qui génèrent le plus de valeur dans votre domaine.",
+      highlight: "15 secteurs analysés, stratégies sur-mesure",
+      visuals: {
+        icon: <MapPin className="w-8 h-8" />,
+        stats: "15 secteurs analysés",
+        color: "from-purple-400 to-indigo-600"
+      },
+      testimonial: {
+        text: "L'analyse sectorielle m'a donné une roadmap précise pour mon industrie. ROI immédiat.",
+        author: "Vincent R., CEO MedTech Solutions",
+        result: "Roadmap sector-specific"
+      }
+    },
+    {
+      page: 12,
+      title: "🧮 Calculateur ROI IA Exclusif",
+      content: "Mon outil propriétaire pour calculer précisément le ROI de vos investissements IA. Basé sur 1000+ projets analysés, il prédit votre retour sur investissement avec 95% de précision.",
+      highlight: "95% de précision dans les prédictions ROI",
+      visuals: {
+        icon: <Calculator className="w-8 h-8" />,
+        stats: "95% précision ROI",
+        color: "from-yellow-400 to-amber-600"
+      },
+      testimonial: {
+        text: "Le calculateur ROI m'a aidé à justifier un investissement de 500k€. Prédictions ultra-précises.",
+        author: "Alain M., CFO TechGlobal",
+        result: "500k€ investissement validé"
+      }
+    },
+    {
+      page: 13,
+      title: "🏅 Certification et Reconnaissance",
+      content: "Devenez un leader reconnu dans votre secteur grâce à ma méthode de positioning IA. Construisez votre expertise, obtenez des certifications valorisantes et positionnez-vous comme l'expert de référence.",
+      highlight: "Devenez THE expert IA de votre secteur",
+      visuals: {
+        icon: <Award className="w-8 h-8" />,
+        stats: "Expert status achieved",
+        color: "from-emerald-400 to-green-600"
+      },
+      testimonial: {
+        text: "Je suis maintenant reconnu comme l'expert IA de mon secteur. Opportunités business décuplées.",
+        author: "Isabelle L., Consultante IA",
+        result: "Expert status + business"
+      }
+    },
+    {
+      page: 14,
+      title: "✅ Plan d'Action 90 Jours",
+      content: "Votre feuille de route complète pour implémenter l'IA en 90 jours. Planning détaillé, jalons mesurables, check-lists quotidiennes. Plus de 90% de mes clients atteignent leurs objectifs avec ce plan.",
+      highlight: "90% de réussite avec le plan d'action 90 jours",
+      visuals: {
+        icon: <CheckCircle2 className="w-8 h-8" />,
+        stats: "90% success rate",
+        color: "from-blue-400 to-cyan-600"
+      },
+      testimonial: {
+        text: "Le plan 90 jours m'a donné une structure claire. J'ai atteint tous mes objectifs en 85 jours.",
+        author: "François P., Entrepreneur",
+        result: "Objectifs en 85 jours"
+      }
+    },
+    {
+      page: 15,
+      title: "⚠️ Éviter les 10 Pièges Mortels de l'IA",
+      content: "Les erreurs qui coûtent des millions aux entreprises. J'ai analysé 200+ échecs d'implémentation IA pour identifier les 10 pièges les plus dangereux et comment les éviter absolument.",
+      highlight: "200+ échecs analysés, 10 pièges identifiés",
+      visuals: {
+        icon: <AlertTriangle className="w-8 h-8" />,
+        stats: "200+ échecs analysés",
+        color: "from-red-400 to-pink-600"
+      },
+      testimonial: {
+        text: "Connaître ces pièges m'a évité une perte estimée à 800k€. Information inestimable !",
+        author: "Nicolas H., CTO ScaleUp",
+        result: "800k€ loss avoided"
       }
     }
   ];
@@ -378,26 +540,26 @@ const PremiumPreviewModal: React.FC<PremiumPreviewModalProps> = ({
                 </div>
               </div>
 
-              {/* Teaser pour les pages suivantes */}
+              {/* Teaser pour les pages suivantes - seulement à la dernière page */}
               {currentPage === premiumPages.length - 1 && (
                 <div className="bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-2xl p-8 text-center animate-pulse">
                   <Trophy className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
-                  <h4 className="text-2xl font-bold text-yellow-300 mb-4">🔥 Et ce n'est que le début !</h4>
+                  <h4 className="text-2xl font-bold text-yellow-300 mb-4">🔥 Vous avez vu l'aperçu complet !</h4>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     <div className="bg-white/5 rounded-xl p-4">
-                      <BarChart3 className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                      <h5 className="font-bold text-white mb-2">10 pages de plus</h5>
-                      <p className="text-blue-200 text-sm">Cas d'études détaillés avec ROI documenté</p>
+                      <Briefcase className="w-8 h-8 text-blue-400 mx-auto mb-2" />
+                      <h5 className="font-bold text-white mb-2">Contenu exclusif</h5>
+                      <p className="text-blue-200 text-sm">Accès aux 200+ pages complètes avec détails techniques</p>
                     </div>
                     <div className="bg-white/5 rounded-xl p-4">
                       <Target className="w-8 h-8 text-green-400 mx-auto mb-2" />
                       <h5 className="font-bold text-white mb-2">Templates exclusifs</h5>
-                      <p className="text-blue-200 text-sm">Outils prêts à l'emploi (valeur 500€)</p>
+                      <p className="text-blue-200 text-sm">50+ outils prêts à l'emploi (valeur 15,000€)</p>
                     </div>
                     <div className="bg-white/5 rounded-xl p-4">
                       <Crown className="w-8 h-8 text-yellow-400 mx-auto mb-2" />
                       <h5 className="font-bold text-white mb-2">Accès VIP</h5>
-                      <p className="text-blue-200 text-sm">Communauté + support 6 mois</p>
+                      <p className="text-blue-200 text-sm">Communauté + support expert 6 mois</p>
                     </div>
                   </div>
                 </div>
