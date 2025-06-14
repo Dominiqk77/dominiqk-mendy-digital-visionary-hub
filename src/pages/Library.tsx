@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -513,17 +514,16 @@ const Library = () => {
                   </div>
                 </div>
                 
-                {/* Colonne droite avec l'image de couverture */}
-                <div className="relative lg:min-h-[800px] flex items-center justify-center p-12 bg-gradient-to-br from-yellow-500/10 via-orange-500/10 to-red-500/10 backdrop-blur-sm">
-                  {/* Background décoratif attractif */}
+                {/* Colonne droite avec l'image de couverture - Version améliorée */}
+                <div className="relative lg:min-h-[800px] flex items-center justify-center p-8 bg-transparent">
+                  {/* Background décoratif sans beige */}
                   <div className="absolute inset-0">
-                    <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 via-orange-500/20 to-red-500/20"></div>
-                    <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400/20 rounded-full blur-xl animate-pulse"></div>
-                    <div className="absolute bottom-10 right-10 w-40 h-40 bg-orange-500/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-                    <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-red-500/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+                    <div className="absolute top-20 left-10 w-40 h-40 bg-yellow-400/10 rounded-full blur-2xl animate-pulse"></div>
+                    <div className="absolute bottom-20 right-10 w-48 h-48 bg-orange-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+                    <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-red-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
                   </div>
                   
-                  <div className="relative z-10">
+                  <div className="relative z-10 w-full flex justify-center">
                     {(() => {
                       const optimized = getOptimizedBookData(featuredEbook);
                       return optimized.coverImage ? (
@@ -531,20 +531,21 @@ const Library = () => {
                           <img 
                             src={optimized.coverImage} 
                             alt={optimized.headline}
-                            className="max-w-sm w-full h-auto shadow-2xl rounded-xl transform hover:scale-110 transition-all duration-500 group-hover:shadow-[0_0_50px_rgba(251,191,36,0.5)]"
+                            className="w-80 lg:w-96 h-auto shadow-2xl rounded-xl transform hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(251,191,36,0.6)]"
                           />
-                          {/* Glow effect autour de l'image */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-orange-500/20 rounded-xl blur-lg -z-10 transform scale-110 opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
+                          {/* Glow effect amélioré autour de l'image */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/15 to-orange-500/15 rounded-xl blur-xl -z-10 transform scale-110 opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
+                          {/* Badge de réduction positionné */}
+                          <div className="absolute -top-6 -right-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-3 rounded-full font-bold text-lg animate-bounce shadow-lg">
+                            🔥 -50%
+                          </div>
                         </div>
                       ) : (
-                        <div className="w-80 h-96 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg shadow-2xl flex items-center justify-center">
+                        <div className="w-80 lg:w-96 h-[500px] bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg shadow-2xl flex items-center justify-center">
                           <BookOpen className="w-20 h-20 text-white/80" />
                         </div>
                       );
                     })()}
-                    <div className="absolute -top-4 -right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-4 py-2 rounded-full font-bold text-sm animate-bounce">
-                      🔥 -50%
-                    </div>
                   </div>
                 </div>
               </div>
@@ -553,7 +554,7 @@ const Library = () => {
         </PageContainer>
       )}
 
-      {/* Search and Filter Section - garde le design exact */}
+      {/* Search and Filter Section */}
       <PageContainer className="py-16">
         <div className="max-w-6xl mx-auto">
           <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-8 mb-12 shadow-space-glow">
