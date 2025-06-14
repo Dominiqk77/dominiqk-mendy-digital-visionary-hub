@@ -248,6 +248,22 @@ const Library = () => {
         proof: "⭐ Note 4.9/5 basée sur 1,247 avis vérifiés",
         coverImage: "/lovable-uploads/dbdfc6e9-fdbf-449b-8513-b785afbb1367.png"
       },
+      "IA Business Mastery - Le Guide Ultra-Rentable du Leader Digital": {
+        headline: "IA Business Mastery",
+        subtitle: "52 pages de stratégies IA éprouvées pour multiplier vos revenus par 3 en 12 mois (ROI documenté +250%)",
+        cta: "Accès Immédiat - Valeur 497€",
+        benefits: [
+          "🎯 Méthodes exclusives des leaders internationaux (500+ clients)",
+          "📊 ROI moyen +250% documenté avec preuves terrain",
+          "🏆 15 ans d'expertise condensés en stratégies actionnables",
+          "🎁 BONUS: Templates + Calculateur ROI (valeur 200€)"
+        ],
+        urgency: "🔥 OFFRE LIMITÉE - Plus que 47 exemplaires à ce prix",
+        social: `✅ Téléchargé par ${visitorCount.toLocaleString()}+ leaders digitaux`,
+        guarantee: "💎 30 jours satisfait ou remboursé + ROI garanti",
+        proof: "⭐ Note 4.9/5 basée sur 1,247 avis vérifiés",
+        coverImage: "/lovable-uploads/dbdfc6e9-fdbf-449b-8513-b785afbb1367.png"
+      },
       "NEW DEAL TECHNOLOGIQUE SÉNÉGAL - Le Guide des Investisseurs": {
         headline: "NEW DEAL TECHNOLOGIQUE SÉNÉGAL",
         subtitle: "2.5 Milliards d'€ d'Opportunités Tech Révélées - Intelligence économique exclusive pour investisseurs avisés (ROI projeté 300-500%)",
