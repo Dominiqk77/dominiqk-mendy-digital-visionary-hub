@@ -282,8 +282,8 @@ const Library = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Banner d'urgence sticky sous la navbar */}
-      <div className="sticky top-0 z-40 bg-gradient-to-r from-red-600 to-red-700 text-white py-3 px-4 text-center text-sm font-bold shadow-lg">
+      {/* Banner d'urgence sous la navbar */}
+      <div className="bg-gradient-to-r from-red-600 to-red-700 text-white py-3 px-4 text-center text-sm font-bold shadow-lg">
         🔥 OFFRE LIMITÉE: -50% sur tous les livres premium • Expire dans {urgencyTimer.hours}h {urgencyTimer.minutes}m {urgencyTimer.seconds}s • Plus que 47 exemplaires disponibles
       </div>
       
@@ -299,7 +299,7 @@ const Library = () => {
           <div className="absolute inset-0 bg-space-grid opacity-20"></div>
         </div>
         
-        <PageContainer className="relative z-10 pt-32 pb-20">
+        <PageContainer className="relative z-10 pt-20 pb-20">
           <div className="text-center max-w-5xl mx-auto">
             <div className="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-2 mb-8 animate-fade-in">
               <Crown className="w-5 h-5 text-yellow-400 mr-2" />
