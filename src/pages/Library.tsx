@@ -345,13 +345,16 @@ const Library = () => {
 
         {featuredEbooks.length > 0 && (
           <PageContainer className="py-10 md:py-20">
-            <div className="text-center mb-12 px-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
+            <div className="text-center mb-16 px-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">
                 📚 <span className="text-cyan-400">Livres Vedettes</span>
               </h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+              <div className="space-y-12 max-w-8xl mx-auto">
                 {featuredEbooks.slice(0, 2).map((ebook, index) => (
-                  <div key={ebook.id} className="transform hover:scale-105 transition-transform duration-300">
+                  <div 
+                    key={ebook.id} 
+                    className="transform hover:scale-[1.02] transition-transform duration-500"
+                  >
                     <EnhancedBookCard
                       ebook={ebook}
                       optimizedData={getOptimizedBookData(ebook)}

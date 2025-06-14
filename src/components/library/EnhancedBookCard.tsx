@@ -42,7 +42,7 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
 
   return (
     <Card 
-      className="bg-white/10 backdrop-blur-xl border border-white/20 hover:border-cyan-400/50 transition-all duration-500 hover:shadow-cosmic hover:scale-105 group relative overflow-hidden"
+      className="bg-white/10 backdrop-blur-xl border border-white/20 hover:border-cyan-400/50 transition-all duration-500 hover:shadow-cosmic hover:scale-105 group relative overflow-hidden max-w-2xl mx-auto"
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       {/* Glow effect background */}
@@ -64,17 +64,21 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
         ))}
       </div>
 
-      {/* Book Cover Image - Plus grande taille */}
-      <div className="relative h-64 md:h-80 overflow-hidden rounded-t-lg">
+      {/* Book Cover Image - Optimisé pour une meilleure présentation */}
+      <div className="relative h-96 md:h-[500px] overflow-hidden rounded-t-lg bg-gradient-to-br from-slate-800 to-slate-900">
         <img 
           src={bookCover}
           alt={ebook.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 p-4"
+          onError={(e) => {
+            console.log('Image failed to load:', bookCover);
+            e.currentTarget.src = "/placeholder.svg";
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
         
         {ebook.featured && (
-          <Badge className="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold text-xs animate-bounce">
+          <Badge className="absolute top-6 right-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold text-xs animate-bounce">
             <Crown className="w-3 h-3 mr-1" />
             Bestseller
           </Badge>
