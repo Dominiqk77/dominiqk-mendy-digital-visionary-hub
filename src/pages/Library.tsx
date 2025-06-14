@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -15,6 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 import { useDominiqkLibrary } from '@/hooks/useDominiqkLibrary';
 import LeadCaptureModal from '@/components/library/LeadCaptureModal';
+import PreviewModal from '@/components/library/PreviewModal';
 import DownloadSuccessPage from '@/components/library/DownloadSuccessPage';
 
 interface Ebook {
