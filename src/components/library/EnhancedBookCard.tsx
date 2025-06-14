@@ -16,6 +16,7 @@ interface EnhancedBookCardProps {
     category: string;
     pages?: number;
     featured: boolean;
+    cover_image_url?: string;
   };
   optimizedData: {
     headline: string;
@@ -23,6 +24,7 @@ interface EnhancedBookCardProps {
     cta: string;
     urgency: string;
     social: string;
+    coverImage?: string;
   };
   onAccess: () => void;
   onPreview: () => void;
@@ -36,6 +38,8 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
   onPreview,
   index
 }) => {
+  const bookCover = optimizedData.coverImage || ebook.cover_image_url || "/placeholder.svg";
+
   return (
     <Card 
       className="bg-white/10 backdrop-blur-xl border border-white/20 hover:border-cyan-400/50 transition-all duration-500 hover:shadow-cosmic hover:scale-105 group relative overflow-hidden"
@@ -59,18 +63,29 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
           />
         ))}
       </div>
+
+      {/* Book Cover Image */}
+      <div className="relative h-48 md:h-56 overflow-hidden rounded-t-lg">
+        <img 
+          src={bookCover}
+          alt={ebook.title}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+        
+        {ebook.featured && (
+          <Badge className="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold text-xs animate-bounce">
+            <Crown className="w-3 h-3 mr-1" />
+            Bestseller
+          </Badge>
+        )}
+      </div>
       
       <CardHeader className="space-y-4 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-start space-y-2 md:space-y-0">
           <Badge variant="secondary" className="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs animate-pulse">
             {ebook.category}
           </Badge>
-          {ebook.featured && (
-            <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold text-xs animate-bounce">
-              <Crown className="w-3 h-3 mr-1" />
-              Bestseller
-            </Badge>
-          )}
         </div>
         
         <CardTitle className="text-lg md:text-xl text-white group-hover:text-cyan-300 transition-colors duration-300">

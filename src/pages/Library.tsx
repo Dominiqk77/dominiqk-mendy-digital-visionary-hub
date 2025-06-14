@@ -32,6 +32,7 @@ interface Ebook {
   category: string;
   pages?: number;
   featured: boolean;
+  cover_image_url: string;
 }
 
 const Library = () => {
@@ -270,7 +271,8 @@ const Library = () => {
       urgency: "",
       social: "",
       guarantee: "",
-      proof: ""
+      proof: "",
+      coverImage: book.cover_image_url || "/placeholder.svg"
     };
   };
 
@@ -343,8 +345,20 @@ const Library = () => {
 
         {featuredEbook && (
           <PageContainer className="py-10 md:py-20">
-            {/* Featured Book Section */}
-            <div></div>
+            <div className="text-center mb-12 px-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
+                📚 <span className="text-cyan-400">Livre Vedette</span>
+              </h2>
+              <div className="max-w-4xl mx-auto">
+                <EnhancedBookCard
+                  ebook={featuredEbook}
+                  optimizedData={getOptimizedBookData(featuredEbook)}
+                  onAccess={() => handleBookAccess(featuredEbook)}
+                  onPreview={() => handlePreviewRequest(featuredEbook)}
+                  index={0}
+                />
+              </div>
+            </div>
           </PageContainer>
         )}
 
