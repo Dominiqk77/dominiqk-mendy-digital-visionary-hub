@@ -38,7 +38,8 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
   onPreview,
   index
 }) => {
-  const bookCover = optimizedData.coverImage || ebook.cover_image_url || "/placeholder.svg";
+  // Force l'utilisation de optimizedData.coverImage en priorité
+  const bookCover = optimizedData.coverImage || "/placeholder.svg";
   
   console.log('EnhancedBookCard render for:', ebook.title);
   console.log('optimizedData.coverImage:', optimizedData.coverImage);
