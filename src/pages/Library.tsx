@@ -135,6 +135,7 @@ const Library = () => {
   });
 
   const featuredEbook = ebooks?.find(ebook => ebook.featured);
+  const iaMasteryBook = ebooks?.find(ebook => ebook.title.includes("IA Business Mastery"));
 
   const handleBookAccess = (book: Ebook) => {
     setSelectedBook(book);
@@ -248,7 +249,7 @@ const Library = () => {
         social: `✅ Téléchargé par ${visitorCount.toLocaleString()}+ leaders digitaux`,
         guarantee: "💎 30 jours satisfait ou remboursé + ROI garanti",
         proof: "⭐ Note 4.9/5 basée sur 1,247 avis vérifiés",
-        coverImage: "/lovable-uploads/f2e91082-c538-456a-83be-44ca7ca3dc1a.png"
+        coverImage: "/lovable-uploads/3ad8bb03-9d5c-40ea-8e22-44614d0c4695.png"
       },
       "NEW DEAL TECHNOLOGIQUE SÉNÉGAL - Le Guide des Investisseurs": {
         headline: "NEW DEAL TECHNOLOGIQUE SÉNÉGAL",
@@ -375,7 +376,189 @@ const Library = () => {
         </PageContainer>
       </div>
 
-      {/* Featured Book Section avec conversion ultra-optimisée */}
+      {/* Section IA Business Mastery - Nouvelle section dédiée */}
+      {iaMasteryBook && (
+        <PageContainer className="py-20">
+          {(() => {
+            const optimized = getOptimizedBookData(iaMasteryBook);
+            return (
+              <div className="text-center mb-16">
+                <div className="inline-flex items-center bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full font-bold mb-6 shadow-glow-blue animate-pulse">
+                  <Sparkles className="w-5 h-5 mr-2" />
+                  GUIDE EXPERT N°1 - STRATÉGIES IA ULTRA-RENTABLES
+                </div>
+                <h2 className="text-5xl font-bold text-white mb-6">
+                  <span className="text-blue-400">{optimized.headline}</span>
+                </h2>
+                <p className="text-2xl text-blue-200 max-w-4xl mx-auto mb-6">
+                  {optimized.subtitle}
+                </p>
+                <div className="space-y-2">
+                  <p className="text-green-300 font-semibold text-lg">{optimized.social}</p>
+                  {optimized.proof && (
+                    <p className="text-yellow-300 font-medium">{optimized.proof}</p>
+                  )}
+                </div>
+              </div>
+            );
+          })()}
+          
+          <div className="max-w-7xl mx-auto">
+            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-space-glow">
+              <div className="grid lg:grid-cols-2 gap-0">
+                <div className="p-12 lg:p-16 space-y-8">
+                  {(() => {
+                    const optimized = getOptimizedBookData(iaMasteryBook);
+                    return (
+                      <div>
+                        <div className="flex items-center space-x-4 mb-6">
+                          <Badge className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 text-sm font-bold animate-pulse">
+                            🤖 EXPERTISE IA EXCLUSIVE
+                          </Badge>
+                          <Badge className="bg-green-500/20 text-green-400 border border-green-500/30">
+                            -50% Prix Lancement
+                          </Badge>
+                          <Badge className="bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
+                            ⏱️ {urgencyTimer.hours}h {urgencyTimer.minutes}m
+                          </Badge>
+                        </div>
+                        
+                        <h3 className="text-4xl font-bold text-white mb-6">{optimized.headline}</h3>
+                        
+                        {/* Benefits ultra-rentables */}
+                        <div className="space-y-3 mb-8">
+                          {optimized.benefits.map((benefit: string, index: number) => (
+                            <div key={index} className="flex items-start">
+                              <div className="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                              <p className="text-blue-200">{benefit}</p>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Garantie premium */}
+                        {optimized.guarantee && (
+                          <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-6">
+                            <p className="text-green-300 font-semibold text-center">{optimized.guarantee}</p>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
+                  
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 mb-8">
+                    <div className="flex items-center justify-between mb-6">
+                      <div>
+                        <div className="flex items-baseline space-x-3">
+                          <span className="text-4xl font-bold text-green-400">{iaMasteryBook.price}€</span>
+                          <span className="text-2xl text-gray-400 line-through">{Math.round(iaMasteryBook.price * 2)}€</span>
+                          <Badge className="bg-red-500 text-white px-3 py-1 font-bold">-50%</Badge>
+                        </div>
+                        <p className="text-sm text-blue-300 mt-2">
+                          Offre limitée - Expire dans {urgencyTimer.hours}h {urgencyTimer.minutes}m {urgencyTimer.seconds}s
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <div className="bg-red-500/20 text-red-400 px-3 py-1 rounded-full text-sm font-medium animate-pulse">
+                          ⏱️ Plus que 47 exemplaires
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    <div className="flex items-center text-blue-200">
+                      <BookOpen className="w-5 h-5 mr-3 text-blue-400" />
+                      <span>{iaMasteryBook.pages} pages d'expertise pure</span>
+                    </div>
+                    <div className="flex items-center text-blue-200">
+                      <Download className="w-5 h-5 mr-3 text-green-400" />
+                      <span>Téléchargement immédiat</span>
+                    </div>
+                    <div className="flex items-center text-blue-200">
+                      <Shield className="w-5 h-5 mr-3 text-purple-400" />
+                      <span>Accès à vie + mises à jour</span>
+                    </div>
+                    <div className="flex items-center text-blue-200">
+                      <Users className="w-5 h-5 mr-3 text-yellow-400" />
+                      <span>Support expert inclus</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Button 
+                      onClick={() => handleBookAccess(iaMasteryBook)}
+                      disabled={isProcessingPayment}
+                      className="w-full bg-gradient-to-r from-blue-500 via-purple-600 to-indigo-600 hover:from-blue-600 hover:via-purple-700 hover:to-indigo-700 text-white py-4 text-lg font-bold shadow-cosmic-lg transition-all duration-300 hover:shadow-cosmic-lg hover:scale-105"
+                    >
+                      <Sparkles className="w-5 h-5 mr-2" />
+                      {isProcessingPayment ? 'Traitement...' : 'Accès Immédiat - Acheter Maintenant'}
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full border-white/30 text-white hover:bg-white/10 py-4"
+                      onClick={() => handlePreviewRequest(iaMasteryBook)}
+                    >
+                      <Eye className="w-5 h-5 mr-2" />
+                      Aperçu Gratuit (15 premières pages)
+                    </Button>
+                  </div>
+
+                  {/* Social proof ultime */}
+                  <div className="text-center space-y-2 pt-4 border-t border-white/10">
+                    <p className="text-xs text-green-300">
+                      🟢 Laurent B. vient d'acheter ce livre (il y a 2 min) - "ROI +320% en 6 mois"
+                    </p>
+                    <p className="text-xs text-blue-300">
+                      💬 "Le guide qui a transformé mon business IA" - Sophie R., Entrepreneur
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Colonne droite avec l'image de couverture */}
+                <div className="relative lg:min-h-[800px] flex items-center justify-center p-4 bg-transparent">
+                  {/* Background décoratif */}
+                  <div className="absolute inset-0">
+                    <div className="absolute top-20 left-10 w-40 h-40 bg-blue-400/10 rounded-full blur-2xl animate-pulse"></div>
+                    <div className="absolute bottom-20 right-10 w-48 h-48 bg-purple-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+                    <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-red-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+                  </div>
+                  
+                  <div className="relative z-10 w-full flex justify-center">
+                    {(() => {
+                      const optimized = getOptimizedBookData(iaMasteryBook);
+                      return optimized.coverImage ? (
+                        <div className="relative group">
+                          <img 
+                            src={optimized.coverImage} 
+                            alt={optimized.headline}
+                            className="w-[550px] lg:w-[600px] h-auto shadow-2xl rounded-xl transform hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(59,130,246,0.6)] object-contain mix-blend-normal"
+                            style={{ 
+                              backgroundColor: 'transparent',
+                              filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
+                            }}
+                          />
+                          {/* Glow effect amélioré autour de l'image */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 rounded-xl blur-xl -z-10 transform scale-110 opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
+                          {/* Badge de réduction positionné */}
+                          <div className="absolute -top-6 -right-6 bg-gradient-to-r from-blue-400 to-purple-500 text-white px-6 py-3 rounded-full font-bold text-lg animate-bounce shadow-lg z-10">
+                            🤖 -50%
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="w-[550px] lg:w-[600px] h-[700px] bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg shadow-2xl flex items-center justify-center">
+                          <BookOpen className="w-20 h-20 text-white/80" />
+                        </div>
+                      );
+                    })()}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </PageContainer>
+      )}
+
+      {/* Featured Book Section avec conversion ultra-optimisée - Section NEW DEAL */}
       {featuredEbook && (
         <PageContainer className="py-20">
           {(() => {
