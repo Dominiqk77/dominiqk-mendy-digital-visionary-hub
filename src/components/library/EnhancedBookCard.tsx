@@ -64,8 +64,8 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
         ))}
       </div>
 
-      {/* Book Cover Image */}
-      <div className="relative h-48 md:h-56 overflow-hidden rounded-t-lg">
+      {/* Book Cover Image - Plus grande taille */}
+      <div className="relative h-64 md:h-80 overflow-hidden rounded-t-lg">
         <img 
           src={bookCover}
           alt={ebook.title}
