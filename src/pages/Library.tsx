@@ -228,6 +228,9 @@ const Library = () => {
   };
 
   const getOptimizedBookData = (book: Ebook) => {
+    console.log('getOptimizedBookData called for book:', book.title);
+    console.log('Book cover_image_url:', book.cover_image_url);
+    
     const optimizations: {[key: string]: any} = {
       "IA Business Mastery": {
         headline: "IA Business Mastery",
@@ -243,7 +246,7 @@ const Library = () => {
         social: `✅ Téléchargé par ${visitorCount.toLocaleString()}+ leaders digitaux`,
         guarantee: "💎 30 jours satisfait ou remboursé + ROI garanti",
         proof: "⭐ Note 4.9/5 basée sur 1,247 avis vérifiés",
-        coverImage: "/lovable-uploads/dbdfc6e9-fdbf-449b-8513-b785afbb1367.png"
+        coverImage: book.cover_image_url || "/lovable-uploads/dbdfc6e9-fdbf-449b-8513-b785afbb1367.png"
       },
       "NEW DEAL TECHNOLOGIQUE SÉNÉGAL - Le Guide des Investisseurs": {
         headline: "NEW DEAL TECHNOLOGIQUE SÉNÉGAL",
@@ -263,7 +266,7 @@ const Library = () => {
       }
     };
 
-    return optimizations[book.title] || {
+    const result = optimizations[book.title] || {
       headline: book.title,
       subtitle: book.description,
       cta: "Voir les détails",
@@ -274,6 +277,9 @@ const Library = () => {
       proof: "",
       coverImage: book.cover_image_url || "/placeholder.svg"
     };
+    
+    console.log('Final coverImage for', book.title, ':', result.coverImage);
+    return result;
   };
 
   return (

@@ -40,10 +40,20 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
 }) => {
   const bookCover = optimizedData.coverImage || ebook.cover_image_url || "/placeholder.svg";
   
+  console.log('EnhancedBookCard render for:', ebook.title);
+  console.log('optimizedData.coverImage:', optimizedData.coverImage);
+  console.log('ebook.cover_image_url:', ebook.cover_image_url);
+  console.log('Final bookCover URL:', bookCover);
+  
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    console.log('Image failed to load:', bookCover);
-    console.log('Trying fallback to placeholder');
+    console.log('Image failed to load for', ebook.title, ':', bookCover);
+    console.log('Switching to placeholder');
     e.currentTarget.src = "/placeholder.svg";
+    e.currentTarget.onerror = null; // Prevent infinite loop
+  };
+
+  const handleImageLoad = () => {
+    console.log('Image loaded successfully for', ebook.title, ':', bookCover);
   };
 
   return (
@@ -77,7 +87,7 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
           alt={ebook.title}
           className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500 p-6"
           onError={handleImageError}
-          onLoad={() => console.log('Image loaded successfully:', bookCover)}
+          onLoad={handleImageLoad}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
         
