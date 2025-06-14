@@ -514,16 +514,28 @@ const Library = () => {
                 </div>
                 
                 {/* Colonne droite avec l'image de couverture */}
-                <div className="relative lg:min-h-[800px] flex items-center justify-center p-12 bg-gradient-to-br from-blue-900/20 to-purple-900/20">
-                  <div className="relative">
+                <div className="relative lg:min-h-[800px] flex items-center justify-center p-12 bg-gradient-to-br from-yellow-500/10 via-orange-500/10 to-red-500/10 backdrop-blur-sm">
+                  {/* Background décoratif attractif */}
+                  <div className="absolute inset-0">
+                    <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 via-orange-500/20 to-red-500/20"></div>
+                    <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400/20 rounded-full blur-xl animate-pulse"></div>
+                    <div className="absolute bottom-10 right-10 w-40 h-40 bg-orange-500/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+                    <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-red-500/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+                  </div>
+                  
+                  <div className="relative z-10">
                     {(() => {
                       const optimized = getOptimizedBookData(featuredEbook);
                       return optimized.coverImage ? (
-                        <img 
-                          src={optimized.coverImage} 
-                          alt={optimized.headline}
-                          className="max-w-md w-full h-auto shadow-2xl rounded-lg transform hover:scale-105 transition-transform duration-300"
-                        />
+                        <div className="relative group">
+                          <img 
+                            src={optimized.coverImage} 
+                            alt={optimized.headline}
+                            className="max-w-sm w-full h-auto shadow-2xl rounded-xl transform hover:scale-110 transition-all duration-500 group-hover:shadow-[0_0_50px_rgba(251,191,36,0.5)]"
+                          />
+                          {/* Glow effect autour de l'image */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-orange-500/20 rounded-xl blur-lg -z-10 transform scale-110 opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        </div>
                       ) : (
                         <div className="w-80 h-96 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg shadow-2xl flex items-center justify-center">
                           <BookOpen className="w-20 h-20 text-white/80" />
