@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -179,9 +180,9 @@ const Library = () => {
         urgency: "🔥 Prix de lancement - Économisez 50€",
         social: "Téléchargé par 2,547+ leaders digitaux"
       },
-      "New Deal Technologique Sénégal - Le Guide des Investisseurs": {
-        headline: "2.5 Milliards d'€ d'Opportunités Tech Révélées",
-        subtitle: "Intelligence économique exclusive pour investisseurs avisés - ROI projeté 300-500%",
+      "NEW DEAL TECHNOLOGIQUE SÉNÉGAL - Le Guide des Investisseurs": {
+        headline: "NEW DEAL TECHNOLOGIQUE SÉNÉGAL",
+        subtitle: "2.5 Milliards d'€ d'Opportunités Tech Révélées - Intelligence économique exclusive pour investisseurs avisés",
         cta: "Rapport Premium - Accès Investisseurs",
         benefits: [
           "Opportunités d'investissement avec projections ROI détaillées",
@@ -190,7 +191,8 @@ const Library = () => {
           "Network d'investisseurs et entrepreneurs locaux"
         ],
         urgency: "⏰ Opportunités limitées dans le temps",
-        social: "Consulté par 850+ investisseurs internationaux"
+        social: "Consulté par 850+ investisseurs internationaux",
+        coverImage: "/lovable-uploads/63f9776c-5d90-4669-8666-21456fed58f0.png"
       }
     };
 
@@ -390,13 +392,35 @@ const Library = () => {
                 
                 <div className="bg-gradient-to-br from-blue-600/80 to-purple-700/80 p-12 lg:p-16 flex items-center justify-center relative overflow-hidden">
                   <div className="absolute inset-0 bg-space-grid opacity-20"></div>
-                  <div className="text-center text-white relative z-10">
-                    <div className="w-64 h-80 bg-white/10 backdrop-blur-sm rounded-2xl mb-8 flex items-center justify-center shadow-space-glow border border-white/20">
-                      <BookOpen className="w-20 h-20 text-white/60" />
-                    </div>
-                    <p className="text-xl font-semibold mb-2">Couverture premium</p>
-                    <p className="text-sm text-white/80">Design professionnel à venir</p>
-                  </div>
+                  {(() => {
+                    const optimized = getOptimizedBookData(featuredEbook);
+                    // Si c'est le livre NEW DEAL TECHNOLOGIQUE SÉNÉGAL et qu'il a une image
+                    if (optimized.coverImage && featuredEbook.title.includes("NEW DEAL TECHNOLOGIQUE SÉNÉGAL")) {
+                      return (
+                        <div className="text-center text-white relative z-10">
+                          <div className="w-64 h-80 bg-white/10 backdrop-blur-sm rounded-2xl mb-8 flex items-center justify-center shadow-space-glow border border-white/20 overflow-hidden">
+                            <img 
+                              src={optimized.coverImage} 
+                              alt={featuredEbook.title}
+                              className="w-full h-full object-cover rounded-2xl"
+                            />
+                          </div>
+                          <p className="text-xl font-semibold mb-2">Couverture exclusive</p>
+                          <p className="text-sm text-white/80">Guide d'investissement premium</p>
+                        </div>
+                      );
+                    }
+                    // Sinon affichage par défaut
+                    return (
+                      <div className="text-center text-white relative z-10">
+                        <div className="w-64 h-80 bg-white/10 backdrop-blur-sm rounded-2xl mb-8 flex items-center justify-center shadow-space-glow border border-white/20">
+                          <BookOpen className="w-20 h-20 text-white/60" />
+                        </div>
+                        <p className="text-xl font-semibold mb-2">Couverture premium</p>
+                        <p className="text-sm text-white/80">Design professionnel à venir</p>
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
             </div>
@@ -500,7 +524,6 @@ const Library = () => {
             })}
           </div>
 
-          {/* ... keep existing code (loading state and empty state) */}
           {ebooksLoading && (
             <div className="text-center py-20">
               <div className="relative">
