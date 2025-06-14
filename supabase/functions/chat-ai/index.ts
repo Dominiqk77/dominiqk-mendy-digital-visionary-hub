@@ -158,33 +158,27 @@ serve(async (req) => {
     console.log('🤖 Sending request to Genspark API...')
     console.log('📊 Total conversation context length:', conversationContext.length)
 
-    // Appel à l'API Genspark avec timeout et retry
+    // Appel corrigé à l'API Genspark interne avec authentification Supabase
     let gensparkResponse
     try {
-      const response = await fetch('https://rohwyheclmjmiuoksvuc.supabase.co/functions/v1/genspark-api', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${gensparkApiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      console.log('📡 Calling internal Genspark API function...')
+      const { data, error } = await supabase.functions.invoke('genspark-api', {
+        body: {
           prompt: conversationContext,
-          model: 'gpt-4o-mini', // Utilise le modèle par défaut de Genspark
+          model: 'gpt-4o-mini',
           max_tokens: 2000,
           temperature: 0.8,
-          stream: false
-        }),
+          stream: false,
+          api_key: gensparkApiKey // Passer la clé dans le body
+        }
       })
 
-      console.log('📡 Genspark API response status:', response.status)
-
-      if (!response.ok) {
-        const errorText = await response.text()
-        console.error('❌ Genspark API error response:', errorText)
-        throw new Error(`Genspark API error: ${response.status} - ${errorText}`)
+      if (error) {
+        console.error('❌ Supabase function invoke error:', error)
+        throw new Error(`Genspark function error: ${error.message}`)
       }
 
-      gensparkResponse = await response.json()
+      gensparkResponse = data
       console.log('✅ Genspark API response received successfully')
       
     } catch (apiError) {
@@ -192,10 +186,22 @@ serve(async (req) => {
       throw new Error(`Failed to communicate with Genspark API: ${apiError.message}`)
     }
 
-    // Extraction de la réponse avec validation
-    const assistantReply = gensparkResponse?.content || gensparkResponse?.text || gensparkResponse?.response
+    // Extraction de la réponse avec validation améliorée
+    let assistantReply = ''
     
-    if (!assistantReply) {
+    if (gensparkResponse?.content) {
+      assistantReply = gensparkResponse.content
+    } else if (gensparkResponse?.text) {
+      assistantReply = gensparkResponse.text
+    } else if (gensparkResponse?.response) {
+      assistantReply = gensparkResponse.response
+    } else if (gensparkResponse?.choices?.[0]?.message?.content) {
+      assistantReply = gensparkResponse.choices[0].message.content
+    } else if (typeof gensparkResponse === 'string') {
+      assistantReply = gensparkResponse
+    }
+    
+    if (!assistantReply || assistantReply.trim() === '') {
       console.error('❌ No valid response from Genspark:', gensparkResponse)
       throw new Error('No response generated from Genspark API')
     }
