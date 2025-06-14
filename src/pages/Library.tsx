@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -248,7 +249,8 @@ const Library = () => {
         urgency: "🔥 OFFRE LIMITÉE - Plus que 47 exemplaires à ce prix",
         social: `✅ Téléchargé par ${visitorCount.toLocaleString()}+ leaders digitaux`,
         guarantee: "💎 30 jours satisfait ou remboursé + ROI garanti",
-        proof: "⭐ Note 4.9/5 basée sur 1,247 avis vérifiés"
+        proof: "⭐ Note 4.9/5 basée sur 1,247 avis vérifiés",
+        coverImage: "/lovable-uploads/d32e77e6-1ef9-4080-b10f-d5b0b887a135.png"
       },
       "NEW DEAL TECHNOLOGIQUE SÉNÉGAL - Le Guide des Investisseurs": {
         headline: "NEW DEAL TECHNOLOGIQUE SÉNÉGAL",
@@ -264,7 +266,7 @@ const Library = () => {
         social: "📈 Consulté par 850+ investisseurs internationaux",
         guarantee: "🔒 Informations vérifiées + Mise à jour 6 mois",
         proof: "🏆 Seul rapport avec validation terrain 11 ans",
-        coverImage: "/lovable-uploads/63f9776c-5d90-4669-8666-21456fed58f0.png"
+        coverImage: "/lovable-uploads/643cc5c7-ac23-4364-b6ea-d63487fc376f.png"
       }
     };
 
@@ -282,12 +284,12 @@ const Library = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <Navbar />
-      
-      {/* Banner d'urgence sticky */}
-      <div className="sticky top-0 z-40 bg-gradient-to-r from-red-600 to-red-700 text-white py-2 px-4 text-center text-sm font-bold shadow-lg">
+      {/* Banner d'urgence sticky qui cache la navbar */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-red-600 to-red-700 text-white py-3 px-4 text-center text-sm font-bold shadow-lg">
         🔥 OFFRE LIMITÉE: -50% sur tous les livres premium • Expire dans {urgencyTimer.hours}h {urgencyTimer.minutes}m {urgencyTimer.seconds}s • Plus que 47 exemplaires disponibles
       </div>
+      
+      <Navbar />
       
       {/* Hero Section avec copywriting ultra-optimisé */}
       <div className="relative overflow-hidden">
@@ -299,7 +301,7 @@ const Library = () => {
           <div className="absolute inset-0 bg-space-grid opacity-20"></div>
         </div>
         
-        <PageContainer className="relative z-10 pt-32 pb-20">
+        <PageContainer className="relative z-10 pt-44 pb-20">
           <div className="text-center max-w-5xl mx-auto">
             <div className="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-2 mb-8 animate-fade-in">
               <Crown className="w-5 h-5 text-yellow-400 mr-2" />
@@ -513,7 +515,28 @@ const Library = () => {
                   </div>
                 </div>
                 
-                {/* ... keep existing code (right column with cover image) */}
+                {/* Colonne droite avec l'image de couverture */}
+                <div className="relative lg:min-h-[800px] flex items-center justify-center p-12 bg-gradient-to-br from-blue-900/20 to-purple-900/20">
+                  <div className="relative">
+                    {(() => {
+                      const optimized = getOptimizedBookData(featuredEbook);
+                      return optimized.coverImage ? (
+                        <img 
+                          src={optimized.coverImage} 
+                          alt={optimized.headline}
+                          className="max-w-md w-full h-auto shadow-2xl rounded-lg transform hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-80 h-96 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg shadow-2xl flex items-center justify-center">
+                          <BookOpen className="w-20 h-20 text-white/80" />
+                        </div>
+                      );
+                    })()}
+                    <div className="absolute -top-4 -right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-4 py-2 rounded-full font-bold text-sm animate-bounce">
+                      🔥 -50%
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -689,3 +712,4 @@ const Library = () => {
 };
 
 export default Library;
+
