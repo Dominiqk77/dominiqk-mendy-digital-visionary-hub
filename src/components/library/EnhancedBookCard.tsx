@@ -59,7 +59,7 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
 
   return (
     <Card 
-      className="bg-white/10 backdrop-blur-xl border border-white/20 hover:border-cyan-400/50 transition-all duration-500 hover:shadow-cosmic hover:scale-105 group relative overflow-hidden max-w-2xl mx-auto"
+      className="bg-white/10 backdrop-blur-xl border border-white/20 hover:border-cyan-400/50 transition-all duration-500 hover:shadow-cosmic hover:scale-105 group relative overflow-hidden max-w-2xl mx-auto shadow-xl"
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       {/* Glow effect background */}
@@ -100,7 +100,7 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
         )}
       </div>
       
-      <CardHeader className="space-y-4 relative z-10">
+      <CardHeader className="space-y-4 relative z-10 p-6 md:p-8">
         <div className="flex flex-col md:flex-row justify-between items-start space-y-2 md:space-y-0">
           <Badge variant="secondary" className="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs animate-pulse">
             {ebook.category}
@@ -128,13 +128,13 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
         </div>
       </CardHeader>
       
-      <CardContent className="space-y-4 md:space-y-6 relative z-10">
+      <CardContent className="space-y-4 md:space-y-6 relative z-10 p-6 md:p-8 pt-0">
         <p className="text-sm text-blue-200 line-clamp-3 leading-relaxed">
           {optimizedData.subtitle}
         </p>
         
         {/* Enhanced price section */}
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 md:p-5">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between space-y-2 md:space-y-0">
             <div className="space-y-1">
               <div className="flex items-baseline space-x-2">
@@ -157,7 +157,7 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
         </div>
         
         {/* Features grid */}
-        <div className="grid grid-cols-2 gap-2 text-xs">
+        <div className="grid grid-cols-2 gap-3 text-xs">
           <div className="flex items-center text-blue-200">
             <BookOpen className="w-3 h-3 mr-2 text-blue-400" />
             <span>Expertise pure</span>
@@ -177,10 +177,10 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
         </div>
         
         {/* Action buttons */}
-        <div className="space-y-3">
+        <div className="space-y-3 pt-2">
           <Button 
             onClick={onAccess}
-            className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-600 hover:via-blue-700 hover:to-purple-700 text-white transition-all duration-300 hover:shadow-cosmic hover:scale-105 text-sm md:text-base py-2 md:py-3 relative overflow-hidden group/btn"
+            className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-600 hover:via-blue-700 hover:to-purple-700 text-white transition-all duration-300 hover:shadow-cosmic hover:scale-105 text-sm md:text-base py-3 md:py-4 relative overflow-hidden group/btn"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 translate-x-full group-hover/btn:translate-x-[-200%] transition-transform duration-700"></div>
             <Target className="w-4 h-4 mr-2 relative z-10" />
@@ -189,7 +189,7 @@ const EnhancedBookCard: React.FC<EnhancedBookCardProps> = ({
           
           <Button 
             variant="outline" 
-            className="w-full border-white/30 text-white hover:bg-white/10 hover:border-cyan-400/50 py-2 md:py-3 text-sm md:text-base transition-all duration-300"
+            className="w-full border-white/30 text-white hover:bg-white/10 hover:border-cyan-400/50 py-3 md:py-4 text-sm md:text-base transition-all duration-300"
             onClick={onPreview}
           >
             <Eye className="w-4 h-4 mr-2" />
