@@ -21,6 +21,7 @@ import TrustBadges from '@/components/library/TrustBadges';
 import BonusSection from '@/components/library/BonusSection';
 import FAQSection from '@/components/library/FAQSection';
 import EnhancedBookCard from '@/components/library/EnhancedBookCard';
+import PremiumPreviewModal from '@/components/library/PremiumPreviewModal';
 
 interface Ebook {
   id: string;
@@ -489,7 +490,7 @@ const Library = () => {
         )}
 
         {showPreviewModal && selectedBook && (
-          <PreviewModal
+          <PremiumPreviewModal
             isOpen={showPreviewModal}
             onClose={() => setShowPreviewModal(false)}
             onPurchase={handlePurchaseFromPreview}
