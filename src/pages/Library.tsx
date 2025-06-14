@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -372,7 +373,7 @@ const Library = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">
                 📚 <span className="text-cyan-400">Livres Vedettes</span>
               </h2>
-              <div className="space-y-12 max-w-8xl mx-auto">
+              <div className="space-y-16 lg:space-y-20 max-w-8xl mx-auto">
                 {featuredEbooks.slice(0, 2).map((ebook, index) => (
                   <div 
                     key={ebook.id} 
