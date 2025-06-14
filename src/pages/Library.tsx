@@ -514,7 +514,7 @@ const Library = () => {
                   </div>
                 </div>
                 
-                {/* Colonne droite avec l'image de couverture - Optimisée mobile */}
+                {/* Colonne droite avec l'image de couverture - Correction pour affichage */}
                 <div className="relative min-h-[400px] md:min-h-[600px] lg:min-h-[800px] flex items-center justify-center p-4 bg-transparent">
                   {/* Background décoratif */}
                   <div className="absolute inset-0">
@@ -524,32 +524,23 @@ const Library = () => {
                   </div>
                   
                   <div className="relative z-10 w-full flex justify-center">
-                    {(() => {
-                      const optimized = getOptimizedBookData(iaMasteryBook);
-                      return optimized.coverImage ? (
-                        <div className="relative group">
-                          <img 
-                            src={optimized.coverImage} 
-                            alt={optimized.headline}
-                            className="w-[300px] md:w-[450px] lg:w-[550px] xl:w-[600px] h-auto shadow-2xl rounded-xl transform hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(59,130,246,0.6)] object-contain mix-blend-normal"
-                            style={{ 
-                              backgroundColor: 'transparent',
-                              filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
-                            }}
-                          />
-                          {/* Glow effect amélioré autour de l'image */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 rounded-xl blur-xl -z-10 transform scale-110 opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
-                          {/* Badge de réduction positionné */}
-                          <div className="absolute -top-3 md:-top-6 -right-3 md:-right-6 bg-gradient-to-r from-blue-400 to-purple-500 text-white px-3 md:px-6 py-2 md:py-3 rounded-full font-bold text-sm md:text-lg animate-bounce shadow-lg z-10">
-                            🤖 -50%
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="w-[300px] md:w-[450px] lg:w-[550px] xl:w-[600px] h-[400px] md:h-[600px] lg:h-[700px] bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg shadow-2xl flex items-center justify-center">
-                          <BookOpen className="w-12 md:w-20 h-12 md:h-20 text-white/80" />
-                        </div>
-                      );
-                    })()}
+                    <div className="relative group">
+                      <img 
+                        src="/lovable-uploads/11b48a7f-d009-4592-abd1-daf20806a4e9.png" 
+                        alt="IA Business Mastery"
+                        className="w-[300px] md:w-[450px] lg:w-[550px] xl:w-[600px] h-auto shadow-2xl rounded-xl transform hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(59,130,246,0.6)] object-contain mix-blend-normal"
+                        style={{ 
+                          backgroundColor: 'transparent',
+                          filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
+                        }}
+                      />
+                      {/* Glow effect amélioré autour de l'image */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 rounded-xl blur-xl -z-10 transform scale-110 opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      {/* Badge de réduction positionné */}
+                      <div className="absolute -top-3 md:-top-6 -right-3 md:-right-6 bg-gradient-to-r from-blue-400 to-purple-500 text-white px-3 md:px-6 py-2 md:py-3 rounded-full font-bold text-sm md:text-lg animate-bounce shadow-lg z-10">
+                        🤖 -50%
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -706,32 +697,23 @@ const Library = () => {
                   </div>
                   
                   <div className="relative z-10 w-full flex justify-center">
-                    {(() => {
-                      const optimized = getOptimizedBookData(featuredEbook);
-                      return optimized.coverImage ? (
-                        <div className="relative group">
-                          <img 
-                            src={optimized.coverImage} 
-                            alt={optimized.headline}
-                            className="w-[300px] md:w-[450px] lg:w-[550px] xl:w-[600px] h-auto shadow-2xl rounded-xl transform hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(251,191,36,0.6)] object-contain mix-blend-normal"
-                            style={{ 
-                              backgroundColor: 'transparent',
-                              filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
-                            }}
-                          />
-                          {/* Glow effect amélioré autour de l'image */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-orange-500/20 rounded-xl blur-xl -z-10 transform scale-110 opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
-                          {/* Badge de réduction positionné */}
-                          <div className="absolute -top-3 md:-top-6 -right-3 md:-right-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-3 md:px-6 py-2 md:py-3 rounded-full font-bold text-sm md:text-lg animate-bounce shadow-lg z-10">
-                            🔥 -50%
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="w-[300px] md:w-[450px] lg:w-[550px] xl:w-[600px] h-[400px] md:h-[600px] lg:h-[700px] bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg shadow-2xl flex items-center justify-center">
-                          <BookOpen className="w-12 md:w-20 h-12 md:h-20 text-white/80" />
-                        </div>
-                      );
-                    })()}
+                    <div className="relative group">
+                      <img 
+                        src="/lovable-uploads/5e73d42f-03d3-4e51-a53a-ba5db570a87d.png" 
+                        alt="NEW DEAL TECHNOLOGIQUE SÉNÉGAL"
+                        className="w-[300px] md:w-[450px] lg:w-[550px] xl:w-[600px] h-auto shadow-2xl rounded-xl transform hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(251,191,36,0.6)] object-contain mix-blend-normal"
+                        style={{ 
+                          backgroundColor: 'transparent',
+                          filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
+                        }}
+                      />
+                      {/* Glow effect amélioré autour de l'image */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-orange-500/20 rounded-xl blur-xl -z-10 transform scale-110 opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      {/* Badge de réduction positionné */}
+                      <div className="absolute -top-3 md:-top-6 -right-3 md:-right-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-3 md:px-6 py-2 md:py-3 rounded-full font-bold text-sm md:text-lg animate-bounce shadow-lg z-10">
+                        🔥 -50%
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
