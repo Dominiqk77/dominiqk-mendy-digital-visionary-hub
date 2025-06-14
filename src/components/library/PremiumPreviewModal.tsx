@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -54,6 +53,7 @@ const PremiumPreviewModal: React.FC<PremiumPreviewModalProps> = ({
   const [urgencyTimer, setUrgencyTimer] = useState(180); // 3 minutes
   const [highlightedSections, setHighlightedSections] = useState<number[]>([]);
   const [showConversionBoost, setShowConversionBoost] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const premiumPages: PreviewPage[] = [
     {
@@ -179,6 +179,15 @@ const PremiumPreviewModal: React.FC<PremiumPreviewModalProps> = ({
     }
   }, [currentPage]);
 
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [currentPage]);
+
   const nextPage = () => {
     if (currentPage < premiumPages.length - 1) {
       setCurrentPage(prev => prev + 1);
@@ -279,7 +288,7 @@ const PremiumPreviewModal: React.FC<PremiumPreviewModalProps> = ({
 
           {/* Contenu principal avec animation de pages */}
           <div className="flex-1 overflow-hidden relative">
-            <div className="h-full overflow-y-auto p-6 space-y-8">
+            <div ref={contentRef} className="h-full overflow-y-auto p-6 space-y-8">
               {/* Page actuelle avec animations */}
               <div 
                 key={currentPage}
