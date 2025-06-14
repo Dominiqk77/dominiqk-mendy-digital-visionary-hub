@@ -235,7 +235,7 @@ const Library = () => {
   // Copywriting optimisé pour conversion ultra-rentable
   const getOptimizedBookData = (book: Ebook) => {
     const optimizations: {[key: string]: any} = {
-      "IA Business Mastery - Le Guide Ultra-Rentable du Leader Digital": {
+      "IA Business Mastery": {
         headline: "IA Business Mastery",
         subtitle: "52 pages de stratégies IA éprouvées pour multiplier vos revenus par 3 en 12 mois (ROI documenté +250%)",
         cta: "Accès Immédiat - Valeur 497€",
@@ -249,7 +249,7 @@ const Library = () => {
         social: `✅ Téléchargé par ${visitorCount.toLocaleString()}+ leaders digitaux`,
         guarantee: "💎 30 jours satisfait ou remboursé + ROI garanti",
         proof: "⭐ Note 4.9/5 basée sur 1,247 avis vérifiés",
-        coverImage: "/lovable-uploads/3ad8bb03-9d5c-40ea-8e22-44614d0c4695.png"
+        coverImage: "/lovable-uploads/ea1ccda3-f120-47e2-86d5-fff0329faff5.png"
       },
       "NEW DEAL TECHNOLOGIQUE SÉNÉGAL - Le Guide des Investisseurs": {
         headline: "NEW DEAL TECHNOLOGIQUE SÉNÉGAL",
@@ -265,7 +265,7 @@ const Library = () => {
         social: "📈 Consulté par 850+ investisseurs internationaux",
         guarantee: "🔒 Informations vérifiées + Mise à jour 6 mois",
         proof: "🏆 Seul rapport avec validation terrain 11 ans",
-        coverImage: "/lovable-uploads/643cc5c7-ac23-4364-b6ea-d63487fc376f.png"
+        coverImage: "/lovable-uploads/5e73d42f-03d3-4e51-a53a-ba5db570a87d.png"
       }
     };
 
