@@ -5,8 +5,9 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import PageContainer from '@/components/layout/PageContainer';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, Crown, Sparkles, Target, Zap } from 'lucide-react';
+import { Search, Crown, Sparkles, Target, Zap, BookOpen } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { useDominiqkLibrary } from '@/hooks/useDominiqkLibrary';
@@ -343,6 +344,7 @@ const Library = () => {
         {featuredEbook && (
           <PageContainer className="py-10 md:py-20">
             {/* Featured Book Section */}
+            <div></div>
           </PageContainer>
         )}
 
