@@ -24,8 +24,17 @@ interface EngagementData {
   event_data?: any;
 }
 
+interface CheckoutData {
+  ebookId: string;
+  customerEmail: string;
+  customerName?: string;
+  bookTitle: string;
+  bookPrice: string;
+}
+
 export const useDominiqkLibrary = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const { toast } = useToast();
 
   const addLead = async (leadData: LeadData) => {
@@ -68,6 +77,75 @@ export const useDominiqkLibrary = () => {
     }
   };
 
+  const createCheckout = async (checkoutData: CheckoutData) => {
+    try {
+      setIsProcessingPayment(true);
+      
+      const { data, error } = await supabase.functions.invoke('create-checkout', {
+        body: checkoutData
+      });
+
+      if (error) throw error;
+
+      if (data?.url) {
+        // Ouvrir Stripe Checkout dans un nouvel onglet
+        window.open(data.url, '_blank');
+        
+        toast({
+          title: "Redirection vers le paiement",
+          description: "Vous allez être redirigé vers notre plateforme de paiement sécurisée",
+        });
+
+        return data;
+      } else {
+        throw new Error('URL de checkout non reçue');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la création du checkout:', error);
+      toast({
+        title: "Erreur de paiement",
+        description: "Impossible de créer la session de paiement. Veuillez réessayer.",
+        variant: "destructive",
+      });
+      return null;
+    } finally {
+      setIsProcessingPayment(false);
+    }
+  };
+
+  const verifyPayment = async (sessionId: string, ebookId: string) => {
+    try {
+      const { data, error } = await supabase.functions.invoke('verify-payment', {
+        body: { sessionId, ebookId }
+      });
+
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error('Erreur lors de la vérification du paiement:', error);
+      return null;
+    }
+  };
+
+  const sendConfirmationEmail = async (email: string, name: string, ebookTitle: string, downloadUrl?: string) => {
+    try {
+      const { data, error } = await supabase.functions.invoke('send-ebook-confirmation', {
+        body: {
+          email,
+          name,
+          ebookTitle,
+          downloadUrl
+        }
+      });
+
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi de l\'email:', error);
+      return null;
+    }
+  };
+
   const trackDownload = async (downloadData: BookDownloadData) => {
     try {
       const { error } = await supabase
@@ -76,7 +154,7 @@ export const useDominiqkLibrary = () => {
           book_id: downloadData.book_id,
           book_title: downloadData.book_title,
           lead_id: downloadData.lead_id,
-          ip_address: null, // Sera défini côté serveur
+          ip_address: null,
           user_agent: navigator.userAgent
         }]);
 
@@ -140,9 +218,13 @@ export const useDominiqkLibrary = () => {
 
   return {
     addLead,
+    createCheckout,
+    verifyPayment,
+    sendConfirmationEmail,
     trackDownload,
     trackEngagement,
     findLeadByEmail,
-    isLoading
+    isLoading,
+    isProcessingPayment
   };
 };
