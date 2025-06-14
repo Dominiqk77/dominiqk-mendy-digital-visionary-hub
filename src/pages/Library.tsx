@@ -235,7 +235,7 @@ const Library = () => {
   const getOptimizedBookData = (book: Ebook) => {
     const optimizations: {[key: string]: any} = {
       "IA Business Mastery - Le Guide Ultra-Rentable du Leader Digital": {
-        headline: "Le Système Secret des 500+ Leaders à 7 Chiffres",
+        headline: "IA Business Mastery",
         subtitle: "52 pages de stratégies IA éprouvées pour multiplier vos revenus par 3 en 12 mois (ROI documenté +250%)",
         cta: "Accès Immédiat - Valeur 497€",
         benefits: [
