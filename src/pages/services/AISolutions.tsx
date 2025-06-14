@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -66,7 +65,7 @@ const AISolutions = () => {
                     </Badge>
                     
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                      Solutions <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">IA</span>
+                      <span className="text-white">Solutions</span> <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">IA</span>
                       <br />
                       <span className="text-white">Personnalisées</span>
                     </h1>
