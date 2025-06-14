@@ -513,9 +513,9 @@ const Library = () => {
                   </div>
                 </div>
                 
-                {/* Colonne droite avec l'image de couverture - Version améliorée sans fond beige */}
-                <div className="relative lg:min-h-[800px] flex items-center justify-center p-8 bg-gradient-to-br from-slate-900/50 via-purple-900/30 to-slate-900/50">
-                  {/* Background décoratif amélioré */}
+                {/* Colonne droite avec l'image de couverture - Sans fond beige */}
+                <div className="relative lg:min-h-[800px] flex items-center justify-center p-4 bg-transparent">
+                  {/* Background décoratif */}
                   <div className="absolute inset-0">
                     <div className="absolute top-20 left-10 w-40 h-40 bg-yellow-400/10 rounded-full blur-2xl animate-pulse"></div>
                     <div className="absolute bottom-20 right-10 w-48 h-48 bg-orange-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
@@ -530,18 +530,21 @@ const Library = () => {
                           <img 
                             src={optimized.coverImage} 
                             alt={optimized.headline}
-                            className="w-[450px] lg:w-[500px] h-auto shadow-2xl rounded-xl transform hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(251,191,36,0.6)] object-contain"
-                            style={{ backgroundColor: 'transparent' }}
+                            className="w-[550px] lg:w-[600px] h-auto shadow-2xl rounded-xl transform hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(251,191,36,0.6)] object-contain mix-blend-normal"
+                            style={{ 
+                              backgroundColor: 'transparent',
+                              filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
+                            }}
                           />
                           {/* Glow effect amélioré autour de l'image */}
                           <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-orange-500/20 rounded-xl blur-xl -z-10 transform scale-110 opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
                           {/* Badge de réduction positionné */}
-                          <div className="absolute -top-6 -right-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-3 rounded-full font-bold text-lg animate-bounce shadow-lg">
+                          <div className="absolute -top-6 -right-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-3 rounded-full font-bold text-lg animate-bounce shadow-lg z-10">
                             🔥 -50%
                           </div>
                         </div>
                       ) : (
-                        <div className="w-[450px] lg:w-[500px] h-[600px] bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg shadow-2xl flex items-center justify-center">
+                        <div className="w-[550px] lg:w-[600px] h-[700px] bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg shadow-2xl flex items-center justify-center">
                           <BookOpen className="w-20 h-20 text-white/80" />
                         </div>
                       );
