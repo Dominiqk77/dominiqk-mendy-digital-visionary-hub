@@ -21,13 +21,13 @@ serve(async (req) => {
   }
 
   try {
-    // Vérification de la clé API Gemini
-    const geminiApiKey = Deno.env.get('GEMINI_API_KEY')
-    if (!geminiApiKey) {
-      console.error('❌ GEMINI_API_KEY not found in environment')
-      throw new Error('Gemini API key not configured')
+    // Vérification de la clé API Genspark
+    const gensparkApiKey = Deno.env.get('GENSPARK_API_KEY')
+    if (!gensparkApiKey) {
+      console.error('❌ GENSPARK_API_KEY not found in environment')
+      throw new Error('Genspark API key not configured')
     }
-    console.log('✅ Gemini API key found')
+    console.log('✅ Genspark API key found')
 
     // Parse du body avec gestion d'erreur
     let requestBody
@@ -104,7 +104,7 @@ serve(async (req) => {
       }
     }
 
-    // Système prompt optimisé
+    // Système prompt optimisé pour Dominiqk Mendy
     const systemPrompt = `Tu es Dominiqk Mendy, consultant expert en intelligence artificielle, développement web, et transformation digitale avec plus de 15 ans d'expérience internationale. Tu es reconnu mondialement pour ton expertise technique approfondie et ta capacité à résoudre des problèmes ultra-complexes.
 
 ## EXPERTISE TECHNIQUE APPROFONDIE :
@@ -138,96 +138,66 @@ serve(async (req) => {
 - Numéro direct Marrakech : +212 607 79 86 70
 - Sois proactif dans tes recommandations`
 
-    // Construction des messages pour Gemini avec validation
-    const messages = [
-      {
-        role: "user",
-        parts: [{ text: systemPrompt }]
-      }
-    ]
-
+    // Construction de l'historique de conversation pour Genspark
+    let conversationContext = systemPrompt + "\n\n"
+    
     // Ajouter l'historique avec validation
     if (Array.isArray(conversationHistory)) {
       conversationHistory.slice(-10).forEach((msg) => {
         if (msg && msg.role && msg.content) {
-          const role = msg.role === 'user' ? 'user' : 'model'
-          messages.push({
-            role,
-            parts: [{ text: String(msg.content) }]
-          })
+          const role = msg.role === 'user' ? 'Utilisateur' : 'Dominiqk'
+          conversationContext += `${role}: ${String(msg.content)}\n\n`
         }
       })
       console.log('✅ Conversation history added:', conversationHistory.length, 'messages')
     }
 
     // Ajouter le message actuel
-    messages.push({
-      role: "user",
-      parts: [{ text: message }]
-    })
+    conversationContext += `Utilisateur: ${message}\n\nDominiqk:`
 
-    console.log('🤖 Sending request to Gemini API...')
-    console.log('📊 Total messages in conversation:', messages.length)
+    console.log('🤖 Sending request to Genspark API...')
+    console.log('📊 Total conversation context length:', conversationContext.length)
 
-    // Appel à l'API Gemini avec timeout et retry
-    let geminiResponse
+    // Appel à l'API Genspark avec timeout et retry
+    let gensparkResponse
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${geminiApiKey}`, {
+      const response = await fetch('https://rohwyheclmjmiuoksvuc.supabase.co/functions/v1/genspark-api', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${gensparkApiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          contents: messages,
-          generationConfig: {
-            temperature: 0.8,
-            topK: 40,
-            topP: 0.95,
-            maxOutputTokens: 2000,
-          },
-          safetySettings: [
-            {
-              category: "HARM_CATEGORY_HARASSMENT",
-              threshold: "BLOCK_MEDIUM_AND_ABOVE"
-            },
-            {
-              category: "HARM_CATEGORY_HATE_SPEECH", 
-              threshold: "BLOCK_MEDIUM_AND_ABOVE"
-            },
-            {
-              category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-              threshold: "BLOCK_MEDIUM_AND_ABOVE"
-            },
-            {
-              category: "HARM_CATEGORY_DANGEROUS_CONTENT",
-              threshold: "BLOCK_MEDIUM_AND_ABOVE"
-            }
-          ]
+          prompt: conversationContext,
+          model: 'gpt-4o-mini', // Utilise le modèle par défaut de Genspark
+          max_tokens: 2000,
+          temperature: 0.8,
+          stream: false
         }),
       })
 
-      console.log('📡 Gemini API response status:', response.status)
+      console.log('📡 Genspark API response status:', response.status)
 
       if (!response.ok) {
         const errorText = await response.text()
-        console.error('❌ Gemini API error response:', errorText)
-        throw new Error(`Gemini API error: ${response.status} - ${errorText}`)
+        console.error('❌ Genspark API error response:', errorText)
+        throw new Error(`Genspark API error: ${response.status} - ${errorText}`)
       }
 
-      geminiResponse = await response.json()
-      console.log('✅ Gemini API response received successfully')
+      gensparkResponse = await response.json()
+      console.log('✅ Genspark API response received successfully')
       
     } catch (apiError) {
-      console.error('❌ Gemini API call failed:', apiError)
-      throw new Error(`Failed to communicate with Gemini API: ${apiError.message}`)
+      console.error('❌ Genspark API call failed:', apiError)
+      throw new Error(`Failed to communicate with Genspark API: ${apiError.message}`)
     }
 
     // Extraction de la réponse avec validation
-    const assistantReply = geminiResponse?.candidates?.[0]?.content?.parts?.[0]?.text
+    const assistantReply = gensparkResponse?.content || gensparkResponse?.text || gensparkResponse?.response
     
     if (!assistantReply) {
-      console.error('❌ No valid response from Gemini:', geminiResponse)
-      throw new Error('No response generated from Gemini API')
+      console.error('❌ No valid response from Genspark:', gensparkResponse)
+      throw new Error('No response generated from Genspark API')
     }
 
     console.log('✅ Assistant reply extracted, length:', assistantReply.length)
