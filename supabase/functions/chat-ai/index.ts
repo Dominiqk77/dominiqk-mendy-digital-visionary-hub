@@ -158,7 +158,7 @@ serve(async (req) => {
     console.log('🤖 Sending request to Genspark API...')
     console.log('📊 Total conversation context length:', conversationContext.length)
 
-    // Appel corrigé à l'API Genspark interne avec authentification Supabase
+    // Appel à votre API Genspark interne
     let gensparkResponse
     try {
       console.log('📡 Calling internal Genspark API function...')
@@ -169,7 +169,7 @@ serve(async (req) => {
           max_tokens: 2000,
           temperature: 0.8,
           stream: false,
-          api_key: gensparkApiKey // Passer la clé dans le body
+          api_key: gensparkApiKey
         }
       })
 
@@ -179,36 +179,61 @@ serve(async (req) => {
       }
 
       gensparkResponse = data
-      console.log('✅ Genspark API response received successfully')
+      console.log('✅ Genspark API response received')
+      console.log('🔍 Full Genspark response structure:', JSON.stringify(gensparkResponse, null, 2))
       
     } catch (apiError) {
       console.error('❌ Genspark API call failed:', apiError)
       throw new Error(`Failed to communicate with Genspark API: ${apiError.message}`)
     }
 
-    // Extraction de la réponse avec validation améliorée
+    // Extraction robuste de la réponse avec diagnostic complet
     let assistantReply = ''
     
+    console.log('🔍 Diagnosing Genspark response format...')
+    console.log('🔍 Response type:', typeof gensparkResponse)
+    console.log('🔍 Response keys:', gensparkResponse ? Object.keys(gensparkResponse) : 'No keys')
+    
+    // Tentatives d'extraction dans l'ordre de priorité
     if (gensparkResponse?.content) {
       assistantReply = gensparkResponse.content
+      console.log('✅ Extracted from content field')
     } else if (gensparkResponse?.text) {
       assistantReply = gensparkResponse.text
+      console.log('✅ Extracted from text field')
     } else if (gensparkResponse?.response) {
       assistantReply = gensparkResponse.response
+      console.log('✅ Extracted from response field')
     } else if (gensparkResponse?.choices?.[0]?.message?.content) {
       assistantReply = gensparkResponse.choices[0].message.content
+      console.log('✅ Extracted from OpenAI-style choices array')
+    } else if (gensparkResponse?.message) {
+      assistantReply = gensparkResponse.message
+      console.log('✅ Extracted from message field')
     } else if (typeof gensparkResponse === 'string') {
       assistantReply = gensparkResponse
+      console.log('✅ Response is a direct string')
+    } else {
+      console.log('🔍 Trying to extract from first available string value...')
+      // Essayer d'extraire la première valeur string trouvée
+      for (const [key, value] of Object.entries(gensparkResponse || {})) {
+        if (typeof value === 'string' && value.trim().length > 0) {
+          assistantReply = value
+          console.log(`✅ Extracted from "${key}" field`)
+          break
+        }
+      }
     }
     
     if (!assistantReply || assistantReply.trim() === '') {
-      console.error('❌ No valid response from Genspark:', gensparkResponse)
+      console.error('❌ No valid response extracted. Full response:', gensparkResponse)
       throw new Error('No response generated from Genspark API')
     }
 
     console.log('✅ Assistant reply extracted, length:', assistantReply.length)
+    console.log('📝 Reply preview:', assistantReply.substring(0, 100) + '...')
 
-    // Analyse intelligente simplifiée
+    // Analyse intelligente pour le lead scoring
     const analyzeConversation = (content) => {
       const textLower = content.toLowerCase()
       
@@ -242,7 +267,7 @@ serve(async (req) => {
     const analysis = analyzeConversation(message)
     console.log('📊 Lead analysis completed, score:', analysis.leadScore)
 
-    // Sauvegarde conversation simplifiée
+    // Sauvegarde conversation avec gestion d'erreur robuste
     let conversationId = null
     try {
       if (session?.id) {
@@ -289,18 +314,29 @@ serve(async (req) => {
       // Continue without saving if needed
     }
 
-    // Réponse finale
+    // Construire la réponse finale dans le format exact attendu par le frontend
     const finalResponse = {
       response: assistantReply.trim(),
-      sessionId: session?.session_token,
+      sessionId: session?.session_token || crypto.randomUUID(),
       conversationId: conversationId,
       leadScore: analysis.leadScore,
       leadStatus: analysis.leadStatus,
       hasBusinessIntent: analysis.hasBusinessIntent,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      // Champs supplémentaires pour compatibilité
+      isComplex: analysis.leadScore > 50,
+      isBusiness: analysis.hasBusinessIntent,
+      isTechnical: /code|développement|technique|api|backend|frontend/i.test(message),
+      shouldCollectEmail: analysis.leadScore >= 60 && analysis.hasBusinessIntent,
+      shouldOfferConsultation: analysis.leadScore >= 70,
+      contextualSuggestions: analysis.hasBusinessIntent ? 
+        ['Consultation gratuite', 'Devis personnalisé', 'Portfolio projets'] : 
+        ['Plus d\'infos', 'Exemples concrets', 'Contact expert']
     }
 
-    console.log('✅ Sending successful response')
+    console.log('✅ Final response prepared with all required fields')
+    console.log('📤 Response structure:', Object.keys(finalResponse))
+    
     return new Response(
       JSON.stringify(finalResponse),
       {
@@ -311,17 +347,29 @@ serve(async (req) => {
   } catch (error) {
     console.error('❌ Critical error in chat function:', error)
     
+    // Message de fallback intelligent avec format complet
     const fallbackResponse = {
       response: "Je rencontre une petite difficulté technique momentanée, mais je reste à votre entière disposition pour discuter de vos projets. En tant qu'expert en IA et transformation digitale avec plus de 15 ans d'expérience internationale, je peux vous aider avec toutes vos questions techniques, stratégiques ou business. N'hésitez pas à me contacter directement au +212 607 79 86 70 pour toute consultation urgente.",
       error: true,
       errorMessage: error.message,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      sessionId: crypto.randomUUID(),
+      conversationId: null,
+      leadScore: 0,
+      leadStatus: 'cold',
+      hasBusinessIntent: false,
+      isComplex: false,
+      isBusiness: false,
+      isTechnical: false,
+      shouldCollectEmail: false,
+      shouldOfferConsultation: true,
+      contextualSuggestions: ['Contactez-moi', 'Support technique', 'Assistance experte']
     }
     
     return new Response(
       JSON.stringify(fallbackResponse),
       {
-        status: 200,
+        status: 200, // Status 200 pour éviter les erreurs côté frontend
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }
     )
