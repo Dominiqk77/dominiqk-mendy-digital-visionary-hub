@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -63,8 +62,22 @@ const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 6;
   
-  // Updated blog posts with new articles
+  // Updated blog posts with new articles - New Deal Technologique as the most recent
   const blogPosts = [
+    {
+      id: 27,
+      title: "New Deal Technologique: Guide d'Investissement Exclusif Sénégal 2025-2030",
+      excerpt: "Découvrez les opportunités d'investissement technologique les plus prometteuses du Sénégal. ROI de 300-800%, secteurs en hypercroissance, écosystème startup mature. Guide complet avec roadmaps d'exécution et contacts privilégiés.",
+      date: "2024-12-16",
+      readTime: "45 min",
+      author: "Dominiqk Mendy",
+      image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
+      category: "investissement",
+      likes: 298,
+      comments: 67,
+      featured: true,
+      isNewDeal: true // Special flag for the New Deal page
+    },
     {
       id: 1,
       title: "L'impact de l'IA générative sur les entreprises africaines",
@@ -196,7 +209,6 @@ const Blog = () => {
       comments: 27,
       featured: false
     },
-    // Série Développement Technologique & Stratégie
     {
       id: 11,
       title: "Architecture Web Progressive pour le Contexte Africain: Guide Complet pour Développeurs",
@@ -249,7 +261,6 @@ const Blog = () => {
       comments: 39,
       featured: true
     },
-    // Série Transformation Digitale & Gouvernance
     {
       id: 15,
       title: "Digital Government Transformation: Feuille de Route Stratégique pour les Administrations Africaines",
@@ -302,7 +313,6 @@ const Blog = () => {
       comments: 29,
       featured: true
     },
-    // Série Marketing Digital & Expérience Client
     {
       id: 19,
       title: "Marketing Omnicanal en Contexte Africain: Stratégies Intégrées pour un Parcours Client Fluide",
@@ -342,7 +352,6 @@ const Blog = () => {
       comments: 37,
       featured: true
     },
-    // Série Éducation & Formation
     {
       id: 22,
       title: "EdTech en Afrique: Innovations Pédagogiques pour la Formation du Talent Continental",
@@ -412,6 +421,7 @@ const Blog = () => {
 
   const categories = [
     { id: 'all', name: 'Tous les articles' },
+    { id: 'investissement', name: 'Investissement & Finance' },
     { id: 'ia', name: 'Intelligence Artificielle' },
     { id: 'web', name: 'Développement Web' },
     { id: 'marketing', name: 'Marketing Digital' },
@@ -544,6 +554,11 @@ const Blog = () => {
                       <div className="absolute top-2 right-2 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-md">
                         À la une
                       </div>
+                      {post.isNewDeal && (
+                        <div className="absolute top-2 left-2 bg-gradient-to-r from-green-600 via-yellow-500 to-red-600 text-white text-xs font-bold px-2 py-1 rounded-md">
+                          NEW DEAL
+                        </div>
+                      )}
                     </div>
                     <div className="p-6">
                       <div className="flex items-center text-sm text-gray-200 mb-3">
@@ -555,7 +570,9 @@ const Blog = () => {
                       </div>
                       
                       <h3 className="text-xl font-bold mb-2 text-white group-hover:text-indigo-400 transition-colors">
-                        <Link to={`/blog/${post.id}`}>{post.title}</Link>
+                        <Link to={post.isNewDeal ? "/new-deal-technologique" : `/blog/${post.id}`}>
+                          {post.title}
+                        </Link>
                       </h3>
                       
                       <p className="text-gray-200 mb-4">{post.excerpt}</p>
@@ -649,12 +666,17 @@ const Blog = () => {
                         className="cosmic-card rounded-lg overflow-hidden bg-gray-900/80 backdrop-blur-sm"
                       >
                         <div className="flex flex-col md:flex-row">
-                          <div className="md:w-1/3 h-48 md:h-auto">
+                          <div className="md:w-1/3 h-48 md:h-auto relative">
                             <img 
                               src={post.image} 
                               alt={post.title}
                               className="w-full h-full object-cover"
                             />
+                            {post.isNewDeal && (
+                              <div className="absolute top-2 left-2 bg-gradient-to-r from-green-600 via-yellow-500 to-red-600 text-white text-xs font-bold px-2 py-1 rounded-md">
+                                NEW DEAL
+                              </div>
+                            )}
                           </div>
                           <div className="md:w-2/3 p-6">
                             <div className="flex items-center text-sm text-gray-200 mb-3">
@@ -669,7 +691,9 @@ const Blog = () => {
                             </div>
                             
                             <h3 className="text-xl font-bold mb-2 text-white hover:text-indigo-400 transition-colors">
-                              <Link to={`/blog/${post.id}`}>{post.title}</Link>
+                              <Link to={post.isNewDeal ? "/new-deal-technologique" : `/blog/${post.id}`}>
+                                {post.title}
+                              </Link>
                             </h3>
                             
                             <p className="text-gray-200 mb-4">{post.excerpt}</p>
@@ -681,7 +705,7 @@ const Blog = () => {
                                 className="border-indigo-500/30 text-indigo-400 hover:bg-indigo-900/20"
                                 asChild
                               >
-                                <Link to={`/blog/${post.id}`}>
+                                <Link to={post.isNewDeal ? "/new-deal-technologique" : `/blog/${post.id}`}>
                                   Lire l'article <ArrowRight className="ml-2 h-4 w-4" />
                                 </Link>
                               </Button>
