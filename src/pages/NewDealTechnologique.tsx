@@ -20,13 +20,17 @@ const NewDealTechnologique = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const senegalColorsStyle = {
+    background: 'linear-gradient(to bottom, #00853e 33%, #fdef42 33%, #fdef42 66%, #e31e24 66%)'
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
       <main className="flex-grow">
         {/* Custom styles for the book */}
-        <style jsx>{`
+        <style>{`
           .senegal-colors {
             background: linear-gradient(to bottom, #00853e 33%, #fdef42 33%, #fdef42 66%, #e31e24 66%);
           }
@@ -313,7 +317,30 @@ const NewDealTechnologique = () => {
                   </div>
                 </div>
 
-                {/* Rest of chapter 1 content */}
+                {/* Rest of chapter 1 content would continue here */}
+                <div className="bg-gray-100 p-6 rounded-lg">
+                  <h4 className="font-bold text-lg mb-4">MÉTRIQUES CLÉS DU MARCHÉ</h4>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h5 className="font-bold mb-2">INFRASTRUCTURE DIGITALE</h5>
+                      <ul className="text-sm space-y-1">
+                        <li>• Taux de pénétration mobile : 125%</li>
+                        <li>• Couverture 4G : 85% du territoire</li>
+                        <li>• Fibre optique : 15,000 km déployés</li>
+                        <li>• Data centers : 12 centres opérationnels</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h5 className="font-bold mb-2">ÉCOSYSTÈME STARTUP</h5>
+                      <ul className="text-sm space-y-1">
+                        <li>• Startups actives : 400+</li>
+                        <li>• Incubateurs : 25 structures</li>
+                        <li>• Financements levés 2024 : €45M</li>
+                        <li>• Exits réussies : 8 en 3 ans</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
