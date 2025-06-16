@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -33,6 +34,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import LegalNotices from "./pages/LegalNotices";
 import DataAnalysisServices from "./pages/services/DataAnalysisServices";
+import NewDealTechnologique from "./pages/NewDealTechnologique";
 // E-Library imports
 import Library from "./pages/Library";
 import EbookDetail from "./pages/EbookDetail";
@@ -89,6 +91,7 @@ const App = () => (
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/legal-notices" element={<LegalNotices />} />
+            <Route path="/new-deal-technologique" element={<NewDealTechnologique />} />
             
             {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />
